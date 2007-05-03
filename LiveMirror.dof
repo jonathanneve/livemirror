@@ -2,23 +2,23 @@
 Version=7.0
 [Compiler]
 A=8
-B=1
+B=0
 C=1
 D=1
 E=0
 F=0
 G=1
 H=1
-I=1
+I=0
 J=0
 K=0
 L=1
 M=0
 N=1
-O=0
+O=1
 P=1
-Q=1
-R=1
+Q=0
+R=0
 S=0
 T=0
 U=0
@@ -125,21 +125,18 @@ Locale=1036
 CodePage=1252
 [Version Info Keys]
 CompanyName=Microtec Informatique
-FileDescription=
+FileDescription=Auto replication software for Interbase/ Firebird, MSSQL databases
 FileVersion=1.0.0.0
 InternalName=Live Mirror
-LegalCopyright=
+LegalCopyright=2007 (c) Microtec Informatique
 LegalTrademarks=
-OriginalFilename=
-ProductName=
+OriginalFilename=LiveMirror.exe
+ProductName=Live Mirror
 ProductVersion=1.00.0
 Comments=
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
-[HistoryLists\hlSearchPath]
-Count=1
-Item0=$(DELPHI)\Lib\Debug;C:\PROGRA~1\Borland\Jcl\lib\D7\debug;C:\Program Files\Borland\JCL\lib\D7\debug
 [HistoryLists\hlUnitOutputDirectory]
 Count=1
 Item0=objects
