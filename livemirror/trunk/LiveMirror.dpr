@@ -2,14 +2,14 @@ program LiveMirror;
 
 uses
   Forms,
-  ConfServerEx in 'sources\ConfServerEx.pas' {frConfServerEx: TFrame},
   dLogsAndSettings in 'sources\dLogsAndSettings.pas' {dmLogsAndSettings: TDataModule},
   fConfInterbase in 'sources\fConfInterbase.pas' {frConfInterbase: TFrame},
   fConfMSSQL in 'sources\fConfMSSQL.pas' {frConfMSSQL: TFrame},
   fConfServer in 'sources\fConfServer.pas' {frConfServer: TFrame},
   Log in 'sources\Log.pas' {fmLog},
   Main in 'sources\Main.pas' {fmMain},
-  Settings in 'sources\Settings.pas' {fmSettings};
+  Settings in 'sources\Settings.pas' {fmSettings},
+  LiveMirrorInterfaces in 'sources\LiveMirrorInterfaces.pas';
 
 {$R *.res}
 
