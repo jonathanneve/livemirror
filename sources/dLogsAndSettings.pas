@@ -156,7 +156,7 @@ end;
 procedure TdmLogsAndSettings.DataModuleCreate(Sender: TObject);
 begin
 	// initialize application
-	GetLocaleFormatSettings(0, FFormatSettings);
+	GetLocaleFormatSettings(LOCALE_SYSTEM_DEFAULT, FFormatSettings);
 
 	FLogLinks := THashedStringList.Create();
 	FLogLinks.Sorted := true;
