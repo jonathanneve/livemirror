@@ -132,9 +132,7 @@ implementation
 
 uses
 	Forms,
-	FIB,
-	Windows,
-	StrUtils;
+	FIB, StrUtils, Windows;
 
 const
 	CONFIG_FILENAME = 'config.ini';
@@ -148,13 +146,11 @@ begin
 	Result := FOnEndSync;
 end;
 //-----------------------------------------------------------------------------
-
 procedure TdmLogsAndSettings.SetOnEndSync(const Value: TNotifyEvent);
 begin
 	FOnEndSync := Value;
 end;
 //-----------------------------------------------------------------------------
-
 procedure TdmLogsAndSettings.DataModuleCreate(Sender: TObject);
 begin
 	// initialize application
@@ -166,13 +162,13 @@ begin
 
 	CcConfigStorage.Path := ExtractFilePath(Application.ExeName) + CONFIG_FILENAME;
 	CcConfigStorage.Open();
-	ibdLog.DBName := 'localhost:LiveMirror';
+	ibdLog.DBName := ExtractFilePath(Application.ExeName) + 'data\LiveMirror_Log.fdb';
+  ibdLog.LibraryName := 'fbembed.dll';
 	ibdLog.Open();
 	dtsSelectAliases.Open();
 	StartAutoReplication();
 end;
 //-----------------------------------------------------------------------------
-
 procedure TdmLogsAndSettings.DataModuleDestroy(Sender: TObject);
 begin
 	StopAutoReplication();
@@ -181,7 +177,6 @@ begin
 	FreeAndNil(FLogLinks);
 end;
 //-----------------------------------------------------------------------------
-
 procedure TdmLogsAndSettings.GenerateMissingTriggers(AConnection: TCcConnection);
 var
 	TableName: string;
