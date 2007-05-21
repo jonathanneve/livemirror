@@ -50,13 +50,13 @@ object dmLogsAndSettings: TdmLogsAndSettings
     Top = 8
   end
   object ibdLog: TpFIBDatabase
-    DBName = 'localhost:LiveMirror'
     DBParams.Strings = (
       'user_name=SYSDBA'
       'password=masterkey'
       'sql_role_name=')
     SQLDialect = 1
     Timeout = 0
+    LibraryName = 'fbembed.dll'
     WaitForRestoreConnect = 0
     Left = 40
     Top = 128

@@ -379,7 +379,7 @@ object fmSettings: TfmSettings
     Width = 539
     Height = 53
     Anchors = [akLeft, akTop, akRight]
-    FrameController = dmFich.FrameController
+    FrameController = dmLogsAndSettings.FrameController
     ParentColor = True
     TabOrder = 4
     Transparent = True
@@ -400,7 +400,7 @@ object fmSettings: TfmSettings
       DataSource = dmLogsAndSettings.CcConfigStorageDS
       DataField = 'AutoReplicateFrequency'
       Alignment = taRightJustify
-      FrameController = dmFich.FrameController
+      FrameController = dmLogsAndSettings.FrameController
       TabOrder = 0
     end
   end
@@ -412,7 +412,7 @@ object fmSettings: TfmSettings
     Caption = ' Auto-replication '
     DisabledColor = 14278369
     FrameColor = 12164479
-    FrameController = dmFich.FrameController
+    FrameController = dmLogsAndSettings.FrameController
     HighlightColor = 2203937
     HotTrack = True
     HotTrackColor = 3983359

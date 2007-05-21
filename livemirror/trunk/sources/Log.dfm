@@ -129,7 +129,7 @@ object fmLog: TfmLog
         Title.Font.Color = clWindowText
         Title.Font.Height = -11
         Title.Font.Name = 'MS Sans Serif'
-        Title.Font.Style = [fsBold]
+        Title.Font.Style = []
         Width = 146
       end
       item
@@ -143,7 +143,7 @@ object fmLog: TfmLog
         Title.Font.Color = clWindowText
         Title.Font.Height = -11
         Title.Font.Name = 'MS Sans Serif'
-        Title.Font.Style = [fsBold]
+        Title.Font.Style = []
         Width = 123
       end
       item
@@ -157,7 +157,7 @@ object fmLog: TfmLog
         Title.Font.Color = clWindowText
         Title.Font.Height = -11
         Title.Font.Name = 'MS Sans Serif'
-        Title.Font.Style = [fsBold]
+        Title.Font.Style = []
         Width = 103
       end
       item
@@ -171,7 +171,7 @@ object fmLog: TfmLog
         Title.Font.Color = clWindowText
         Title.Font.Height = -11
         Title.Font.Name = 'MS Sans Serif'
-        Title.Font.Style = [fsBold]
+        Title.Font.Style = []
         Width = 260
       end>
   end
