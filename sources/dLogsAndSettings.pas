@@ -132,7 +132,9 @@ implementation
 
 uses
 	Forms,
-	FIB, StrUtils;
+	FIB,
+	Windows,
+	StrUtils;
 
 const
 	CONFIG_FILENAME = 'config.ini';
