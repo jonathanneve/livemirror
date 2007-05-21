@@ -1,6 +1,7 @@
 program LiveMirror;
 
 uses
+  ExceptionLog,
   Forms,
   dLogsAndSettings in 'sources\dLogsAndSettings.pas' {dmLogsAndSettings: TDataModule},
   fConfInterbase in 'sources\fConfInterbase.pas' {frConfInterbase: TFrame},

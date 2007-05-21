@@ -1,8 +1,8 @@
 object fmMain: TfmMain
   Left = 213
   Top = 180
-  Width = 773
-  Height = 526
+  Width = 774
+  Height = 525
   Caption = 'Microtec Live Mirror v1.00.0'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,7 +17,7 @@ object fmMain: TfmMain
     Left = 0
     Top = 0
     Width = 133
-    Height = 499
+    Height = 491
     Active = True
     Align = alLeft
     GradientColorStart = clWhite
@@ -1544,30 +1544,27 @@ object fmMain: TfmMain
   object pnlMain: TPanel
     Left = 133
     Top = 0
-    Width = 632
-    Height = 499
+    Width = 633
+    Height = 491
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
-    DesignSize = (
-      632
-      499)
     object pnlButtons: TRzPanel
-      Left = 3
-      Top = 456
-      Width = 627
-      Height = 40
-      Anchors = [akLeft, akRight]
+      Left = 0
+      Top = 444
+      Width = 633
+      Height = 47
+      Align = alBottom
       BorderOuter = fsFlatRounded
       TabOrder = 0
       DesignSize = (
-        627
-        40)
+        633
+        47)
       object imgLogoMicrotec: TImage
         Left = 2
         Top = 2
         Width = 153
-        Height = 36
+        Height = 43
         Cursor = crHandPoint
         Align = alLeft
         AutoSize = True
@@ -1709,8 +1706,8 @@ object fmMain: TfmMain
         OnClick = imgLogoMicrotecClick
       end
       object btnClose: TRzBitBtn
-        Left = 513
-        Top = 7
+        Left = 519
+        Top = 12
         Width = 106
         Anchors = [akTop, akRight]
         Caption = 'Close'
@@ -1724,13 +1721,13 @@ object fmMain: TfmMain
       end
     end
     object dbgResults: TDBGridEh
-      Left = 3
-      Top = 3
-      Width = 627
-      Height = 452
+      Left = 0
+      Top = 0
+      Width = 633
+      Height = 444
+      Align = alClient
       AllowedOperations = []
       AllowedSelections = []
-      Anchors = [akLeft, akTop, akRight, akBottom]
       AutoFitColWidths = True
       DataSource = dmLogsAndSettings.dtsSelectAliasesDS
       FooterColor = clWindow
@@ -1774,7 +1771,7 @@ object fmMain: TfmMain
           Title.Font.Color = clWindowText
           Title.Font.Height = -11
           Title.Font.Name = 'MS Sans Serif'
-          Title.Font.Style = [fsBold]
+          Title.Font.Style = []
           Width = 200
         end
         item
@@ -1789,7 +1786,7 @@ object fmMain: TfmMain
           Title.Font.Color = clWindowText
           Title.Font.Height = -11
           Title.Font.Name = 'MS Sans Serif'
-          Title.Font.Style = [fsBold]
+          Title.Font.Style = []
           Width = 200
           WordWrap = True
         end
@@ -1811,7 +1808,7 @@ object fmMain: TfmMain
           Title.Font.Color = clWindowText
           Title.Font.Height = -11
           Title.Font.Name = 'MS Sans Serif'
-          Title.Font.Style = [fsBold]
+          Title.Font.Style = []
           Width = 200
         end>
     end
