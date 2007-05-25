@@ -8,7 +8,8 @@ uses
 
 type
 	TTransferStatus = (tsNone, tsRunning, tsAborted, tsFinishedWithErrors, tsFinished);
-	TRefreshLogEvent = procedure(const ConfigID: integer) of object; 
+	TRefreshLogEvent = procedure(AConfigName: String) of object;
+	TRefreshLogErrorEvent = procedure(AConfigName: String; LogID: Integer) of object;
 
 	ISettingsModel = interface
 	['{8D70CD04-2D02-48FD-99ED-B2E151C1182E}']
@@ -17,33 +18,29 @@ type
 		procedure DoCancelSettings();
 		function DoRefreshSettings(): string;
 		procedure DoReplicate();
-		function DoSaveSettings(): string;
-		procedure DoViewLog();
+		function DoSaveSettings(lNew: Boolean): string;
 		procedure EditSettings(const Value: integer);
 		function GetLocalDB(): TCcConnectionConfig;
 		function GetOnEndSync(): TNotifyEvent;
 		function GetOnRefreshLog(): TRefreshLogEvent;
-		function GetOnRefreshLogError(): TRefreshLogEvent;
+		function GetOnRefreshLogError(): TRefreshLogErrorEvent;
 		function GetRemoteDB(): TCcConnectionConfig;
-		function GetSelectedConfigID(): integer;
+//		function GetSelectedConfigID(): integer;
 		function GetStoredConfigID(): integer;
 		procedure SetOnEndSync(const Value: TNotifyEvent);
 		procedure SetOnRefreshLog(const Value: TRefreshLogEvent);
-		procedure SetOnRefreshLogError(const Value: TRefreshLogEvent);
+		procedure SetOnRefreshLogError(const Value: TRefreshLogErrorEvent);
 		procedure StartAutoReplication();
 		procedure StopAutoReplication();
+		procedure StopCurrentAutoReplication();
+		procedure StartCurrentAutoReplication();
 
 		property LocalDB: TCcConnectionConfig read GetLocalDB;
 		property OnEndSync: TNotifyEvent read GetOnEndSync write SetOnEndSync;
 		property OnRefreshLog: TRefreshLogEvent read GetOnRefreshLog write SetOnRefreshLog;
-		property OnRefreshLogError: TRefreshLogEvent read GetOnRefreshLogError write SetOnRefreshLogError;
+		property OnRefreshLogError: TRefreshLogErrorEvent read GetOnRefreshLogError write SetOnRefreshLogError;
 		property RemoteDB: TCcConnectionConfig read GetRemoteDB;
-		property SelectedConfigID: integer read GetSelectedConfigID;
 		property StoredConfigID: integer read GetStoredConfigID;
-	end;
-
-	ISettingsView = interface
-	['{ABEEB2B0-A4A7-49CE-B222-5A267321B509}']
 	end;
 
 implementation

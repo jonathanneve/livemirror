@@ -8,7 +8,7 @@ uses
 	fConfServer, LiveMirrorInterfaces, Mask, RzEdit, RzDBEdit, RzRadChk;
 
 type
-	TfmSettings = class(TForm, ISettingsView)
+	TfmSettings = class(TForm)
 		gbxLocalDB: TRzGroupBox;
 		RzGroupBox1: TRzGroupBox;
 		pnlInfos: TRzPanel;
@@ -19,20 +19,20 @@ type
 		pnlButtons: TRzPanel;
 		btnClose: TRzBitBtn;
 		btnSave: TRzBitBtn;
-		frConfMaster: TfrConfServer;
-		frConfMirror: TfrConfServer;
 		edConfigName: TRzDBEdit;
 		gbAutoReplication: TRzGroupBox;
 		Label3: TLabel;
 		edAutoReplicateFrequency: TRzDBEdit;
 		cbAutoReplicate: TRzCheckBox;
+    frConfMaster: TfrConfServer;
+    frConfMirror: TfrConfServer;
 		procedure FormClose(Sender: TObject; var Action: TCloseAction);
-		procedure btnCloseClick(Sender: TObject);
 		procedure btnSaveClick(Sender: TObject);
 		procedure cbAutoReplicateClick(Sender: TObject);
 	private
 		{ Private declarations }
 		FISettingsModel: ISettingsModel;
+    lNew: Boolean;
 	public
 		{ Public declarations }
 		constructor Create(AOwner: TComponent; const IsNew: boolean; AISettingsModel: ISettingsModel); reintroduce; virtual;
@@ -55,14 +55,15 @@ constructor TfmSettings.Create(AOwner: TComponent; const IsNew: boolean; AISetti
 begin
 	inherited Create(AOwner);
 	FISettingsModel := AISettingsModel;
+  lNew := IsNew;
 
 	if (IsNew) then begin
-		FISettingsModel.Append();
+		dmLogsAndSettings.CcConfigStorage.Append();
 		cbAutoReplicate.Checked := false;
 		edAutoReplicateFrequency.Text := '0';
 	end
 	else begin
-		FISettingsModel.EditSettings(FISettingsModel.SelectedConfigID);
+		FISettingsModel.StopCurrentAutoReplication;
 		cbAutoReplicate.Checked := (dmLogsAndSettings.CcConfigStorage.FieldByName('AutoReplicateFrequency').AsInteger > 0);
 	end;
 
@@ -71,40 +72,24 @@ begin
 	gbAutoReplication.Enabled := cbAutoReplicate.Checked;
 end;
 //-----------------------------------------------------------------------------
-
 destructor TfmSettings.Destroy();
 begin
 	FISettingsModel := nil;
 	inherited Destroy();
 end;
 //-----------------------------------------------------------------------------
-
 procedure TfmSettings.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-	Action := caFree;
-	fmSettings := nil;
-end;
-//-----------------------------------------------------------------------------
-
-procedure TfmSettings.btnCloseClick(Sender: TObject);
-begin
 	FISettingsModel.DoCancelSettings();
-	Self.Close();
+  FISettingsModel.StartCurrentAutoReplication;
 end;
 //-----------------------------------------------------------------------------
-
 procedure TfmSettings.btnSaveClick(Sender: TObject);
-var
-	ErrorMessage: string;
 begin
-	ErrorMessage := FISettingsModel.DoSaveSettings();
-	if (ErrorMessage = '') then
-		Self.Close()
-	else
-		MessageDlg(ErrorMessage, mtError, [mbOK], 0);
+  FISettingsModel.DoSaveSettings(lNew);
+  ModalResult := mrOk;
 end;
 //-----------------------------------------------------------------------------
-
 procedure TfmSettings.cbAutoReplicateClick(Sender: TObject);
 begin
 	if not cbAutoReplicate.Checked then begin

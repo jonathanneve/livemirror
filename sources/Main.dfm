@@ -1,8 +1,9 @@
 object fmMain: TfmMain
-  Left = 213
-  Top = 180
+  Left = 323
+  Top = 217
   Width = 774
   Height = 525
+  ActiveControl = dbgResults
   Caption = 'Microtec Live Mirror v1.00.0'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -11,6 +12,7 @@ object fmMain: TfmMain
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
   object RzBackground1: TRzBackground
@@ -1551,22 +1553,22 @@ object fmMain: TfmMain
     TabOrder = 0
     object pnlButtons: TRzPanel
       Left = 0
-      Top = 444
+      Top = 440
       Width = 633
-      Height = 47
+      Height = 51
       Align = alBottom
       BorderOuter = fsFlatRounded
       TabOrder = 0
       DesignSize = (
         633
-        47)
+        51)
       object imgLogoMicrotec: TImage
         Left = 2
-        Top = 2
+        Top = 6
         Width = 153
-        Height = 43
+        Height = 40
         Cursor = crHandPoint
-        Align = alLeft
+        Anchors = [akLeft]
         AutoSize = True
         Picture.Data = {
           07544269746D6170AA100000424DAA1000000000000036040000280000009900
@@ -1705,31 +1707,41 @@ object fmMain: TfmMain
           0000997F0000997F0000997F0000997F0000997F0001}
         OnClick = imgLogoMicrotecClick
       end
-      object btnClose: TRzBitBtn
-        Left = 519
-        Top = 12
-        Width = 106
+      object RzButton2: TRzButton
+        Left = 455
+        Top = 5
+        Width = 81
+        Height = 41
         Anchors = [akTop, akRight]
-        Caption = 'Close'
-        Color = 15791348
-        HighlightColor = 16026986
+        Caption = 'MINIMIZE TO SYSTRAY'
+        Color = 8573067
         HotTrack = True
-        HotTrackColor = 3983359
         TabOrder = 0
-        OnClick = btnCloseClick
-        Kind = bkCancel
+        OnClick = RzButton2Click
+      end
+      object RzButton1: TRzButton
+        Left = 544
+        Top = 5
+        Width = 81
+        Height = 41
+        Anchors = [akTop, akRight]
+        Caption = 'SHUTDOWN'
+        Color = 6909139
+        HotTrack = True
+        TabOrder = 1
+        OnClick = RzButton1Click
       end
     end
     object dbgResults: TDBGridEh
       Left = 0
       Top = 0
       Width = 633
-      Height = 444
+      Height = 440
       Align = alClient
       AllowedOperations = []
       AllowedSelections = []
       AutoFitColWidths = True
-      DataSource = dmLogsAndSettings.dtsSelectAliasesDS
+      DataSource = qAliasesDS
       FooterColor = clWindow
       FooterFont.Charset = DEFAULT_CHARSET
       FooterFont.Color = clWindowText
@@ -1745,20 +1757,8 @@ object fmMain: TfmMain
       TitleFont.Height = -11
       TitleFont.Name = 'MS Sans Serif'
       TitleFont.Style = []
+      OnDblClick = dbgResultsDblClick
       Columns = <
-        item
-          EditButtons = <>
-          FieldName = 'ALIAS_ID'
-          Footers = <>
-          Visible = False
-          Width = 50
-        end
-        item
-          EditButtons = <>
-          FieldName = 'CONFIG_ID'
-          Footers = <>
-          Visible = False
-        end
         item
           Alignment = taCenter
           EditButtons = <>
@@ -1767,11 +1767,6 @@ object fmMain: TfmMain
           Title.Alignment = taCenter
           Title.Caption = 'Alias'
           Title.EndEllipsis = True
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -11
-          Title.Font.Name = 'MS Sans Serif'
-          Title.Font.Style = []
           Width = 200
         end
         item
@@ -1782,33 +1777,17 @@ object fmMain: TfmMain
           Title.Alignment = taCenter
           Title.Caption = 'Last synchronization'
           Title.EndEllipsis = True
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -11
-          Title.Font.Name = 'MS Sans Serif'
-          Title.Font.Style = []
           Width = 200
           WordWrap = True
         end
         item
-          EditButtons = <>
-          FieldName = 'TRANSFER_STATUS'
-          Footers = <>
-          Visible = False
-        end
-        item
           Alignment = taCenter
           EditButtons = <>
-          FieldName = 'CONVERTED_STATUS'
+          FieldName = 'Status'
           Footers = <>
           Title.Alignment = taCenter
-          Title.Caption = 'State'
+          Title.Caption = 'Last status'
           Title.EndEllipsis = True
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -11
-          Title.Font.Name = 'MS Sans Serif'
-          Title.Font.Style = []
           Width = 200
         end>
     end
@@ -1850,7 +1829,7 @@ object fmMain: TfmMain
     Alignment = paCenter
     OwnerDraw = True
     OnPopup = popMainPopup
-    Left = 48
+    Left = 40
     Top = 464
     object mnuViewLog: TMenuItem
       Action = actViewLog
@@ -1875,8 +1854,96 @@ object fmMain: TfmMain
       Action = actReplicateNow
     end
   end
-  object RzTrayIcon: TRzTrayIcon
-    Left = 88
+  object qAliases: TpFIBDataSet
+    UpdateSQL.Strings = (
+      'UPDATE ALIASES'
+      'SET '
+      '    ALIAS_ID = :ALIAS_ID,'
+      '    CONFIG_NAME = :CONFIG_NAME'
+      'WHERE'
+      '    ALIAS_ID = :OLD_ALIAS_ID'
+      '    ')
+    DeleteSQL.Strings = (
+      'DELETE FROM'
+      '    ALIASES'
+      'WHERE'
+      '        ALIAS_ID = :OLD_ALIAS_ID'
+      '    ')
+    InsertSQL.Strings = (
+      'INSERT INTO ALIASES('
+      '    ALIAS_ID,'
+      '    CONFIG_NAME'
+      ')'
+      'VALUES('
+      '    :ALIAS_ID,'
+      '    :CONFIG_NAME'
+      ')')
+    RefreshSQL.Strings = (
+      'SELECT A.ALIAS_ID,'
+      '       A.CONFIG_NAME,'
+      '       L.DATE_SYNC,'
+      '       L.RECORDS_ERROR,'
+      '       L.TRANSFER_STATUS'
+      'FROM ALIASES a'
+      'LEFT OUTER JOIN LOG l ON (l.LOG_ID ='
+      
+        '  (SELECT max(log_id) FROM LOG WHERE (LOG_ID > 0) AND (CONFIG_NA' +
+        'ME = A.CONFIG_NAME))'
+      '  )'
+      'WHERE(  A.ALIAS_ID = :OLD_ALIAS_ID  )'
+      '    ')
+    SelectSQL.Strings = (
+      'SELECT A.ALIAS_ID,'
+      '       A.CONFIG_NAME,'
+      '       L.DATE_SYNC,'
+      '       L.RECORDS_ERROR,'
+      '       L.TRANSFER_STATUS'
+      'FROM ALIASES a'
+      'LEFT OUTER JOIN LOG l ON (l.LOG_ID ='
+      
+        '  (SELECT max(log_id) FROM LOG WHERE (LOG_ID > 0) AND (CONFIG_NA' +
+        'ME = A.CONFIG_NAME))'
+      '  )')
+    AfterScroll = qAliasesAfterScroll
+    OnCalcFields = qAliasesCalcFields
+    Transaction = dmLogsAndSettings.trLog
+    Database = dmLogsAndSettings.dbLog
+    Left = 144
+    Top = 400
+    oRefreshDeletedRecord = True
+    object qAliasesALIAS_ID: TFIBIntegerField
+      FieldName = 'ALIAS_ID'
+    end
+    object qAliasesCONFIG_NAME: TFIBStringField
+      FieldName = 'CONFIG_NAME'
+      Size = 200
+      EmptyStrToNull = True
+    end
+    object qAliasesDATE_SYNC: TFIBDateTimeField
+      FieldName = 'DATE_SYNC'
+      OnGetText = qAliasesDATE_SYNCGetText
+    end
+    object qAliasesRECORDS_ERROR: TFIBIntegerField
+      FieldName = 'RECORDS_ERROR'
+    end
+    object qAliasesTRANSFER_STATUS: TFIBSmallIntField
+      FieldName = 'TRANSFER_STATUS'
+      OnGetText = qAliasesDATE_SYNCGetText
+    end
+    object qAliasesStatus: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'Status'
+      Size = 50
+      Calculated = True
+    end
+  end
+  object qAliasesDS: TDataSource
+    DataSet = qAliases
+    Left = 184
+    Top = 400
+  end
+  object TrayIcon: TRzTrayIcon
+    Left = 80
     Top = 464
   end
 end

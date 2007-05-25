@@ -11,7 +11,6 @@ uses
 type
 	TfrConfServer = class(TFrame)
 		pnConnectParams: TRzPanel;
-		OpenDialog: TRzOpenDialog;
 		mDBParams: TCcMemoryData;
 		mDBParamsDBName: TStringField;
 		mDBParamsUserLogin: TStringField;
@@ -20,38 +19,28 @@ type
 		mDBParamsRoleName: TStringField;
 		mDBParamsDBVersion: TStringField;
 		mDBParamsDS: TDataSource;
-		mDBParamsClientDLL: TStringField;
+    mDBParamsLibraryName: TStringField;
 		mDBParamsSQLDialect: TIntegerField;
 		mDBParamsConnectionString: TStringField;
 		mDBParamsADOConnectionTimeout: TIntegerField;
 		mDBParamsADOQueryTimeout: TIntegerField;
-		Panel1: TRzPanel;
-		Label5: TLabel;
-		Label6: TLabel;
-		Label4: TLabel;
-		Label9: TLabel;
-		edLocalSYSDBAName: TRzDBEdit;
-		edLocalSYSDBAPassword: TRzDBEdit;
-		edLocalDBName: TRzDBEdit;
-		edLocalCharset: TRzDBEdit;
-		Label2: TLabel;
-		edRoleName: TRzDBEdit;
 		frConfMSSQL: TfrConfMSSQL;
 		frConfInterbase: TfrConfInterbase;
 		mDBParamsDBType: TStringField;
 		RzPanel1: TRzPanel;
 		Label3: TLabel;
 		Label1: TLabel;
-		cbVersions: TRzDBComboBox;
+    cbVersions: TRzDBComboBox;
 		cbDatabaseType: TRzDBComboBox;
-    btBrowseDB: TBitBtn;
-		procedure btBrowseDBClick(Sender: TObject);
 		procedure mDBParamsDBChange(Sender: TField);
-		procedure cbDatabaseTypeChange(Sender: TObject);
 		procedure cbVersionsChange(Sender: TObject);
+    procedure mDBParamsDBTypeChange(Sender: TField);
+    procedure cbDatabaseTypeChange(Sender: TObject);
 	private
 		ConnectionConfig: TCcConnectionConfig;
 		FieldChanging, LoadingParams: Boolean;
+    procedure RefreshVersions;
+    procedure ReloadParams;
 	protected
 		procedure SetEnableControls(const Value: boolean); virtual;
 	public
@@ -64,37 +53,21 @@ type
 implementation
 
 uses
-	StrUtils,
 	dLogsAndSettings;
 
 {$R *.dfm}
 
-procedure TfrConfServer.btBrowseDBClick(Sender: TObject);
-var
-	Value: string;
+procedure TfrConfServer.LoadParams(cnxConf: TCcConnectionConfig);
 begin
-	// seek correct filter
-	Value := mDBParamsDS.DataSet.FieldByName('DBVersion').AsString;
-	if (AnsiContainsStr(Value, 'IB')) then
-		OpenDialog.FilterIndex := 1
-	else if (AnsiContainsStr(Value, 'FB')) then
-		OpenDialog.FilterIndex := 2
-	else
-		OpenDialog.FilterIndex := 3;
-
-	if OpenDialog.Execute then begin
-		mDBParams.Edit;
-		mDBParamsDBName.AsString := OpenDialog.FileName;
-	end;
+	ConnectionConfig := cnxConf;
+  ReloadParams;
 end;
 
-procedure TfrConfServer.LoadParams(cnxConf: TCcConnectionConfig);
+procedure TfrConfServer.ReloadParams;
 var
 	i : Integer;
 	cFieldName: String;
 begin
-	ConnectionConfig := cnxConf;
-
 	LoadingParams := True;
 	try
 		mDBParams.Close;
@@ -146,32 +119,27 @@ begin
 	ControlsEnabled := Value;
 end;
 
-procedure TfrConfServer.cbDatabaseTypeChange(Sender: TObject);
+procedure TfrConfServer.RefreshVersions;
 var
 	cConnectorType: string;
 begin
 	frConfMSSQL.Visible := (cbDatabaseType.Text = 'MSSQL');
 	frConfInterbase.Visible := (cbDatabaseType.Text = 'Interbase');
-
 	if (cbDatabaseType.Text <> '') then begin
 		cbVersions.Enabled := true;
 
-		if (cbDatabaseType.Text = 'MSSQL') then
-			cConnectorType := 'ADO'
+ 		if (cbDatabaseType.Text = 'MSSQL') then
+			cConnectorType := frConfMSSQL.GetConnectorName
 		else if (cbDatabaseType.Text = 'Interbase') then
-			cConnectorType := 'FIB';
+			cConnectorType := frConfInterbase.GetConnectorName;
 
 		dmLogsAndSettings.CcConfigStorage.Edit;
 		ConnectionConfig.DBType := cbDatabaseType.Text;
 		ConnectionConfig.ConnectorName := cConnectorType;
-		cbVersions.Clear();
-		mDBParamsDS.DataSet.FieldByName('DBVersion').AsString := '';
-
 		cbVersions.Items.Assign(ConnectionConfig.Connection.DBAdaptor.SupportedVersions);
 	end
-	else begin
-		cbVersions.Enabled := true;
-	end;
+	else
+		cbVersions.Enabled := false;
 end;
 
 procedure TfrConfServer.cbVersionsChange(Sender: TObject);
@@ -180,6 +148,22 @@ var
 begin
 	lIsSelected := cbVersions.Text <> '';
 	SetEnableControls(lIsSelected);
+end;
+
+procedure TfrConfServer.mDBParamsDBTypeChange(Sender: TField);
+begin
+//  RefreshVersions;
+  mDBParamsDBChange(Sender);
+end;
+
+procedure TfrConfServer.cbDatabaseTypeChange(Sender: TObject);
+begin
+  RefreshVersions;
+  if not LoadingParams then begin
+    //After changing the DBType, we must reload the connection parameters,
+    //since a new underlying connection object has been created
+    ReloadParams;
+  end;
 end;
 
 end.
