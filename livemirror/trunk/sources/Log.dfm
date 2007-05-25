@@ -1,6 +1,6 @@
 object fmLog: TfmLog
-  Left = 276
-  Top = 169
+  Left = 522
+  Top = 168
   BorderIcons = [biSystemMenu, biMaximize]
   BorderStyle = bsSingle
   Caption = 'Log'
@@ -68,14 +68,13 @@ object fmLog: TfmLog
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object txtAlias: TDBText
+    object lbAlias: TLabel
       Left = 88
       Top = 8
       Width = 576
       Height = 17
       Anchors = [akLeft, akTop, akRight]
-      DataField = 'CONFIG_NAME'
-      DataSource = dmLogsAndSettings.dtsSelectLogDS
+      AutoSize = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGreen
       Font.Height = -11
@@ -88,10 +87,10 @@ object fmLog: TfmLog
     Left = 0
     Top = 33
     Width = 671
-    Height = 374
+    Height = 252
     Align = alClient
     AutoFitColWidths = True
-    DataSource = dmLogsAndSettings.dtsSelectLogDS
+    DataSource = qLogDS
     FooterColor = clWindow
     FooterFont.Charset = DEFAULT_CHARSET
     FooterFont.Color = clWindowText
@@ -107,29 +106,12 @@ object fmLog: TfmLog
     TitleFont.Style = []
     Columns = <
       item
-        EditButtons = <>
-        FieldName = 'LOG_ID'
-        Footers = <>
-        Visible = False
-      end
-      item
-        EditButtons = <>
-        FieldName = 'TRANSFER_STATUS'
-        Footers = <>
-        Visible = False
-      end
-      item
         Alignment = taCenter
         EditButtons = <>
         FieldName = 'DATE_SYNC'
         Footers = <>
         Title.Alignment = taCenter
         Title.Caption = 'Last synchronization'
-        Title.Font.Charset = DEFAULT_CHARSET
-        Title.Font.Color = clWindowText
-        Title.Font.Height = -11
-        Title.Font.Name = 'MS Sans Serif'
-        Title.Font.Style = []
         Width = 146
       end
       item
@@ -139,11 +121,6 @@ object fmLog: TfmLog
         Footers = <>
         Title.Alignment = taCenter
         Title.Caption = 'Rows synchronized'
-        Title.Font.Charset = DEFAULT_CHARSET
-        Title.Font.Color = clWindowText
-        Title.Font.Height = -11
-        Title.Font.Name = 'MS Sans Serif'
-        Title.Font.Style = []
         Width = 123
       end
       item
@@ -153,39 +130,26 @@ object fmLog: TfmLog
         Footers = <>
         Title.Alignment = taCenter
         Title.Caption = 'Errors count'
-        Title.Font.Charset = DEFAULT_CHARSET
-        Title.Font.Color = clWindowText
-        Title.Font.Height = -11
-        Title.Font.Name = 'MS Sans Serif'
-        Title.Font.Style = []
         Width = 103
       end
       item
         Alignment = taCenter
         EditButtons = <>
-        FieldName = 'CONVERTED_STATUS'
+        FieldName = 'Status'
         Footers = <>
         Title.Alignment = taCenter
-        Title.Caption = 'Status'
-        Title.Font.Charset = DEFAULT_CHARSET
-        Title.Font.Color = clWindowText
-        Title.Font.Height = -11
-        Title.Font.Name = 'MS Sans Serif'
-        Title.Font.Style = []
         Width = 260
       end>
   end
-  object RzSizePanel1: TRzSizePanel
+  object pnErrors: TRzSizePanel
     Left = 0
-    Top = 407
+    Top = 285
     Width = 671
-    Height = 8
+    Height = 130
     Align = alBottom
     HotSpotVisible = True
     SizeBarWidth = 7
     TabOrder = 3
-    HotSpotClosed = True
-    HotSpotPosition = 130
     object lblErrorsDetails: TLabel
       Left = 0
       Top = 8
@@ -194,7 +158,7 @@ object fmLog: TfmLog
       Align = alTop
       Alignment = taCenter
       AutoSize = False
-      Caption = 'Errors details'
+      Caption = 'Error details'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clRed
       Font.Height = -11
@@ -214,7 +178,7 @@ object fmLog: TfmLog
       ColumnDefValues.EndEllipsis = True
       ColumnDefValues.Title.Alignment = taCenter
       ColumnDefValues.Title.EndEllipsis = True
-      DataSource = dmLogsAndSettings.dtsSelectLogErrorsDS
+      DataSource = qLogErrorsDS
       FooterColor = clWindow
       FooterFont.Charset = DEFAULT_CHARSET
       FooterFont.Color = clWindowText
@@ -275,5 +239,99 @@ object fmLog: TfmLog
           Width = 350
         end>
     end
+  end
+  object qLog: TpFIBDataSet
+    SelectSQL.Strings = (
+      'SELECT '#9'*'
+      'FROM LOG l'
+      'JOIN ALIASES a ON (a.CONFIG_name = L.CONFIG_name)'
+      'WHERE (L.CONFIG_NAME = :config_name)'
+      'ORDER BY L.DATE_SYNC DESC')
+    OnCalcFields = qLogCalcFields
+    Transaction = dmLogsAndSettings.trLog
+    Database = dmLogsAndSettings.dbLog
+    Left = 136
+    Top = 96
+    object qLogLOG_ID: TFIBIntegerField
+      FieldName = 'LOG_ID'
+    end
+    object qLogDATE_SYNC: TFIBDateTimeField
+      FieldName = 'DATE_SYNC'
+      DisplayFormat = 'dd/mm/yy hh:nn:ss'
+    end
+    object qLogRECORDS_OK: TFIBIntegerField
+      FieldName = 'RECORDS_OK'
+    end
+    object qLogRECORDS_ERROR: TFIBIntegerField
+      FieldName = 'RECORDS_ERROR'
+    end
+    object qLogTRANSFER_STATUS: TFIBSmallIntField
+      FieldName = 'TRANSFER_STATUS'
+    end
+    object qLogCONFIG_NAME: TFIBStringField
+      FieldName = 'CONFIG_NAME'
+      Size = 200
+      EmptyStrToNull = True
+    end
+    object qLogALIAS_ID: TFIBIntegerField
+      FieldName = 'ALIAS_ID'
+    end
+    object qLogCONFIG_NAME1: TFIBStringField
+      FieldName = 'CONFIG_NAME1'
+      Size = 200
+      EmptyStrToNull = True
+    end
+    object qLogStatus: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'Status'
+      Size = 200
+      Calculated = True
+    end
+  end
+  object qLogDS: TDataSource
+    DataSet = qLog
+    OnDataChange = qLogDSDataChange
+    Left = 168
+    Top = 96
+  end
+  object qLogErrors: TpFIBDataSet
+    SelectSQL.Strings = (
+      'SELECT'#9'LOG_ERROR_ID,'
+      #9'LOG_ID,'
+      '     '#9'TABLE_NAME,'
+      '     '#9'PRIMARY_KEYS,'
+      '     '#9'ERROR_MESSAGE'
+      'FROM LOG_ERRORS'
+      'WHERE LOG_ERRORS.LOG_ID = :log_ID')
+    Transaction = dmLogsAndSettings.trLog
+    Database = dmLogsAndSettings.dbLog
+    Left = 136
+    Top = 128
+    object qLogErrorsLOG_ERROR_ID: TFIBIntegerField
+      FieldName = 'LOG_ERROR_ID'
+    end
+    object qLogErrorsLOG_ID: TFIBIntegerField
+      FieldName = 'LOG_ID'
+    end
+    object qLogErrorsTABLE_NAME: TFIBStringField
+      FieldName = 'TABLE_NAME'
+      Size = 100
+      EmptyStrToNull = True
+    end
+    object qLogErrorsPRIMARY_KEYS: TFIBStringField
+      FieldName = 'PRIMARY_KEYS'
+      Size = 500
+      EmptyStrToNull = True
+    end
+    object qLogErrorsERROR_MESSAGE: TFIBMemoField
+      FieldName = 'ERROR_MESSAGE'
+      BlobType = ftMemo
+      Size = 8
+    end
+  end
+  object qLogErrorsDS: TDataSource
+    DataSet = qLogErrors
+    Left = 168
+    Top = 128
   end
 end

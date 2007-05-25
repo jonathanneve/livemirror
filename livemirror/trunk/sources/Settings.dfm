@@ -1,11 +1,11 @@
 object fmSettings: TfmSettings
-  Left = 331
-  Top = 81
+  Left = 291
+  Top = 141
   BorderIcons = [biSystemMenu, biMaximize]
   BorderStyle = bsSingle
   Caption = 'Settings'
-  ClientHeight = 532
-  ClientWidth = 540
+  ClientHeight = 480
+  ClientWidth = 496
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,202 +16,218 @@ object fmSettings: TfmSettings
   Position = poOwnerFormCenter
   OnClose = FormClose
   DesignSize = (
-    540
-    532)
+    496
+    480)
   PixelsPerInch = 96
   TextHeight = 13
   object gbxLocalDB: TRzGroupBox
-    Left = 0
+    Left = 1
     Top = 56
-    Width = 539
-    Height = 177
+    Width = 494
+    Height = 150
     Anchors = [akLeft, akTop, akRight]
     Caption = 'Master database (local)'
     TabOrder = 1
+    DesignSize = (
+      494
+      150)
     inline frConfMaster: TfrConfServer
-      Left = 1
-      Top = 14
-      Width = 537
-      Height = 162
+      Left = 6
+      Top = 16
+      Width = 481
+      Height = 130
       HelpContext = 1140
-      Align = alClient
+      Anchors = [akLeft, akTop, akRight]
       TabOrder = 0
       inherited pnConnectParams: TRzPanel
-        Width = 537
-        Height = 141
-        inherited Panel1: TRzPanel
-          Width = 537
-          inherited Label6: TLabel
-            Left = 362
-          end
-          inherited Label2: TLabel
-            Left = 360
-          end
-          inherited edLocalSYSDBAPassword: TRzDBEdit
-            Left = 421
-          end
-          inherited edLocalDBName: TRzDBEdit
-            Width = 418
-          end
-          inherited edRoleName: TRzDBEdit
-            Left = 421
-          end
-          inherited btBrowseDB: TBitBtn
-            Left = 511
-          end
-        end
+        Width = 481
+        Height = 109
         inherited frConfMSSQL: TfrConfMSSQL
-          Width = 537
+          Top = 112
+          Width = 481
           inherited pnMSSQL: TRzPanel
-            Width = 537
+            Width = 481
             inherited Label2: TLabel
-              Left = 366
-            end
-            inherited edLocalDBName: TRzDBEdit
-              Width = 442
-              DataSource = frConfMaster.mDBParamsDS
+              Left = 310
             end
             inherited edLocalCharset: TRzDBEdit
               DataSource = frConfMaster.mDBParamsDS
             end
             inherited RzDBEdit1: TRzDBEdit
-              Left = 461
+              Left = 405
+              DataSource = frConfMaster.mDBParamsDS
+            end
+            inherited RzDBMemo1: TRzDBMemo
+              Width = 386
               DataSource = frConfMaster.mDBParamsDS
             end
           end
         end
         inherited frConfInterbase: TfrConfInterbase
-          Width = 537
+          Top = 0
+          Width = 481
           inherited pnInterbase: TRzPanel
-            Width = 537
+            Width = 481
             inherited Label1: TLabel
-              Left = 364
+              Left = 293
+            end
+            inherited Label6: TLabel
+              Left = 293
+            end
+            inherited Label2: TLabel
+              Left = 293
             end
             inherited edLocalSQLDialect: TRzDBEdit
               DataSource = frConfMaster.mDBParamsDS
             end
             inherited RzDBEdit1: TRzDBEdit
-              Left = 423
+              Left = 365
               DataSource = frConfMaster.mDBParamsDS
+            end
+            inherited edLocalSYSDBAName: TRzDBEdit
+              DataSource = frConfMaster.mDBParamsDS
+            end
+            inherited edLocalSYSDBAPassword: TRzDBEdit
+              Left = 365
+              DataSource = frConfMaster.mDBParamsDS
+            end
+            inherited edDBName: TRzDBEdit
+              Width = 362
+              DataSource = frConfMaster.mDBParamsDS
+            end
+            inherited edLocalCharset: TRzDBEdit
+              DataSource = frConfMaster.mDBParamsDS
+            end
+            inherited edRoleName: TRzDBEdit
+              Left = 365
+              DataSource = frConfMaster.mDBParamsDS
+            end
+            inherited btBrowseDB: TBitBtn
+              Left = 455
+              OnClick = nil
             end
           end
         end
       end
       inherited RzPanel1: TRzPanel
-        Width = 537
+        Width = 481
         inherited Label1: TLabel
-          Left = 384
+          Left = 328
         end
         inherited cbVersions: TRzDBComboBox
-          Left = 430
+          Left = 374
         end
         inherited cbDatabaseType: TRzDBComboBox
-          Width = 286
+          Width = 230
         end
       end
     end
   end
   object RzGroupBox1: TRzGroupBox
-    Left = 0
-    Top = 240
-    Width = 539
-    Height = 177
+    Left = 1
+    Top = 212
+    Width = 493
+    Height = 150
     Anchors = [akLeft, akTop, akRight]
     Caption = 'Mirror database (remote)'
     TabOrder = 2
     inline frConfMirror: TfrConfServer
-      Left = 1
-      Top = 14
-      Width = 537
-      Height = 162
+      Left = 6
+      Top = 16
+      Width = 482
+      Height = 130
       HelpContext = 1140
-      Align = alClient
       TabOrder = 0
       inherited pnConnectParams: TRzPanel
-        Width = 537
-        Height = 141
-        inherited Panel1: TRzPanel
-          Width = 537
-          inherited Label6: TLabel
-            Left = 362
-          end
-          inherited Label2: TLabel
-            Left = 360
-          end
-          inherited edLocalSYSDBAPassword: TRzDBEdit
-            Left = 421
-          end
-          inherited edLocalDBName: TRzDBEdit
-            Width = 418
-          end
-          inherited edRoleName: TRzDBEdit
-            Left = 421
-          end
-          inherited btBrowseDB: TBitBtn
-            Left = 511
-          end
-        end
+        Width = 482
+        Height = 109
         inherited frConfMSSQL: TfrConfMSSQL
-          Width = 537
+          Width = 482
           inherited pnMSSQL: TRzPanel
-            Width = 537
+            Width = 482
             inherited Label2: TLabel
-              Left = 366
-            end
-            inherited edLocalDBName: TRzDBEdit
-              Width = 442
-              DataSource = frConfMirror.mDBParamsDS
+              Left = 311
             end
             inherited edLocalCharset: TRzDBEdit
               DataSource = frConfMirror.mDBParamsDS
             end
             inherited RzDBEdit1: TRzDBEdit
-              Left = 461
+              Left = 406
+              DataSource = frConfMirror.mDBParamsDS
+            end
+            inherited RzDBMemo1: TRzDBMemo
+              Width = 387
               DataSource = frConfMirror.mDBParamsDS
             end
           end
         end
         inherited frConfInterbase: TfrConfInterbase
-          Width = 537
+          Width = 482
           inherited pnInterbase: TRzPanel
-            Width = 537
+            Width = 482
             inherited Label1: TLabel
-              Left = 364
+              Left = 293
+            end
+            inherited Label6: TLabel
+              Left = 293
+            end
+            inherited Label2: TLabel
+              Left = 293
             end
             inherited edLocalSQLDialect: TRzDBEdit
               DataSource = frConfMirror.mDBParamsDS
             end
             inherited RzDBEdit1: TRzDBEdit
-              Left = 423
+              Left = 367
               DataSource = frConfMirror.mDBParamsDS
+            end
+            inherited edLocalSYSDBAName: TRzDBEdit
+              DataSource = frConfMirror.mDBParamsDS
+            end
+            inherited edLocalSYSDBAPassword: TRzDBEdit
+              Left = 367
+              DataSource = frConfMirror.mDBParamsDS
+            end
+            inherited edDBName: TRzDBEdit
+              Width = 363
+              DataSource = frConfMirror.mDBParamsDS
+            end
+            inherited edLocalCharset: TRzDBEdit
+              DataSource = frConfMirror.mDBParamsDS
+            end
+            inherited edRoleName: TRzDBEdit
+              Left = 367
+              DataSource = frConfMirror.mDBParamsDS
+            end
+            inherited btBrowseDB: TBitBtn
+              Left = 457
             end
           end
         end
       end
       inherited RzPanel1: TRzPanel
-        Width = 537
+        Width = 482
         inherited Label1: TLabel
-          Left = 384
+          Left = 329
         end
         inherited cbVersions: TRzDBComboBox
-          Left = 430
+          Left = 375
         end
         inherited cbDatabaseType: TRzDBComboBox
-          Width = 286
+          Width = 231
         end
       end
     end
   end
   object pnlInfos: TRzPanel
-    Left = 0
+    Left = 1
     Top = 0
-    Width = 540
+    Width = 495
     Height = 49
-    Align = alTop
     BorderOuter = fsFlatRounded
     TabOrder = 0
     DesignSize = (
-      540
+      495
       49)
     object lblAliasName: TRzLabel
       Left = 8
@@ -271,7 +287,7 @@ object fmSettings: TfmSettings
       Tag = -1
       Left = 88
       Top = 6
-      Width = 443
+      Width = 398
       Height = 21
       DataSource = dmLogsAndSettings.CcConfigStorageDS
       DataField = 'ConfigName'
@@ -283,17 +299,17 @@ object fmSettings: TfmSettings
   end
   object pnlButtons: TRzPanel
     Left = 0
-    Top = 488
-    Width = 539
+    Top = 436
+    Width = 495
     Height = 42
     Anchors = [akLeft, akRight, akBottom]
     BorderOuter = fsFlatRounded
     TabOrder = 5
     DesignSize = (
-      539
+      495
       42)
     object btnClose: TRzBitBtn
-      Left = 424
+      Left = 380
       Top = 10
       Width = 106
       Anchors = [akTop, akRight]
@@ -303,14 +319,12 @@ object fmSettings: TfmSettings
       HotTrack = True
       HotTrackColor = 3983359
       TabOrder = 1
-      OnClick = btnCloseClick
       Kind = bkCancel
     end
     object btnSave: TRzBitBtn
-      Left = 314
+      Left = 270
       Top = 10
       Width = 106
-      ModalResult = 2
       Anchors = [akTop, akRight]
       Caption = 'Save settings'
       Color = 15791348
@@ -374,9 +388,9 @@ object fmSettings: TfmSettings
     end
   end
   object gbAutoReplication: TRzGroupBox
-    Left = 0
-    Top = 428
-    Width = 539
+    Left = 1
+    Top = 374
+    Width = 493
     Height = 53
     Anchors = [akLeft, akTop, akRight]
     FrameController = dmLogsAndSettings.FrameController
@@ -406,7 +420,7 @@ object fmSettings: TfmSettings
   end
   object cbAutoReplicate: TRzCheckBox
     Left = 8
-    Top = 426
+    Top = 370
     Width = 102
     Height = 17
     Caption = ' Auto-replication '

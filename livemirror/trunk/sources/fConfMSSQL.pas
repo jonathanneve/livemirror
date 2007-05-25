@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, 
   Dialogs, StdCtrls, RzCmboBx, RzDBCmbo, Mask, RzEdit, RzDBEdit, ExtCtrls,
-  RzPanel, CcSQLServer, CcConnADO;
+  RzPanel, CcSQLServer, CcConnADO, DBCtrls;
 
 type
   TfrConfMSSQL = class(TFrame)
@@ -13,13 +13,13 @@ type
     Label4: TLabel;
     Label9: TLabel;
     Label2: TLabel;
-    edLocalDBName: TRzDBEdit;
     edLocalCharset: TRzDBEdit;
     RzDBEdit1: TRzDBEdit;
+    RzDBMemo1: TRzDBMemo;
   private
     { Private declarations }
   public
-    { Public declarations }
+    function GetConnectorName: String;
   end;
 
 implementation
@@ -27,5 +27,10 @@ implementation
 uses dLogsAndSettings;
 
 {$R *.dfm}
+
+function TfrConfMSSQL.GetConnectorName: String;
+begin
+  Result := TCcConnectionADO.ConnectorName;
+end;
 
 end.
