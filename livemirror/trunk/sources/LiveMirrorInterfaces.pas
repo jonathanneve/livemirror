@@ -17,8 +17,8 @@ type
 		function DoDeleteSettings(const IsRemoveTriggers: boolean): string;
 		procedure DoCancelSettings();
 		function DoRefreshSettings(): string;
-		procedure DoReplicate();
-		function DoSaveSettings(lNew: Boolean): string;
+		function DoReplicate(): Boolean;
+		function DoSaveSettings(lNew: Boolean): Boolean;
 		procedure EditSettings(const Value: integer);
 		function GetLocalDB(): TCcConnectionConfig;
 		function GetOnEndSync(): TNotifyEvent;

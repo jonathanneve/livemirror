@@ -80,14 +80,15 @@ end;
 //-----------------------------------------------------------------------------
 procedure TfmSettings.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-	FISettingsModel.DoCancelSettings();
+  if ModalResult = mrCancel then
+    FISettingsModel.DoCancelSettings();
   FISettingsModel.StartCurrentAutoReplication;
 end;
 //-----------------------------------------------------------------------------
 procedure TfmSettings.btnSaveClick(Sender: TObject);
 begin
-  FISettingsModel.DoSaveSettings(lNew);
-  ModalResult := mrOk;
+  if FISettingsModel.DoSaveSettings(lNew) then
+    ModalResult := mrOk;
 end;
 //-----------------------------------------------------------------------------
 procedure TfmSettings.cbAutoReplicateClick(Sender: TObject);

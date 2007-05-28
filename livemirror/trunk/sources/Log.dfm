@@ -87,7 +87,7 @@ object fmLog: TfmLog
     Left = 0
     Top = 33
     Width = 671
-    Height = 252
+    Height = 269
     Align = alClient
     AutoFitColWidths = True
     DataSource = qLogDS
@@ -104,6 +104,7 @@ object fmLog: TfmLog
     TitleFont.Height = -11
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = []
+    VertScrollBar.Tracking = True
     Columns = <
       item
         Alignment = taCenter
@@ -143,9 +144,9 @@ object fmLog: TfmLog
   end
   object pnErrors: TRzSizePanel
     Left = 0
-    Top = 285
+    Top = 302
     Width = 671
-    Height = 130
+    Height = 113
     Align = alBottom
     HotSpotVisible = True
     SizeBarWidth = 7
@@ -171,14 +172,16 @@ object fmLog: TfmLog
       Left = 0
       Top = 33
       Width = 671
-      Height = 97
+      Height = 80
       Align = alClient
       Anchors = [akTop, akRight]
       AutoFitColWidths = True
       ColumnDefValues.EndEllipsis = True
       ColumnDefValues.Title.Alignment = taCenter
       ColumnDefValues.Title.EndEllipsis = True
+      ColumnDefValues.ToolTips = True
       DataSource = qLogErrorsDS
+      DrawMemoText = True
       FooterColor = clWindow
       FooterFont.Charset = DEFAULT_CHARSET
       FooterFont.Color = clWindowText
@@ -187,14 +190,19 @@ object fmLog: TfmLog
       FooterFont.Style = []
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
       OptionsEh = [dghFixed3D, dghResizeWholeRightPart, dghHighlightFocus, dghClearSelection, dghDialogFind]
+      ParentShowHint = False
       ReadOnly = True
+      RowHeight = 30
+      RowLines = 2
       RowSizingAllowed = True
+      ShowHint = True
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -11
       TitleFont.Name = 'MS Sans Serif'
       TitleFont.Style = []
+      VertScrollBar.Tracking = True
       Columns = <
         item
           EditButtons = <>
@@ -223,12 +231,6 @@ object fmLog: TfmLog
         item
           EditButtons = <>
           FieldName = 'ERROR_MESSAGE'
-          Footers = <>
-          Visible = False
-        end
-        item
-          EditButtons = <>
-          FieldName = 'CONVERTED_MESSAGE'
           Footers = <>
           Title.Caption = 'Message'
           Title.Font.Charset = DEFAULT_CHARSET

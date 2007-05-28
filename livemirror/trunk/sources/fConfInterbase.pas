@@ -36,7 +36,7 @@ type
 implementation
 
 uses 	StrUtils,
-  dLogsAndSettings, CcProvUIB;
+  dLogsAndSettings, CcProvUIB, CcProvFIBPlus;
 
 {$R *.dfm}
 
@@ -60,7 +60,7 @@ end;
 
 function TfrConfInterbase.GetConnectorName: String;
 begin
-  Result := TCcConnectionUIB.ConnectorName;
+  Result := TCcConnectionFIB.ConnectorName;
 end;
 
 end.

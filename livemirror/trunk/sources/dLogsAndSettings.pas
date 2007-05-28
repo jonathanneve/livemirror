@@ -21,14 +21,14 @@ type
     dbLog: TpFIBDatabase;
     trLog: TpFIBTransaction;
     qRPLTables: TCcQuery;
-    qInsertAlias: TpFIBStoredProc;
+    qInsertAlias: TpFIBQuery;
     qInsertUser: TCcQuery;
     qUser: TCcQuery;
     qFindAlias: TpFIBQuery;
-    qInsertLog: TpFIBStoredProc;
-    qDeleteAlias: TpFIBStoredProc;
-    qUpdateLog: TpFIBStoredProc;
-    qInsertLogError: TpFIBStoredProc;
+    qInsertLog: TpFIBQuery;
+    qDeleteAlias: TpFIBQuery;
+    qUpdateLog: TpFIBQuery;
+    qInsertLogError: TpFIBQuery;
 		procedure DataModuleCreate(Sender: TObject);
 		procedure DataModuleDestroy(Sender: TObject);
 		procedure CcReplicatorListException(Sender: TObject; e: Exception);
@@ -46,6 +46,7 @@ type
 		FOnEndSync: TNotifyEvent;
 		FOnRefreshLog: TRefreshLogEvent;
 		FOnRefreshLogError: TRefreshLogErrorEvent;
+    FErrors : Boolean;
 
 		procedure AddLog(const Alias: string);
 		procedure AddUser(const Value: string);
@@ -54,10 +55,10 @@ type
 		function DoDeleteSettings(const IsRemoveTriggers: boolean): string;
 		procedure DoCancelSettings();
 		function DoRefreshSettings(): string;
-		procedure DoReplicate();
-		function DoSaveSettings(lNew: Boolean): string;
+		function DoReplicate(): Boolean;
+		function DoSaveSettings(lNew: Boolean): Boolean;
 		procedure EditSettings(const Value: integer);
-		procedure GenerateMissingTriggers(AConnection: TCcConnection);
+		procedure GenerateMissingTriggers(AConnection: TCcConnection; lForceRefresh: Boolean);
 		function GetIsUserExist(const UserName: string): boolean;
 		function GetLocalDB(): TCcConnectionConfig;
 		function GetLogID(const Alias: string): integer; overload;
@@ -138,14 +139,19 @@ begin
 	FreeAndNil(FLogLinks);
 end;
 //-----------------------------------------------------------------------------
-procedure TdmLogsAndSettings.GenerateMissingTriggers(AConnection: TCcConnection);
+procedure TdmLogsAndSettings.GenerateMissingTriggers(AConnection: TCcConnection; lForceRefresh: Boolean);
 var
 	TableName: string;
 begin
 	try
 		qRPLTables.Close();
 		qRPLTables.Connection := AConnection;
+    if not lForceRefresh then
+      qRPLTables.Macro['condition'].Value := '(CREATED <> ''Y'') OR (CREATED IS NULL)'
+    else
+      qRPLTables.Macro['condition'].Value := '0=0';
 		qRPLTables.Exec();
+    
 		while (not qRPLTables.Eof) do begin
 			TableName := Trim(qRPLTables.FieldByIndex[0].AsString);
 			if (not AnsiContainsStr(TableName, 'RPL$')) then
@@ -184,17 +190,20 @@ begin
 	Result := CcConfigStorage.RemoteDB;
 end;
 //-----------------------------------------------------------------------------
-function TdmLogsAndSettings.DoSaveSettings(lNew: Boolean): string;
+function TdmLogsAndSettings.DoSaveSettings(lNew: Boolean): Boolean;
 var
 	ConfigName: string;
 begin
+  Result := False;
 	ConfigName := CcConfigStorage.FieldByName('ConfigName').AsString;
 	if (ConfigName = '') then
 		Application.MessageBox('Cannot save settings: alias is empty!', 'Error', MB_ICONERROR + MB_OK)
-	else if lNew and not AliasExists(ConfigName) then
+	else if lNew and AliasExists(ConfigName) then
 		Application.MessageBox(PChar('Alias ''' + ConfigName + ''' already exists!'), 'Error', MB_ICONERROR + MB_OK)
-  else
+  else begin
 		SaveSettings;
+    Result := True;
+  end;
 end;
 //----------------------------------------------------------------------------
 procedure TdmLogsAndSettings.TryConfigConnect(conn: TCcConnection; databaseDescription: String);
@@ -227,7 +236,7 @@ begin
       CcConfigStorage.FieldByName('LocalNodeName').AsString := 'MASTER';
       CcConfigStorage.FieldByName('RemoteNodeName').AsString := RemoteNodeName;
       CcConfigStorage.FieldByName('ReplicationMode').AsString := 'BIDI';
-      GenerateMissingTriggers(CcConfig.Connection);
+      GenerateMissingTriggers(CcConfig.Connection, false);
       AddUser(RemoteNodeName);
     finally
       if CcConfigStorage.LocalDB.Connection.Connected then
@@ -239,7 +248,7 @@ begin
     if CcConfigStorage.State <> dsBrowse then
       CcConfigStorage.Post;
 
-    InsertAlias();
+		InsertAlias();
 
     CcReplicatorList.CurrentReplicator.AutoReplicate.Start();
     if (Assigned(FOnEndSync)) then
@@ -327,9 +336,11 @@ function TdmLogsAndSettings.DoRefreshSettings(): string;
 var
 	ErrorMessage: string;
 begin
-	CcConfigStorage.Edit();
-	SaveSettings;
-	if (ErrorMessage <> '') then
+  TryConfigConnect(CcConfigStorage.LocalDB.Connection, 'master database');
+  GenerateMissingTriggers(CcConfig.Connection, True);
+  AddUser(UpperCase(CcConfigStorage.FieldByName('ConfigName').AsString));
+  
+  if (ErrorMessage <> '') then
 		ErrorMessage := Format('Unable to refresh database configuration !%s%s', [#13#10#13#10, ErrorMessage]);
 end;
 //----------------------------------------------------------------------------
@@ -476,13 +487,15 @@ begin
 	StartStopAutoReplication(false);
 end;
 //----------------------------------------------------------------------------
-procedure TdmLogsAndSettings.DoReplicate();
+function TdmLogsAndSettings.DoReplicate(): Boolean;
 var
 	aReplicator: TCcReplicator;
 begin
+  FErrors := False;
 	aReplicator := CcReplicatorList.CurrentReplicator;
 	if (Assigned(aReplicator)) then
 		aReplicator.Replicate();
+  Result := not FErrors;
 end;
 //----------------------------------------------------------------------------
 procedure TdmLogsAndSettings.CcReplicatorListReplicationError(Sender: TObject; e: Exception; var CanContinue: Boolean);
@@ -495,6 +508,7 @@ var
   cConfigName: String;
 begin
 	// row was not replicated
+  FErrors := True;
 	aReplicator := Sender as TCcReplicator;
   cConfigName := AReplicator.ConfigurationName;
 	LogID := GetLogID(cConfigName);
@@ -522,7 +536,6 @@ begin
 		UpdateLog(cConfigName, LogID, raIncOK, false);
 end;
 //----------------------------------------------------------------------------
-
 procedure TdmLogsAndSettings.CcReplicatorListException(Sender: TObject; e: Exception);
 var
 	aLog: TCcCustomLog;
@@ -533,6 +546,7 @@ var
   cConfigName: String;
 begin
 	// an unexpected error occured, job aborted !
+  FErrors := True;
 	aReplicator := Sender as TCcReplicator;
   cConfigName := AReplicator.ConfigurationName;
 	LogID := GetLogID(cConfigName);

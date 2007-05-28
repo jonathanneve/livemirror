@@ -1,10 +1,10 @@
 object fmMain: TfmMain
-  Left = 323
-  Top = 217
+  Left = 315
+  Top = 206
   Width = 774
   Height = 525
   ActiveControl = dbgResults
-  Caption = 'Microtec Live Mirror v1.00.0'
+  Caption = 'Microtec LiveMirror v1.00.0'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -33,8 +33,8 @@ object fmMain: TfmMain
     Left = 8
     Top = 141
     Width = 76
-    Height = 332
-    Caption = 'Live Mirror'
+    Height = 314
+    Caption = 'LiveMirror'
     Font.Charset = ANSI_CHARSET
     Font.Color = 39423
     Font.Height = -64
