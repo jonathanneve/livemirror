@@ -75,15 +75,13 @@ object dmLogsAndSettings: TdmLogsAndSettings
     ParamCheck = True
     MetaSQL = sqlNone
     SQL.Strings = (
-      'SELECT RPL$TABLES.TABLE_NAME'
+      'SELECT TABLE_NAME'
       'FROM RPL$TABLES'
-      
-        'WHERE ( (RPL$TABLES.CREATED <> '#39'Y'#39') OR (RPL$TABLES.CREATED IS NU' +
-        'LL) )')
+      'WHERE %condition')
     Left = 240
     Top = 64
   end
-  object qInsertAlias: TpFIBStoredProc
+  object qInsertAlias: TpFIBQuery
     Transaction = trLog
     Database = dbLog
     SQL.Strings = (
@@ -124,7 +122,7 @@ object dmLogsAndSettings: TdmLogsAndSettings
     Left = 232
     Top = 128
   end
-  object qInsertLog: TpFIBStoredProc
+  object qInsertLog: TpFIBQuery
     Transaction = trLog
     Database = dbLog
     SQL.Strings = (
@@ -144,7 +142,7 @@ object dmLogsAndSettings: TdmLogsAndSettings
     Left = 232
     Top = 240
   end
-  object qDeleteAlias: TpFIBStoredProc
+  object qDeleteAlias: TpFIBQuery
     Transaction = trLog
     Database = dbLog
     SQL.Strings = (
@@ -152,7 +150,7 @@ object dmLogsAndSettings: TdmLogsAndSettings
     Left = 344
     Top = 128
   end
-  object qUpdateLog: TpFIBStoredProc
+  object qUpdateLog: TpFIBQuery
     Transaction = trLog
     Database = dbLog
     SQL.Strings = (
@@ -164,12 +162,12 @@ object dmLogsAndSettings: TdmLogsAndSettings
     Left = 344
     Top = 192
   end
-  object qInsertLogError: TpFIBStoredProc
+  object qInsertLogError: TpFIBQuery
     Transaction = trLog
     Database = dbLog
     SQL.Strings = (
-      'insert into LOG_ERROR '
-      '(:LOG_ID,:TABLE_NAME,:PRIMARY_KEYS,:ERROR_MESSAGE)'
+      'insert into LOG_ERRORS'
+      '(LOG_ID, TABLE_NAME, PRIMARY_KEYS, ERROR_MESSAGE) '
       'values'
       '(:LOG_ID,:TABLE_NAME,:PRIMARY_KEYS,:ERROR_MESSAGE)')
     Left = 232

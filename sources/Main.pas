@@ -6,7 +6,8 @@ uses
 	Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
 	Dialogs, StdCtrls, RzLabel, ExtCtrls, RzBckgnd, ActnList, Grids, Menus,
 	DBGridEh, RzButton, RzPanel, RzDBGrid,
-	LiveMirrorInterfaces, RzTray, DB, FIBDataSet, pFIBDataSet;
+	LiveMirrorInterfaces, RzTray, DB, FIBDataSet, pFIBDataSet, CcProviders,
+  CcInterbaseConn, CcProvFIBPlus;
 
 type
 	TfmMain = class(TForm)
@@ -147,8 +148,12 @@ procedure TfmMain.actReplicateNowExecute(Sender: TObject);
 begin
   Screen.Cursor := crHourGlass;
   try
-  	FISettingsModel.DoReplicate();
-    Application.MessageBox('Replication completed successfully!', 'Information', MB_ICONINFORMATION + MB_OK);
+  	if FISettingsModel.DoReplicate() then
+      Application.MessageBox('Replication completed successfully!', 'Information', MB_ICONINFORMATION + MB_OK)
+    else
+      Application.MessageBox('There were errors!', 'Errors', MB_ICONWARNING + MB_OK);
+
+    qAliases.FullRefresh;
   finally
     Screen.Cursor := crDefault;
   end;
