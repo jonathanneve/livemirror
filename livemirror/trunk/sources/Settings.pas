@@ -23,9 +23,11 @@ type
 		gbAutoReplication: TRzGroupBox;
 		Label3: TLabel;
 		edAutoReplicateFrequency: TRzDBEdit;
-		cbAutoReplicate: TRzCheckBox;
     frConfMaster: TfrConfServer;
     frConfMirror: TfrConfServer;
+    RzDBEdit1: TRzDBEdit;
+    Label4: TLabel;
+    cbAutoReplicate: TRzCheckBox;
 		procedure FormClose(Sender: TObject; var Action: TCloseAction);
 		procedure btnSaveClick(Sender: TObject);
 		procedure cbAutoReplicateClick(Sender: TObject);

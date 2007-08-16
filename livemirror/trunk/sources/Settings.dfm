@@ -5,7 +5,7 @@ object fmSettings: TfmSettings
   BorderStyle = bsSingle
   Caption = 'Settings'
   ClientHeight = 480
-  ClientWidth = 496
+  ClientWidth = 495
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,109 +16,109 @@ object fmSettings: TfmSettings
   Position = poOwnerFormCenter
   OnClose = FormClose
   DesignSize = (
-    496
+    495
     480)
   PixelsPerInch = 96
   TextHeight = 13
   object gbxLocalDB: TRzGroupBox
     Left = 1
     Top = 56
-    Width = 494
+    Width = 493
     Height = 150
     Anchors = [akLeft, akTop, akRight]
     Caption = 'Master database (local)'
     TabOrder = 1
     DesignSize = (
-      494
+      493
       150)
     inline frConfMaster: TfrConfServer
       Left = 6
       Top = 16
-      Width = 481
+      Width = 480
       Height = 130
       HelpContext = 1140
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 0
       inherited pnConnectParams: TRzPanel
-        Width = 481
+        Width = 480
         Height = 109
         inherited frConfMSSQL: TfrConfMSSQL
           Top = 112
-          Width = 481
+          Width = 480
           inherited pnMSSQL: TRzPanel
-            Width = 481
+            Width = 480
             inherited Label2: TLabel
-              Left = 310
+              Left = 309
             end
             inherited edLocalCharset: TRzDBEdit
               DataSource = frConfMaster.mDBParamsDS
             end
             inherited RzDBEdit1: TRzDBEdit
-              Left = 405
+              Left = 404
               DataSource = frConfMaster.mDBParamsDS
             end
             inherited RzDBMemo1: TRzDBMemo
-              Width = 386
+              Width = 385
               DataSource = frConfMaster.mDBParamsDS
             end
           end
         end
         inherited frConfInterbase: TfrConfInterbase
           Top = 0
-          Width = 481
+          Width = 480
           inherited pnInterbase: TRzPanel
-            Width = 481
+            Width = 480
             inherited Label1: TLabel
-              Left = 293
+              Left = 292
             end
             inherited Label6: TLabel
-              Left = 293
+              Left = 292
             end
             inherited Label2: TLabel
-              Left = 293
+              Left = 292
             end
             inherited edLocalSQLDialect: TRzDBEdit
               DataSource = frConfMaster.mDBParamsDS
             end
             inherited RzDBEdit1: TRzDBEdit
-              Left = 365
+              Left = 364
               DataSource = frConfMaster.mDBParamsDS
             end
             inherited edLocalSYSDBAName: TRzDBEdit
               DataSource = frConfMaster.mDBParamsDS
             end
             inherited edLocalSYSDBAPassword: TRzDBEdit
-              Left = 365
+              Left = 364
               DataSource = frConfMaster.mDBParamsDS
             end
             inherited edDBName: TRzDBEdit
-              Width = 362
+              Width = 361
               DataSource = frConfMaster.mDBParamsDS
             end
             inherited edLocalCharset: TRzDBEdit
               DataSource = frConfMaster.mDBParamsDS
             end
             inherited edRoleName: TRzDBEdit
-              Left = 365
+              Left = 364
               DataSource = frConfMaster.mDBParamsDS
             end
             inherited btBrowseDB: TBitBtn
-              Left = 455
+              Left = 454
               OnClick = nil
             end
           end
         end
       end
       inherited RzPanel1: TRzPanel
-        Width = 481
+        Width = 480
         inherited Label1: TLabel
-          Left = 328
+          Left = 327
         end
         inherited cbVersions: TRzDBComboBox
-          Left = 374
+          Left = 373
         end
         inherited cbDatabaseType: TRzDBComboBox
-          Width = 230
+          Width = 229
         end
       end
     end
@@ -126,7 +126,7 @@ object fmSettings: TfmSettings
   object RzGroupBox1: TRzGroupBox
     Left = 1
     Top = 212
-    Width = 493
+    Width = 492
     Height = 150
     Anchors = [akLeft, akTop, akRight]
     Caption = 'Mirror database (remote)'
@@ -300,16 +300,16 @@ object fmSettings: TfmSettings
   object pnlButtons: TRzPanel
     Left = 0
     Top = 436
-    Width = 495
+    Width = 494
     Height = 42
     Anchors = [akLeft, akRight, akBottom]
     BorderOuter = fsFlatRounded
-    TabOrder = 5
+    TabOrder = 4
     DesignSize = (
-      495
+      494
       42)
     object btnClose: TRzBitBtn
-      Left = 380
+      Left = 379
       Top = 10
       Width = 106
       Anchors = [akTop, akRight]
@@ -322,7 +322,7 @@ object fmSettings: TfmSettings
       Kind = bkCancel
     end
     object btnSave: TRzBitBtn
-      Left = 270
+      Left = 269
       Top = 10
       Width = 106
       Anchors = [akTop, akRight]
@@ -389,26 +389,35 @@ object fmSettings: TfmSettings
   end
   object gbAutoReplication: TRzGroupBox
     Left = 1
-    Top = 374
-    Width = 493
+    Top = 366
+    Width = 492
     Height = 53
     Anchors = [akLeft, akTop, akRight]
+    Caption = ' Options '
     FrameController = dmLogsAndSettings.FrameController
     ParentColor = True
-    TabOrder = 4
+    TabOrder = 3
     Transparent = True
     object Label3: TLabel
-      Left = 13
-      Top = 27
+      Left = 20
+      Top = 32
       Width = 105
       Height = 13
       Caption = 'Frequency (seconds) :'
       Transparent = True
     end
+    object Label4: TLabel
+      Left = 234
+      Top = 20
+      Width = 97
+      Height = 13
+      Caption = 'Records per chunk :'
+      Transparent = True
+    end
     object edAutoReplicateFrequency: TRzDBEdit
       Tag = 1
-      Left = 124
-      Top = 24
+      Left = 131
+      Top = 29
       Width = 47
       Height = 21
       DataSource = dmLogsAndSettings.CcConfigStorageDS
@@ -417,22 +426,34 @@ object fmSettings: TfmSettings
       FrameController = dmLogsAndSettings.FrameController
       TabOrder = 0
     end
-  end
-  object cbAutoReplicate: TRzCheckBox
-    Left = 8
-    Top = 370
-    Width = 102
-    Height = 17
-    Caption = ' Auto-replication '
-    DisabledColor = 14278369
-    FrameColor = 12164479
-    FrameController = dmLogsAndSettings.FrameController
-    HighlightColor = 2203937
-    HotTrack = True
-    HotTrackColor = 3983359
-    HotTrackColorType = htctActual
-    State = cbUnchecked
-    TabOrder = 3
-    OnClick = cbAutoReplicateClick
+    object RzDBEdit1: TRzDBEdit
+      Tag = 1
+      Left = 340
+      Top = 17
+      Width = 82
+      Height = 21
+      DataSource = dmLogsAndSettings.CcConfigStorageDS
+      DataField = 'RecordChunks'
+      Alignment = taRightJustify
+      FrameController = dmLogsAndSettings.FrameController
+      TabOrder = 1
+    end
+    object cbAutoReplicate: TRzCheckBox
+      Left = 8
+      Top = 13
+      Width = 102
+      Height = 17
+      Caption = ' Auto-replication '
+      DisabledColor = 14278369
+      FrameColor = 12164479
+      FrameController = dmLogsAndSettings.FrameController
+      HighlightColor = 2203937
+      HotTrack = True
+      HotTrackColor = 3983359
+      HotTrackColorType = htctActual
+      State = cbUnchecked
+      TabOrder = 2
+      OnClick = cbAutoReplicateClick
+    end
   end
 end

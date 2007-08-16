@@ -51,6 +51,7 @@ Name: Startup; Description: Place LiveMirror in Windows startup
 
 [Files]
 Source: ..\LiveMirror.exe; DestDir: {app}
+Source: ..\log.fdb; DestDir: {app}
 
 [Icons]
 Name: {group}\{cm:UninstallProgram, LiveMirror}; Filename: {uninstallexe}; Components: ; Languages: 
