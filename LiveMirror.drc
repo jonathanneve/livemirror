@@ -8,501 +8,510 @@
   resources were bound to the produced executable.
 */
 
-#define EhLibConsts_SSTFilterListItem_SortingByAscend 64928
-#define DbUtilsEh_SNotOperatorEh 64929
-#define DbUtilsEh_SAndOperatorEh 64930
-#define DbUtilsEh_SOrOperatorEh 64931
-#define DbUtilsEh_SLikePredicatEh 64932
-#define DbUtilsEh_SInPredicatEh 64933
-#define DbUtilsEh_SNullConstEh 64934
-#define DbUtilsEh_SQuoteIsAbsentEh 64935
-#define DbUtilsEh_SLeftBracketExpectedEh 64936
-#define DbUtilsEh_SRightBracketExpectedEh 64937
-#define DbUtilsEh_SErrorInExpressionEh 64938
-#define DbUtilsEh_SUnexpectedExpressionBeforeNullEh 64939
-#define DbUtilsEh_SUnexpectedExpressionAfterOperatorEh 64940
-#define DbUtilsEh_SIncorrectExpressionEh 64941
-#define DbUtilsEh_SUnexpectedANDorOREh 64942
-#define RzShellConsts_SShKey_Cut 64944
-#define RzShellConsts_SShKey_Paste 64945
-#define RzShellConsts_SShKey_Refresh 64946
-#define RzShellConsts_SShKey_Edit 64947
-#define RzShellConsts_SDialogFontName 64948
-#define EhLibConsts_SClearSelectedCellsEh 64949
-#define EhLibConsts_SInvalidTextFormatEh 64950
-#define EhLibConsts_SInvalidVCLDBIFFormatEh 64951
-#define EhLibConsts_SErrorDuringInsertValueEh 64952
-#define EhLibConsts_SIgnoreErrorEh 64953
-#define EhLibConsts_SFindDialogStringNotFoundMessageEh 64954
-#define EhLibConsts_SSTFilterListItem_Empties 64955
-#define EhLibConsts_SSTFilterListItem_NotEmpties 64956
-#define EhLibConsts_SSTFilterListItem_All 64957
-#define EhLibConsts_SSTFilterListItem_ClearFilter 64958
-#define EhLibConsts_SSTFilterListItem_SortingByDescend 64959
-#define RzShellConsts_SColumnType 64960
-#define RzShellConsts_SColumnModified 64961
-#define RzShellConsts_SSystemFolder 64962
-#define RzShellConsts_SPropertiesContext 64963
-#define RzShellConsts_SPasteContext 64964
-#define RzShellConsts_SViewContext 64965
-#define RzShellConsts_SViewLargeIconsContext 64966
-#define RzShellConsts_SViewSmallIconsContext 64967
-#define RzShellConsts_SViewListContext 64968
-#define RzShellConsts_SViewDetailsContext 64969
-#define RzShellConsts_SViewListHint 64970
-#define RzShellConsts_SViewDetailsHint 64971
-#define RzShellConsts_SShowTreeHint 64972
-#define RzShellConsts_SShKey_SelectAll 64973
-#define RzShellConsts_SShKey_Delete 64974
-#define RzShellConsts_SShKey_Copy 64975
-#define RzShellConsts_SViewLargeIconsMenu 64976
-#define RzShellConsts_SViewSmallIconsMenu 64977
-#define RzShellConsts_SViewListMenu 64978
-#define RzShellConsts_SViewDetailsMenu 64979
-#define RzShellConsts_SEditPasteMenu 64980
-#define RzShellConsts_SPropertiesMenu 64981
-#define RzShellConsts_SViewMenu 64982
-#define RzShellConsts_SNewMenu 64983
-#define RzShellConsts_SNewFolderMenu 64984
-#define RzShellConsts_SCreateFolderContext 64985
-#define RzShellConsts_SFilesizeKB 64986
-#define RzShellConsts_SNewFolder 64987
-#define RzShellConsts_SNewPopupContext 64988
-#define RzShellConsts_SUnableToCreateFolder 64989
-#define RzShellConsts_SColumnName 64990
-#define RzShellConsts_SColumnSize 64991
-#define RzShellConsts_SFileExistsReplace 64992
-#define RzShellConsts_SOpenCaption 64993
-#define RzShellConsts_SFileNotFound 64994
-#define RzShellConsts_SFilenameIsInvalid 64995
-#define RzShellConsts_SExistsAndIsReadOnly 64996
-#define RzShellConsts_SDoesNotExistCreate 64997
-#define RzShellConsts_SThereCanBeOnlyOne 64998
-#define RzShellConsts_SUpOneLevelHint 64999
-#define RzShellConsts_SCreateNewFolderHint 65000
-#define RzShellConsts_SLookIn 65001
-#define RzShellConsts_SFileName 65002
-#define RzShellConsts_SFilesOfType 65003
-#define RzShellConsts_SOpenButton 65004
-#define RzShellConsts_SCancelButton 65005
-#define RzShellConsts_SHelpButton 65006
-#define RzShellConsts_SOpenAsReadOnly 65007
-#define RzBorder_sRzColorHighlightText 65008
-#define RzBorder_sRzColorBtnFace 65009
-#define RzBorder_sRzColorBtnShadow 65010
-#define RzBorder_sRzColorGrayText 65011
-#define RzBorder_sRzColorBtnText 65012
-#define RzBorder_sRzColorInactiveCaptionText 65013
-#define RzBorder_sRzColorBtnHighlight 65014
-#define RzBorder_sRzColor3DDkShadow 65015
-#define RzBorder_sRzColor3DLight 65016
-#define RzBorder_sRzColorInfoText 65017
-#define RzBorder_sRzColorInfoBk 65018
-#define RzBorder_sRzColorHotLight 65019
-#define RzBorder_sRzColorGradientActiveCaption 65020
-#define RzBorder_sRzColorGradientInactiveCaption 65021
-#define RzBorder_sRzColorMenuHighlight 65022
-#define RzBorder_sRzColorMenuBar 65023
-#define RzBorder_sRzColorLavender 65024
-#define RzBorder_sRzColorWhite 65025
-#define RzBorder_sRzColorScrollBar 65026
-#define RzBorder_sRzColorBackground 65027
-#define RzBorder_sRzColorActiveCaption 65028
-#define RzBorder_sRzColorInactiveCaption 65029
-#define RzBorder_sRzColorMenu 65030
-#define RzBorder_sRzColorWindow 65031
-#define RzBorder_sRzColorWindowFrame 65032
-#define RzBorder_sRzColorMenuText 65033
-#define RzBorder_sRzColorWindowText 65034
-#define RzBorder_sRzColorCaptionText 65035
-#define RzBorder_sRzColorActiveBorder 65036
-#define RzBorder_sRzColorInactiveBorder 65037
-#define RzBorder_sRzColorAppWorkSpace 65038
-#define RzBorder_sRzColorHighlight 65039
-#define RzBorder_sRzColorViolet 65040
-#define RzBorder_sRzColorGray40 65041
-#define RzBorder_sRzColorPink 65042
-#define RzBorder_sRzColorGold 65043
-#define RzBorder_sRzColorYellow 65044
-#define RzBorder_sRzColorBrightGreen 65045
-#define RzBorder_sRzColorTurquoise 65046
-#define RzBorder_sRzColorSkyBlue 65047
-#define RzBorder_sRzColorPlum 65048
-#define RzBorder_sRzColorGray25 65049
-#define RzBorder_sRzColorRose 65050
-#define RzBorder_sRzColorTan 65051
-#define RzBorder_sRzColorLightYellow 65052
-#define RzBorder_sRzColorLightGreen 65053
-#define RzBorder_sRzColorLightTurquoise 65054
-#define RzBorder_sRzColorPaleBlue 65055
-#define RzBorder_sRzColorIndigo 65056
-#define RzBorder_sRzColorGray80 65057
-#define RzBorder_sRzColorDarkRed 65058
-#define RzBorder_sRzColorOrange 65059
-#define RzBorder_sRzColorDarkYellow 65060
-#define RzBorder_sRzColorGreen 65061
-#define RzBorder_sRzColorTeal 65062
-#define RzBorder_sRzColorBlue 65063
-#define RzBorder_sRzColorBlueGray 65064
-#define RzBorder_sRzColorGray50 65065
-#define RzBorder_sRzColorRed 65066
-#define RzBorder_sRzColorLightOrange 65067
-#define RzBorder_sRzColorLime 65068
-#define RzBorder_sRzColorSeaGreen 65069
-#define RzBorder_sRzColorAqua 65070
-#define RzBorder_sRzColorLightBlue 65071
-#define VDBConsts_SInsertRecord 65072
-#define VDBConsts_SDeleteRecord 65073
-#define VDBConsts_SEditRecord 65074
-#define VDBConsts_SPostEdit 65075
-#define VDBConsts_SCancelEdit 65076
-#define VDBConsts_SRefreshRecord 65077
-#define VDBConsts_SDataSourceFixed 65078
-#define VDBConsts_SNotReplicatable 65079
-#define VDBConsts_SPropDefByLookup 65080
-#define VDBConsts_SRemoteLogin 65081
-#define RzBorder_sRzColorBlack 65082
-#define RzBorder_sRzColorBrown 65083
-#define RzBorder_sRzColorOliveGreen 65084
-#define RzBorder_sRzColorDarkGreen 65085
-#define RzBorder_sRzColorDarkTeal 65086
-#define RzBorder_sRzColorDarkBlue 65087
-#define FIBConsts_SFIBErrorParamNameExpected 65088
-#define FIBConsts_SFIBErrorNotDataSet 65089
-#define FIBConsts_SFIBErrorAbortUpdates 65090
-#define FIBConsts_SFIBErrorUnableGetRecordCount 65091
-#define FIBConsts_SFIBErrorUnableLock 65092
-#define FIBConsts_SFIBErrorGenerationError 65093
-#define FIBConsts_reVarNotArray 65094
-#define FIBConsts_reVarArrayBounds 65095
-#define FIBConsts_reVarArrayCreate 65096
-#define FIBConsts_SNoTimers 65097
-#define fib_TrueStr 65098
-#define fib_FalseStr 65099
-#define VDBConsts_SFirstRecord 65100
-#define VDBConsts_SPriorRecord 65101
-#define VDBConsts_SNextRecord 65102
-#define VDBConsts_SLastRecord 65103
-#define FIBConsts_SCompEditDataSet_ID 65104
-#define FIBConsts_SCompEditDataSetInfoNotExists 65105
-#define FIBConsts_SCompEditDataSetInfoForbid 65106
-#define FIBConsts_SCompEditUnableInsertInfoRecord 65107
-#define FIBConsts_SFIBErrorBeforeDisconnectDetail 65108
-#define FIBConsts_SFIBErrorBeforeDisconnect 65109
-#define FIBConsts_SFIBErrorAfterDisconnectDetail 65110
-#define FIBConsts_SFIBErrorAfterDisconnect 65111
-#define FIBConsts_SFIBErrorNoDBLoginDialog 65112
-#define FIBConsts_SFIBErrorInstallPropertyEditorPackage 65113
-#define FIBConsts_SFIBErrorIncludeDBLoginDialog 65114
-#define FIBConsts_SFIBErrorCircularLinks 65115
-#define FIBConsts_SFIBErrorParamNotExist 65116
-#define FIBConsts_SFIBErrorWideStringValueTooLong 65117
-#define FIBConsts_SFIBErrorEOFInComments 65118
-#define FIBConsts_SFIBErrorEOFInString 65119
-#define FIBConsts_SUnknownClientLibrary 65120
-#define FIBConsts_STransactionForOtherLibrary 65121
-#define FIBConsts_SEdErrorPrefix 65122
-#define FIBConsts_SEdDeadLockMess 65123
-#define FIBConsts_SEdNotExistRecord 65124
-#define FIBConsts_SEdMultiplyRecord 65125
-#define FIBConsts_SCantSort 65126
-#define FIBConsts_SCantGetInfo 65127
-#define FIBConsts_SDataBaseNotAssigned 65128
-#define FIBConsts_SOKButton 65129
-#define FIBConsts_SCancelButton 65130
-#define FIBConsts_SDBEditUserName 65131
-#define FIBConsts_SDBEditPassword 65132
-#define FIBConsts_SDBEditSQLRole 65133
-#define FIBConsts_SLoginDlgLoginCaption 65134
-#define FIBConsts_SLoginDlgDatabase 65135
-#define ADOConst_SMissingConnection 65136
-#define ADOConst_SNoDetailFilter 65137
-#define ADOConst_SBookmarksRequired 65138
-#define ADOConst_SMissingCommandText 65139
-#define ADOConst_SNoResultSet 65140
-#define ADOConst_SADOCreateError 65141
-#define ADOConst_SEventsNotSupported 65142
-#define ADOConst_SUsupportedFieldType 65143
-#define ADOConst_SConnectionRequired 65144
-#define ADOConst_SCantRequery 65145
-#define ADOConst_SNoFilterOptions 65146
-#define ADOConst_SRecordsetNotOpen 65147
-#define ADOConst_sNameAttr 65148
-#define ADOConst_sValueAttr 65149
-#define FIBConsts_SCantFindApiProc 65150
-#define FIBConsts_SCantLoadLibrary 65151
-#define DBConsts_SUnassignedVar 65152
-#define DBConsts_SRecordNotFound 65153
-#define DBConsts_SBcdOverflow 65154
-#define DBConsts_SInvalidBcdValue 65155
-#define DBConsts_SInvalidFormatType 65156
-#define DBConsts_SCouldNotParseTimeStamp 65157
-#define DBConsts_SInvalidSqlTimeStamp 65158
-#define DBConsts_SDeleteRecordQuestion 65159
-#define DBConsts_SDeleteMultipleRecordsQuestion 65160
-#define DBConsts_STooManyColumns 65161
-#define ComConst_SOleError 65162
-#define ComConst_SNoMethod 65163
-#define ComConst_SVarNotObject 65164
-#define ComConst_STooManyParams 65165
-#define CcMemDS_SMemNoRecords 65166
-#define ADOConst_SInvalidEnumValue 65167
-#define DBConsts_SExprBadScope 65168
-#define DBConsts_SExprNoArith 65169
-#define DBConsts_SExprNotAgg 65170
-#define DBConsts_SExprBadConst 65171
-#define DBConsts_SExprNoAggFilter 65172
-#define DBConsts_SExprEmptyInList 65173
-#define DBConsts_SInvalidKeywordUse 65174
-#define DBConsts_STextFalse 65175
-#define DBConsts_STextTrue 65176
-#define DBConsts_SParameterNotFound 65177
-#define DBConsts_SInvalidVersion 65178
-#define DBConsts_SBadFieldType 65179
-#define DBConsts_SProviderSQLNotSupported 65180
-#define DBConsts_SProviderExecuteNotSupported 65181
-#define DBConsts_SExprNoAggOnCalcs 65182
-#define DBConsts_SDataSetUnidirectional 65183
-#define DBConsts_SDataSetReadOnly 65184
-#define DBConsts_SNestedDataSetClass 65185
-#define DBConsts_SExprTermination 65186
-#define DBConsts_SExprNameError 65187
-#define DBConsts_SExprStringError 65188
-#define DBConsts_SExprInvalidChar 65189
-#define DBConsts_SExprNoLParen 65190
-#define DBConsts_SExprNoRParen 65191
-#define DBConsts_SExprNoRParenOrComma 65192
-#define DBConsts_SExprExpected 65193
-#define DBConsts_SExprBadField 65194
-#define DBConsts_SExprBadNullTest 65195
-#define DBConsts_SExprRangeError 65196
-#define DBConsts_SExprIncorrect 65197
-#define DBConsts_SExprNothing 65198
-#define DBConsts_SExprTypeMis 65199
-#define DBConsts_SFieldSizeMismatch 65200
-#define DBConsts_SInvalidVarByteArray 65201
-#define DBConsts_SFieldOutOfRange 65202
-#define DBConsts_SFieldRequired 65203
-#define DBConsts_SDataSetMissing 65204
-#define DBConsts_SInvalidCalcType 65205
-#define DBConsts_SFieldReadOnly 65206
-#define DBConsts_SNoIndexForFields 65207
-#define DBConsts_SIndexNotFound 65208
-#define DBConsts_SCircularDataLink 65209
-#define DBConsts_SLookupInfoError 65210
-#define DBConsts_SDataSourceChange 65211
-#define DBConsts_SDataSetOpen 65212
-#define DBConsts_SNotEditing 65213
-#define DBConsts_SDataSetClosed 65214
-#define DBConsts_SDataSetEmpty 65215
-#define ComStrs_sFailsetCalSelRange 65216
-#define WinHelpViewer_hNoKeyword 65217
-#define DBConsts_SInvalidFieldSize 65218
-#define DBConsts_SInvalidFieldKind 65219
-#define DBConsts_SUnknownFieldType 65220
-#define DBConsts_SFieldNameMissing 65221
-#define DBConsts_SDuplicateFieldName 65222
-#define DBConsts_SFieldNotFound 65223
-#define DBConsts_SFieldAccessError 65224
-#define DBConsts_SFieldValueError 65225
-#define DBConsts_SFieldRangeError 65226
-#define DBConsts_SBcdFieldRangeError 65227
-#define DBConsts_SInvalidIntegerValue 65228
-#define DBConsts_SInvalidBoolValue 65229
-#define DBConsts_SInvalidFloatValue 65230
-#define DBConsts_SFieldTypeMismatch 65231
-#define ExtCtrls_clNameNone 65232
-#define ExtCtrls_clNameScrollBar 65233
-#define ExtCtrls_clName3DDkShadow 65234
-#define ExtCtrls_clName3DLight 65235
-#define ExtCtrls_clNameWindow 65236
-#define ExtCtrls_clNameWindowFrame 65237
-#define ExtCtrls_clNameWindowText 65238
-#define ComStrs_sInvalidIndex 65239
-#define ComStrs_sInsertError 65240
-#define ComStrs_sInvalidOwner 65241
-#define ComStrs_sInvalidComCtl32 65242
-#define ComStrs_sDateTimeMax 65243
-#define ComStrs_sDateTimeMin 65244
-#define ComStrs_sFailSetCalDateTime 65245
-#define ComStrs_sFailSetCalMaxSelRange 65246
-#define ComStrs_sFailSetCalMinMaxRange 65247
-#define ExtCtrls_clNameBtnFace 65248
-#define ExtCtrls_clNameBtnHighlight 65249
-#define ExtCtrls_clNameBtnShadow 65250
-#define ExtCtrls_clNameBtnText 65251
-#define ExtCtrls_clNameCaptionText 65252
-#define ExtCtrls_clNameDefault 65253
-#define ExtCtrls_clNameGrayText 65254
-#define ExtCtrls_clNameHighlight 65255
-#define ExtCtrls_clNameHighlightText 65256
-#define ExtCtrls_clNameInactiveBorder 65257
-#define ExtCtrls_clNameInactiveCaption 65258
-#define ExtCtrls_clNameInactiveCaptionText 65259
-#define ExtCtrls_clNameInfoBk 65260
-#define ExtCtrls_clNameInfoText 65261
-#define ExtCtrls_clNameMenu 65262
-#define ExtCtrls_clNameMenuText 65263
-#define ExtCtrls_clNameSilver 65264
-#define ExtCtrls_clNameRed 65265
-#define ExtCtrls_clNameLime 65266
-#define ExtCtrls_clNameYellow 65267
-#define ExtCtrls_clNameBlue 65268
-#define ExtCtrls_clNameFuchsia 65269
-#define ExtCtrls_clNameAqua 65270
-#define ExtCtrls_clNameWhite 65271
-#define ExtCtrls_clNameMoneyGreen 65272
-#define ExtCtrls_clNameSkyBlue 65273
-#define ExtCtrls_clNameCream 65274
-#define ExtCtrls_clNameMedGray 65275
-#define ExtCtrls_clNameActiveBorder 65276
-#define ExtCtrls_clNameActiveCaption 65277
-#define ExtCtrls_clNameAppWorkSpace 65278
-#define ExtCtrls_clNameBackground 65279
-#define Consts_SMultiSelectRequired 65280
-#define Consts_SErrorSettingCount 65281
-#define Consts_SListBoxMustBeVirtual 65282
-#define Consts_SNoGetItemEventHandler 65283
-#define HelpIntfs_hNoTableOfContents 65284
-#define HelpIntfs_hNothingFound 65285
-#define HelpIntfs_hNoContext 65286
-#define HelpIntfs_hNoTopics 65287
-#define ExtCtrls_clNameBlack 65288
-#define ExtCtrls_clNameMaroon 65289
-#define ExtCtrls_clNameGreen 65290
-#define ExtCtrls_clNameOlive 65291
-#define ExtCtrls_clNameNavy 65292
-#define ExtCtrls_clNamePurple 65293
-#define ExtCtrls_clNameTeal 65294
-#define ExtCtrls_clNameGray 65295
-#define Consts_SmkcDown 65296
-#define Consts_SmkcIns 65297
-#define Consts_SmkcDel 65298
-#define Consts_SmkcShift 65299
-#define Consts_SmkcCtrl 65300
-#define Consts_SmkcAlt 65301
-#define Consts_SInsertLineError 65302
-#define Consts_SInvalidClipFmt 65303
-#define Consts_SIconToClipboard 65304
-#define Consts_SCannotOpenClipboard 65305
-#define Consts_SInvalidMemoSize 65306
-#define Consts_SDuplicateMenus 65307
-#define Consts_SDockedCtlNeedsName 65308
-#define Consts_SDockTreeRemoveError 65309
-#define Consts_SDockZoneNotFound 65310
-#define Consts_SDockZoneHasNoCtl 65311
-#define Consts_SMsgDlgIgnore 65312
-#define Consts_SMsgDlgAll 65313
-#define Consts_SMsgDlgNoToAll 65314
-#define Consts_SMsgDlgYesToAll 65315
-#define Consts_SmkcBkSp 65316
-#define Consts_SmkcTab 65317
-#define Consts_SmkcEsc 65318
-#define Consts_SmkcEnter 65319
-#define Consts_SmkcSpace 65320
-#define Consts_SmkcPgUp 65321
-#define Consts_SmkcPgDn 65322
-#define Consts_SmkcEnd 65323
-#define Consts_SmkcHome 65324
-#define Consts_SmkcLeft 65325
-#define Consts_SmkcUp 65326
-#define Consts_SmkcRight 65327
-#define Consts_SVEnhMetafiles 65328
-#define Consts_SVIcons 65329
-#define Consts_SVBitmaps 65330
-#define Consts_SMaskErr 65331
-#define Consts_SMaskEditErr 65332
-#define Consts_SMsgDlgWarning 65333
-#define Consts_SMsgDlgError 65334
-#define Consts_SMsgDlgInformation 65335
-#define Consts_SMsgDlgConfirm 65336
-#define Consts_SMsgDlgYes 65337
-#define Consts_SMsgDlgNo 65338
-#define Consts_SMsgDlgOK 65339
-#define Consts_SMsgDlgCancel 65340
-#define Consts_SMsgDlgHelp 65341
-#define Consts_SMsgDlgAbort 65342
-#define Consts_SMsgDlgRetry 65343
-#define Consts_SNoTimers 65344
-#define Consts_SGroupIndexTooLow 65345
-#define Consts_SNoMDIForm 65346
-#define Consts_SControlParentSetToSelf 65347
-#define Consts_SOKButton 65348
-#define Consts_SCancelButton 65349
-#define Consts_SYesButton 65350
-#define Consts_SNoButton 65351
-#define Consts_SHelpButton 65352
-#define Consts_SCloseButton 65353
-#define Consts_SIgnoreButton 65354
-#define Consts_SRetryButton 65355
-#define Consts_SAbortButton 65356
-#define Consts_SAllButton 65357
-#define Consts_SCannotDragForm 65358
-#define Consts_SVMetafiles 65359
-#define Consts_SInvalidImageList 65360
-#define Consts_SReplaceImage 65361
-#define Consts_SImageIndexError 65362
-#define Consts_SImageReadFail 65363
-#define Consts_SImageWriteFail 65364
-#define Consts_SWindowDCError 65365
-#define Consts_SWindowClass 65366
-#define Consts_SCannotFocus 65367
-#define Consts_SParentRequired 65368
-#define Consts_SMDIChildNotVisible 65369
-#define Consts_SVisibleChanged 65370
-#define Consts_SCannotShowModal 65371
-#define Consts_SScrollBarRange 65372
-#define Consts_SMenuIndexError 65373
-#define Consts_SMenuReinserted 65374
-#define Consts_SMenuNotFound 65375
-#define RTLConsts_SSeekNotImplemented 65376
-#define RTLConsts_SSortedListError 65377
-#define RTLConsts_STooManyDeleted 65378
-#define RTLConsts_SUnknownGroup 65379
-#define RTLConsts_SUnknownProperty 65380
-#define RTLConsts_SWriteError 65381
-#define RTLConsts_SThreadCreateError 65382
-#define RTLConsts_SThreadError 65383
-#define Consts_SInvalidBitmap 65384
-#define Consts_SInvalidIcon 65385
-#define Consts_SInvalidMetafile 65386
-#define Consts_SChangeIconSize 65387
-#define Consts_SUnknownClipboardFormat 65388
-#define Consts_SOutOfResources 65389
-#define Consts_SNoCanvasHandle 65390
-#define Consts_SInvalidImageSize 65391
-#define RTLConsts_SInvalidPropertyElement 65392
-#define RTLConsts_SInvalidPropertyPath 65393
-#define RTLConsts_SInvalidPropertyType 65394
-#define RTLConsts_SInvalidPropertyValue 65395
-#define RTLConsts_SInvalidRegType 65396
-#define RTLConsts_SListCapacityError 65397
-#define RTLConsts_SListCountError 65398
-#define RTLConsts_SListIndexError 65399
-#define RTLConsts_SMemoryStreamError 65400
-#define RTLConsts_SPropertyException 65401
-#define RTLConsts_SReadError 65402
-#define RTLConsts_SReadOnlyProperty 65403
-#define RTLConsts_SRegCreateFailed 65404
-#define RTLConsts_SRegGetDataFailed 65405
-#define RTLConsts_SRegSetDataFailed 65406
-#define RTLConsts_SResNotFound 65407
-#define RTLConsts_SCheckSynchronizeError 65408
-#define RTLConsts_SClassNotFound 65409
-#define RTLConsts_SDuplicateClass 65410
-#define RTLConsts_SDuplicateItem 65411
-#define RTLConsts_SDuplicateName 65412
-#define RTLConsts_SDuplicateString 65413
-#define RTLConsts_SFCreateErrorEx 65414
-#define RTLConsts_SFixedColTooBig 65415
-#define RTLConsts_SFixedRowTooBig 65416
-#define RTLConsts_SFOpenErrorEx 65417
-#define RTLConsts_SGridTooLarge 65418
-#define RTLConsts_SIndexOutOfRange 65419
-#define RTLConsts_SIniFileWriteError 65420
-#define RTLConsts_SInvalidImage 65421
-#define RTLConsts_SInvalidName 65422
-#define RTLConsts_SInvalidProperty 65423
+#define DbUtilsEh_SQuoteIsAbsentEh 64912
+#define DbUtilsEh_SLeftBracketExpectedEh 64913
+#define DbUtilsEh_SRightBracketExpectedEh 64914
+#define DbUtilsEh_SErrorInExpressionEh 64915
+#define DbUtilsEh_SUnexpectedExpressionBeforeNullEh 64916
+#define DbUtilsEh_SUnexpectedExpressionAfterOperatorEh 64917
+#define DbUtilsEh_SIncorrectExpressionEh 64918
+#define DbUtilsEh_SUnexpectedANDorOREh 64919
+#define EhLibConsts_SInvalidVCLDBIFFormatEh 64928
+#define EhLibConsts_SErrorDuringInsertValueEh 64929
+#define EhLibConsts_SIgnoreErrorEh 64930
+#define EhLibConsts_SFindDialogStringNotFoundMessageEh 64931
+#define EhLibConsts_SSTFilterListItem_Empties 64932
+#define EhLibConsts_SSTFilterListItem_NotEmpties 64933
+#define EhLibConsts_SSTFilterListItem_All 64934
+#define EhLibConsts_SSTFilterListItem_ClearFilter 64935
+#define EhLibConsts_SSTFilterListItem_SortingByDescend 64936
+#define EhLibConsts_SSTFilterListItem_SortingByAscend 64937
+#define DbUtilsEh_SNotOperatorEh 64938
+#define DbUtilsEh_SAndOperatorEh 64939
+#define DbUtilsEh_SOrOperatorEh 64940
+#define DbUtilsEh_SLikePredicatEh 64941
+#define DbUtilsEh_SInPredicatEh 64942
+#define DbUtilsEh_SNullConstEh 64943
+#define RzShellConsts_SViewSmallIconsContext 64944
+#define RzShellConsts_SViewListContext 64945
+#define RzShellConsts_SViewDetailsContext 64946
+#define RzShellConsts_SViewListHint 64947
+#define RzShellConsts_SViewDetailsHint 64948
+#define RzShellConsts_SShowTreeHint 64949
+#define RzShellConsts_SShKey_SelectAll 64950
+#define RzShellConsts_SShKey_Delete 64951
+#define RzShellConsts_SShKey_Copy 64952
+#define RzShellConsts_SShKey_Cut 64953
+#define RzShellConsts_SShKey_Paste 64954
+#define RzShellConsts_SShKey_Refresh 64955
+#define RzShellConsts_SShKey_Edit 64956
+#define RzShellConsts_SDialogFontName 64957
+#define EhLibConsts_SClearSelectedCellsEh 64958
+#define EhLibConsts_SInvalidTextFormatEh 64959
+#define RzShellConsts_SNewMenu 64960
+#define RzShellConsts_SNewFolderMenu 64961
+#define RzShellConsts_SCreateFolderContext 64962
+#define RzShellConsts_SFilesizeKB 64963
+#define RzShellConsts_SNewFolder 64964
+#define RzShellConsts_SNewPopupContext 64965
+#define RzShellConsts_SUnableToCreateFolder 64966
+#define RzShellConsts_SColumnName 64967
+#define RzShellConsts_SColumnSize 64968
+#define RzShellConsts_SColumnType 64969
+#define RzShellConsts_SColumnModified 64970
+#define RzShellConsts_SSystemFolder 64971
+#define RzShellConsts_SPropertiesContext 64972
+#define RzShellConsts_SPasteContext 64973
+#define RzShellConsts_SViewContext 64974
+#define RzShellConsts_SViewLargeIconsContext 64975
+#define RzShellConsts_SUpOneLevelHint 64976
+#define RzShellConsts_SCreateNewFolderHint 64977
+#define RzShellConsts_SLookIn 64978
+#define RzShellConsts_SFileName 64979
+#define RzShellConsts_SFilesOfType 64980
+#define RzShellConsts_SOpenButton 64981
+#define RzShellConsts_SCancelButton 64982
+#define RzShellConsts_SHelpButton 64983
+#define RzShellConsts_SOpenAsReadOnly 64984
+#define RzShellConsts_SViewLargeIconsMenu 64985
+#define RzShellConsts_SViewSmallIconsMenu 64986
+#define RzShellConsts_SViewListMenu 64987
+#define RzShellConsts_SViewDetailsMenu 64988
+#define RzShellConsts_SEditPasteMenu 64989
+#define RzShellConsts_SPropertiesMenu 64990
+#define RzShellConsts_SViewMenu 64991
+#define RzBorder_sRzColor3DDkShadow 64992
+#define RzBorder_sRzColor3DLight 64993
+#define RzBorder_sRzColorInfoText 64994
+#define RzBorder_sRzColorInfoBk 64995
+#define RzBorder_sRzColorHotLight 64996
+#define RzBorder_sRzColorGradientActiveCaption 64997
+#define RzBorder_sRzColorGradientInactiveCaption 64998
+#define RzBorder_sRzColorMenuHighlight 64999
+#define RzBorder_sRzColorMenuBar 65000
+#define RzShellConsts_SFileExistsReplace 65001
+#define RzShellConsts_SOpenCaption 65002
+#define RzShellConsts_SFileNotFound 65003
+#define RzShellConsts_SFilenameIsInvalid 65004
+#define RzShellConsts_SExistsAndIsReadOnly 65005
+#define RzShellConsts_SDoesNotExistCreate 65006
+#define RzShellConsts_SThereCanBeOnlyOne 65007
+#define RzBorder_sRzColorWindow 65008
+#define RzBorder_sRzColorWindowFrame 65009
+#define RzBorder_sRzColorMenuText 65010
+#define RzBorder_sRzColorWindowText 65011
+#define RzBorder_sRzColorCaptionText 65012
+#define RzBorder_sRzColorActiveBorder 65013
+#define RzBorder_sRzColorInactiveBorder 65014
+#define RzBorder_sRzColorAppWorkSpace 65015
+#define RzBorder_sRzColorHighlight 65016
+#define RzBorder_sRzColorHighlightText 65017
+#define RzBorder_sRzColorBtnFace 65018
+#define RzBorder_sRzColorBtnShadow 65019
+#define RzBorder_sRzColorGrayText 65020
+#define RzBorder_sRzColorBtnText 65021
+#define RzBorder_sRzColorInactiveCaptionText 65022
+#define RzBorder_sRzColorBtnHighlight 65023
+#define RzBorder_sRzColorSkyBlue 65024
+#define RzBorder_sRzColorPlum 65025
+#define RzBorder_sRzColorGray25 65026
+#define RzBorder_sRzColorRose 65027
+#define RzBorder_sRzColorTan 65028
+#define RzBorder_sRzColorLightYellow 65029
+#define RzBorder_sRzColorLightGreen 65030
+#define RzBorder_sRzColorLightTurquoise 65031
+#define RzBorder_sRzColorPaleBlue 65032
+#define RzBorder_sRzColorLavender 65033
+#define RzBorder_sRzColorWhite 65034
+#define RzBorder_sRzColorScrollBar 65035
+#define RzBorder_sRzColorBackground 65036
+#define RzBorder_sRzColorActiveCaption 65037
+#define RzBorder_sRzColorInactiveCaption 65038
+#define RzBorder_sRzColorMenu 65039
+#define RzBorder_sRzColorBlue 65040
+#define RzBorder_sRzColorBlueGray 65041
+#define RzBorder_sRzColorGray50 65042
+#define RzBorder_sRzColorRed 65043
+#define RzBorder_sRzColorLightOrange 65044
+#define RzBorder_sRzColorLime 65045
+#define RzBorder_sRzColorSeaGreen 65046
+#define RzBorder_sRzColorAqua 65047
+#define RzBorder_sRzColorLightBlue 65048
+#define RzBorder_sRzColorViolet 65049
+#define RzBorder_sRzColorGray40 65050
+#define RzBorder_sRzColorPink 65051
+#define RzBorder_sRzColorGold 65052
+#define RzBorder_sRzColorYellow 65053
+#define RzBorder_sRzColorBrightGreen 65054
+#define RzBorder_sRzColorTurquoise 65055
+#define VDBConsts_SNotReplicatable 65056
+#define VDBConsts_SPropDefByLookup 65057
+#define VDBConsts_SRemoteLogin 65058
+#define RzBorder_sRzColorBlack 65059
+#define RzBorder_sRzColorBrown 65060
+#define RzBorder_sRzColorOliveGreen 65061
+#define RzBorder_sRzColorDarkGreen 65062
+#define RzBorder_sRzColorDarkTeal 65063
+#define RzBorder_sRzColorDarkBlue 65064
+#define RzBorder_sRzColorIndigo 65065
+#define RzBorder_sRzColorGray80 65066
+#define RzBorder_sRzColorDarkRed 65067
+#define RzBorder_sRzColorOrange 65068
+#define RzBorder_sRzColorDarkYellow 65069
+#define RzBorder_sRzColorGreen 65070
+#define RzBorder_sRzColorTeal 65071
+#define FIBConsts_reVarArrayBounds 65072
+#define FIBConsts_reVarArrayCreate 65073
+#define FIBConsts_SNoTimers 65074
+#define fib_TrueStr 65075
+#define fib_FalseStr 65076
+#define VDBConsts_SFirstRecord 65077
+#define VDBConsts_SPriorRecord 65078
+#define VDBConsts_SNextRecord 65079
+#define VDBConsts_SLastRecord 65080
+#define VDBConsts_SInsertRecord 65081
+#define VDBConsts_SDeleteRecord 65082
+#define VDBConsts_SEditRecord 65083
+#define VDBConsts_SPostEdit 65084
+#define VDBConsts_SCancelEdit 65085
+#define VDBConsts_SRefreshRecord 65086
+#define VDBConsts_SDataSourceFixed 65087
+#define FIBConsts_SFIBErrorAfterDisconnect 65088
+#define FIBConsts_SFIBErrorNoDBLoginDialog 65089
+#define FIBConsts_SFIBErrorInstallPropertyEditorPackage 65090
+#define FIBConsts_SFIBErrorIncludeDBLoginDialog 65091
+#define FIBConsts_SFIBErrorCircularLinks 65092
+#define FIBConsts_SFIBErrorParamNotExist 65093
+#define FIBConsts_SFIBErrorWideStringValueTooLong 65094
+#define FIBConsts_SFIBErrorEOFInComments 65095
+#define FIBConsts_SFIBErrorEOFInString 65096
+#define FIBConsts_SFIBErrorParamNameExpected 65097
+#define FIBConsts_SFIBErrorNotDataSet 65098
+#define FIBConsts_SFIBErrorAbortUpdates 65099
+#define FIBConsts_SFIBErrorUnableGetRecordCount 65100
+#define FIBConsts_SFIBErrorUnableLock 65101
+#define FIBConsts_SFIBErrorGenerationError 65102
+#define FIBConsts_reVarNotArray 65103
+#define FIBConsts_SCantGetInfo 65104
+#define FIBConsts_SDataBaseNotAssigned 65105
+#define FIBConsts_SOKButton 65106
+#define FIBConsts_SCancelButton 65107
+#define FIBConsts_SDBEditUserName 65108
+#define FIBConsts_SDBEditPassword 65109
+#define FIBConsts_SDBEditSQLRole 65110
+#define FIBConsts_SLoginDlgLoginCaption 65111
+#define FIBConsts_SLoginDlgDatabase 65112
+#define FIBConsts_SCompEditDataSet_ID 65113
+#define FIBConsts_SCompEditDataSetInfoNotExists 65114
+#define FIBConsts_SCompEditDataSetInfoForbid 65115
+#define FIBConsts_SCompEditUnableInsertInfoRecord 65116
+#define FIBConsts_SFIBErrorBeforeDisconnectDetail 65117
+#define FIBConsts_SFIBErrorBeforeDisconnect 65118
+#define FIBConsts_SFIBErrorAfterDisconnectDetail 65119
+#define ADOConst_SUsupportedFieldType 65120
+#define ADOConst_SConnectionRequired 65121
+#define ADOConst_SCantRequery 65122
+#define ADOConst_SNoFilterOptions 65123
+#define ADOConst_SRecordsetNotOpen 65124
+#define ADOConst_sNameAttr 65125
+#define ADOConst_sValueAttr 65126
+#define FIBConsts_SCantFindApiProc 65127
+#define FIBConsts_SCantLoadLibrary 65128
+#define FIBConsts_SUnknownClientLibrary 65129
+#define FIBConsts_STransactionForOtherLibrary 65130
+#define FIBConsts_SEdErrorPrefix 65131
+#define FIBConsts_SEdDeadLockMess 65132
+#define FIBConsts_SEdNotExistRecord 65133
+#define FIBConsts_SEdMultiplyRecord 65134
+#define FIBConsts_SCantSort 65135
+#define DBConsts_SDeleteRecordQuestion 65136
+#define DBConsts_SDeleteMultipleRecordsQuestion 65137
+#define DBConsts_STooManyColumns 65138
+#define ComConst_SOleError 65139
+#define ComConst_SNoMethod 65140
+#define ComConst_SVarNotObject 65141
+#define ComConst_STooManyParams 65142
+#define CcMemDS_SMemNoRecords 65143
+#define ADOConst_SInvalidEnumValue 65144
+#define ADOConst_SMissingConnection 65145
+#define ADOConst_SNoDetailFilter 65146
+#define ADOConst_SBookmarksRequired 65147
+#define ADOConst_SMissingCommandText 65148
+#define ADOConst_SNoResultSet 65149
+#define ADOConst_SADOCreateError 65150
+#define ADOConst_SEventsNotSupported 65151
+#define DBConsts_STextFalse 65152
+#define DBConsts_STextTrue 65153
+#define DBConsts_SParameterNotFound 65154
+#define DBConsts_SInvalidVersion 65155
+#define DBConsts_SBadFieldType 65156
+#define DBConsts_SProviderSQLNotSupported 65157
+#define DBConsts_SProviderExecuteNotSupported 65158
+#define DBConsts_SExprNoAggOnCalcs 65159
+#define DBConsts_SDataSetUnidirectional 65160
+#define DBConsts_SUnassignedVar 65161
+#define DBConsts_SRecordNotFound 65162
+#define DBConsts_SBcdOverflow 65163
+#define DBConsts_SInvalidBcdValue 65164
+#define DBConsts_SInvalidFormatType 65165
+#define DBConsts_SCouldNotParseTimeStamp 65166
+#define DBConsts_SInvalidSqlTimeStamp 65167
+#define DBConsts_SExprNoRParen 65168
+#define DBConsts_SExprNoRParenOrComma 65169
+#define DBConsts_SExprExpected 65170
+#define DBConsts_SExprBadField 65171
+#define DBConsts_SExprBadNullTest 65172
+#define DBConsts_SExprRangeError 65173
+#define DBConsts_SExprIncorrect 65174
+#define DBConsts_SExprNothing 65175
+#define DBConsts_SExprTypeMis 65176
+#define DBConsts_SExprBadScope 65177
+#define DBConsts_SExprNoArith 65178
+#define DBConsts_SExprNotAgg 65179
+#define DBConsts_SExprBadConst 65180
+#define DBConsts_SExprNoAggFilter 65181
+#define DBConsts_SExprEmptyInList 65182
+#define DBConsts_SInvalidKeywordUse 65183
+#define DBConsts_SNoIndexForFields 65184
+#define DBConsts_SIndexNotFound 65185
+#define DBConsts_SCircularDataLink 65186
+#define DBConsts_SLookupInfoError 65187
+#define DBConsts_SDataSourceChange 65188
+#define DBConsts_SDataSetOpen 65189
+#define DBConsts_SNotEditing 65190
+#define DBConsts_SDataSetClosed 65191
+#define DBConsts_SDataSetEmpty 65192
+#define DBConsts_SDataSetReadOnly 65193
+#define DBConsts_SNestedDataSetClass 65194
+#define DBConsts_SExprTermination 65195
+#define DBConsts_SExprNameError 65196
+#define DBConsts_SExprStringError 65197
+#define DBConsts_SExprInvalidChar 65198
+#define DBConsts_SExprNoLParen 65199
+#define DBConsts_SFieldNotFound 65200
+#define DBConsts_SFieldAccessError 65201
+#define DBConsts_SFieldValueError 65202
+#define DBConsts_SFieldRangeError 65203
+#define DBConsts_SBcdFieldRangeError 65204
+#define DBConsts_SInvalidIntegerValue 65205
+#define DBConsts_SInvalidBoolValue 65206
+#define DBConsts_SInvalidFloatValue 65207
+#define DBConsts_SFieldTypeMismatch 65208
+#define DBConsts_SFieldSizeMismatch 65209
+#define DBConsts_SInvalidVarByteArray 65210
+#define DBConsts_SFieldOutOfRange 65211
+#define DBConsts_SFieldRequired 65212
+#define DBConsts_SDataSetMissing 65213
+#define DBConsts_SInvalidCalcType 65214
+#define DBConsts_SFieldReadOnly 65215
+#define ComStrs_sInvalidIndex 65216
+#define ComStrs_sInsertError 65217
+#define ComStrs_sInvalidOwner 65218
+#define ComStrs_sInvalidComCtl32 65219
+#define ComStrs_sDateTimeMax 65220
+#define ComStrs_sDateTimeMin 65221
+#define ComStrs_sFailSetCalDateTime 65222
+#define ComStrs_sFailSetCalMaxSelRange 65223
+#define ComStrs_sFailSetCalMinMaxRange 65224
+#define ComStrs_sFailsetCalSelRange 65225
+#define WinHelpViewer_hNoKeyword 65226
+#define DBConsts_SInvalidFieldSize 65227
+#define DBConsts_SInvalidFieldKind 65228
+#define DBConsts_SUnknownFieldType 65229
+#define DBConsts_SFieldNameMissing 65230
+#define DBConsts_SDuplicateFieldName 65231
+#define ExtCtrls_clNameHighlight 65232
+#define ExtCtrls_clNameHighlightText 65233
+#define ExtCtrls_clNameInactiveBorder 65234
+#define ExtCtrls_clNameInactiveCaption 65235
+#define ExtCtrls_clNameInactiveCaptionText 65236
+#define ExtCtrls_clNameInfoBk 65237
+#define ExtCtrls_clNameInfoText 65238
+#define ExtCtrls_clNameMenu 65239
+#define ExtCtrls_clNameMenuText 65240
+#define ExtCtrls_clNameNone 65241
+#define ExtCtrls_clNameScrollBar 65242
+#define ExtCtrls_clName3DDkShadow 65243
+#define ExtCtrls_clName3DLight 65244
+#define ExtCtrls_clNameWindow 65245
+#define ExtCtrls_clNameWindowFrame 65246
+#define ExtCtrls_clNameWindowText 65247
+#define ExtCtrls_clNameWhite 65248
+#define ExtCtrls_clNameMoneyGreen 65249
+#define ExtCtrls_clNameSkyBlue 65250
+#define ExtCtrls_clNameCream 65251
+#define ExtCtrls_clNameMedGray 65252
+#define ExtCtrls_clNameActiveBorder 65253
+#define ExtCtrls_clNameActiveCaption 65254
+#define ExtCtrls_clNameAppWorkSpace 65255
+#define ExtCtrls_clNameBackground 65256
+#define ExtCtrls_clNameBtnFace 65257
+#define ExtCtrls_clNameBtnHighlight 65258
+#define ExtCtrls_clNameBtnShadow 65259
+#define ExtCtrls_clNameBtnText 65260
+#define ExtCtrls_clNameCaptionText 65261
+#define ExtCtrls_clNameDefault 65262
+#define ExtCtrls_clNameGrayText 65263
+#define HelpIntfs_hNoTopics 65264
+#define ExtCtrls_clNameBlack 65265
+#define ExtCtrls_clNameMaroon 65266
+#define ExtCtrls_clNameGreen 65267
+#define ExtCtrls_clNameOlive 65268
+#define ExtCtrls_clNameNavy 65269
+#define ExtCtrls_clNamePurple 65270
+#define ExtCtrls_clNameTeal 65271
+#define ExtCtrls_clNameGray 65272
+#define ExtCtrls_clNameSilver 65273
+#define ExtCtrls_clNameRed 65274
+#define ExtCtrls_clNameLime 65275
+#define ExtCtrls_clNameYellow 65276
+#define ExtCtrls_clNameBlue 65277
+#define ExtCtrls_clNameFuchsia 65278
+#define ExtCtrls_clNameAqua 65279
+#define Consts_SInvalidClipFmt 65280
+#define Consts_SIconToClipboard 65281
+#define Consts_SCannotOpenClipboard 65282
+#define Consts_SInvalidMemoSize 65283
+#define Consts_SDuplicateMenus 65284
+#define Consts_SDockedCtlNeedsName 65285
+#define Consts_SDockTreeRemoveError 65286
+#define Consts_SDockZoneNotFound 65287
+#define Consts_SDockZoneHasNoCtl 65288
+#define Consts_SMultiSelectRequired 65289
+#define Consts_SErrorSettingCount 65290
+#define Consts_SListBoxMustBeVirtual 65291
+#define Consts_SNoGetItemEventHandler 65292
+#define HelpIntfs_hNoTableOfContents 65293
+#define HelpIntfs_hNothingFound 65294
+#define HelpIntfs_hNoContext 65295
+#define Consts_SmkcEnter 65296
+#define Consts_SmkcSpace 65297
+#define Consts_SmkcPgUp 65298
+#define Consts_SmkcPgDn 65299
+#define Consts_SmkcEnd 65300
+#define Consts_SmkcHome 65301
+#define Consts_SmkcLeft 65302
+#define Consts_SmkcUp 65303
+#define Consts_SmkcRight 65304
+#define Consts_SmkcDown 65305
+#define Consts_SmkcIns 65306
+#define Consts_SmkcDel 65307
+#define Consts_SmkcShift 65308
+#define Consts_SmkcCtrl 65309
+#define Consts_SmkcAlt 65310
+#define Consts_SInsertLineError 65311
+#define Consts_SMsgDlgInformation 65312
+#define Consts_SMsgDlgConfirm 65313
+#define Consts_SMsgDlgYes 65314
+#define Consts_SMsgDlgNo 65315
+#define Consts_SMsgDlgOK 65316
+#define Consts_SMsgDlgCancel 65317
+#define Consts_SMsgDlgHelp 65318
+#define Consts_SMsgDlgAbort 65319
+#define Consts_SMsgDlgRetry 65320
+#define Consts_SMsgDlgIgnore 65321
+#define Consts_SMsgDlgAll 65322
+#define Consts_SMsgDlgNoToAll 65323
+#define Consts_SMsgDlgYesToAll 65324
+#define Consts_SmkcBkSp 65325
+#define Consts_SmkcTab 65326
+#define Consts_SmkcEsc 65327
+#define Consts_SNoButton 65328
+#define Consts_SHelpButton 65329
+#define Consts_SCloseButton 65330
+#define Consts_SIgnoreButton 65331
+#define Consts_SRetryButton 65332
+#define Consts_SAbortButton 65333
+#define Consts_SAllButton 65334
+#define Consts_SCannotDragForm 65335
+#define Consts_SVMetafiles 65336
+#define Consts_SVEnhMetafiles 65337
+#define Consts_SVIcons 65338
+#define Consts_SVBitmaps 65339
+#define Consts_SMaskErr 65340
+#define Consts_SMaskEditErr 65341
+#define Consts_SMsgDlgWarning 65342
+#define Consts_SMsgDlgError 65343
+#define Consts_SCannotFocus 65344
+#define Consts_SParentRequired 65345
+#define Consts_SMDIChildNotVisible 65346
+#define Consts_SVisibleChanged 65347
+#define Consts_SCannotShowModal 65348
+#define Consts_SScrollBarRange 65349
+#define Consts_SMenuIndexError 65350
+#define Consts_SMenuReinserted 65351
+#define Consts_SMenuNotFound 65352
+#define Consts_SNoTimers 65353
+#define Consts_SGroupIndexTooLow 65354
+#define Consts_SNoMDIForm 65355
+#define Consts_SControlParentSetToSelf 65356
+#define Consts_SOKButton 65357
+#define Consts_SCancelButton 65358
+#define Consts_SYesButton 65359
+#define RTLConsts_SThreadError 65360
+#define Consts_SInvalidBitmap 65361
+#define Consts_SInvalidIcon 65362
+#define Consts_SInvalidMetafile 65363
+#define Consts_SChangeIconSize 65364
+#define Consts_SUnknownClipboardFormat 65365
+#define Consts_SOutOfResources 65366
+#define Consts_SNoCanvasHandle 65367
+#define Consts_SInvalidImageSize 65368
+#define Consts_SInvalidImageList 65369
+#define Consts_SReplaceImage 65370
+#define Consts_SImageIndexError 65371
+#define Consts_SImageReadFail 65372
+#define Consts_SImageWriteFail 65373
+#define Consts_SWindowDCError 65374
+#define Consts_SWindowClass 65375
+#define RTLConsts_SPropertyException 65376
+#define RTLConsts_SReadError 65377
+#define RTLConsts_SReadOnlyProperty 65378
+#define RTLConsts_SRegCreateFailed 65379
+#define RTLConsts_SRegGetDataFailed 65380
+#define RTLConsts_SRegSetDataFailed 65381
+#define RTLConsts_SResNotFound 65382
+#define RTLConsts_SSeekNotImplemented 65383
+#define RTLConsts_SSortedListError 65384
+#define RTLConsts_SStringExpected 65385
+#define RTLConsts_SSymbolExpected 65386
+#define RTLConsts_STooManyDeleted 65387
+#define RTLConsts_SUnknownGroup 65388
+#define RTLConsts_SUnknownProperty 65389
+#define RTLConsts_SWriteError 65390
+#define RTLConsts_SThreadCreateError 65391
+#define RTLConsts_SInvalidImage 65392
+#define RTLConsts_SInvalidName 65393
+#define RTLConsts_SInvalidProperty 65394
+#define RTLConsts_SInvalidPropertyElement 65395
+#define RTLConsts_SInvalidPropertyPath 65396
+#define RTLConsts_SInvalidPropertyType 65397
+#define RTLConsts_SInvalidPropertyValue 65398
+#define RTLConsts_SInvalidRegType 65399
+#define RTLConsts_SInvalidString 65400
+#define RTLConsts_SLineTooLong 65401
+#define RTLConsts_SListCapacityError 65402
+#define RTLConsts_SListCountError 65403
+#define RTLConsts_SListIndexError 65404
+#define RTLConsts_SMemoryStreamError 65405
+#define RTLConsts_SNumberExpected 65406
+#define RTLConsts_SParseError 65407
+#define RTLConsts_SCharExpected 65408
+#define RTLConsts_SCheckSynchronizeError 65409
+#define RTLConsts_SClassNotFound 65410
+#define RTLConsts_SDuplicateClass 65411
+#define RTLConsts_SDuplicateItem 65412
+#define RTLConsts_SDuplicateName 65413
+#define RTLConsts_SDuplicateString 65414
+#define RTLConsts_SFCreateErrorEx 65415
+#define RTLConsts_SFixedColTooBig 65416
+#define RTLConsts_SFixedRowTooBig 65417
+#define RTLConsts_SFOpenErrorEx 65418
+#define RTLConsts_SGridTooLarge 65419
+#define RTLConsts_SIdentifierExpected 65420
+#define RTLConsts_SIndexOutOfRange 65421
+#define RTLConsts_SIniFileWriteError 65422
+#define RTLConsts_SInvalidBinary 65423
 #define SysConst_SShortDayNameWed 65424
 #define SysConst_SShortDayNameThu 65425
 #define SysConst_SShortDayNameFri 65426
@@ -617,13 +626,6 @@
 #define SysConst_SEndOfFile 65535
 STRINGTABLE
 BEGIN
-	EhLibConsts_SSTFilterListItem_SortingByAscend,	"(Order by descending)"
-	DbUtilsEh_SNotOperatorEh,	"Not"
-	DbUtilsEh_SAndOperatorEh,	"AND"
-	DbUtilsEh_SOrOperatorEh,	"OR"
-	DbUtilsEh_SLikePredicatEh,	""
-	DbUtilsEh_SInPredicatEh,	"In"
-	DbUtilsEh_SNullConstEh,	"Null"
 	DbUtilsEh_SQuoteIsAbsentEh,	"Quote is absent: "
 	DbUtilsEh_SLeftBracketExpectedEh,	"'(' expected: "
 	DbUtilsEh_SRightBracketExpectedEh,	"')' expected: "
@@ -632,13 +634,6 @@ BEGIN
 	DbUtilsEh_SUnexpectedExpressionAfterOperatorEh,	"Unexpected expression after operator: "
 	DbUtilsEh_SIncorrectExpressionEh,	"Incorrect expression: "
 	DbUtilsEh_SUnexpectedANDorOREh,	"Unexpected AND or OR: "
-	RzShellConsts_SShKey_Cut,	"Ctrl+X"
-	RzShellConsts_SShKey_Paste,	"Ctrl+V"
-	RzShellConsts_SShKey_Refresh,	"F5"
-	RzShellConsts_SShKey_Edit,	"F2"
-	RzShellConsts_SDialogFontName,	"MS Sans Serif"
-	EhLibConsts_SClearSelectedCellsEh,	"Clear selected cells?"
-	EhLibConsts_SInvalidTextFormatEh,	"Invalid text format"
 	EhLibConsts_SInvalidVCLDBIFFormatEh,	"Invalid VCLDBIF format"
 	EhLibConsts_SErrorDuringInsertValueEh,	"Error during insert value:"
 	EhLibConsts_SIgnoreErrorEh,	"Ignore error?"
@@ -648,13 +643,13 @@ BEGIN
 	EhLibConsts_SSTFilterListItem_All,	"(All)"
 	EhLibConsts_SSTFilterListItem_ClearFilter,	"(Clear filter)"
 	EhLibConsts_SSTFilterListItem_SortingByDescend,	"(Order by ascending)"
-	RzShellConsts_SColumnType,	"Type"
-	RzShellConsts_SColumnModified,	"Modified"
-	RzShellConsts_SSystemFolder,	"System Folder"
-	RzShellConsts_SPropertiesContext,	"Displays the properties of the selected items."
-	RzShellConsts_SPasteContext,	"Inserts the items you have copied or cut into the selected location."
-	RzShellConsts_SViewContext,	"Contains commands for customizing this window."
-	RzShellConsts_SViewLargeIconsContext,	"Displays items by using large icons."
+	EhLibConsts_SSTFilterListItem_SortingByAscend,	"(Order by descending)"
+	DbUtilsEh_SNotOperatorEh,	"Not"
+	DbUtilsEh_SAndOperatorEh,	"AND"
+	DbUtilsEh_SOrOperatorEh,	"OR"
+	DbUtilsEh_SLikePredicatEh,	""
+	DbUtilsEh_SInPredicatEh,	"In"
+	DbUtilsEh_SNullConstEh,	"Null"
 	RzShellConsts_SViewSmallIconsContext,	"Displays items by using small icons."
 	RzShellConsts_SViewListContext,	"Displays items in a list."
 	RzShellConsts_SViewDetailsContext,	"Displays information about each item in the window."
@@ -664,13 +659,13 @@ BEGIN
 	RzShellConsts_SShKey_SelectAll,	"Ctrl+A"
 	RzShellConsts_SShKey_Delete,	"Del"
 	RzShellConsts_SShKey_Copy,	"Ctrl+C"
-	RzShellConsts_SViewLargeIconsMenu,	"Lar&ge Icons"
-	RzShellConsts_SViewSmallIconsMenu,	"S&mall Icons"
-	RzShellConsts_SViewListMenu,	"&List"
-	RzShellConsts_SViewDetailsMenu,	"&Details"
-	RzShellConsts_SEditPasteMenu,	"&Paste"
-	RzShellConsts_SPropertiesMenu,	"P&roperties"
-	RzShellConsts_SViewMenu,	"&View"
+	RzShellConsts_SShKey_Cut,	"Ctrl+X"
+	RzShellConsts_SShKey_Paste,	"Ctrl+V"
+	RzShellConsts_SShKey_Refresh,	"F5"
+	RzShellConsts_SShKey_Edit,	"F2"
+	RzShellConsts_SDialogFontName,	"MS Sans Serif"
+	EhLibConsts_SClearSelectedCellsEh,	"Clear selected cells?"
+	EhLibConsts_SInvalidTextFormatEh,	"Invalid text format"
 	RzShellConsts_SNewMenu,	"Ne&w"
 	RzShellConsts_SNewFolderMenu,	"&Folder"
 	RzShellConsts_SCreateFolderContext,	"Creates a new, empty folder."
@@ -680,13 +675,13 @@ BEGIN
 	RzShellConsts_SUnableToCreateFolder,	"Unable to create the folder '%2'\n\n%1"
 	RzShellConsts_SColumnName,	"Name"
 	RzShellConsts_SColumnSize,	"Size"
-	RzShellConsts_SFileExistsReplace,	"%s already exists.\nDo you want to replace it?"
-	RzShellConsts_SOpenCaption,	"Open"
-	RzShellConsts_SFileNotFound,	"%s\nFile not found.\nPlease verify the correct file name was given."
-	RzShellConsts_SFilenameIsInvalid,	"%s\nThe above file name is invalid."
-	RzShellConsts_SExistsAndIsReadOnly,	"%s\nThis file exists with Read Only attributes.\nPlease use a different file name."
-	RzShellConsts_SDoesNotExistCreate,	"%s\nThis file does not exist.\n\nCreate the file?"
-	RzShellConsts_SThereCanBeOnlyOne,	"More than one file has the name '%s'.\n\nChoose one from the list of files."
+	RzShellConsts_SColumnType,	"Type"
+	RzShellConsts_SColumnModified,	"Modified"
+	RzShellConsts_SSystemFolder,	"System Folder"
+	RzShellConsts_SPropertiesContext,	"Displays the properties of the selected items."
+	RzShellConsts_SPasteContext,	"Inserts the items you have copied or cut into the selected location."
+	RzShellConsts_SViewContext,	"Contains commands for customizing this window."
+	RzShellConsts_SViewLargeIconsContext,	"Displays items by using large icons."
 	RzShellConsts_SUpOneLevelHint,	"Up One Level"
 	RzShellConsts_SCreateNewFolderHint,	"Create New Folder"
 	RzShellConsts_SLookIn,	"Look &in:"
@@ -696,13 +691,13 @@ BEGIN
 	RzShellConsts_SCancelButton,	"Cancel"
 	RzShellConsts_SHelpButton,	"&Help"
 	RzShellConsts_SOpenAsReadOnly,	"Open as &read-only"
-	RzBorder_sRzColorHighlightText,	"Highlight Text"
-	RzBorder_sRzColorBtnFace,	"Button Face"
-	RzBorder_sRzColorBtnShadow,	"Button Shadow"
-	RzBorder_sRzColorGrayText,	"Gray Text"
-	RzBorder_sRzColorBtnText,	"Button Text"
-	RzBorder_sRzColorInactiveCaptionText,	"Inactive Caption Text"
-	RzBorder_sRzColorBtnHighlight,	"Button Highlight"
+	RzShellConsts_SViewLargeIconsMenu,	"Lar&ge Icons"
+	RzShellConsts_SViewSmallIconsMenu,	"S&mall Icons"
+	RzShellConsts_SViewListMenu,	"&List"
+	RzShellConsts_SViewDetailsMenu,	"&Details"
+	RzShellConsts_SEditPasteMenu,	"&Paste"
+	RzShellConsts_SPropertiesMenu,	"P&roperties"
+	RzShellConsts_SViewMenu,	"&View"
 	RzBorder_sRzColor3DDkShadow,	"3D Dark Shadow"
 	RzBorder_sRzColor3DLight,	"3D Light"
 	RzBorder_sRzColorInfoText,	"Info Text"
@@ -712,13 +707,13 @@ BEGIN
 	RzBorder_sRzColorGradientInactiveCaption,	"Gradient Inactive Caption"
 	RzBorder_sRzColorMenuHighlight,	"Menu Highlight"
 	RzBorder_sRzColorMenuBar,	"Menu Bar"
-	RzBorder_sRzColorLavender,	"Lavender"
-	RzBorder_sRzColorWhite,	"White"
-	RzBorder_sRzColorScrollBar,	"Scroll Bar"
-	RzBorder_sRzColorBackground,	"Background"
-	RzBorder_sRzColorActiveCaption,	"Active Caption"
-	RzBorder_sRzColorInactiveCaption,	"Inactive Caption"
-	RzBorder_sRzColorMenu,	"Menu"
+	RzShellConsts_SFileExistsReplace,	"%s already exists.\nDo you want to replace it?"
+	RzShellConsts_SOpenCaption,	"Open"
+	RzShellConsts_SFileNotFound,	"%s\nFile not found.\nPlease verify the correct file name was given."
+	RzShellConsts_SFilenameIsInvalid,	"%s\nThe above file name is invalid."
+	RzShellConsts_SExistsAndIsReadOnly,	"%s\nThis file exists with Read Only attributes.\nPlease use a different file name."
+	RzShellConsts_SDoesNotExistCreate,	"%s\nThis file does not exist.\n\nCreate the file?"
+	RzShellConsts_SThereCanBeOnlyOne,	"More than one file has the name '%s'.\n\nChoose one from the list of files."
 	RzBorder_sRzColorWindow,	"Window"
 	RzBorder_sRzColorWindowFrame,	"Window Frame"
 	RzBorder_sRzColorMenuText,	"Menu Text"
@@ -728,13 +723,13 @@ BEGIN
 	RzBorder_sRzColorInactiveBorder,	"Inactive Border"
 	RzBorder_sRzColorAppWorkSpace,	"App WorkSpace"
 	RzBorder_sRzColorHighlight,	"Highlight"
-	RzBorder_sRzColorViolet,	"Violet"
-	RzBorder_sRzColorGray40,	"Gray 40%"
-	RzBorder_sRzColorPink,	"Pink"
-	RzBorder_sRzColorGold,	"Gold"
-	RzBorder_sRzColorYellow,	"Yellow"
-	RzBorder_sRzColorBrightGreen,	"Bright Green"
-	RzBorder_sRzColorTurquoise,	"Turquoise"
+	RzBorder_sRzColorHighlightText,	"Highlight Text"
+	RzBorder_sRzColorBtnFace,	"Button Face"
+	RzBorder_sRzColorBtnShadow,	"Button Shadow"
+	RzBorder_sRzColorGrayText,	"Gray Text"
+	RzBorder_sRzColorBtnText,	"Button Text"
+	RzBorder_sRzColorInactiveCaptionText,	"Inactive Caption Text"
+	RzBorder_sRzColorBtnHighlight,	"Button Highlight"
 	RzBorder_sRzColorSkyBlue,	"Sky Blue"
 	RzBorder_sRzColorPlum,	"Plum"
 	RzBorder_sRzColorGray25,	"Gray 25%"
@@ -744,13 +739,13 @@ BEGIN
 	RzBorder_sRzColorLightGreen,	"Light Green"
 	RzBorder_sRzColorLightTurquoise,	"Light Turquoise"
 	RzBorder_sRzColorPaleBlue,	"Pale Blue"
-	RzBorder_sRzColorIndigo,	"Indigo"
-	RzBorder_sRzColorGray80,	"Gray 80%"
-	RzBorder_sRzColorDarkRed,	"Dark Red"
-	RzBorder_sRzColorOrange,	"Orange"
-	RzBorder_sRzColorDarkYellow,	"Dark Yellow"
-	RzBorder_sRzColorGreen,	"Green"
-	RzBorder_sRzColorTeal,	"Teal"
+	RzBorder_sRzColorLavender,	"Lavender"
+	RzBorder_sRzColorWhite,	"White"
+	RzBorder_sRzColorScrollBar,	"Scroll Bar"
+	RzBorder_sRzColorBackground,	"Background"
+	RzBorder_sRzColorActiveCaption,	"Active Caption"
+	RzBorder_sRzColorInactiveCaption,	"Inactive Caption"
+	RzBorder_sRzColorMenu,	"Menu"
 	RzBorder_sRzColorBlue,	"Blue"
 	RzBorder_sRzColorBlueGray,	"Blue Gray"
 	RzBorder_sRzColorGray50,	"Gray 50%"
@@ -760,13 +755,13 @@ BEGIN
 	RzBorder_sRzColorSeaGreen,	"Sea Green"
 	RzBorder_sRzColorAqua,	"Aqua"
 	RzBorder_sRzColorLightBlue,	"Light Blue"
-	VDBConsts_SInsertRecord,	"Insert record"
-	VDBConsts_SDeleteRecord,	"Delete record"
-	VDBConsts_SEditRecord,	"Edit record"
-	VDBConsts_SPostEdit,	"Post edit"
-	VDBConsts_SCancelEdit,	"Cancel edit"
-	VDBConsts_SRefreshRecord,	"Refresh data"
-	VDBConsts_SDataSourceFixed,	"Operation not allowed in a DBCtrlGrid"
+	RzBorder_sRzColorViolet,	"Violet"
+	RzBorder_sRzColorGray40,	"Gray 40%"
+	RzBorder_sRzColorPink,	"Pink"
+	RzBorder_sRzColorGold,	"Gold"
+	RzBorder_sRzColorYellow,	"Yellow"
+	RzBorder_sRzColorBrightGreen,	"Bright Green"
+	RzBorder_sRzColorTurquoise,	"Turquoise"
 	VDBConsts_SNotReplicatable,	"Control cannot be used in a DBCtrlGrid"
 	VDBConsts_SPropDefByLookup,	"Property already defined by lookup field"
 	VDBConsts_SRemoteLogin,	"Remote Login"
@@ -776,13 +771,13 @@ BEGIN
 	RzBorder_sRzColorDarkGreen,	"Dark Green"
 	RzBorder_sRzColorDarkTeal,	"Dark Teal"
 	RzBorder_sRzColorDarkBlue,	"Dark Blue"
-	FIBConsts_SFIBErrorParamNameExpected,	"Parameter name expected"
-	FIBConsts_SFIBErrorNotDataSet,	"%s is not TpFIBDataSet"
-	FIBConsts_SFIBErrorAbortUpdates,	"User abort apply updates for %s %s"
-	FIBConsts_SFIBErrorUnableGetRecordCount,	"%s unable to get number of records"
-	FIBConsts_SFIBErrorUnableLock,	"Unable to lock record. Update query is empty"
-	FIBConsts_SFIBErrorGenerationError,	"%s: unable to generate %s because fields for \"%s\" do not exist in dataset."
-	FIBConsts_reVarNotArray,	"Variant is not an array."
+	RzBorder_sRzColorIndigo,	"Indigo"
+	RzBorder_sRzColorGray80,	"Gray 80%"
+	RzBorder_sRzColorDarkRed,	"Dark Red"
+	RzBorder_sRzColorOrange,	"Orange"
+	RzBorder_sRzColorDarkYellow,	"Dark Yellow"
+	RzBorder_sRzColorGreen,	"Green"
+	RzBorder_sRzColorTeal,	"Teal"
 	FIBConsts_reVarArrayBounds,	"Variant array index out of bounds."
 	FIBConsts_reVarArrayCreate,	"Unable to create variant array."
 	FIBConsts_SNoTimers,	"Not enough timers available"
@@ -792,13 +787,13 @@ BEGIN
 	VDBConsts_SPriorRecord,	"Prior record"
 	VDBConsts_SNextRecord,	"Next record"
 	VDBConsts_SLastRecord,	"Last record"
-	FIBConsts_SCompEditDataSet_ID,	".DataSet_ID should be greater than 0"
-	FIBConsts_SCompEditDataSetInfoNotExists,	"Table FIB$DATASETS_INFO does not exist."
-	FIBConsts_SCompEditDataSetInfoForbid,	"Can't use FIB$DATASETS_INFO.\r\nurDataSetInfo not included into Database.UseRepositories."
-	FIBConsts_SCompEditUnableInsertInfoRecord,	"Error of inserting new information record"
-	FIBConsts_SFIBErrorBeforeDisconnectDetail,	"Error of %s.BeforeDisconnect. Probably you are trying to get access to destroyed components. %s"
-	FIBConsts_SFIBErrorBeforeDisconnect,	"Error of %s.BeforeDisconnect. %s"
-	FIBConsts_SFIBErrorAfterDisconnectDetail,	"Error of %s.AfterDisconnect. Probably you are trying to get access to destroyed components. %s"
+	VDBConsts_SInsertRecord,	"Insert record"
+	VDBConsts_SDeleteRecord,	"Delete record"
+	VDBConsts_SEditRecord,	"Edit record"
+	VDBConsts_SPostEdit,	"Post edit"
+	VDBConsts_SCancelEdit,	"Cancel edit"
+	VDBConsts_SRefreshRecord,	"Refresh data"
+	VDBConsts_SDataSourceFixed,	"Operation not allowed in a DBCtrlGrid"
 	FIBConsts_SFIBErrorAfterDisconnect,	"Error of %s.AfterDisconnect. %s"
 	FIBConsts_SFIBErrorNoDBLoginDialog,	"Unable to find Database login dialog. "
 	FIBConsts_SFIBErrorInstallPropertyEditorPackage,	"Please, install package with property editors."
@@ -808,13 +803,13 @@ BEGIN
 	FIBConsts_SFIBErrorWideStringValueTooLong,	"%s. Value for WideString Parameter \"%s\" too long"
 	FIBConsts_SFIBErrorEOFInComments,	"EOF in comment detected"
 	FIBConsts_SFIBErrorEOFInString,	"EOF in string detected"
-	FIBConsts_SUnknownClientLibrary,	"Can't perform operation %s. Unknown client library"
-	FIBConsts_STransactionForOtherLibrary,	"%s.\r\nTransaction can't work with different client library."
-	FIBConsts_SEdErrorPrefix,	"Error of record updating:"
-	FIBConsts_SEdDeadLockMess,	"Deadlock detected"
-	FIBConsts_SEdNotExistRecord,	"Record does not exist"
-	FIBConsts_SEdMultiplyRecord,	"Attempt to edit multiple records"
-	FIBConsts_SCantSort,	"Can't sort. Invalid parameter: Fields["
+	FIBConsts_SFIBErrorParamNameExpected,	"Parameter name expected"
+	FIBConsts_SFIBErrorNotDataSet,	"%s is not TpFIBDataSet"
+	FIBConsts_SFIBErrorAbortUpdates,	"User abort apply updates for %s %s"
+	FIBConsts_SFIBErrorUnableGetRecordCount,	"%s unable to get number of records"
+	FIBConsts_SFIBErrorUnableLock,	"Unable to lock record. Update query is empty"
+	FIBConsts_SFIBErrorGenerationError,	"%s: unable to generate %s because fields for \"%s\" do not exist in dataset."
+	FIBConsts_reVarNotArray,	"Variant is not an array."
 	FIBConsts_SCantGetInfo,	"Can't get info for "
 	FIBConsts_SDataBaseNotAssigned,	"Database is not assigned"
 	FIBConsts_SOKButton,	"&OK"
@@ -824,13 +819,13 @@ BEGIN
 	FIBConsts_SDBEditSQLRole,	"Rol&e"
 	FIBConsts_SLoginDlgLoginCaption,	"Database login"
 	FIBConsts_SLoginDlgDatabase,	"Database:"
-	ADOConst_SMissingConnection,	"Missing Connection or ConnectionString"
-	ADOConst_SNoDetailFilter,	"Filter property cannot be used for detail tables"
-	ADOConst_SBookmarksRequired,	"Dataset does not support bookmarks, which are required for multi-record data controls"
-	ADOConst_SMissingCommandText,	"Missing %s property"
-	ADOConst_SNoResultSet,	"CommandText does not return a result set"
-	ADOConst_SADOCreateError,	"Error creating object.  Please verify that the Microsoft Data Access Components 2.1 (or later) have been properly installed"
-	ADOConst_SEventsNotSupported,	"Events are not supported with server side TableDirect cursors"
+	FIBConsts_SCompEditDataSet_ID,	".DataSet_ID should be greater than 0"
+	FIBConsts_SCompEditDataSetInfoNotExists,	"Table FIB$DATASETS_INFO does not exist."
+	FIBConsts_SCompEditDataSetInfoForbid,	"Can't use FIB$DATASETS_INFO.\r\nurDataSetInfo not included into Database.UseRepositories."
+	FIBConsts_SCompEditUnableInsertInfoRecord,	"Error of inserting new information record"
+	FIBConsts_SFIBErrorBeforeDisconnectDetail,	"Error of %s.BeforeDisconnect. Probably you are trying to get access to destroyed components. %s"
+	FIBConsts_SFIBErrorBeforeDisconnect,	"Error of %s.BeforeDisconnect. %s"
+	FIBConsts_SFIBErrorAfterDisconnectDetail,	"Error of %s.AfterDisconnect. Probably you are trying to get access to destroyed components. %s"
 	ADOConst_SUsupportedFieldType,	"Unsupported field type (%s) in field %s"
 	ADOConst_SConnectionRequired,	"A connection component is required for async ExecuteOptions"
 	ADOConst_SCantRequery,	"Cannot perform a requery after connection has changed"
@@ -840,13 +835,13 @@ BEGIN
 	ADOConst_sValueAttr,	"Value"
 	FIBConsts_SCantFindApiProc,	"Can't find procedure %s in %s"
 	FIBConsts_SCantLoadLibrary,	"Can't load library %s "
-	DBConsts_SUnassignedVar,	"Unassigned variant value"
-	DBConsts_SRecordNotFound,	"Record not found"
-	DBConsts_SBcdOverflow,	"BCD overflow"
-	DBConsts_SInvalidBcdValue,	"%s is not a valid BCD value"
-	DBConsts_SInvalidFormatType,	"Invalid format type for BCD"
-	DBConsts_SCouldNotParseTimeStamp,	"Could not parse SQL TimeStamp string"
-	DBConsts_SInvalidSqlTimeStamp,	"Invalid SQL date/time values"
+	FIBConsts_SUnknownClientLibrary,	"Can't perform operation %s. Unknown client library"
+	FIBConsts_STransactionForOtherLibrary,	"%s.\r\nTransaction can't work with different client library."
+	FIBConsts_SEdErrorPrefix,	"Error of record updating:"
+	FIBConsts_SEdDeadLockMess,	"Deadlock detected"
+	FIBConsts_SEdNotExistRecord,	"Record does not exist"
+	FIBConsts_SEdMultiplyRecord,	"Attempt to edit multiple records"
+	FIBConsts_SCantSort,	"Can't sort. Invalid parameter: Fields["
 	DBConsts_SDeleteRecordQuestion,	"Delete record?"
 	DBConsts_SDeleteMultipleRecordsQuestion,	"Delete all selected records?"
 	DBConsts_STooManyColumns,	"Grid requested to display more than 256 columns"
@@ -856,13 +851,13 @@ BEGIN
 	ComConst_STooManyParams,	"Dispatch methods do not support more than 64 parameters"
 	CcMemDS_SMemNoRecords,	"No data found"
 	ADOConst_SInvalidEnumValue,	"Invalid Enum Value"
-	DBConsts_SExprBadScope,	"Operation cannot mix aggregate value with record-varying value"
-	DBConsts_SExprNoArith,	"Arithmetic in filter expressions not supported"
-	DBConsts_SExprNotAgg,	"Expression is not an aggregate expression"
-	DBConsts_SExprBadConst,	"Constant is not correct type %s"
-	DBConsts_SExprNoAggFilter,	"Aggregate expressions not allowed in filters"
-	DBConsts_SExprEmptyInList,	"IN predicate list may not be empty"
-	DBConsts_SInvalidKeywordUse,	"Invalid use of keyword"
+	ADOConst_SMissingConnection,	"Missing Connection or ConnectionString"
+	ADOConst_SNoDetailFilter,	"Filter property cannot be used for detail tables"
+	ADOConst_SBookmarksRequired,	"Dataset does not support bookmarks, which are required for multi-record data controls"
+	ADOConst_SMissingCommandText,	"Missing %s property"
+	ADOConst_SNoResultSet,	"CommandText does not return a result set"
+	ADOConst_SADOCreateError,	"Error creating object.  Please verify that the Microsoft Data Access Components 2.1 (or later) have been properly installed"
+	ADOConst_SEventsNotSupported,	"Events are not supported with server side TableDirect cursors"
 	DBConsts_STextFalse,	"False"
 	DBConsts_STextTrue,	"True"
 	DBConsts_SParameterNotFound,	"Parameter '%s' not found"
@@ -872,13 +867,13 @@ BEGIN
 	DBConsts_SProviderExecuteNotSupported,	"Execute not supported: %s"
 	DBConsts_SExprNoAggOnCalcs,	"Field '%s' is not the correct type of calculated field to be used in an aggregate, use an internalcalc"
 	DBConsts_SDataSetUnidirectional,	"Operation not allowed on a unidirectional dataset"
-	DBConsts_SDataSetReadOnly,	"Cannot modify a read-only dataset"
-	DBConsts_SNestedDataSetClass,	"Nested dataset must inherit from %s"
-	DBConsts_SExprTermination,	"Filter expression incorrectly terminated"
-	DBConsts_SExprNameError,	"Unterminated field name"
-	DBConsts_SExprStringError,	"Unterminated string constant"
-	DBConsts_SExprInvalidChar,	"Invalid filter expression character: '%s'"
-	DBConsts_SExprNoLParen,	"'(' expected but %s found"
+	DBConsts_SUnassignedVar,	"Unassigned variant value"
+	DBConsts_SRecordNotFound,	"Record not found"
+	DBConsts_SBcdOverflow,	"BCD overflow"
+	DBConsts_SInvalidBcdValue,	"%s is not a valid BCD value"
+	DBConsts_SInvalidFormatType,	"Invalid format type for BCD"
+	DBConsts_SCouldNotParseTimeStamp,	"Could not parse SQL TimeStamp string"
+	DBConsts_SInvalidSqlTimeStamp,	"Invalid SQL date/time values"
 	DBConsts_SExprNoRParen,	"')' expected but %s found"
 	DBConsts_SExprNoRParenOrComma,	"')' or ',' expected but %s found"
 	DBConsts_SExprExpected,	"Expression expected but %s found"
@@ -888,13 +883,13 @@ BEGIN
 	DBConsts_SExprIncorrect,	"Incorrectly formed filter expression"
 	DBConsts_SExprNothing,	"nothing"
 	DBConsts_SExprTypeMis,	"Type mismatch in expression"
-	DBConsts_SFieldSizeMismatch,	"Size mismatch for field '%s', expecting: %d actual: %d"
-	DBConsts_SInvalidVarByteArray,	"Invalid variant type or size for field '%s'"
-	DBConsts_SFieldOutOfRange,	"Value of field '%s' is out of range"
-	DBConsts_SFieldRequired,	"Field '%s' must have a value"
-	DBConsts_SDataSetMissing,	"Field '%s' has no dataset"
-	DBConsts_SInvalidCalcType,	"Field '%s' cannot be a calculated or lookup field"
-	DBConsts_SFieldReadOnly,	"Field '%s' cannot be modified"
+	DBConsts_SExprBadScope,	"Operation cannot mix aggregate value with record-varying value"
+	DBConsts_SExprNoArith,	"Arithmetic in filter expressions not supported"
+	DBConsts_SExprNotAgg,	"Expression is not an aggregate expression"
+	DBConsts_SExprBadConst,	"Constant is not correct type %s"
+	DBConsts_SExprNoAggFilter,	"Aggregate expressions not allowed in filters"
+	DBConsts_SExprEmptyInList,	"IN predicate list may not be empty"
+	DBConsts_SInvalidKeywordUse,	"Invalid use of keyword"
 	DBConsts_SNoIndexForFields,	"No index for fields '%s'"
 	DBConsts_SIndexNotFound,	"Index '%s' not found"
 	DBConsts_SCircularDataLink,	"Circular datalinks are not allowed"
@@ -904,13 +899,13 @@ BEGIN
 	DBConsts_SNotEditing,	"Dataset not in edit or insert mode"
 	DBConsts_SDataSetClosed,	"Cannot perform this operation on a closed dataset"
 	DBConsts_SDataSetEmpty,	"Cannot perform this operation on an empty dataset"
-	ComStrs_sFailsetCalSelRange,	"Failed to set calendar selected range"
-	WinHelpViewer_hNoKeyword,	"No help keyword specified."
-	DBConsts_SInvalidFieldSize,	"Invalid field size"
-	DBConsts_SInvalidFieldKind,	"Invalid FieldKind"
-	DBConsts_SUnknownFieldType,	"Field '%s' is of an unknown type"
-	DBConsts_SFieldNameMissing,	"Field name missing"
-	DBConsts_SDuplicateFieldName,	"Duplicate field name '%s'"
+	DBConsts_SDataSetReadOnly,	"Cannot modify a read-only dataset"
+	DBConsts_SNestedDataSetClass,	"Nested dataset must inherit from %s"
+	DBConsts_SExprTermination,	"Filter expression incorrectly terminated"
+	DBConsts_SExprNameError,	"Unterminated field name"
+	DBConsts_SExprStringError,	"Unterminated string constant"
+	DBConsts_SExprInvalidChar,	"Invalid filter expression character: '%s'"
+	DBConsts_SExprNoLParen,	"'(' expected but %s found"
 	DBConsts_SFieldNotFound,	"Field '%s' not found"
 	DBConsts_SFieldAccessError,	"Cannot access field '%s' as type %s"
 	DBConsts_SFieldValueError,	"Invalid value for field '%s'"
@@ -920,13 +915,13 @@ BEGIN
 	DBConsts_SInvalidBoolValue,	"'%s' is not a valid boolean value for field '%s'"
 	DBConsts_SInvalidFloatValue,	"'%s' is not a valid floating point value for field '%s'"
 	DBConsts_SFieldTypeMismatch,	"Type mismatch for field '%s', expecting: %s actual: %s"
-	ExtCtrls_clNameNone,	"None"
-	ExtCtrls_clNameScrollBar,	"Scroll Bar"
-	ExtCtrls_clName3DDkShadow,	"3D Dark Shadow"
-	ExtCtrls_clName3DLight,	"3D Light"
-	ExtCtrls_clNameWindow,	"Window Background"
-	ExtCtrls_clNameWindowFrame,	"Window Frame"
-	ExtCtrls_clNameWindowText,	"Window Text"
+	DBConsts_SFieldSizeMismatch,	"Size mismatch for field '%s', expecting: %d actual: %d"
+	DBConsts_SInvalidVarByteArray,	"Invalid variant type or size for field '%s'"
+	DBConsts_SFieldOutOfRange,	"Value of field '%s' is out of range"
+	DBConsts_SFieldRequired,	"Field '%s' must have a value"
+	DBConsts_SDataSetMissing,	"Field '%s' has no dataset"
+	DBConsts_SInvalidCalcType,	"Field '%s' cannot be a calculated or lookup field"
+	DBConsts_SFieldReadOnly,	"Field '%s' cannot be modified"
 	ComStrs_sInvalidIndex,	"Invalid index"
 	ComStrs_sInsertError,	"Unable to insert an item"
 	ComStrs_sInvalidOwner,	"Invalid owner"
@@ -936,13 +931,13 @@ BEGIN
 	ComStrs_sFailSetCalDateTime,	"Failed to set calendar date or time"
 	ComStrs_sFailSetCalMaxSelRange,	"Failed to set maximum selection range"
 	ComStrs_sFailSetCalMinMaxRange,	"Failed to set calendar min/max range"
-	ExtCtrls_clNameBtnFace,	"Button Face"
-	ExtCtrls_clNameBtnHighlight,	"Button Highlight"
-	ExtCtrls_clNameBtnShadow,	"Button Shadow"
-	ExtCtrls_clNameBtnText,	"Button Text"
-	ExtCtrls_clNameCaptionText,	"Caption Text"
-	ExtCtrls_clNameDefault,	"Default"
-	ExtCtrls_clNameGrayText,	"Gray Text"
+	ComStrs_sFailsetCalSelRange,	"Failed to set calendar selected range"
+	WinHelpViewer_hNoKeyword,	"No help keyword specified."
+	DBConsts_SInvalidFieldSize,	"Invalid field size"
+	DBConsts_SInvalidFieldKind,	"Invalid FieldKind"
+	DBConsts_SUnknownFieldType,	"Field '%s' is of an unknown type"
+	DBConsts_SFieldNameMissing,	"Field name missing"
+	DBConsts_SDuplicateFieldName,	"Duplicate field name '%s'"
 	ExtCtrls_clNameHighlight,	"Highlight Background"
 	ExtCtrls_clNameHighlightText,	"Highlight Text"
 	ExtCtrls_clNameInactiveBorder,	"Inactive Border"
@@ -952,13 +947,13 @@ BEGIN
 	ExtCtrls_clNameInfoText,	"Info Text"
 	ExtCtrls_clNameMenu,	"Menu Background"
 	ExtCtrls_clNameMenuText,	"Menu Text"
-	ExtCtrls_clNameSilver,	"Silver"
-	ExtCtrls_clNameRed,	"Red"
-	ExtCtrls_clNameLime,	"Lime"
-	ExtCtrls_clNameYellow,	"Yellow"
-	ExtCtrls_clNameBlue,	"Blue"
-	ExtCtrls_clNameFuchsia,	"Fuchsia"
-	ExtCtrls_clNameAqua,	"Aqua"
+	ExtCtrls_clNameNone,	"None"
+	ExtCtrls_clNameScrollBar,	"Scroll Bar"
+	ExtCtrls_clName3DDkShadow,	"3D Dark Shadow"
+	ExtCtrls_clName3DLight,	"3D Light"
+	ExtCtrls_clNameWindow,	"Window Background"
+	ExtCtrls_clNameWindowFrame,	"Window Frame"
+	ExtCtrls_clNameWindowText,	"Window Text"
 	ExtCtrls_clNameWhite,	"White"
 	ExtCtrls_clNameMoneyGreen,	"Money Green"
 	ExtCtrls_clNameSkyBlue,	"Sky Blue"
@@ -968,13 +963,13 @@ BEGIN
 	ExtCtrls_clNameActiveCaption,	"Active Caption"
 	ExtCtrls_clNameAppWorkSpace,	"Application Workspace"
 	ExtCtrls_clNameBackground,	"Background"
-	Consts_SMultiSelectRequired,	"Multiselect mode must be on for this feature"
-	Consts_SErrorSettingCount,	"Error setting %s.Count"
-	Consts_SListBoxMustBeVirtual,	"Listbox (%s) style must be virtual in order to set Count"
-	Consts_SNoGetItemEventHandler,	"No OnGetItem event handler assigned"
-	HelpIntfs_hNoTableOfContents,	"Unable to find a Table of Contents"
-	HelpIntfs_hNothingFound,	"No help found for %s"
-	HelpIntfs_hNoContext,	"No context-sensitive help installed"
+	ExtCtrls_clNameBtnFace,	"Button Face"
+	ExtCtrls_clNameBtnHighlight,	"Button Highlight"
+	ExtCtrls_clNameBtnShadow,	"Button Shadow"
+	ExtCtrls_clNameBtnText,	"Button Text"
+	ExtCtrls_clNameCaptionText,	"Caption Text"
+	ExtCtrls_clNameDefault,	"Default"
+	ExtCtrls_clNameGrayText,	"Gray Text"
 	HelpIntfs_hNoTopics,	"No topic-based help system installed"
 	ExtCtrls_clNameBlack,	"Black"
 	ExtCtrls_clNameMaroon,	"Maroon"
@@ -984,13 +979,13 @@ BEGIN
 	ExtCtrls_clNamePurple,	"Purple"
 	ExtCtrls_clNameTeal,	"Teal"
 	ExtCtrls_clNameGray,	"Gray"
-	Consts_SmkcDown,	"Down"
-	Consts_SmkcIns,	"Ins"
-	Consts_SmkcDel,	"Del"
-	Consts_SmkcShift,	"Shift+"
-	Consts_SmkcCtrl,	"Ctrl+"
-	Consts_SmkcAlt,	"Alt+"
-	Consts_SInsertLineError,	"Unable to insert a line"
+	ExtCtrls_clNameSilver,	"Silver"
+	ExtCtrls_clNameRed,	"Red"
+	ExtCtrls_clNameLime,	"Lime"
+	ExtCtrls_clNameYellow,	"Yellow"
+	ExtCtrls_clNameBlue,	"Blue"
+	ExtCtrls_clNameFuchsia,	"Fuchsia"
+	ExtCtrls_clNameAqua,	"Aqua"
 	Consts_SInvalidClipFmt,	"Invalid clipboard format"
 	Consts_SIconToClipboard,	"Clipboard does not support Icons"
 	Consts_SCannotOpenClipboard,	"Cannot open clipboard"
@@ -1000,13 +995,13 @@ BEGIN
 	Consts_SDockTreeRemoveError,	"Error removing control from dock tree"
 	Consts_SDockZoneNotFound,	" - Dock zone not found"
 	Consts_SDockZoneHasNoCtl,	" - Dock zone has no control"
-	Consts_SMsgDlgIgnore,	"&Ignore"
-	Consts_SMsgDlgAll,	"&All"
-	Consts_SMsgDlgNoToAll,	"N&o to All"
-	Consts_SMsgDlgYesToAll,	"Yes to &All"
-	Consts_SmkcBkSp,	"BkSp"
-	Consts_SmkcTab,	"Tab"
-	Consts_SmkcEsc,	"Esc"
+	Consts_SMultiSelectRequired,	"Multiselect mode must be on for this feature"
+	Consts_SErrorSettingCount,	"Error setting %s.Count"
+	Consts_SListBoxMustBeVirtual,	"Listbox (%s) style must be virtual in order to set Count"
+	Consts_SNoGetItemEventHandler,	"No OnGetItem event handler assigned"
+	HelpIntfs_hNoTableOfContents,	"Unable to find a Table of Contents"
+	HelpIntfs_hNothingFound,	"No help found for %s"
+	HelpIntfs_hNoContext,	"No context-sensitive help installed"
 	Consts_SmkcEnter,	"Enter"
 	Consts_SmkcSpace,	"Space"
 	Consts_SmkcPgUp,	"PgUp"
@@ -1016,13 +1011,13 @@ BEGIN
 	Consts_SmkcLeft,	"Left"
 	Consts_SmkcUp,	"Up"
 	Consts_SmkcRight,	"Right"
-	Consts_SVEnhMetafiles,	"Enhanced Metafiles"
-	Consts_SVIcons,	"Icons"
-	Consts_SVBitmaps,	"Bitmaps"
-	Consts_SMaskErr,	"Invalid input value"
-	Consts_SMaskEditErr,	"Invalid input value.  Use escape key to abandon changes"
-	Consts_SMsgDlgWarning,	"Warning"
-	Consts_SMsgDlgError,	"Error"
+	Consts_SmkcDown,	"Down"
+	Consts_SmkcIns,	"Ins"
+	Consts_SmkcDel,	"Del"
+	Consts_SmkcShift,	"Shift+"
+	Consts_SmkcCtrl,	"Ctrl+"
+	Consts_SmkcAlt,	"Alt+"
+	Consts_SInsertLineError,	"Unable to insert a line"
 	Consts_SMsgDlgInformation,	"Information"
 	Consts_SMsgDlgConfirm,	"Confirm"
 	Consts_SMsgDlgYes,	"&Yes"
@@ -1032,13 +1027,13 @@ BEGIN
 	Consts_SMsgDlgHelp,	"&Help"
 	Consts_SMsgDlgAbort,	"&Abort"
 	Consts_SMsgDlgRetry,	"&Retry"
-	Consts_SNoTimers,	"Not enough timers available"
-	Consts_SGroupIndexTooLow,	"GroupIndex cannot be less than a previous menu item's GroupIndex"
-	Consts_SNoMDIForm,	"Cannot create form. No MDI forms are currently active"
-	Consts_SControlParentSetToSelf,	"A control cannot have itself as its parent"
-	Consts_SOKButton,	"OK"
-	Consts_SCancelButton,	"Cancel"
-	Consts_SYesButton,	"&Yes"
+	Consts_SMsgDlgIgnore,	"&Ignore"
+	Consts_SMsgDlgAll,	"&All"
+	Consts_SMsgDlgNoToAll,	"N&o to All"
+	Consts_SMsgDlgYesToAll,	"Yes to &All"
+	Consts_SmkcBkSp,	"BkSp"
+	Consts_SmkcTab,	"Tab"
+	Consts_SmkcEsc,	"Esc"
 	Consts_SNoButton,	"&No"
 	Consts_SHelpButton,	"&Help"
 	Consts_SCloseButton,	"&Close"
@@ -1048,13 +1043,13 @@ BEGIN
 	Consts_SAllButton,	"&All"
 	Consts_SCannotDragForm,	"Cannot drag a form"
 	Consts_SVMetafiles,	"Metafiles"
-	Consts_SInvalidImageList,	"Invalid ImageList"
-	Consts_SReplaceImage,	"Unable to Replace Image"
-	Consts_SImageIndexError,	"Invalid ImageList Index"
-	Consts_SImageReadFail,	"Failed to read ImageList data from stream"
-	Consts_SImageWriteFail,	"Failed to write ImageList data to stream"
-	Consts_SWindowDCError,	"Error creating window device context"
-	Consts_SWindowClass,	"Error creating window class"
+	Consts_SVEnhMetafiles,	"Enhanced Metafiles"
+	Consts_SVIcons,	"Icons"
+	Consts_SVBitmaps,	"Bitmaps"
+	Consts_SMaskErr,	"Invalid input value"
+	Consts_SMaskEditErr,	"Invalid input value.  Use escape key to abandon changes"
+	Consts_SMsgDlgWarning,	"Warning"
+	Consts_SMsgDlgError,	"Error"
 	Consts_SCannotFocus,	"Cannot focus a disabled or invisible window"
 	Consts_SParentRequired,	"Control '%s' has no parent window"
 	Consts_SMDIChildNotVisible,	"Cannot hide an MDI Child Form"
@@ -1064,13 +1059,13 @@ BEGIN
 	Consts_SMenuIndexError,	"Menu index out of range"
 	Consts_SMenuReinserted,	"Menu inserted twice"
 	Consts_SMenuNotFound,	"Sub-menu is not in menu"
-	RTLConsts_SSeekNotImplemented,	"%s.Seek not implemented"
-	RTLConsts_SSortedListError,	"Operation not allowed on sorted list"
-	RTLConsts_STooManyDeleted,	"Too many rows or columns deleted"
-	RTLConsts_SUnknownGroup,	"%s not in a class registration group"
-	RTLConsts_SUnknownProperty,	"Property %s does not exist"
-	RTLConsts_SWriteError,	"Stream write error"
-	RTLConsts_SThreadCreateError,	"Thread creation error: %s"
+	Consts_SNoTimers,	"Not enough timers available"
+	Consts_SGroupIndexTooLow,	"GroupIndex cannot be less than a previous menu item's GroupIndex"
+	Consts_SNoMDIForm,	"Cannot create form. No MDI forms are currently active"
+	Consts_SControlParentSetToSelf,	"A control cannot have itself as its parent"
+	Consts_SOKButton,	"OK"
+	Consts_SCancelButton,	"Cancel"
+	Consts_SYesButton,	"&Yes"
 	RTLConsts_SThreadError,	"Thread Error: %s (%d)"
 	Consts_SInvalidBitmap,	"Bitmap image is not valid"
 	Consts_SInvalidIcon,	"Icon image is not valid"
@@ -1080,15 +1075,13 @@ BEGIN
 	Consts_SOutOfResources,	"Out of system resources"
 	Consts_SNoCanvasHandle,	"Canvas does not allow drawing"
 	Consts_SInvalidImageSize,	"Invalid image size"
-	RTLConsts_SInvalidPropertyElement,	"Invalid property element: %s"
-	RTLConsts_SInvalidPropertyPath,	"Invalid property path"
-	RTLConsts_SInvalidPropertyType,	"Invalid property type: %s"
-	RTLConsts_SInvalidPropertyValue,	"Invalid property value"
-	RTLConsts_SInvalidRegType,	"Invalid data type for '%s'"
-	RTLConsts_SListCapacityError,	"List capacity out of bounds (%d)"
-	RTLConsts_SListCountError,	"List count out of bounds (%d)"
-	RTLConsts_SListIndexError,	"List index out of bounds (%d)"
-	RTLConsts_SMemoryStreamError,	"Out of memory while expanding memory stream"
+	Consts_SInvalidImageList,	"Invalid ImageList"
+	Consts_SReplaceImage,	"Unable to Replace Image"
+	Consts_SImageIndexError,	"Invalid ImageList Index"
+	Consts_SImageReadFail,	"Failed to read ImageList data from stream"
+	Consts_SImageWriteFail,	"Failed to write ImageList data to stream"
+	Consts_SWindowDCError,	"Error creating window device context"
+	Consts_SWindowClass,	"Error creating window class"
 	RTLConsts_SPropertyException,	"Error reading %s%s%s: %s"
 	RTLConsts_SReadError,	"Stream read error"
 	RTLConsts_SReadOnlyProperty,	"Property is read-only"
@@ -1096,6 +1089,32 @@ BEGIN
 	RTLConsts_SRegGetDataFailed,	"Failed to get data for '%s'"
 	RTLConsts_SRegSetDataFailed,	"Failed to set data for '%s'"
 	RTLConsts_SResNotFound,	"Resource %s not found"
+	RTLConsts_SSeekNotImplemented,	"%s.Seek not implemented"
+	RTLConsts_SSortedListError,	"Operation not allowed on sorted list"
+	RTLConsts_SStringExpected,	"String expected"
+	RTLConsts_SSymbolExpected,	"%s expected"
+	RTLConsts_STooManyDeleted,	"Too many rows or columns deleted"
+	RTLConsts_SUnknownGroup,	"%s not in a class registration group"
+	RTLConsts_SUnknownProperty,	"Property %s does not exist"
+	RTLConsts_SWriteError,	"Stream write error"
+	RTLConsts_SThreadCreateError,	"Thread creation error: %s"
+	RTLConsts_SInvalidImage,	"Invalid stream format"
+	RTLConsts_SInvalidName,	"''%s'' is not a valid component name"
+	RTLConsts_SInvalidProperty,	"Invalid property value"
+	RTLConsts_SInvalidPropertyElement,	"Invalid property element: %s"
+	RTLConsts_SInvalidPropertyPath,	"Invalid property path"
+	RTLConsts_SInvalidPropertyType,	"Invalid property type: %s"
+	RTLConsts_SInvalidPropertyValue,	"Invalid property value"
+	RTLConsts_SInvalidRegType,	"Invalid data type for '%s'"
+	RTLConsts_SInvalidString,	"Invalid string constant"
+	RTLConsts_SLineTooLong,	"Line too long"
+	RTLConsts_SListCapacityError,	"List capacity out of bounds (%d)"
+	RTLConsts_SListCountError,	"List count out of bounds (%d)"
+	RTLConsts_SListIndexError,	"List index out of bounds (%d)"
+	RTLConsts_SMemoryStreamError,	"Out of memory while expanding memory stream"
+	RTLConsts_SNumberExpected,	"Number expected"
+	RTLConsts_SParseError,	"%s on line %d"
+	RTLConsts_SCharExpected,	"''%s'' expected"
 	RTLConsts_SCheckSynchronizeError,	"CheckSynchronize called from thread $%x, which is NOT the main thread"
 	RTLConsts_SClassNotFound,	"Class %s not found"
 	RTLConsts_SDuplicateClass,	"A class named %s already exists"
@@ -1107,11 +1126,10 @@ BEGIN
 	RTLConsts_SFixedRowTooBig,	"Fixed row count must be less than row count"
 	RTLConsts_SFOpenErrorEx,	"Cannot open file \"%s\". %s"
 	RTLConsts_SGridTooLarge,	"Grid too large for operation"
+	RTLConsts_SIdentifierExpected,	"Identifier expected"
 	RTLConsts_SIndexOutOfRange,	"Grid index out of range"
 	RTLConsts_SIniFileWriteError,	"Unable to write to %s"
-	RTLConsts_SInvalidImage,	"Invalid stream format"
-	RTLConsts_SInvalidName,	"''%s'' is not a valid component name"
-	RTLConsts_SInvalidProperty,	"Invalid property value"
+	RTLConsts_SInvalidBinary,	"Invalid binary value"
 	SysConst_SShortDayNameWed,	"Wed"
 	SysConst_SShortDayNameThu,	"Thu"
 	SysConst_SShortDayNameFri,	"Fri"
