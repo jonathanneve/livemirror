@@ -1,0 +1,12 @@
+
+********************************************************************************
+>>>> Start LiveMirrorSrv.exe  v 1.0.0.0                      2014-03-13 12:35:36
+           Path : C:\Projects\livemirror\Service\
+           Config. name : TEST
+
+MASTER database :	fdl (FB)
+MIRROR database :	c:\projects-data\fruitsduloir\optima2.fdb (FB)
+Replication frequency :	30 seconds
+2014-03-13 12:35:36  Checking database configuration...
+2014-03-13 12:35:37  Databases configuration configured successfully!
+2014-03-13 12:35:37  Service ready!

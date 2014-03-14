@@ -1,0 +1,12 @@
+
+********************************************************************************
+>>>> Start LiveMirrorSrv.exe  v 1.0.0.0                      2014-03-13 12:20:47
+           From : C:\Projects\livemirror\Service\
+           Prms : TEST
+
+MASTER................: 
+MIRROR................: 
+Replication frequency.....: 30 secondes
+2014-03-13 12:20:47  Checking database configuration...
+2014-03-13 12:20:47  Databases configuration configured successfully!
+2014-03-13 12:20:47  Service ready!

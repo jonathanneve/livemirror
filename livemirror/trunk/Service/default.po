@@ -1,0 +1,126 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2014-03-14 10:25\n"
+"PO-Revision-Date: 2014-03-14 10:25\n"
+"Last-Translator: Somebody <your.email@address.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: dxgettext 1.2.2\n"
+
+#. dmInterbase..FDGUIxWaitCursor1..Provider
+#: dInterbase.dfm:26
+msgid "Forms"
+msgstr ""
+
+#. dmInterbase..CcConnection..DBType
+#: dInterbase.dfm:33
+msgid "Interbase"
+msgstr ""
+
+#. LiveMirror..DisplayName
+#: main.dfm:4
+msgid "Microtec LiveMirror"
+msgstr ""
+
+#. LiveMirror..Replicator..Version
+#: main.dfm:16
+#. LiveMirror..MasterConfig..Version
+#: main.dfm:37
+#. LiveMirror..MirrorConfig..Version
+#: main.dfm:46
+msgid "3.06.0 beta"
+msgstr ""
+
+#. LiveMirror..MasterConfig..ConfigName
+#: main.dfm:38
+#. LiveMirror..MirrorConfig..ConfigName
+#: main.dfm:47
+msgid "LM"
+msgstr ""
+
+#: main.pas:69
+#: main.pas:70
+msgid "Replication failed with error : "
+msgstr ""
+
+#. , EVENTLOG_INFORMATION_TYPE);
+#: main.pas:79
+msgid "Replication finished : "
+msgstr ""
+
+#: main.pas:79
+msgid "Rows replicated : "
+msgstr ""
+
+#: main.pas:80
+msgid "Rows with errors : "
+msgstr ""
+
+#. LogMessage('Starting replication : ' + IntToStr(Replicator.Log.LineCount) + ' rows to replicate...', EVENTLOG_INFORMATION_TYPE);
+#: main.pas:86
+msgid "Starting replication : "
+msgstr ""
+
+#: main.pas:86
+msgid " rows to replicate..."
+msgstr ""
+
+#: main.pas:92
+#: main.pas:93
+msgid "Error replicating row : Table "
+msgstr ""
+
+#. LogMessage('Row replicated : Table ' + TableName + ' [' +  Replicator.Log.PrimaryKeys + ']', EVENTLOG_INFORMATION_TYPE);
+#: main.pas:101
+msgid "Row replicated : Table : "
+msgstr ""
+
+#: main.pas:119
+msgid "{now} Checking database configuration..."
+msgstr ""
+
+#: main.pas:140
+msgid "{now} Databases configuration configured "
+"successfully!"
+msgstr ""
+
+#: main.pas:199
+msgid ">>>> Start {App_name}"
+msgstr ""
+
+#: main.pas:200
+msgid "{@12}Path : {App_path}"
+msgstr ""
+
+#: main.pas:201
+msgid "{@12}Config. name : {App_prm-}{/}"
+msgstr ""
+
+#: main.pas:202
+msgid "MASTER database :"
+msgstr ""
+
+#: main.pas:203
+msgid "MIRROR database :"
+msgstr ""
+
+#: main.pas:204
+msgid "Replication frequency :"
+msgstr ""
+
+#: main.pas:204
+msgid " seconds"
+msgstr ""
+
+#: main.pas:218
+msgid "{now} Service ready!"
+msgstr ""
+

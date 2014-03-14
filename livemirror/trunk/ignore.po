@@ -1,0 +1,44 @@
+#  Seems like a Default or Param string Value
+#. Form1..FDConnection1....Params.Strings
+#: config.dfm:30
+msgid "Database=fdl"
+msgstr ""
+
+#  Seems like a Default or Param string Value
+#. Form1..FDConnection1....Params.Strings
+#: config.dfm:31
+msgid "DriverID=fB"
+msgstr ""
+
+#  Doesn't look like text
+#. Form1..Caption
+#: config.dfm:4
+msgid "Form1"
+msgstr ""
+
+#  Doesn't look like text
+#. Form1..LabeledEdit1..EditLabel.Caption
+#: config.dfm:23
+msgid "LabeledEdit1"
+msgstr ""
+
+#  Seems like a Default or Param string Value
+#. Form1..FDConnection1....Params.Strings
+#: config.dfm:29
+msgid "Password=masterkey"
+msgstr ""
+
+#  Seems like a Font.Name extract
+#. Form1..Font.Name
+#: config.dfm:11
+#. fmConfigs..Font.Name
+#: configs.dfm:11
+msgid "Tahoma"
+msgstr ""
+
+#  Seems like a Default or Param string Value
+#. Form1..FDConnection1....Params.Strings
+#: config.dfm:28
+msgid "User_Name=sysdba"
+msgstr ""
+

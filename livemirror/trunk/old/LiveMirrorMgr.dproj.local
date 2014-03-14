@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2014/03/06 17:45:16.000.737,=C:\Users\Jonathan\Documents\RAD Studio\Projets\Unit7.pas</Transaction>
+    <Transaction>2014/03/06 17:45:37.000.591,=C:\Projects\livemirror\config.pas</Transaction>
+    <Transaction>2014/03/06 17:45:41.000.456,=C:\Projects\livemirror\configs.pas</Transaction>
+    <Transaction>2014/03/06 17:49:33.000.226,C:\Projects\livemirror\LiveMirrorMgr.dproj=C:\Users\Jonathan\Documents\RAD Studio\Projets\Project7.dproj</Transaction>
+    <Transaction>2014/03/06 18:21:09.000.963,=C:\Projects\livemirror\gnugettext.pas</Transaction>
+    <Transaction>2014/03/07 09:19:20.000.485,=C:\Projects\livemirror\Unit1.pas</Transaction>
+    <Transaction>2014/03/07 09:46:16.000.258,C:\Projects\livemirror\fConnectParamsFB.pas=C:\Projects\livemirror\Unit1.pas</Transaction>
+    <Transaction>2014/03/07 09:46:16.000.258,C:\Projects\livemirror\fConnectParamsFB.dfm=C:\Projects\livemirror\Unit1.dfm</Transaction>
+    <Transaction>2014/03/07 12:22:07.000.756,=C:\Projects\livemirror\Unit1.pas</Transaction>
+    <Transaction>2014/03/07 12:23:17.000.785,=C:\Projects\livemirror\Unit1.pas</Transaction>
+    <Transaction>2014/03/07 12:26:26.000.635,C:\Projects\livemirror\Unit1.pas=C:\Projects\livemirror\LMUtils.pas</Transaction>
+    <Transaction>2014/03/07 16:08:08.000.294,=C:\Projects\livemirror\Unit1.pas</Transaction>
+    <Transaction>2014/03/07 16:09:40.000.340,C:\Projects\livemirror\serviceUtils.pas=C:\Projects\livemirror\Unit1.pas</Transaction>
+    <Transaction>2014/03/07 16:22:35.000.915,C:\Projects\livemirror\ServiceManager.pas=C:\Projects\livemirror\serviceUtils.pas</Transaction>
+  </Transactions>
+</BorlandProject>

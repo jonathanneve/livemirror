@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2014/03/07 17:29:46.000.898,=C:\Users\Jonathan\Documents\RAD Studio\Projets\Unit7.pas</Transaction>
+    <Transaction>2014/03/07 17:30:37.000.898,=C:\Projects\livemirror\ServiceManager.pas</Transaction>
+    <Transaction>2014/03/07 17:31:12.000.439,C:\Users\Jonathan\Documents\RAD Studio\Projets\Unit7.dfm=C:\Projects\livemirror\Guardian\main.dfm</Transaction>
+    <Transaction>2014/03/07 17:31:12.000.439,C:\Users\Jonathan\Documents\RAD Studio\Projets\Unit7.pas=C:\Projects\livemirror\Guardian\main.pas</Transaction>
+    <Transaction>2014/03/07 17:31:27.000.573,C:\Users\Jonathan\Documents\RAD Studio\Projets\Project7.dproj=C:\Projects\livemirror\Guardian\LiveMirrorGuardian.dproj</Transaction>
+    <Transaction>2014/03/07 17:57:35.000.265,=C:\Projects\livemirror\LMUtils.pas</Transaction>
+    <Transaction>2014/03/07 17:58:05.000.959,=C:\Projects\livemirror\gnugettext.pas</Transaction>
+  </Transactions>
+</BorlandProject>

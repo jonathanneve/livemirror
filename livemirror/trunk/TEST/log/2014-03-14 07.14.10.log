@@ -1,0 +1,12 @@
+
+********************************************************************************
+>>>> Démarrage  LiveMirrorSrv.exe v 1.00.0                   2014-03-14 07:14:10
+           Chemin : C:\Projects\livemirror\Service\
+           Nom de configuration : TEST
+
+Base de données MAITRE : 	 (FB)
+Base de données MIRROIR :	 (FB)
+Fréquence de réplication :	30 secondes
+
+********************************************************************************
+2014-03-14 07:14:11  Vérification de la configuration des bases de données...
