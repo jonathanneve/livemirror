@@ -1,0 +1,115 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Microtec LiveMirror\n"
+"POT-Creation-Date: 2014-03-13 16:45\n"
+"PO-Revision-Date: 2014-03-13 16:36+0100\n"
+"Last-Translator: Jonathan Neve <jonathan@jntraductions.fr>\n"
+"Language-Team: Jonathan Neve <jonathan@jntraductions.fr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"Language: Français\n"
+
+#. dmInterbase..FDGUIxWaitCursor1..Provider
+#: dInterbase.dfm:26 
+msgid "Forms"
+msgstr "Forms"
+
+#. dmInterbase..CcConnection..DBType
+#: dInterbase.dfm:33 
+msgid "Interbase"
+msgstr "Interbase"
+
+#. LiveMirror..DisplayName
+#: main.dfm:4 
+msgid "Microtec LiveMirror"
+msgstr "Microtec LiveMirror"
+
+#. LiveMirror..Replicator..Version
+#. LiveMirror..MasterConfig..Version
+#. LiveMirror..MirrorConfig..Version
+#: main.dfm:16  main.dfm:37 main.dfm:46
+msgid "3.06.0 beta"
+msgstr "3.06.0 beta"
+
+#. LiveMirror..MasterConfig..ConfigName
+#. LiveMirror..MirrorConfig..ConfigName
+#: main.dfm:38  main.dfm:47
+msgid "LM"
+msgstr "LM"
+
+#: main.pas:69  main.pas:70
+msgid "Replication failed with error : "
+msgstr "Réplication échouée avec erreur : "
+
+#. , EVENTLOG_INFORMATION_TYPE);
+#: main.pas:79 
+msgid "Replication finished : "
+msgstr "Réplication terminée : "
+
+#: main.pas:79 
+msgid "Rows replicated : "
+msgstr "Lignes répliquées : "
+
+#: main.pas:80 
+msgid "Rows with errors : "
+msgstr "Lignes en erreur : "
+
+#. LogMessage('Starting replication : ' + IntToStr(Replicator.Log.LineCount) + ' rows to replicate...', EVENTLOG_INFORMATION_TYPE);
+#: main.pas:86 
+msgid "Starting replication : "
+msgstr "Réplication : "
+
+#: main.pas:86 
+msgid " rows to replicate..."
+msgstr " lignes à répliquer..."
+
+#: main.pas:92  main.pas:93
+msgid "Error replicating row : Table "
+msgstr "Impossible de répliquer la ligne : Table "
+
+#. LogMessage('Row replicated : Table ' + TableName + ' [' +  Replicator.Log.PrimaryKeys + ']', EVENTLOG_INFORMATION_TYPE);
+#: main.pas:101 
+msgid "Row replicated : Table : "
+msgstr "Ligne répliquée : Table : "
+
+#: main.pas:119 
+msgid "{now} Checking database configuration..."
+msgstr "{now} Vérification de la configuration des bases de données..."
+
+#: main.pas:140 
+msgid "{now} Databases configuration configured successfully!"
+msgstr "{now} Configuration des bases de données effectuée avec succès !"
+
+#: main.pas:199 
+msgid ">>>> Start {App_name}"
+msgstr ">>>> Démarrage  {App_name}"
+
+#: main.pas:200 
+msgid "{@12}Path : {App_path}"
+msgstr "{@12}Chemin : {App_path}"
+
+#: main.pas:201 
+msgid "{@12}Config. name : {App_prm-}{/}"
+msgstr "{@12}Nom de configuration : {App_prm-}{/}"
+
+#: main.pas:202 
+msgid "MASTER database :"
+msgstr "Base de données MAITRE : "
+
+#: main.pas:203 
+msgid "MIRROR database :"
+msgstr "Base de données MIRROIR :"
+
+#: main.pas:204 
+msgid "Replication frequency :"
+msgstr "Fréquence de réplication :"
+
+#: main.pas:204 
+msgid " seconds"
+msgstr " secondes"
+
+#: main.pas:218 
+msgid "{now} Service ready!"
+msgstr "{now} Service prêt !"

@@ -1,0 +1,292 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: LiveMirror\n"
+"POT-Creation-Date: 2014-03-14 09:23\n"
+"PO-Revision-Date: 2014-03-13 16:54+0100\n"
+"Last-Translator: Jonathan Neve <jonathan@jntraductions.fr>\n"
+"Language-Team: Jonathan Neve <jonathan@jntraductions.fr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+
+#. fmConfig..Caption
+#: config.dfm:4 
+msgid "Setup backup configuration"
+msgstr "Paramétrage de configuration de sauvegarde"
+
+#. fmConfig..Font.Name
+#. fmConfigs..Font.Name
+#. fmConfigs..lbServiceStatus..Font.Name
+#. fmConfigs..lbVersion..Font.Name
+#: config.dfm:11  configs.dfm:11 configs.dfm:40 configs.dfm:60
+msgid "Tahoma"
+msgstr ""
+
+#. fmConfig..Label1..Caption
+#: config.dfm:27 
+msgid "Configuration name :"
+msgstr "Nom de configuration :"
+
+#. fmConfig..edFrenquency..EditLabel.Caption
+#: config.dfm:37 
+msgid "Sync frequency (sec)"
+msgstr "Fréquence de réplication (sec)"
+
+#. fmConfig..PageControl1..tsMaster..Caption
+#: config.dfm:51 
+msgid "Master database"
+msgstr "Base de données maître"
+
+#. fmConfig..PageControl1..tsMirror..Caption
+#: config.dfm:58 
+msgid "Mirror database"
+msgstr "Base de données mirroir"
+
+#. fmConfig..Button3..Caption
+#: config.dfm:72 
+msgid "Cancel"
+msgstr "Annuler"
+
+#. fmConfig..Button4..Caption
+#: config.dfm:82 
+msgid "Ok"
+msgstr "Ok"
+
+#. fmConfig..edConfigName..EditMask
+#: config.dfm:91 
+msgid ">aaaaaaaaaaaaa;0; "
+msgstr ""
+
+#. fmConfigs..Caption
+#. LiveMirrorManager..Caption
+#: configs.dfm:4  main.dfm:4
+msgid "LiveMirror Manager"
+msgstr "Administrateur LiveMirror"
+
+#. fmConfigs..Label1..Caption
+#: configs.dfm:27 
+msgid "LiveMirror service is  :"
+msgstr "Le service LiveMirror est :"
+
+#. fmConfigs..lbServiceStatus..Caption
+#: configs.dfm:36  configs.pas:201
+msgid "RUNNING"
+msgstr "ACTIF"
+
+#. fmConfigs..Label2..Caption
+#: configs.dfm:49 
+msgid "Microtec LiverMirror  v."
+msgstr "Microtec LiverMirror  v."
+
+#. fmConfigs..lbVersion..Caption
+#: configs.dfm:56 
+msgid "1.00.0"
+msgstr "1.00.0"
+
+#. fmConfigs..GroupBox..Caption
+#: configs.dfm:70 
+msgid "Configurations"
+msgstr "Configurations"
+
+#. fmConfigs..GroupBox..btAdd..Caption
+#: configs.dfm:91 
+msgid "Add"
+msgstr "Ajouter"
+
+#. fmConfigs..GroupBox..btDelete..Caption
+#: configs.dfm:101 
+msgid "Delete"
+msgstr "Supprimer"
+
+#. fmConfigs..GroupBox..btProperties..Caption
+#: configs.dfm:112 
+msgid "Properties"
+msgstr "Propriétés"
+
+#. fmConfigs..btServiceStopStart..Caption
+#: configs.dfm:124  configs.pas:203
+msgid "Stop"
+msgstr "Arrêter"
+
+#. fmConfigs..PipeServer..PipeName
+#. fmConfigs..PipeClient..PipeName
+#: configs.dfm:131  configs.dfm:137
+msgid "LiveMirrorMgrPipeServer"
+msgstr ""
+
+#. frConnectParamsFB..Label1..Caption
+#: fConnectParamsFB.dfm:15 
+msgid "Database name :"
+msgstr "Nom de la base :"
+
+#. frConnectParamsFB..SpeedButton1..Caption
+#. frConnectParamsFB..SpeedButton2..Caption
+#: fConnectParamsFB.dfm:23  fConnectParamsFB.dfm:67
+msgid "..."
+msgstr ""
+
+#. frConnectParamsFB..Label2..Caption
+#: fConnectParamsFB.dfm:31 
+msgid "User name :"
+msgstr "Nom d'utilisateur :"
+
+#. frConnectParamsFB..Label3..Caption
+#: fConnectParamsFB.dfm:38 
+msgid "Password :"
+msgstr "Mot de passe :"
+
+#. frConnectParamsFB..Label4..Caption
+#: fConnectParamsFB.dfm:45 
+msgid "Charset :"
+msgstr "Encodage :"
+
+#. frConnectParamsFB..Label5..Caption
+#: fConnectParamsFB.dfm:52 
+msgid "Dialect :"
+msgstr "Dialecte :"
+
+#. frConnectParamsFB..Label9..Caption
+#: fConnectParamsFB.dfm:59 
+msgid "Library name :"
+msgstr "Nom de la librairie :"
+
+#. frConnectParamsFB..Label10..Caption
+#: fConnectParamsFB.dfm:75 
+msgid "Version :"
+msgstr "Version :"
+
+#. frConnectParamsFB..edPassword..PasswordChar
+#: fConnectParamsFB.dfm:99 
+msgid "*"
+msgstr ""
+
+#. frConnectParamsFB..btTest..Caption
+#: fConnectParamsFB.dfm:146 
+msgid "Test connect"
+msgstr "Tester la connexion"
+
+#. frConnectParamsFB..OpenDialogDLL......DisplayName
+#: fConnectParamsFB.dfm:158 
+msgid "Windows library"
+msgstr "Librairie"
+
+#. frConnectParamsFB..OpenDialogDLL......FileMask
+#: fConnectParamsFB.dfm:159 
+msgid "*.dll"
+msgstr "*.dll"
+
+#. frConnectParamsFB..OpenDialogDLL......DisplayName
+#. frConnectParamsFB..OpenDialog......DisplayName
+#: fConnectParamsFB.dfm:162  fConnectParamsFB.dfm:181
+msgid "Any file"
+msgstr "Tous les fichiers"
+
+#. frConnectParamsFB..OpenDialogDLL......FileMask
+#. frConnectParamsFB..OpenDialog......FileMask
+#: fConnectParamsFB.dfm:163  fConnectParamsFB.dfm:182
+msgid "*.*"
+msgstr "*.*"
+
+#. frConnectParamsFB..OpenDialog......DisplayName
+#: fConnectParamsFB.dfm:173 
+msgid "Interbase databases"
+msgstr "Bases Interbase"
+
+#. frConnectParamsFB..OpenDialog......FileMask
+#: fConnectParamsFB.dfm:174 
+msgid "*.gdb"
+msgstr "*.gdb"
+
+#. frConnectParamsFB..OpenDialog......DisplayName
+#: fConnectParamsFB.dfm:177 
+msgid "FireBird databases"
+msgstr "Bases Firebird"
+
+#. frConnectParamsFB..OpenDialog......FileMask
+#: fConnectParamsFB.dfm:178 
+msgid "*.fdb"
+msgstr "*.fdb"
+
+#. frConnectParamsFB..Connection..DBType
+#: fConnectParamsFB.dfm:192 
+msgid "Interbase"
+msgstr "Interbase"
+
+# Don't translate
+#. frConnectParamsFB..FDConnection....Params.Strings
+#: fConnectParamsFB.dfm:197 
+msgid "Database=fdl"
+msgstr ""
+
+#. frConnectParamsFB..FDConnection....Params.Strings
+#: fConnectParamsFB.dfm:198 
+msgid "User_Name=sys"
+msgstr ""
+
+#. frConnectParamsFB..FDConnection....Params.Strings
+#: fConnectParamsFB.dfm:199 
+msgid "Password=dfgdc"
+msgstr ""
+
+#. frConnectParamsFB..FDConnection....Params.Strings
+#: fConnectParamsFB.dfm:200 
+msgid "SQLDialect=1"
+msgstr ""
+
+#. frConnectParamsFB..FDConnection....Params.Strings
+#: fConnectParamsFB.dfm:201 
+msgid "DriverID=FB"
+msgstr ""
+
+#. frConnectParamsFB..FDGUIxWaitCursor1..Provider
+#: fConnectParamsFB.dfm:213 
+msgid "Forms"
+msgstr ""
+
+#: config.pas:108 
+msgid "Can't create directory \"%s\" "
+msgstr "Impossible de créer le répertoire \"%s\" "
+
+#: config.pas:176 
+msgid "Can't install service!"
+msgstr "Impossible d'installer le service !"
+
+#: configs.pas:116 
+msgid "Are you sure you want to delete this backup configuration?"
+msgstr "Etes-vous sûr de vouloir supprimer cette configuration ?"
+
+#: configs.pas:116 
+msgid "Delete confirmation"
+msgstr "Confirmation de suppression"
+
+#: configs.pas:197 
+msgid "UNINSTALLED"
+msgstr ""
+
+#: configs.pas:211 
+msgid "STOPPED"
+msgstr "ARRETE"
+
+#: configs.pas:213 
+msgid "Start"
+msgstr "Démarrer"
+
+#: configs.pas:248 
+msgid "Can't uninstall service!"
+msgstr "Impossible de désinstaller le service !"
+
+#: fConnectParamsFB.pas:87 
+msgid "Connection established successfully"
+msgstr "Connexion établie avec succès"
+
+#~ msgid "Stop service"
+#~ msgstr "Arrêter"
+
+#~ msgid "This is a test"
+#~ msgstr "Ceci est un test"

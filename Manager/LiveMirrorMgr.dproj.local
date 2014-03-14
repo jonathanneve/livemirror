@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="..\..\livemirror"/>
+    <File Path="..\LMUtils.pas"/>
+    <File Path="..\ServiceManager.pas"/>
+    <File Path="..\gnugettext.pas"/>
+    <File Path="config.pas"/>
+    <File Path="config.dfm"/>
+    <File Path="configs.pas"/>
+    <File Path="configs.dfm"/>
+    <File Path="fConnectParamsFB.pas"/>
+    <File Path="fConnectParamsFB.dfm"/>
+  </ProjectSortOrder>
+</BorlandProject>
