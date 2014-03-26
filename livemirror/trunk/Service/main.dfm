@@ -27,6 +27,7 @@ object LiveMirror: TLiveMirror
     AbortOnError = False
     OnFinished = ReplicatorFinished
     OnRowReplicated = ReplicatorRowReplicated
+    OnRowReplicating = ReplicatorRowReplicating
     OnReplicationError = ReplicatorReplicationError
     OnException = ReplicatorException
     OnLogLoaded = ReplicatorLogLoaded

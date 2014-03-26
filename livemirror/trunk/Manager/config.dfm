@@ -26,6 +26,19 @@ object fmConfig: TfmConfig
     Height = 13
     Caption = 'Configuration name :'
   end
+  object lbEvaluation: TLabel
+    Left = 8
+    Top = 210
+    Width = 223
+    Height = 23
+    Caption = 'EVALUATION VERSION'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clMaroon
+    Font.Height = -19
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
   object edFrenquency: TLabeledEdit
     Left = 269
     Top = 24
@@ -49,18 +62,10 @@ object fmConfig: TfmConfig
     TabOrder = 2
     object tsMaster: TTabSheet
       Caption = 'Master database'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
     end
     object tsMirror: TTabSheet
       Caption = 'Mirror database'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
     end
   end
   object Button3: TButton
@@ -92,5 +97,16 @@ object fmConfig: TfmConfig
     MaxLength = 13
     TabOrder = 0
     Text = ''
+  end
+  object btLicensing: TButton
+    Left = 8
+    Top = 208
+    Width = 75
+    Height = 25
+    Anchors = [akRight, akBottom]
+    Caption = 'Licensing'
+    ModalResult = 1
+    TabOrder = 5
+    OnClick = btLicensingClick
   end
 end

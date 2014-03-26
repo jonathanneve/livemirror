@@ -7,7 +7,15 @@ uses
   fConnectParamsFB in 'fConnectParamsFB.pas' {frConnectParamsFB: TFrame},
   LMUtils in '..\LMUtils.pas',
   ServiceManager in '..\ServiceManager.pas',
-  gnugettext in '..\gnugettext.pas';
+  gnugettext in '..\gnugettext.pas',
+  uLkJSON in '..\uLkJSON.pas',
+  blcksock in '..\Synapse\blcksock.pas',
+  httpsend in '..\Synapse\httpsend.pas',
+  synacode in '..\Synapse\synacode.pas',
+  synaip in '..\Synapse\synaip.pas',
+  synautil in '..\Synapse\synautil.pas',
+  synsock in '..\Synapse\synsock.pas',
+  synafpc in '..\Synapse\synafpc.pas';
 
 {$R *.res}
 

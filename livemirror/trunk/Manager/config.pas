@@ -32,10 +32,14 @@ type
     Button4: TButton;
     edConfigName: TMaskEdit;
     Label1: TLabel;
+    btLicensing: TButton;
+    lbEvaluation: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure btLicensingClick(Sender: TObject);
   private
     lNewConfig: Boolean;
+    FLicence: String;
     FMasterFrame, FMirrorFrame: ILMConnectionFrame;
     procedure LoadConfig(cConfigName: String);
     procedure SaveConfig;
@@ -44,7 +48,7 @@ type
       ts: TTabSheet; frameName: String): ILMConnectionFrame;
     procedure CreateConnectionFrames(dbTypeMaster, dbTypeMirror: String);
     { Déclarations privées }
-    procedure InstallService;
+    procedure ServiceInstall;
   public
     class function NewConfig: Boolean;
     class procedure EditConfig(cConfigName: String);
@@ -55,17 +59,47 @@ implementation
 
 {$R *.dfm}
 
-uses FireDAC.VCLUI.ConnEdit, gnugettext, Inifiles, fConnectParamsFB, LMUtils, ShellAPI;
+uses FireDAC.VCLUI.ConnEdit, gnugettext, Inifiles, fConnectParamsFB, LMUtils, ShellAPI,
+  licensing;
 
 procedure TfmConfig.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-  if lNewConfig and (ModalResult = mrOk) then
-    InstallService;
+  if ModalResult = mrOk then begin
+    if Trim(edConfigName.Text) = '' then begin
+      Application.MessageBox(PChar(_('You must enter a name for this configuration!')), PChar(_('Configuration name missing')), MB_ICONERROR + MB_OK);
+      CanClose := False;
+      Exit;
+    end;
+
+    {$IFNDEF LM_EVALUATION}
+    if FLicence = '' then
+      FLicence := TfmLicensing.AskForLicence(Trim(edConfigName.Text));
+    if FLicence = '' then begin
+      CanClose := False;
+      Exit;
+    end;
+    {$ENDIF}
+
+    if lNewConfig then
+      ServiceInstall;
+  end;
 end;
 
 procedure TfmConfig.FormCreate(Sender: TObject);
 begin
   TranslateComponent(self);
+  {$IFDEF LM_EVALUATION}
+  lbEvaluation.Visible := True;
+  btLicensing.Visible := False;
+  {$ELSE}
+  lbEvaluation.Visible := False;
+  btLicensing.Visible := True;
+  {$ENDIF}
+end;
+
+procedure TfmConfig.btLicensingClick(Sender: TObject);
+begin
+  FLicence := TfmLicensing.AskForLicence(Trim(edConfigName.Text));
 end;
 
 function TfmConfig.CreateConnectionFrame(dbType: String; ts: TTabSheet; frameName: String): ILMConnectionFrame;
@@ -84,6 +118,9 @@ var
   procedure DoSaveConfig;
   begin
     ConfigsIni.WriteString(cConfigName, 'SyncFrequency', edFrenquency.Text);
+    {$IFNDEF LM_EVALUATION}
+    ConfigsIni.WriteString(cConfigName, 'Licence', FLicence);
+    {$ENDIF}
     ConfigsIni.WriteString(cConfigName, 'MasterDBType', FMasterFrame.DBType);
     ConfigsIni.WriteString(cConfigName, 'MirrorDBType', FMirrorFrame.DBType);
     FMasterFrame.Save(cConfigDir + 'master.ini');
@@ -116,6 +153,11 @@ begin
   finally
     ConfigsIni.Free;
   end;
+end;
+
+procedure TfmConfig.ServiceInstall;
+begin
+  InstallService(Trim(edConfigName.Text), Handle);
 end;
 
 procedure TfmConfig.SaveConfig;
@@ -165,15 +207,6 @@ begin
   finally
     fmConfig.Free;
   end;
-end;
-
-procedure TfmConfig.InstallService;
-var
-  cConfigName: String;
-begin
-  cConfigName := Trim(edConfigName.Text);
-  if ShellExecute(Handle,'open',PChar(GetLiveMirrorRoot + '\Service\LiveMirrorSrv.exe'), PChar(cConfigName + ' /install /silent'),'',SW_HIDE) <= 32 then
-    raise Exception.Create(_('Can''t install service!'));
 end;
 
 end.

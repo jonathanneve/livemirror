@@ -35,9 +35,16 @@ type
       var CanContinue: Boolean);
     procedure ReplicatorException(Sender: TObject; e: Exception);
     procedure ReplicatorFinished(Sender: TObject);
+    procedure ReplicatorRowReplicating(Sender: TObject; TableName: string;
+      Fields: TFields; var ReplicateRow, AbortAndTryLater: Boolean);
   private
     FConfigName: String;
     FMasterNode, FMirrorNode : ILMNode;
+    {$IFNDEF LM_EVALUATION}
+    FLicence: String;
+    function CheckLiveMirrorLicence : Boolean;
+    {$ENDIF}
+
     function GetNode(dbType, nodeType: String): ILMNode;
     procedure ConfigDatabases;
   public
@@ -103,6 +110,30 @@ begin
 	Replicator.RemoteDB.CommitRetaining;
 end;
 
+procedure TLiveMirror.ReplicatorRowReplicating(Sender: TObject;
+  TableName: string; Fields: TFields; var ReplicateRow,
+  AbortAndTryLater: Boolean);
+var
+  I: Integer;
+begin
+{$IFDEF LM_EVALUATION}
+	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 1s...'));
+  Sleep(1000);
+	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 1s...'));
+  Sleep(1000);
+	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 1s...'));
+  Sleep(1000);
+	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 1s...'));
+  Sleep(1000);
+	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 1s...'));
+  Sleep(1000);
+{  for I := 0 to Fields.Count do begin
+    if (Fields[I].DataType in [ftString, ftWideString]) and (Replicator.Log.Keys.FindKey(Fields[I].FieldName = nil)) then
+      Fields[I].Value := 'LM' + Fields[I].Value;
+  end;}
+{$ENDIF}
+end;
+
 function TLiveMirror.GetNode(dbType, nodeType: String): ILMNode;
 begin
   Assert(dbType = 'Interbase');
@@ -148,7 +179,7 @@ begin
     if OpenKey('SYSTEM\CurrentControlSet\Services\' + Name, True) then
     begin
       WriteString('ImagePath', ReadString('ImagePath')+' ' + FConfigName);
-      WriteString('Description', 'Microtec LiveMirror replication service' );
+      WriteString('Description', 'Microtec LiveMirror replication service'{$IFDEF LM_EVALUATION} + ' EVALUATION VERSION' {$ENDIF} );
     end
   finally
     Free;
@@ -169,6 +200,25 @@ begin
   Name := 'LiveMirror' + FConfigName;
   DisplayName := DisplayName + ' (' + FConfigName + ')';
 end;
+
+{$IFNDEF LM_EVALUATION}
+function TLiveMirror.CheckLiveMirrorLicence : Boolean;
+begin
+  Result := False;
+  if (FLicence <> '') then begin
+     try
+       if not CheckLicence(FConfigName, FLicence) then
+         hLog.Add(_('Error checking licence, please check your Internet connection'));
+       Result := True;
+     except
+       on E: Exception do begin
+         hLog.Add(_('Licencing error : '));
+         hLog.Add(E.Message);
+       end;
+     end;
+  end;
+end;
+{$ENDIF}
 
 procedure TLiveMirror.ServiceExecute(Sender: TService);
 var
@@ -203,6 +253,16 @@ begin
   	hLog.Add(_('MIRROR database :') + #9 + FMirrorNode.Description);
 	  hLog.Add(_('Replication frequency :') + #9 + IntToStr(nReplFrequency) + _(' seconds'));
     hLog.Add('{/}{LNumOff}{*80*}');
+
+    {$IFNDEF LM_EVALUATION}
+    //Check licence and die if it's incorrect
+    FLicence := iniConfigs.ReadString(FConfigName, 'Licence', '');
+    if not CheckLiveMirrorLicence then begin
+      //Clear licence if it was incorrect
+      iniConfigs.WriteString(FConfigName, 'Licence', '');
+      Exit;
+    end;
+    {$ENDIF}
 
     //Create replication meta-data and triggers if they aren't there
     //Any new tables are automatically detected and triggers added

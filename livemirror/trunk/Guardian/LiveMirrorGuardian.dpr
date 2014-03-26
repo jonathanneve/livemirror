@@ -5,7 +5,17 @@ uses
   main in 'main.pas' {LiveMirror: TService},
   ServiceManager in '..\ServiceManager.pas',
   LMUtils in '..\LMUtils.pas',
-  gnugettext in '..\gnugettext.pas';
+  gnugettext in '..\gnugettext.pas',
+  blcksock in '..\Synapse\blcksock.pas',
+  httpsend in '..\Synapse\httpsend.pas',
+  synacode in '..\Synapse\synacode.pas',
+  synafpc in '..\Synapse\synafpc.pas',
+  synaip in '..\Synapse\synaip.pas',
+  synautil in '..\Synapse\synautil.pas',
+  synsock in '..\Synapse\synsock.pas',
+  uLkJSON in '..\uLkJSON.pas',
+  licensing in '..\Manager\licensing.pas' {fmLicensing},
+  nagscreen in '..\nagscreen.pas' {Form7};
 
 {$R *.RES}
 
@@ -27,5 +37,6 @@ begin
   if not Application.DelayInitialize or Application.Installing then
     Application.Initialize;
   Application.CreateForm(TLiveMirror, LiveMirror);
+  Application.CreateForm(TForm7, Form7);
   Application.Run;
 end.
