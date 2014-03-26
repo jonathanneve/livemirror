@@ -3,6 +3,7 @@
 
 #define Registered
 #define SetupName "LiveMirrorSetup"
+#define Config "Release"
 ;#define README_FILE "..\License\Readme.txt"
 ;#define LICENSE_FILE "..\License\License.txt"
 #include "install.iss"

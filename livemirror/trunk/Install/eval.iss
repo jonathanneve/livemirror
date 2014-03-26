@@ -3,6 +3,7 @@
 
 #define Trial
 #define SetupName "LiveMirrorEval"
+#define Config "Eval"
 ;#define README_FILE "..\License\Readme.txt"
 ;#define LICENSE_FILE "..\License\License.txt"
 #include "install.iss"
