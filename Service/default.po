@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-03-14 10:25\n"
-"PO-Revision-Date: 2014-03-14 10:25\n"
+"POT-Creation-Date: 2014-03-26 14:39\n"
+"PO-Revision-Date: 2014-03-26 14:39\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,94 +33,112 @@ msgstr ""
 #. LiveMirror..Replicator..Version
 #: main.dfm:16
 #. LiveMirror..MasterConfig..Version
-#: main.dfm:37
+#: main.dfm:38
 #. LiveMirror..MirrorConfig..Version
-#: main.dfm:46
+#: main.dfm:47
 msgid "3.06.0 beta"
 msgstr ""
 
 #. LiveMirror..MasterConfig..ConfigName
-#: main.dfm:38
+#: main.dfm:39
 #. LiveMirror..MirrorConfig..ConfigName
-#: main.dfm:47
+#: main.dfm:48
 msgid "LM"
 msgstr ""
 
-#: main.pas:69
-#: main.pas:70
+#: main.pas:76
+#: main.pas:77
 msgid "Replication failed with error : "
 msgstr ""
 
 #. , EVENTLOG_INFORMATION_TYPE);
-#: main.pas:79
+#: main.pas:86
 msgid "Replication finished : "
 msgstr ""
 
-#: main.pas:79
+#: main.pas:86
 msgid "Rows replicated : "
 msgstr ""
 
-#: main.pas:80
+#: main.pas:87
 msgid "Rows with errors : "
 msgstr ""
 
 #. LogMessage('Starting replication : ' + IntToStr(Replicator.Log.LineCount) + ' rows to replicate...', EVENTLOG_INFORMATION_TYPE);
-#: main.pas:86
+#: main.pas:93
 msgid "Starting replication : "
 msgstr ""
 
-#: main.pas:86
+#: main.pas:93
 msgid " rows to replicate..."
 msgstr ""
 
-#: main.pas:92
-#: main.pas:93
+#: main.pas:99
+#: main.pas:100
 msgid "Error replicating row : Table "
 msgstr ""
 
 #. LogMessage('Row replicated : Table ' + TableName + ' [' +  Replicator.Log.PrimaryKeys + ']', EVENTLOG_INFORMATION_TYPE);
-#: main.pas:101
+#: main.pas:108
 msgid "Row replicated : Table : "
 msgstr ""
 
-#: main.pas:119
+#: main.pas:120
+#: main.pas:122
+#: main.pas:124
+#: main.pas:126
+#: main.pas:128
+msgid "{now} LiveMirror Evaluation version... waiting "
+"1s..."
+msgstr ""
+
+#: main.pas:150
 msgid "{now} Checking database configuration..."
 msgstr ""
 
-#: main.pas:140
+#: main.pas:171
 msgid "{now} Databases configuration configured "
 "successfully!"
 msgstr ""
 
-#: main.pas:199
+#: main.pas:211
+msgid "Error checking licence, please check your Internet "
+"connection"
+msgstr ""
+
+#: main.pas:215
+msgid "Licencing error : "
+msgstr ""
+
+#: main.pas:249
 msgid ">>>> Start {App_name}"
 msgstr ""
 
-#: main.pas:200
+#: main.pas:250
 msgid "{@12}Path : {App_path}"
 msgstr ""
 
-#: main.pas:201
+#: main.pas:251
 msgid "{@12}Config. name : {App_prm-}{/}"
 msgstr ""
 
-#: main.pas:202
+#: main.pas:252
 msgid "MASTER database :"
 msgstr ""
 
-#: main.pas:203
+#: main.pas:253
 msgid "MIRROR database :"
 msgstr ""
 
-#: main.pas:204
+#: main.pas:254
 msgid "Replication frequency :"
 msgstr ""
 
-#: main.pas:204
+#: main.pas:254
 msgid " seconds"
 msgstr ""
 
-#: main.pas:218
+#: main.pas:278
 msgid "{now} Service ready!"
 msgstr ""
 

@@ -35,16 +35,16 @@ Name: french; MessagesFile: compiler:Languages\French.isl
 
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: ..\Manager\Win32\Release\LiveMirrorMgr.exe; DestDir: {app}\Manager
-Source: ..\Manager\Win32\Release\LiveMirrorCpl.cpl; DestDir: {sys}
+Source: ..\Manager\Win32\{#Config}\LiveMirrorMgr.exe; DestDir: {app}\Manager
+Source: ..\Manager\Win32\{#Config}\LiveMirrorCpl.cpl; DestDir: {sys}
 Source: ..\Manager\locale\FR\LC_MESSAGES\default.mo; DestDir: {app}\Manager\locale\FR\LC_MESSAGES
 Source: ..\Manager\locale\FR\LC_MESSAGES\default.po; DestDir: {app}\Manager\locale\FR\LC_MESSAGES
 
 Source: ..\Guardian\locale\FR\LC_MESSAGES\default.mo; DestDir: {app}\Guardian\locale\FR\LC_MESSAGES
 Source: ..\Guardian\locale\FR\LC_MESSAGES\default.po; DestDir: {app}\Guardian\locale\FR\LC_MESSAGES
-Source: ..\Guardian\Win32\Release\LiveMirrorGuardian.exe; DestDir: {app}\Guardian
+Source: ..\Guardian\Win32\{#Config}\LiveMirrorGuardian.exe; DestDir: {app}\Guardian
 
-Source: ..\Service\Win32\Release\LiveMirrorSrv.exe; DestDir: {app}\Service
+Source: ..\Service\Win32\{#Config}\LiveMirrorSrv.exe; DestDir: {app}\Service
 Source: ..\Service\locale\FR\LC_MESSAGES\default.mo; DestDir: {app}\Service\locale\FR\LC_MESSAGES
 Source: ..\Service\locale\FR\LC_MESSAGES\default.po; DestDir: {app}\Service\locale\FR\LC_MESSAGES
 

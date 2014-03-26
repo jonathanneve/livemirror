@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Microtec LiveMirror\n"
-"POT-Creation-Date: 2014-03-13 16:45\n"
+"POT-Creation-Date: 2014-03-26 14:39\n"
 "PO-Revision-Date: 2014-03-13 16:36+0100\n"
 "Last-Translator: Jonathan Neve <jonathan@jntraductions.fr>\n"
 "Language-Team: Jonathan Neve <jonathan@jntraductions.fr>\n"
@@ -29,87 +29,99 @@ msgstr "Microtec LiveMirror"
 #. LiveMirror..Replicator..Version
 #. LiveMirror..MasterConfig..Version
 #. LiveMirror..MirrorConfig..Version
-#: main.dfm:16  main.dfm:37 main.dfm:46
+#: main.dfm:16  main.dfm:38 main.dfm:47
 msgid "3.06.0 beta"
 msgstr "3.06.0 beta"
 
 #. LiveMirror..MasterConfig..ConfigName
 #. LiveMirror..MirrorConfig..ConfigName
-#: main.dfm:38  main.dfm:47
+#: main.dfm:39  main.dfm:48
 msgid "LM"
 msgstr "LM"
 
-#: main.pas:69  main.pas:70
+#: main.pas:76  main.pas:77
 msgid "Replication failed with error : "
 msgstr "Réplication échouée avec erreur : "
 
 #. , EVENTLOG_INFORMATION_TYPE);
-#: main.pas:79 
+#: main.pas:86 
 msgid "Replication finished : "
 msgstr "Réplication terminée : "
 
-#: main.pas:79 
+#: main.pas:86 
 msgid "Rows replicated : "
 msgstr "Lignes répliquées : "
 
-#: main.pas:80 
+#: main.pas:87 
 msgid "Rows with errors : "
 msgstr "Lignes en erreur : "
 
 #. LogMessage('Starting replication : ' + IntToStr(Replicator.Log.LineCount) + ' rows to replicate...', EVENTLOG_INFORMATION_TYPE);
-#: main.pas:86 
+#: main.pas:93 
 msgid "Starting replication : "
 msgstr "Réplication : "
 
-#: main.pas:86 
+#: main.pas:93 
 msgid " rows to replicate..."
 msgstr " lignes à répliquer..."
 
-#: main.pas:92  main.pas:93
+#: main.pas:99  main.pas:100
 msgid "Error replicating row : Table "
 msgstr "Impossible de répliquer la ligne : Table "
 
 #. LogMessage('Row replicated : Table ' + TableName + ' [' +  Replicator.Log.PrimaryKeys + ']', EVENTLOG_INFORMATION_TYPE);
-#: main.pas:101 
+#: main.pas:108 
 msgid "Row replicated : Table : "
 msgstr "Ligne répliquée : Table : "
 
-#: main.pas:119 
+#: main.pas:120  main.pas:122 main.pas:124 main.pas:126 main.pas:128
+msgid "{now} LiveMirror Evaluation version... waiting 1s..."
+msgstr ""
+
+#: main.pas:150 
 msgid "{now} Checking database configuration..."
 msgstr "{now} Vérification de la configuration des bases de données..."
 
-#: main.pas:140 
+#: main.pas:171 
 msgid "{now} Databases configuration configured successfully!"
 msgstr "{now} Configuration des bases de données effectuée avec succès !"
 
-#: main.pas:199 
+#: main.pas:211 
+msgid "Error checking licence, please check your Internet connection"
+msgstr ""
+
+#: main.pas:215 
+msgid "Licencing error : "
+msgstr ""
+
+#: main.pas:249 
 msgid ">>>> Start {App_name}"
 msgstr ">>>> Démarrage  {App_name}"
 
-#: main.pas:200 
+#: main.pas:250 
 msgid "{@12}Path : {App_path}"
 msgstr "{@12}Chemin : {App_path}"
 
-#: main.pas:201 
+#: main.pas:251 
 msgid "{@12}Config. name : {App_prm-}{/}"
 msgstr "{@12}Nom de configuration : {App_prm-}{/}"
 
-#: main.pas:202 
+#: main.pas:252 
 msgid "MASTER database :"
 msgstr "Base de données MAITRE : "
 
-#: main.pas:203 
+#: main.pas:253 
 msgid "MIRROR database :"
 msgstr "Base de données MIRROIR :"
 
-#: main.pas:204 
+#: main.pas:254 
 msgid "Replication frequency :"
 msgstr "Fréquence de réplication :"
 
-#: main.pas:204 
+#: main.pas:254 
 msgid " seconds"
 msgstr " secondes"
 
-#: main.pas:218 
+#: main.pas:278 
 msgid "{now} Service ready!"
 msgstr "{now} Service prêt !"
