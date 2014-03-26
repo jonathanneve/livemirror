@@ -13,15 +13,19 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{BBFC71D7-E12F-4206-9799-41C56BA604F1}
 AppName={#MyAppName}
+#IfDef Trial
+AppVersion={#MyAppVersion} Evaluation
+#else
 AppVersion={#MyAppVersion}
+#endif
 ;AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
-DefaultGroupName=LiveMirror Manager
-OutputBaseFilename=LiveMirrorSetup
+DefaultGroupName=LiveMirror
+OutputBaseFilename={#SetupName}
 Compression=lzma
 SolidCompression=yes
 

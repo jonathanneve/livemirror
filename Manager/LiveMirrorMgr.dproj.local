@@ -2,9 +2,18 @@
 <BorlandProject>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="..\..\livemirror"/>
+    <File Path="..\Synapse"/>
+    <File Path="..\Synapse\blcksock.pas"/>
+    <File Path="..\Synapse\httpsend.pas"/>
+    <File Path="..\Synapse\synacode.pas"/>
+    <File Path="..\Synapse\synaip.pas"/>
+    <File Path="..\Synapse\synautil.pas"/>
+    <File Path="..\Synapse\synsock.pas"/>
+    <File Path="..\Synapse\synafpc.pas"/>
     <File Path="..\LMUtils.pas"/>
     <File Path="..\ServiceManager.pas"/>
     <File Path="..\gnugettext.pas"/>
+    <File Path="..\uLkJSON.pas"/>
     <File Path="config.pas"/>
     <File Path="config.dfm"/>
     <File Path="configs.pas"/>

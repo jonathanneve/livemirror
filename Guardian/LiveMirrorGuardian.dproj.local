@@ -8,5 +8,17 @@
     <Transaction>2014/03/07 17:31:27.000.573,C:\Users\Jonathan\Documents\RAD Studio\Projets\Project7.dproj=C:\Projects\livemirror\Guardian\LiveMirrorGuardian.dproj</Transaction>
     <Transaction>2014/03/07 17:57:35.000.265,=C:\Projects\livemirror\LMUtils.pas</Transaction>
     <Transaction>2014/03/07 17:58:05.000.959,=C:\Projects\livemirror\gnugettext.pas</Transaction>
+    <Transaction>2014/03/25 06:46:23.227,=C:\Projects\livemirror\Synapse\blcksock.pas</Transaction>
+    <Transaction>2014/03/25 06:46:23.264,=C:\Projects\livemirror\Synapse\httpsend.pas</Transaction>
+    <Transaction>2014/03/25 06:46:23.271,=C:\Projects\livemirror\Synapse\synacode.pas</Transaction>
+    <Transaction>2014/03/25 06:46:23.298,=C:\Projects\livemirror\Synapse\synafpc.pas</Transaction>
+    <Transaction>2014/03/25 06:46:23.304,=C:\Projects\livemirror\Synapse\synaip.pas</Transaction>
+    <Transaction>2014/03/25 06:46:23.318,=C:\Projects\livemirror\Synapse\synautil.pas</Transaction>
+    <Transaction>2014/03/25 06:46:23.328,=C:\Projects\livemirror\Synapse\synsock.pas</Transaction>
+    <Transaction>2014/03/25 06:46:58.579,=C:\Projects\livemirror\uLkJSON.pas</Transaction>
+    <Transaction>2014/03/25 07:16:39.602,=C:\Projects\livemirror\Guardian\Unit1.pas</Transaction>
+    <Transaction>2014/03/25 07:22:32.368,=C:\Projects\livemirror\nagscreen.pas</Transaction>
+    <Transaction>2014/03/25 07:29:38.326,C:\Projects\livemirror\Manager\licensing.dfm=C:\Projects\livemirror\Guardian\Unit1.dfm</Transaction>
+    <Transaction>2014/03/25 07:29:38.326,C:\Projects\livemirror\Manager\licensing.pas=C:\Projects\livemirror\Guardian\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>

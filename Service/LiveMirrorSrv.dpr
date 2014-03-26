@@ -6,7 +6,15 @@ uses
   LMUtils in '..\LMUtils.pas',
   dInterbase in 'dInterbase.pas' {dmInterbase: TDataModule},
   gnugettext in '..\gnugettext.pas',
-  HotLog in 'HotLog.pas';
+  HotLog in 'HotLog.pas',
+  uLkJSON in '..\uLkJSON.pas',
+  blcksock in '..\Synapse\blcksock.pas',
+  httpsend in '..\Synapse\httpsend.pas',
+  synacode in '..\Synapse\synacode.pas',
+  synafpc in '..\Synapse\synafpc.pas',
+  synaip in '..\Synapse\synaip.pas',
+  synautil in '..\Synapse\synautil.pas',
+  synsock in '..\Synapse\synsock.pas';
 
 {$R *.RES}
 

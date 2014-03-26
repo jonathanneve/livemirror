@@ -45,6 +45,17 @@
         <Cfg_2>true</Cfg_2>
         <Base>true</Base>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Eval' or '$(Cfg_3)'!=''">
+        <Cfg_3>true</Cfg_3>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_3)'=='true') or '$(Cfg_3_Win32)'!=''">
+        <Cfg_3_Win32>true</Cfg_3_Win32>
+        <CfgParent>Cfg_3</CfgParent>
+        <Cfg_3>true</Cfg_3>
+        <Base>true</Base>
+    </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
@@ -96,6 +107,14 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_3_Win32)'!=''">
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <DCC_Define>RELEASE;LM_EVALUATION;$(DCC_Define)</DCC_Define>
+        <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <DCC_DebugInformation>0</DCC_DebugInformation>
+        <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+    </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
@@ -108,8 +127,28 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <DCCReference Include="..\ServiceManager.pas"/>
         <DCCReference Include="..\LMUtils.pas"/>
         <DCCReference Include="..\gnugettext.pas"/>
+        <DCCReference Include="..\Synapse\blcksock.pas"/>
+        <DCCReference Include="..\Synapse\httpsend.pas"/>
+        <DCCReference Include="..\Synapse\synacode.pas"/>
+        <DCCReference Include="..\Synapse\synafpc.pas"/>
+        <DCCReference Include="..\Synapse\synaip.pas"/>
+        <DCCReference Include="..\Synapse\synautil.pas"/>
+        <DCCReference Include="..\Synapse\synsock.pas"/>
+        <DCCReference Include="..\uLkJSON.pas"/>
+        <DCCReference Include="..\Manager\licensing.pas">
+            <Form>fmLicensing</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\nagscreen.pas">
+            <Form>Form7</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Eval">
+            <Key>Cfg_3</Key>
             <CfgParent>Base</CfgParent>
         </BuildConfiguration>
         <BuildConfiguration Include="Base">

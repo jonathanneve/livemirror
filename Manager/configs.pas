@@ -5,23 +5,27 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Pipes, ServiceManager,
-  Vcl.ExtCtrls, Vcl.Buttons;
+  Vcl.ExtCtrls, Vcl.Buttons, Vcl.Grids;
 
 type
   TfmConfigs = class(TForm)
+    PipeServer: TPipeServer;
+    PipeClient: TPipeClient;
+    ServiceRefreshTimer: TTimer;
+    Panel1: TPanel;
+    pnEvaluation: TPanel;
+    lbEvaluation: TLabel;
     GroupBox: TGroupBox;
     listConfigs: TListBox;
     btAdd: TBitBtn;
     btDelete: TBitBtn;
     btProperties: TBitBtn;
-    PipeServer: TPipeServer;
-    PipeClient: TPipeClient;
+    Panel3: TPanel;
     Label1: TLabel;
     lbServiceStatus: TLabel;
-    btServiceStopStart: TButton;
-    ServiceRefreshTimer: TTimer;
     Label2: TLabel;
     lbVersion: TLabel;
+    btServiceStopStart: TButton;
     procedure btAddClick(Sender: TObject);
     procedure btPropertiesClick(Sender: TObject);
     procedure btDeleteClick(Sender: TObject);
@@ -33,13 +37,13 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure ServiceRefreshTimerTimer(Sender: TObject);
   private
+    slConfigLicences: TStringList;
     cConfigFileName: String;
     srvMgr: TServiceManager;
     procedure LoadConfigs;
     procedure Init;
     procedure DeleteConfig(cConfigName: String);
     procedure DeleteDirectory(const DirName: string);
-    procedure UnInstallService(cConfigName: String);
     procedure RefreshServiceStatus;
     { Déclarations privées }
   public
@@ -80,15 +84,23 @@ end;
 procedure TfmConfigs.LoadConfigs;
 var
   ini:TIniFile;
+  I: Integer;
 begin
 //  if not FileExists(cConfigFileName) then
 //    TfmConfig.NewConfig;
   ini := TIniFile.Create(cConfigFileName);
   try
     ini.ReadSections(listConfigs.Items);
+
+    {$IFNDEF LM_EVALUATION}
+    slConfigLicences.Clear;
+    for I := 0 to listConfigs.Items.Count-1 do
+      slConfigLicences.Values[listConfigs.Items[I]] := ini.ReadString(listConfigs.Items[I], 'Licence', '');
+    {$ENDIF}
   finally
     ini.Free;
   end;
+
   if listConfigs.Items.Count = 0 then begin
     if TfmConfig.NewConfig then
       LoadConfigs
@@ -115,7 +127,11 @@ begin
   if listConfigs.ItemIndex <> -1 then begin
     if Application.MessageBox(PWideChar(_('Are you sure you want to delete this backup configuration?')), PWideChar(_('Delete confirmation')), MB_YESNO + MB_ICONWARNING + MB_DEFBUTTON2) = IDYES then begin
       cConfigName := listConfigs.Items[listConfigs.ItemIndex];
-      UnInstallService(cConfigName);
+      {$IFNDEF LM_EVALUATION}
+      DeactivateLicence(cConfigName, slConfigLicences.Values[cConfigName]);
+      {$ENDIF}
+
+      UnInstallService(cConfigName, Handle);
       DeleteDirectory(ExtractFileDir(cConfigFileName) + '\' + cConfigName);
       DeleteConfig(cConfigName);
     end;
@@ -178,13 +194,22 @@ begin
 end;
 
 procedure TfmConfigs.FormCreate(Sender: TObject);
+var
+  ResultMessage:String;
 begin
   TranslateComponent (self);
+  slConfigLicences := TStringList.Create;
   srvMgr := TServiceManager.Create;
   srvMgr.Active := True;
 
   Init;
   RefreshServiceStatus;
+
+  {$IFDEF LM_EVALUATION}
+  pnEvaluation.Visible := True;
+  {$ELSE}
+  pnEvaluation.Visible := False;
+  {$ENDIF}
 end;
 
 procedure TfmConfigs.RefreshServiceStatus;
@@ -227,6 +252,7 @@ end;
 procedure TfmConfigs.FormDestroy(Sender: TObject);
 begin
   srvMgr.Free;
+  slConfigLicences.Free;
 end;
 
 procedure TfmConfigs.DeleteConfig(cConfigName: String);
@@ -240,12 +266,6 @@ begin
     ini.Free;
   end;
   LoadConfigs;
-end;
-
-procedure TfmConfigs.UnInstallService(cConfigName: String);
-begin
-  if ShellExecute(Handle,'open',PChar(GetLiveMirrorRoot + '\Service\LiveMirrorSrv.exe'), PChar(cConfigName + ' /uninstall /silent'),'',SW_HIDE) < 32 then
-    raise Exception.Create(_('Can''t uninstall service!'));
 end;
 
 end.

@@ -17,6 +17,9 @@ type
   private
     serviceMgr: TServiceManager;
     slConfigs: TStringList;
+    {$IFNDEF LM_EVALUATION}
+    function CheckServiceLicence(cConfigName: String): Boolean;
+    {$ENDIF}
   public
     function GetServiceController: TServiceController; override;
     { Déclarations publiques }
@@ -48,7 +51,7 @@ begin
     RootKey := HKEY_LOCAL_MACHINE;
     if OpenKey('SYSTEM\CurrentControlSet\Services\' + Name, True) then
     begin
-      WriteString('Description', 'Microtec LiveMirror guardian service' );
+      WriteString('Description', 'Microtec LiveMirror guardian service' {$IFDEF LM_EVALUATION} + ' EVALUATION VERSION' {$ENDIF});
     end
   finally
     Free;
@@ -68,6 +71,22 @@ begin
     iniConfigs.Free;
   end;
 end;
+
+{$IFNDEF LM_EVALUATION}
+function TLiveMirror.CheckServiceLicence(cConfigName: String): Boolean;
+var
+  iniConfigs : TIniFile;
+  cLicence: String;
+begin
+  iniConfigs := TIniFile.Create(GetLiveMirrorRoot + '\configs.ini');
+  try
+    cLicence := iniConfigs.ReadString(cConfigName, 'Licence', '');
+    Result := (cLicence <> '');
+  finally
+    iniConfigs.Free;
+  end;
+end;
+{$ENDIF}
 
 procedure TLiveMirror.ServiceDestroy(Sender: TObject);
 begin
@@ -91,8 +110,12 @@ begin
         Break;
 
       srv := serviceMgr.ServiceByName['LiveMirror' + slConfigs[I]];
-      if srv.State <> ssRunning then
+      if srv.State <> ssRunning then begin
+        {$IFNDEF LM_EVALUATION}
+        if CheckServiceLicence(slConfigs[I]) then
+        {$ENDIF}
         srv.ServiceStart(false);
+      end;
       ServiceThread.ProcessRequests(False);
     end;
     Sleep(1000);
