@@ -27,7 +27,9 @@ DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName=LiveMirror
 OutputBaseFilename={#SetupName}
 Compression=lzma
-SolidCompression=yes
+SolidCompression=true
+DisableDirPage=false
+DisableProgramGroupPage=true
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
