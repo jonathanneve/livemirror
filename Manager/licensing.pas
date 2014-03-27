@@ -17,6 +17,7 @@ type
     Image1: TImage;
     Label3: TLabel;
     procedure Button2Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     FConfigName: String;
     FLicence: String;
@@ -61,6 +62,11 @@ constructor TfmLicensing.Create(AOwner: TComponent; cConfigName: String);
 begin
   inherited Create(AOwner);
   FConfigName := cConfigName;
+end;
+
+procedure TfmLicensing.FormCreate(Sender: TObject);
+begin
+  TranslateComponent(Self);
 end;
 
 end.

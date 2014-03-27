@@ -20,5 +20,19 @@
     <File Path="configs.dfm"/>
     <File Path="fConnectParamsFB.pas"/>
     <File Path="fConnectParamsFB.dfm"/>
-  </ProjectSortOrder>
+    <File Path="licensing.pas"/>
+    <File Path="licensing.dfm"/>
+  </ProjectSortOrder>  <Transactions>
+    <Transaction>2014/03/24 16:20:01.840,=C:\Projects\livemirror\uLkJSON.pas</Transaction>
+    <Transaction>2014/03/24 22:29:51.532,=C:\Projects\livemirror\Synapse\blcksock.pas</Transaction>
+    <Transaction>2014/03/24 22:29:51.551,=C:\Projects\livemirror\Synapse\httpsend.pas</Transaction>
+    <Transaction>2014/03/24 22:29:51.567,=C:\Projects\livemirror\Synapse\synacode.pas</Transaction>
+    <Transaction>2014/03/24 22:29:51.577,=C:\Projects\livemirror\Synapse\synaip.pas</Transaction>
+    <Transaction>2014/03/24 22:29:51.590,=C:\Projects\livemirror\Synapse\synautil.pas</Transaction>
+    <Transaction>2014/03/24 22:29:51.599,=C:\Projects\livemirror\Synapse\synsock.pas</Transaction>
+    <Transaction>2014/03/24 22:31:05.899,=C:\Projects\livemirror\Synapse\synafpc.pas</Transaction>
+    <Transaction>2014/03/26 15:43:29.474,=C:\Projects\livemirror\Manager\licensing.pas</Transaction>
+    <Transaction>2014/03/26 18:19:49.727,C:\Projects\livemirror\Misc\uninst_main.pas=C:\Projects\livemirror\uLkJSON.pas</Transaction>
+    <Transaction>2014/03/26 18:21:22.361,C:\Projects\livemirror\uLkJSON.pas=C:\Projects\livemirror\Misc\uninst_main.pas</Transaction>
+  </Transactions>
 </BorlandProject>

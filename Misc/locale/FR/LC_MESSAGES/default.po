@@ -1,0 +1,38 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: LiveMirror\n"
+"POT-Creation-Date: 2014-03-26 18:39\n"
+"PO-Revision-Date: 2014-03-26 18:39+0100\n"
+"Last-Translator: Jonathan Neve <jonathan@jntraductions.fr>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+
+#. fmMain..Caption
+#: uninst_main.dfm:4 
+msgid "Uninstalling LiveMirror services"
+msgstr ""
+
+#. fmMain..Font.Name
+#: uninst_main.dfm:11 
+msgid "Tahoma"
+msgstr ""
+
+#: uninst_main.pas:50 
+msgid "Configuration %s :"
+msgstr ""
+
+#: uninst_main.pas:55 
+msgid "Deactivating licence"
+msgstr ""
+
+#: uninst_main.pas:59 
+msgid "Uninstalling service"
+msgstr ""

@@ -113,8 +113,7 @@ end;
 procedure TLiveMirror.ReplicatorRowReplicating(Sender: TObject;
   TableName: string; Fields: TFields; var ReplicateRow,
   AbortAndTryLater: Boolean);
-var
-  I: Integer;
+
 begin
 {$IFDEF LM_EVALUATION}
 	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 1s...'));
@@ -193,8 +192,6 @@ begin
 end;
 
 procedure TLiveMirror.ServiceCreate(Sender: TObject);
-var
-  slLog: TStringList;
 begin
   FConfigName := ParamStr(1);
   Name := 'LiveMirror' + FConfigName;
@@ -206,9 +203,12 @@ function TLiveMirror.CheckLiveMirrorLicence : Boolean;
 begin
   Result := False;
   if (FLicence <> '') then begin
+     hLog.Add(_('{now} Checking licence information...'));
      try
-       if not CheckLicence(FConfigName, FLicence) then
+       if not CheckLicenceActivation(FConfigName, FLicence) then begin
          hLog.Add(_('Error checking licence, please check your Internet connection'));
+         Exit;
+       end;
        Result := True;
      except
        on E: Exception do begin
@@ -223,7 +223,6 @@ end;
 procedure TLiveMirror.ServiceExecute(Sender: TService);
 var
   iniConfigs: TIniFile;
-  slLog: TStringList;
   cPath: String;
   nReplFrequency: Integer;
 begin
@@ -249,6 +248,11 @@ begin
     hLog.Add(_('>>>> Start {App_name}') + ' v ' + LiveMirrorVersion + '{80@}{&}{dte} {hms}{&}');
     hLog.Add(_('{@12}Path : {App_path}'));
     hLog.Add(_('{@12}Config. name : {App_prm-}{/}'));
+
+    {$IFDEF LM_EVALUATION}
+  	hLog.Add(_('!!! EVALUATION VERSION !!!'));
+    {$ENDIF}
+
   	hLog.Add(_('MASTER database :') + #9 + FMasterNode.Description);
   	hLog.Add(_('MIRROR database :') + #9 + FMirrorNode.Description);
 	  hLog.Add(_('Replication frequency :') + #9 + IntToStr(nReplFrequency) + _(' seconds'));
@@ -259,6 +263,7 @@ begin
     FLicence := iniConfigs.ReadString(FConfigName, 'Licence', '');
     if not CheckLiveMirrorLicence then begin
       //Clear licence if it was incorrect
+      LogMessage(Format(_('LiveMirror licence invalid for configuration %s.'#13#10'Clearing licence information from setup.'#13#10'Database will not be synchronized till licence is corrected.'), [FConfigName]), EVENTLOG_ERROR_TYPE);
       iniConfigs.WriteString(FConfigName, 'Licence', '');
       Exit;
     end;
@@ -298,8 +303,6 @@ begin
 end;
 
 procedure TLiveMirror.ServiceStart(Sender: TService; var Started: Boolean);
-var
-  slLog: TStringList;
 begin
   Replicator.AutoReplicate.Start;
 end;

@@ -51,7 +51,7 @@ begin
   try
     reg.RootKey := HKEY_LOCAL_MACHINE;
     if not reg.KeyExists(registryPath) then
-      raise Exception.Create(_('LiveMirror path not configured'));
+      raise Exception.Create(dgettext('common', 'LiveMirror path not configured'));
     reg.OpenKey(registryPath, false);
     Result := reg.ReadString('InstallPath') + '\';
     reg.CloseKey;
@@ -151,31 +151,31 @@ begin
         if code = OK then
           Result := True
         else if code = CONNECTION_ERROR then
-          raise Exception.Create(_('Error connecting to licence server!'#13#10'Please make sure your Internet connection is available.') + #13#10 + cMessage)
+          raise Exception.Create(dgettext('common', 'Error connecting to licence server!'#13#10'Please make sure your Internet connection is available.') + #13#10 + cMessage)
         else if code = LICENSE_EMPTY then
-          raise Exception.Create(_('Empty or invalid licence key submitted'))
+          raise Exception.Create(dgettext('common', 'Empty or invalid licence key submitted'))
         else if code = LICENSE_NOT_FOUND then
-          raise Exception.Create(_('Licence key invalid'))
+          raise Exception.Create(dgettext('common', 'Licence key invalid'))
         else if code = LICENSE_DISABLED then
-          raise Exception.Create(_('Licence key has been disabled'))
+          raise Exception.Create(dgettext('common', 'Licence key has been disabled'))
         else if code = LICENSE_EXPIRED then
-          raise Exception.Create(_('License key expired'))
+          raise Exception.Create(dgettext('common', 'License key expired'))
         else if code = LICENSE_SERVER_ERROR then
-          raise Exception.Create(_('Licence server is not available - please try again later'))
+          raise Exception.Create(dgettext('common', 'Licence server is not available - please try again later'))
         else if code = ACTIVATION_SERVER_ERROR then
-          raise Exception.Create(_('Activation server error'))
+          raise Exception.Create(dgettext('common', 'Activation server error'))
         else if code = ERROR_INVALID_INPUT then
-          raise Exception.Create(_('Activation failed: invalid input' + #13#10 + cMessage))
+          raise Exception.Create(dgettext('common', 'Activation failed: invalid input' + #13#10 + cMessage))
         else if code = ERROR_NO_SPARE_ACTIVATIONS then
-          raise Exception.Create(_('Sorry, this licence key has already been activated for a different database or on a different machine. You need to purchase one licence of LiveMirror per master database that you want to mirror.'))
+          raise Exception.Create(dgettext('common', 'Sorry, this licence key has already been activated for a different database or on a different machine. You need to purchase one licence of LiveMirror per master database that you want to mirror.'))
         else if code = ERROR_NO_ACTIVATION_FOUND then
-          raise Exception.Create(_('Sorry, we have not found an activation record to deactivate'))
+          raise Exception.Create(dgettext('common', 'Sorry, we have not found an activation record to deactivate'))
         else if code = ERROR_NO_RESPONSE then
-          raise Exception.Create(_('Internal problem on activation server'))
+          raise Exception.Create(dgettext('common', 'Internal problem on activation server'))
         else if code = ERROR_NO_REACTIVATION_ALLOWED then
-          raise Exception.Create(_('Sorry, license re-activation limit reached'))
+          raise Exception.Create(dgettext('common', 'Sorry, license re-activation limit reached'))
         else if code = ERROR_OTHER then
-          raise Exception.Create(_('Error returned from activation server'));
+          raise Exception.Create(dgettext('common', 'Error returned from activation server'));
       end;
     end;
   finally
@@ -212,7 +212,7 @@ function CheckLicenceActivation(cConfigName, cLicence: String): Boolean;
 var
   cCode, cMessage: String;
 begin
-  Result := LicenceRequest(cConfigName, cLicence, 'deactivate', cCode, cMessage);
+  Result := LicenceRequest(cConfigName, cLicence, 'check-activation', cCode, cMessage);
 end;
 
 function CheckLicences: Boolean;
@@ -239,13 +239,13 @@ end;
 procedure UnInstallService(cConfigName: String; Handle: HWND);
 begin
   if ShellExecute(Handle,'open',PChar(GetLiveMirrorRoot + '\Service\LiveMirrorSrv.exe'), PChar(cConfigName + ' /uninstall /silent'),'',SW_HIDE) < 32 then
-    raise Exception.Create(_('Can''t uninstall service!'));
+    raise Exception.Create(dgettext('common', 'Can''t uninstall service!'));
 end;
 
 procedure InstallService(cConfigName: String; Handle: HWND);
 begin
   if ShellExecute(Handle,'open',PChar(GetLiveMirrorRoot + '\Service\LiveMirrorSrv.exe'), PChar(cConfigName + ' /install /silent'),'',SW_HIDE) <= 32 then
-    raise Exception.Create(_('Can''t install service!'));
+    raise Exception.Create(dgettext('common', 'Can''t install service!'));
 end;
 
 end.

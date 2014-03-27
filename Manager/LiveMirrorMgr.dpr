@@ -15,7 +15,8 @@ uses
   synaip in '..\Synapse\synaip.pas',
   synautil in '..\Synapse\synautil.pas',
   synsock in '..\Synapse\synsock.pas',
-  synafpc in '..\Synapse\synafpc.pas';
+  synafpc in '..\Synapse\synafpc.pas',
+  licensing in 'licensing.pas' {fmLicensing};
 
 {$R *.res}
 

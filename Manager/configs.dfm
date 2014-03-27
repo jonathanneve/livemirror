@@ -25,9 +25,6 @@ object fmConfigs: TfmConfigs
     BevelOuter = bvNone
     Caption = 'Panel1'
     TabOrder = 0
-    ExplicitTop = 48
-    ExplicitWidth = 313
-    ExplicitHeight = 129
     DesignSize = (
       311
       134)
@@ -51,8 +48,6 @@ object fmConfigs: TfmConfigs
         ItemHeight = 13
         TabOrder = 0
         OnDblClick = listConfigsDblClick
-        ExplicitWidth = 202
-        ExplicitHeight = 128
       end
       object btAdd: TBitBtn
         Left = 210
@@ -63,7 +58,6 @@ object fmConfigs: TfmConfigs
         Caption = 'Add'
         TabOrder = 1
         OnClick = btAddClick
-        ExplicitLeft = 212
       end
       object btDelete: TBitBtn
         Left = 210
@@ -75,7 +69,6 @@ object fmConfigs: TfmConfigs
         DoubleBuffered = False
         TabOrder = 2
         OnClick = btDeleteClick
-        ExplicitLeft = 212
       end
       object btProperties: TBitBtn
         Left = 210
@@ -87,7 +80,6 @@ object fmConfigs: TfmConfigs
         DoubleBuffered = False
         TabOrder = 3
         OnClick = btPropertiesClick
-        ExplicitLeft = 212
       end
     end
   end
@@ -99,7 +91,6 @@ object fmConfigs: TfmConfigs
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitTop = 183
     object lbEvaluation: TLabel
       Left = 6
       Top = 0

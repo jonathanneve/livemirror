@@ -13,9 +13,7 @@ uses
   synaip in '..\Synapse\synaip.pas',
   synautil in '..\Synapse\synautil.pas',
   synsock in '..\Synapse\synsock.pas',
-  uLkJSON in '..\uLkJSON.pas',
-  licensing in '..\Manager\licensing.pas' {fmLicensing},
-  nagscreen in '..\nagscreen.pas' {Form7};
+  uLkJSON in '..\uLkJSON.pas';
 
 {$R *.RES}
 
@@ -37,6 +35,5 @@ begin
   if not Application.DelayInitialize or Application.Installing then
     Application.Initialize;
   Application.CreateForm(TLiveMirror, LiveMirror);
-  Application.CreateForm(TForm7, Form7);
   Application.Run;
 end.

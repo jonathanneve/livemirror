@@ -105,7 +105,6 @@ object fmConfig: TfmConfig
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = 'Licensing'
-    ModalResult = 1
     TabOrder = 5
     OnClick = btLicensingClick
   end

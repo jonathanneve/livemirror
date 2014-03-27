@@ -15,6 +15,9 @@
         <Projects Include="Manager\LiveMirrorMgr.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="Misc\LiveMirrorUninstaller.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -59,14 +62,23 @@
     <Target Name="LiveMirrorMgr:Make">
         <MSBuild Projects="Manager\LiveMirrorMgr.dproj" Targets="Make"/>
     </Target>
+    <Target Name="LiveMirrorUninstaller">
+        <MSBuild Projects="Misc\LiveMirrorUninstaller.dproj"/>
+    </Target>
+    <Target Name="LiveMirrorUninstaller:Clean">
+        <MSBuild Projects="Misc\LiveMirrorUninstaller.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="LiveMirrorUninstaller:Make">
+        <MSBuild Projects="Misc\LiveMirrorUninstaller.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="LiveMirrorGuardian;LiveMirrorSrv;LiveMirrorCpl;LiveMirrorMgr"/>
+        <CallTarget Targets="LiveMirrorGuardian;LiveMirrorSrv;LiveMirrorCpl;LiveMirrorMgr;LiveMirrorUninstaller"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="LiveMirrorGuardian:Clean;LiveMirrorSrv:Clean;LiveMirrorCpl:Clean;LiveMirrorMgr:Clean"/>
+        <CallTarget Targets="LiveMirrorGuardian:Clean;LiveMirrorSrv:Clean;LiveMirrorCpl:Clean;LiveMirrorMgr:Clean;LiveMirrorUninstaller:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="LiveMirrorGuardian:Make;LiveMirrorSrv:Make;LiveMirrorCpl:Make;LiveMirrorMgr:Make"/>
+        <CallTarget Targets="LiveMirrorGuardian:Make;LiveMirrorSrv:Make;LiveMirrorCpl:Make;LiveMirrorMgr:Make;LiveMirrorUninstaller:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
