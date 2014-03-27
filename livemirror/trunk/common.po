@@ -1,0 +1,88 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2014-03-26 19:25\n"
+"PO-Revision-Date: 2014-03-26 19:25\n"
+"Last-Translator: Somebody <your.email@address.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: dxgettext 1.2.2\n"
+
+#: LMUtils.pas:54
+msgid "LiveMirror path not configured"
+msgstr ""
+
+#: LMUtils.pas:154
+msgid "Error connecting to licence server!\n"
+"Please make sure your Internet connection is "
+"available."
+msgstr ""
+
+#: LMUtils.pas:156
+msgid "Empty or invalid licence key submitted"
+msgstr ""
+
+#: LMUtils.pas:158
+msgid "Licence key invalid"
+msgstr ""
+
+#: LMUtils.pas:160
+msgid "Licence key has been disabled"
+msgstr ""
+
+#: LMUtils.pas:162
+msgid "License key expired"
+msgstr ""
+
+#: LMUtils.pas:164
+msgid "Licence server is not available - please try again "
+"later"
+msgstr ""
+
+#: LMUtils.pas:166
+msgid "Activation server error"
+msgstr ""
+
+#: LMUtils.pas:168
+msgid "Activation failed: invalid input\n"
+msgstr ""
+
+#: LMUtils.pas:170
+msgid "Sorry, this licence key has already been activated for a different "
+"database or on a different machine. You need to purchase one licence "
+"of LiveMirror per master database that you want to "
+"mirror."
+msgstr ""
+
+#: LMUtils.pas:172
+msgid "Sorry, we have not found an activation record to "
+"deactivate"
+msgstr ""
+
+#: LMUtils.pas:174
+msgid "Internal problem on activation server"
+msgstr ""
+
+#: LMUtils.pas:176
+msgid "Sorry, license re-activation limit reached"
+msgstr ""
+
+#: LMUtils.pas:178
+msgid "Error returned from activation server"
+msgstr ""
+
+#: LMUtils.pas:242
+msgid "Can't uninstall service!"
+msgstr ""
+
+#: LMUtils.pas:248
+msgid "Can't install service!"
+msgstr ""
+

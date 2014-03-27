@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: LiveMirror\n"
-"POT-Creation-Date: 2014-03-26 14:39\n"
-"PO-Revision-Date: 2014-03-13 16:54+0100\n"
+"POT-Creation-Date: 2014-03-26 17:09\n"
+"PO-Revision-Date: 2014-03-26 14:47+0100\n"
 "Last-Translator: Jonathan Neve <jonathan@jntraductions.fr>\n"
 "Language-Team: Jonathan Neve <jonathan@jntraductions.fr>\n"
 "MIME-Version: 1.0\n"
@@ -30,9 +30,9 @@ msgstr "Paramétrage de configuration de sauvegarde"
 #. fmLicensing..Label1..Font.Name
 #. fmLicensing..Label2..Font.Name
 #. fmLicensing..Label3..Font.Name
-#: config.dfm:11  config.dfm:38 configs.dfm:11 configs.dfm:114
-#: configs.dfm:148 configs.dfm:168 licensing.dfm:11 licensing.dfm:28
-#: licensing.dfm:43 licensing.dfm:451
+#: config.dfm:11  config.dfm:38 configs.dfm:11 configs.dfm:105
+#: configs.dfm:139 configs.dfm:159 licensing.dfm:11 licensing.dfm:29
+#: licensing.dfm:44 licensing.dfm:452
 msgid "Tahoma"
 msgstr ""
 
@@ -43,9 +43,9 @@ msgstr "Nom de configuration :"
 
 #. fmConfig..lbEvaluation..Caption
 #. fmConfigs..pnEvaluation..lbEvaluation..Caption
-#: config.dfm:34  configs.dfm:110
+#: config.dfm:34  configs.dfm:101
 msgid "EVALUATION VERSION"
-msgstr ""
+msgstr "VERIONS D'EVALUATION"
 
 #. fmConfig..edFrenquency..EditLabel.Caption
 #: config.dfm:50 
@@ -64,7 +64,7 @@ msgstr "Base de données mirroir"
 
 #. fmConfig..Button3..Caption
 #. fmLicensing..Button1..Caption
-#: config.dfm:77  licensing.dfm:469
+#: config.dfm:77  licensing.dfm:470
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -81,7 +81,7 @@ msgstr ""
 #. fmConfig..btLicensing..Caption
 #: config.dfm:107 
 msgid "Licensing"
-msgstr ""
+msgstr "Licence"
 
 #. fmConfigs..Caption
 #. LiveMirrorManager..Caption
@@ -91,58 +91,57 @@ msgstr "Administrateur LiveMirror"
 
 #. fmConfigs..Panel1..Caption
 #: configs.dfm:26 
-#, fuzzy
 msgid "Panel1"
-msgstr "Annuler"
+msgstr ""
 
 #. fmConfigs..Panel1..GroupBox..Caption
-#: configs.dfm:40 
+#: configs.dfm:37 
 msgid "Configurations"
 msgstr "Configurations"
 
 #. fmConfigs..Panel1..GroupBox..btAdd..Caption
-#: configs.dfm:63 
+#: configs.dfm:58 
 msgid "Add"
 msgstr "Ajouter"
 
 #. fmConfigs..Panel1..GroupBox..btDelete..Caption
-#: configs.dfm:74 
+#: configs.dfm:68 
 msgid "Delete"
 msgstr "Supprimer"
 
 #. fmConfigs..Panel1..GroupBox..btProperties..Caption
-#: configs.dfm:86 
+#: configs.dfm:79 
 msgid "Properties"
 msgstr "Propriétés"
 
 #. fmConfigs..Panel3..Label1..Caption
-#: configs.dfm:135 
+#: configs.dfm:126 
 msgid "LiveMirror service is  :"
 msgstr "Le service LiveMirror est :"
 
 #. fmConfigs..Panel3..lbServiceStatus..Caption
-#: configs.dfm:144  configs.pas:226
+#: configs.dfm:135  configs.pas:220
 msgid "RUNNING"
 msgstr "ACTIF"
 
 #. fmConfigs..Panel3..Label2..Caption
-#: configs.dfm:157 
+#: configs.dfm:148 
 msgid "Microtec LiverMirror  v."
 msgstr "Microtec LiverMirror  v."
 
 #. fmConfigs..Panel3..lbVersion..Caption
-#: configs.dfm:164 
+#: configs.dfm:155 
 msgid "1.00.0"
 msgstr "1.00.0"
 
 #. fmConfigs..Panel3..btServiceStopStart..Caption
-#: configs.dfm:178  configs.pas:228
+#: configs.dfm:169  configs.pas:222
 msgid "Stop"
 msgstr "Arrêter"
 
 #. fmConfigs..PipeServer..PipeName
 #. fmConfigs..PipeClient..PipeName
-#: configs.dfm:186  configs.dfm:192
+#: configs.dfm:177  configs.dfm:183
 msgid "LiveMirrorMgrPipeServer"
 msgstr ""
 
@@ -278,58 +277,57 @@ msgstr ""
 #. fmLicensing..Caption
 #: licensing.dfm:4 
 msgid "Licensing..."
-msgstr ""
+msgstr "Licence..."
 
 #. fmLicensing..Label1..Caption
-#: licensing.dfm:24 
+#: licensing.dfm:25 
 msgid "Licence key :"
-msgstr ""
+msgstr "Clé de licence :"
 
 #. fmLicensing..Label2..Caption
-#: licensing.dfm:39 
+#: licensing.dfm:40 
 msgid "LiveMirror is licensed per database. "
-msgstr ""
+msgstr "LiveMirror nécessite une licence par base de données"
 
 #. fmLicensing..Label3..Caption
-#: licensing.dfm:447 
+#: licensing.dfm:448 
 msgid "Please enter your licence key below."
-msgstr ""
+msgstr "Veuillez saisir votre licence ci-dessous."
 
 #. fmLicensing..Button2..Caption
-#: licensing.dfm:478 
+#: licensing.dfm:479 
 msgid "Activate licence"
-msgstr ""
+msgstr "Activer la licence"
 
 #: config.pas:69 
 msgid "You must enter a name for this configuration!"
-msgstr ""
+msgstr "Vous devez donner un nom à cette configuration !"
 
 #: config.pas:69 
-#, fuzzy
 msgid "Configuration name missing"
-msgstr "Nom de configuration :"
+msgstr "Nom de configuration manquant"
 
 #: config.pas:145 
 msgid "Can't create directory \"%s\" "
 msgstr "Impossible de créer le répertoire \"%s\" "
 
-#: configs.pas:128 
+#: configs.pas:127 
 msgid "Are you sure you want to delete this backup configuration?"
 msgstr "Etes-vous sûr de vouloir supprimer cette configuration ?"
 
-#: configs.pas:128 
+#: configs.pas:127 
 msgid "Delete confirmation"
 msgstr "Confirmation de suppression"
 
-#: configs.pas:222 
+#: configs.pas:216 
 msgid "UNINSTALLED"
-msgstr ""
+msgstr "DESINSTALLE"
 
-#: configs.pas:236 
+#: configs.pas:230 
 msgid "STOPPED"
 msgstr "ARRETE"
 
-#: configs.pas:238 
+#: configs.pas:232 
 msgid "Start"
 msgstr "Démarrer"
 
@@ -337,17 +335,17 @@ msgstr "Démarrer"
 msgid "Connection established successfully"
 msgstr "Connexion établie avec succès"
 
-#: licensing.pas:51 
+#: licensing.pas:52 
 msgid "You must enter a licence key"
-msgstr ""
+msgstr "Vous devez saisir une clé de licence"
 
-#: licensing.pas:56 
+#: licensing.pas:57 
 msgid "Licence activated successfully for this installation"
-msgstr ""
+msgstr "Licence activée avec succès pour cette installation"
 
-#: licensing.pas:56 
+#: licensing.pas:57 
 msgid "Licence activated"
-msgstr ""
+msgstr "Licence activée"
 
 #~ msgid "Can't install service!"
 #~ msgstr "Impossible d'installer le service !"

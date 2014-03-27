@@ -32,7 +32,6 @@ type
     procedure listConfigsDblClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btServiceStopStartClick(Sender: TObject);
-    procedure Button6Click(Sender: TObject);
     procedure PipeServerPipeConnect(Sender: TObject; Pipe: HPIPE);
     procedure FormDestroy(Sender: TObject);
     procedure ServiceRefreshTimerTimer(Sender: TObject);
@@ -186,11 +185,6 @@ begin
     cConfigName := listConfigs.Items[listConfigs.ItemIndex];
     srvMgr.ServiceByName['LiveMirror' + cConfigName].ServiceStart(true);
   end; }
-end;
-
-procedure TfmConfigs.Button6Click(Sender: TObject);
-begin
-  ShellExecute(handle,'open',PChar('c:\projects\livemirror\Service\livemirrorsvr.exe'), PChar('Test /install'),'',SW_HIDE);
 end;
 
 procedure TfmConfigs.FormCreate(Sender: TObject);
