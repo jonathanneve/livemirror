@@ -12,13 +12,16 @@ uses
   synafpc in '..\Synapse\synafpc.pas',
   synaip in '..\Synapse\synaip.pas',
   synautil in '..\Synapse\synautil.pas',
-  synsock in '..\Synapse\synsock.pas';
+  synsock in '..\Synapse\synsock.pas',
+  Vcl.Themes,
+  Vcl.Styles;
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := False;
+  TStyleManager.TrySetStyle('Light');
   Application.CreateForm(TfmMain, fmMain);
   Application.Run;
 end.
