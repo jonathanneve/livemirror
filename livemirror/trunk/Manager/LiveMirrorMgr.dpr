@@ -16,13 +16,16 @@ uses
   synautil in '..\Synapse\synautil.pas',
   synsock in '..\Synapse\synsock.pas',
   synafpc in '..\Synapse\synafpc.pas',
-  licensing in 'licensing.pas' {fmLicensing};
+  licensing in 'licensing.pas' {fmLicensing},
+  Vcl.Themes,
+  Vcl.Styles;
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  TStyleManager.TrySetStyle('Light');
   Application.Title := 'LiveMirror Manager';
   Application.CreateForm(TfmConfigs, fmConfigs);
   Application.Run;
