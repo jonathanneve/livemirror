@@ -46,7 +46,7 @@ type
     {$ENDIF}
 
     function GetNode(dbType, nodeType: String): ILMNode;
-    procedure ConfigDatabases;
+    function ConfigDatabases: Boolean;
   public
     function GetServiceController: TServiceController; override;
     { Déclarations publiques }
@@ -115,22 +115,22 @@ procedure TLiveMirror.ReplicatorRowReplicating(Sender: TObject;
   AbortAndTryLater: Boolean);
 
 begin
-{$IFDEF LM_EVALUATION}
-	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 1s...'));
-  Sleep(1000);
-	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 1s...'));
-  Sleep(1000);
-	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 1s...'));
-  Sleep(1000);
-	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 1s...'));
-  Sleep(1000);
-	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 1s...'));
-  Sleep(1000);
+(*{$IFDEF LM_EVALUATION}
+	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 5s...'));
+  Sleep(5000);
+	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 5s...'));
+  Sleep(5000);
+	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 5s...'));
+  Sleep(5000);
+	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 5s...'));
+  Sleep(5000);
+	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 5s...'));
+  Sleep(5000);
 {  for I := 0 to Fields.Count do begin
     if (Fields[I].DataType in [ftString, ftWideString]) and (Replicator.Log.Keys.FindKey(Fields[I].FieldName = nil)) then
       Fields[I].Value := 'LM' + Fields[I].Value;
   end;}
-{$ENDIF}
+{$ENDIF}*)
 end;
 
 function TLiveMirror.GetNode(dbType, nodeType: String): ILMNode;
@@ -141,33 +141,42 @@ begin
   Result.Load(GetLiveMirrorRoot + 'Configs\' + FConfigName + '\' + nodeType + '.ini');
 end;
 
-procedure TLiveMirror.ConfigDatabases;
+function TLiveMirror.ConfigDatabases: Boolean;
 var
   slTables: TStringList;
   I: Integer;
 begin
-  	hLog.Add(_('{now} Checking database configuration...'));
+  Result := False;
+ 	hLog.Add(_('{now} Checking database configuration...'));
   LogMessage('Configuring databases for replication...', EVENTLOG_INFORMATION_TYPE);
-  MasterConfig.Connection := FMasterNode.Connection;
-  MasterConfig.Connect;
-  slTables := MasterConfig.Connection.ListTables;
-  MasterConfig.Tables.Clear;
-  for I := 0 to slTables.Count-1 do begin
-    if Copy(Uppercase(slTables[I]), 1, 4) <> 'RPL$' then begin
-      MasterConfig.Tables.Add.TableName := slTables[I];
+  try
+    MasterConfig.Connection := FMasterNode.Connection;
+    MasterConfig.Connect;
+    slTables := MasterConfig.Connection.ListTables;
+    MasterConfig.Tables.Clear;
+    for I := 0 to slTables.Count-1 do begin
+      if Copy(Uppercase(slTables[I]), 1, 4) <> 'RPL$' then begin
+        MasterConfig.Tables.Add.TableName := slTables[I];
+      end;
+    end;
+    MasterConfig.Nodes.Text := 'MIRROR';
+    MasterConfig.GenerateConfig;
+    MasterConfig.Disconnect;
+
+    MirrorConfig.Connection := FMirrorNode.Connection;
+    MirrorConfig.Connect;
+    MirrorConfig.Nodes.Clear;
+    MirrorConfig.Tables.Clear;
+    MirrorConfig.GenerateConfig;
+    MirrorConfig.Disconnect;
+    hLog.Add(_('{now} Databases configuration configured successfully!'));
+    Result := True;
+  except on E:Exception do
+    begin
+      hLog.Add(_('{now} Error setting up databases for replication!'));
+      hLog.AddException(E);
     end;
   end;
-  MasterConfig.Nodes.Text := 'MIRROR';
-  MasterConfig.GenerateConfig;
-  MasterConfig.Disconnect;
-
-  MirrorConfig.Connection := FMirrorNode.Connection;
-  MirrorConfig.Connect;
-  MirrorConfig.Nodes.Clear;
-  MirrorConfig.Tables.Clear;
-  MirrorConfig.GenerateConfig;
-  MirrorConfig.Disconnect;
- 	hLog.Add(_('{now} Databases configuration configured successfully!'));
 end;
 
 procedure TLiveMirror.ServiceAfterInstall(Sender: TService);
@@ -216,7 +225,9 @@ begin
          hLog.Add(E.Message);
        end;
      end;
-  end;
+  end
+  else
+    hLog.Add(_('No licence set for this database configuration. Synchronization aborting.'));
 end;
 {$ENDIF}
 
@@ -225,15 +236,17 @@ var
   iniConfigs: TIniFile;
   cPath: String;
   nReplFrequency: Integer;
+  cErrorMessage: String;
 begin
   iniConfigs := TIniFile.Create(GetLiveMirrorRoot + '\configs.ini');
   try
+    cPath := GetLiveMirrorRoot + 'Configs\' + FConfigName + '\log\';
+    ForceDirectories(cPath);
+
     nReplFrequency := StrToInt(iniConfigs.ReadString(FConfigName, 'SyncFrequency', '30'));
     FMasterNode := GetNode(iniConfigs.ReadString(FConfigName, 'MasterDBType', '') , 'master');
     FMirrorNode := GetNode(iniConfigs.ReadString(FConfigName, 'MasterDBType', ''), 'mirror');
 
-    cPath := GetLiveMirrorRoot + 'Configs\' + FConfigName + '\log\';
-    ForceDirectories(cPath);
     with hLog.hlWriter.hlFileDef do begin
       path := cPath;
       SafegdgMax := 100;
@@ -265,28 +278,35 @@ begin
       //Clear licence if it was incorrect
       LogMessage(Format(_('LiveMirror licence invalid for configuration %s.'#13#10'Clearing licence information from setup.'#13#10'Database will not be synchronized till licence is corrected.'), [FConfigName]), EVENTLOG_ERROR_TYPE);
       iniConfigs.WriteString(FConfigName, 'Licence', '');
-      Exit;
+      Abort;
     end;
     {$ENDIF}
 
     //Create replication meta-data and triggers if they aren't there
     //Any new tables are automatically detected and triggers added
-    ConfigDatabases;
-
-    Replicator.AutoReplicate.Frequency := nReplFrequency;
-    Replicator.AutoReplicate.Enabled := True;
-    Replicator.LocalNode.Connection := FMasterNode.Connection;
-    Replicator.LocalNode.Name := 'MASTER';
-    Replicator.RemoteNode.Connection := FMirrorNode.Connection;
-    Replicator.RemoteNode.Name := 'MIRROR';
-    Replicator.AutoReplicate.Start;
-  	hLog.Add(_('{now} Service ready!'));
-  finally
-    iniConfigs.Free;
+    if ConfigDatabases then begin
+      Replicator.AutoReplicate.Frequency := nReplFrequency;
+      Replicator.AutoReplicate.Enabled := True;
+      Replicator.LocalNode.Connection := FMasterNode.Connection;
+      Replicator.LocalNode.Name := 'MASTER';
+      Replicator.RemoteNode.Connection := FMirrorNode.Connection;
+      Replicator.RemoteNode.Name := 'MIRROR';
+      Replicator.AutoReplicate.Start;
+      hLog.Add(_('{now} Service ready!'));
+    end else begin
+      cErrorMessage := _('{now} DATABASE CONFIGURATION FAILED - CONTACT COPYCAT TEAM FOR SUPPORT!');
+      hLog.Add(cErrorMessage);
+      LogMessage(cErrorMessage, EVENTLOG_ERROR_TYPE);
+    end;
+  except on E: Exception do begin
+      LogMessage(E.Message, EVENTLOG_ERROR_TYPE);
+      iniConfigs.Free;
+    end;
   end;
 
   while not Terminated do begin
     ServiceThread.ProcessRequests(true);
+    Sleep(500);
   end;
 end;
 

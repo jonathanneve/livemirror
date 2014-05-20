@@ -15,7 +15,7 @@ procedure InstallService(cConfigName: String; Handle: HWND);
 
 
 const
-  LiveMirrorVersion = '1.00.0';
+  LiveMirrorVersion = '1.01.0';
 
 implementation
 
@@ -245,7 +245,7 @@ end;
 procedure InstallService(cConfigName: String; Handle: HWND);
 begin
   if ShellExecute(Handle,'open',PChar(GetLiveMirrorRoot + '\Service\LiveMirrorSrv.exe'), PChar(cConfigName + ' /install /silent'),'',SW_HIDE) <= 32 then
-    raise Exception.Create(dgettext('common', 'Can''t install service!'));
+    raise Exception.Create(dgettext('common', 'Can''t install service!' + #13#10 + 'Please make sure you have are running with administrator rights.'));
 end;
 
 end.

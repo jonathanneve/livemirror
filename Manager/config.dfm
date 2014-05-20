@@ -27,8 +27,8 @@ object fmConfig: TfmConfig
     Caption = 'Configuration name :'
   end
   object lbEvaluation: TLabel
-    Left = 8
-    Top = 210
+    Left = 12
+    Top = 211
     Width = 223
     Height = 23
     Caption = 'EVALUATION VERSION'

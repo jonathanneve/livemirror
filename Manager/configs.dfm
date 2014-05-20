@@ -33,7 +33,7 @@ object fmConfigs: TfmConfigs
       Top = 0
       Width = 295
       Height = 129
-      Anchors = [akLeft, akTop, akRight]
+      Anchors = [akLeft, akTop, akRight, akBottom]
       Caption = 'Configurations'
       TabOrder = 0
       DesignSize = (
@@ -61,18 +61,24 @@ object fmConfigs: TfmConfigs
       end
       object btDelete: TBitBtn
         Left = 210
-        Top = 80
+        Top = 70
         Width = 75
         Height = 25
         Anchors = [akTop, akRight]
         Caption = 'Delete'
         DoubleBuffered = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
         TabOrder = 2
         OnClick = btDeleteClick
       end
       object btProperties: TBitBtn
         Left = 210
-        Top = 49
+        Top = 44
         Width = 75
         Height = 25
         Anchors = [akTop, akRight]
@@ -81,30 +87,17 @@ object fmConfigs: TfmConfigs
         TabOrder = 3
         OnClick = btPropertiesClick
       end
-    end
-  end
-  object pnEvaluation: TPanel
-    Left = 0
-    Top = 184
-    Width = 311
-    Height = 29
-    Align = alBottom
-    BevelOuter = bvNone
-    TabOrder = 1
-    object lbEvaluation: TLabel
-      Left = 6
-      Top = 0
-      Width = 295
-      Height = 23
-      Alignment = taCenter
-      AutoSize = False
-      Caption = 'EVALUATION VERSION'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clMaroon
-      Font.Height = -19
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
+      object btLog: TBitBtn
+        Left = 210
+        Top = 96
+        Width = 75
+        Height = 25
+        Anchors = [akTop, akRight]
+        Caption = 'Log'
+        DoubleBuffered = False
+        TabOrder = 4
+        OnClick = btLogClick
+      end
     end
   end
   object Panel3: TPanel
@@ -114,7 +107,7 @@ object fmConfigs: TfmConfigs
     Height = 50
     Align = alTop
     BevelOuter = bvNone
-    TabOrder = 2
+    TabOrder = 1
     DesignSize = (
       311
       50)
@@ -139,6 +132,7 @@ object fmConfigs: TfmConfigs
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
+      StyleElements = [seClient, seBorder]
     end
     object Label2: TLabel
       Left = 11
@@ -152,7 +146,7 @@ object fmConfigs: TfmConfigs
       Top = 8
       Width = 34
       Height = 13
-      Caption = '1.00.0'
+      Caption = 'X.XX.X'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -171,18 +165,34 @@ object fmConfigs: TfmConfigs
       OnClick = btServiceStopStartClick
     end
   end
-  object PipeServer: TPipeServer
-    Active = False
-    OnPipeConnect = PipeServerPipeConnect
-    PipeName = 'LiveMirrorMgrPipeServer'
-    Left = 144
-    Top = 120
-  end
-  object PipeClient: TPipeClient
-    MemoryThrottle = 10240000
-    PipeName = 'LiveMirrorMgrPipeServer'
-    Left = 160
-    Top = 64
+  object pnEvaluation: TPanel
+    Left = 0
+    Top = 184
+    Width = 311
+    Height = 29
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 2
+    DesignSize = (
+      311
+      29)
+    object lbEvaluation: TLabel
+      Left = 0
+      Top = 0
+      Width = 311
+      Height = 23
+      Alignment = taCenter
+      Anchors = [akLeft, akTop, akRight]
+      AutoSize = False
+      Caption = 'EVALUATION VERSION'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -19
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      StyleElements = [seClient, seBorder]
+    end
   end
   object ServiceRefreshTimer: TTimer
     Enabled = False

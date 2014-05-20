@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "LiveMirror"
-#define MyAppVersion "1.00.0 pre-release"
+#define MyAppVersion "1.01.0"
 #define MyAppPublisher "Microtec Communications"
 #define MyAppURL "http://www.copycat.fr"
 #define MyAppExeName "LiveMirrorMgr.exe"
@@ -25,7 +25,7 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName=LiveMirror
-OutputBaseFilename={#SetupName}
+OutputBaseFilename={#SetupName}_{#MyAppVersion}
 Compression=lzma
 SolidCompression=true
 DisableDirPage=false

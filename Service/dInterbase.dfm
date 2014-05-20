@@ -34,4 +34,8 @@ object dmInterbase: TdmInterbase
     Left = 48
     Top = 80
   end
+  object FDMoniFlatFileClientLink: TFDMoniFlatFileClientLink
+    Left = 216
+    Top = 72
+  end
 end

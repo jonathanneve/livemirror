@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-03-26 19:25\n"
-"PO-Revision-Date: 2014-03-26 19:25\n"
+"POT-Creation-Date: 2014-05-20 15:59\n"
+"PO-Revision-Date: 2014-05-20 15:59\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,16 +33,16 @@ msgstr ""
 #. LiveMirror..Replicator..Version
 #: main.dfm:16
 #. LiveMirror..MasterConfig..Version
-#: main.dfm:38
+#: main.dfm:39
 #. LiveMirror..MirrorConfig..Version
-#: main.dfm:47
+#: main.dfm:49
 msgid "3.06.0 beta"
 msgstr ""
 
 #. LiveMirror..MasterConfig..ConfigName
-#: main.dfm:39
+#: main.dfm:41
 #. LiveMirror..MirrorConfig..ConfigName
-#: main.dfm:48
+#: main.dfm:51
 msgid "LM"
 msgstr ""
 
@@ -83,78 +83,85 @@ msgstr ""
 msgid "Row replicated : Table : "
 msgstr ""
 
-#: main.pas:119
-#: main.pas:121
-#: main.pas:123
-#: main.pas:125
-#: main.pas:127
-msgid "{now} LiveMirror Evaluation version... waiting "
-"1s..."
-msgstr ""
-
-#: main.pas:149
+#: main.pas:150
 msgid "{now} Checking database configuration..."
 msgstr ""
 
-#: main.pas:170
+#: main.pas:172
 msgid "{now} Databases configuration configured "
 "successfully!"
 msgstr ""
 
-#: main.pas:206
+#: main.pas:176
+msgid "{now} Error setting up databases for "
+"replication!"
+msgstr ""
+
+#: main.pas:215
 msgid "{now} Checking licence information..."
 msgstr ""
 
-#: main.pas:209
+#: main.pas:218
 msgid "Error checking licence, please check your Internet "
 "connection"
 msgstr ""
 
-#: main.pas:215
+#: main.pas:224
 msgid "Licencing error : "
 msgstr ""
 
-#: main.pas:248
+#: main.pas:230
+msgid "No licence set for this database configuration. Synchronization "
+"aborting."
+msgstr ""
+
+#: main.pas:261
 msgid ">>>> Start {App_name}"
 msgstr ""
 
-#: main.pas:249
+#: main.pas:262
 msgid "{@12}Path : {App_path}"
 msgstr ""
 
-#: main.pas:250
+#: main.pas:263
 msgid "{@12}Config. name : {App_prm-}{/}"
 msgstr ""
 
-#: main.pas:253
+#: main.pas:266
 msgid "!!! EVALUATION VERSION !!!"
 msgstr ""
 
-#: main.pas:256
+#: main.pas:269
 msgid "MASTER database :"
 msgstr ""
 
-#: main.pas:257
+#: main.pas:270
 msgid "MIRROR database :"
 msgstr ""
 
-#: main.pas:258
+#: main.pas:271
 msgid "Replication frequency :"
 msgstr ""
 
-#: main.pas:258
+#: main.pas:271
 msgid " seconds"
 msgstr ""
 
 #. Clear licence if it was incorrect
-#: main.pas:266
+#: main.pas:279
 msgid "LiveMirror licence invalid for configuration %s.\n"
 "Clearing licence information from setup.\n"
 "Database will not be synchronized till licence is "
 "corrected."
 msgstr ""
 
-#: main.pas:283
+#. Any new tables are automatically detected and triggers added
+#: main.pas:295
 msgid "{now} Service ready!"
+msgstr ""
+
+#: main.pas:297
+msgid "{now} DATABASE CONFIGURATION FAILED - CONTACT COPYCAT TEAM FOR "
+"SUPPORT!"
 msgstr ""
 

@@ -183,7 +183,7 @@ object frConnectParamsFB: TfrConnectParamsFB
       end>
     FileTypeIndex = 2
     Options = []
-    Left = 136
+    Left = 112
     Top = 40
   end
   object Connection: TCcConnectionFireDAC
@@ -211,7 +211,7 @@ object frConnectParamsFB: TfrConnectParamsFB
   end
   object FDGUIxWaitCursor1: TFDGUIxWaitCursor
     Provider = 'Forms'
-    Left = 88
+    Left = 48
     Top = 40
   end
 end

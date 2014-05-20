@@ -7,10 +7,12 @@ uses
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
   FireDAC.Comp.UI, FireDAC.Phys.FB, FireDAC.Phys.IBBase, FireDAC.Phys.IB,
-  FireDAC.Comp.Client, Data.DB, CcProviders, CcProvFireDAC, main;
+  FireDAC.Comp.Client, Data.DB, CcProviders, CcProvFireDAC, main,
+  FireDAC.Moni.Base, FireDAC.Moni.FlatFile;
 
 type
   TdmInterbase = class(TDataModule, ILMNode)
+    FDMoniFlatFileClientLink: TFDMoniFlatFileClientLink;
     FDConnection: TFDConnection;
     FDTransaction: TFDTransaction;
     FDPhysIBDriverLink: TFDPhysIBDriverLink;
@@ -62,6 +64,12 @@ begin
     FDConnection.Params.Values['User_Name'] := ini.ReadString('General', 'Username', '');
     FDConnection.Params.Values['Password'] := ini.ReadString('General', 'Password', '');
     FDConnection.Params.Values['SQLDialect'] := ini.ReadString('General', 'SQLDialect', '3');
+    {$IFDEF DEBUG}
+    FDConnection.Params.Values['MonitorBy'] := 'FlatFile';
+    FDMoniFlatFileClientLink.FileName := ExtractFileDir(configFileName) + '\debug.txt';
+    FDMoniFlatFileClientLink.Tracing := True;
+    {$ENDIF}
+
     cClientDLL := ini.ReadString('General', 'Clientdll', '');
     if FDConnection.DriverName = 'IB' then
       FDPhysIBDriverLink.VendorLib := cClientDLL

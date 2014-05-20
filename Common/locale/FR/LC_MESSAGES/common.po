@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: LiveMirror\n"
-"POT-Creation-Date: 2014-03-26 16:44\n"
+"POT-Creation-Date: 2014-05-06 17:20\n"
 "PO-Revision-Date: 2014-03-26 16:43+0100\n"
 "Last-Translator: Jonathan Neve <jonathan@jntraductions.fr>\n"
 "Language-Team: Jonathan Neve <jonathan@jntraductions.fr>\n"
@@ -89,5 +89,10 @@ msgid "Can't uninstall service!"
 msgstr "Impossible de désinstaller le service !"
 
 #: LMUtils.pas:248 
-msgid "Can't install service!"
-msgstr "Impossible d'installer le service !"
+msgid ""
+"Can't install service!\n"
+"Please make sure you have are running with administrator rights."
+msgstr ""
+
+#~ msgid "Can't install service!"
+#~ msgstr "Impossible d'installer le service !"

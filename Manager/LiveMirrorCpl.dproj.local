@@ -9,8 +9,8 @@
     <Transaction>2014/03/11 11:51:03.000.523,=C:\Projects\livemirror\Manager\config.pas</Transaction>
     <Transaction>2014/03/11 11:51:04.000.284,=C:\Projects\livemirror\Manager\configs.pas</Transaction>
     <Transaction>2014/03/11 11:51:05.000.036,=C:\Projects\livemirror\Manager\fConnectParamsFB.pas</Transaction>
-    <Transaction>2014/03/11 12:06:36.000.710,=C:\Projects\livemirror\gnugettext.pas</Transaction>
     <Transaction>2014/03/11 12:06:36.000.719,=C:\Projects\livemirror\LMUtils.pas</Transaction>
+    <Transaction>2014/03/11 12:06:36.000.710,=C:\Projects\livemirror\gnugettext.pas</Transaction>
     <Transaction>2014/03/11 12:06:57.000.884,=C:\Projects\livemirror\ServiceManager.pas</Transaction>
     <Transaction>2014/03/11 15:59:03.000.478,C:\Projects\livemirror\Manager\LiveMirrorCpl.dproj=C:\Projects\livemirror\Manager\LiveMirrorMgr.dproj</Transaction>
     <Transaction>2014/03/11 16:03:21.000.484,C:\Projects\livemirror\Manager\config.pas=</Transaction>
@@ -21,11 +21,28 @@
     <Transaction>2014/03/11 16:03:39.000.077,C:\Projects\livemirror\ServiceManager.pas=</Transaction>
     <Transaction>2014/03/11 16:04:45.000.210,=C:\Projects\livemirror\LMUtils.pas</Transaction>
     <Transaction>2014/03/14 10:25:11.000.647,=C:\Projects\livemirror\gnugettext.pas</Transaction>
+    <Transaction>2014/05/20 14:59:40.000.647,=C:\Projects\livemirror\uLkJSON.pas</Transaction>
+    <Transaction>2014/05/20 15:00:07.000.630,=C:\Projects\livemirror\Synapse\synsock.pas</Transaction>
+    <Transaction>2014/05/20 15:00:07.000.595,=C:\Projects\livemirror\Synapse\synafpc.pas</Transaction>
+    <Transaction>2014/05/20 15:00:07.000.566,=C:\Projects\livemirror\Synapse\synacode.pas</Transaction>
+    <Transaction>2014/05/20 15:00:07.000.550,=C:\Projects\livemirror\Synapse\httpsend.pas</Transaction>
+    <Transaction>2014/05/20 15:00:07.000.620,=C:\Projects\livemirror\Synapse\synautil.pas</Transaction>
+    <Transaction>2014/05/20 15:00:07.000.529,=C:\Projects\livemirror\Synapse\blcksock.pas</Transaction>
+    <Transaction>2014/05/20 15:00:07.000.606,=C:\Projects\livemirror\Synapse\synaip.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="..\..\livemirror"/>
+    <File Path="..\Synapse"/>
+    <File Path="..\Synapse\blcksock.pas"/>
+    <File Path="..\Synapse\httpsend.pas"/>
+    <File Path="..\Synapse\synacode.pas"/>
+    <File Path="..\Synapse\synafpc.pas"/>
+    <File Path="..\Synapse\synaip.pas"/>
+    <File Path="..\Synapse\synautil.pas"/>
+    <File Path="..\Synapse\synsock.pas"/>
     <File Path="..\LMUtils.pas"/>
     <File Path="..\gnugettext.pas"/>
+    <File Path="..\uLkJSON.pas"/>
     <File Path="main.pas"/>
     <File Path="main.dfm"/>
   </ProjectSortOrder>

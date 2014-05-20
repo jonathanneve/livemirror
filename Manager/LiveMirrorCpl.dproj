@@ -1,7 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{7520DAF5-0666-4DF4-B370-7522EEBB9D7A}</ProjectGuid>
-        <ProjectVersion>15.3</ProjectVersion>
+        <ProjectVersion>15.4</ProjectVersion>
         <FrameworkType>VCL</FrameworkType>
         <MainSource>LiveMirrorCpl.dpr</MainSource>
         <Base>True</Base>
@@ -57,6 +57,7 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
+        <SanitizedProjectName>LiveMirrorCpl</SanitizedProjectName>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
         <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
         <GenDll>true</GenDll>
@@ -134,6 +135,14 @@ $(PostBuildEvent)]]></PostBuildEvent>
         </DCCReference>
         <DCCReference Include="..\LMUtils.pas"/>
         <DCCReference Include="..\gnugettext.pas"/>
+        <DCCReference Include="..\uLkJSON.pas"/>
+        <DCCReference Include="..\Synapse\blcksock.pas"/>
+        <DCCReference Include="..\Synapse\httpsend.pas"/>
+        <DCCReference Include="..\Synapse\synacode.pas"/>
+        <DCCReference Include="..\Synapse\synafpc.pas"/>
+        <DCCReference Include="..\Synapse\synaip.pas"/>
+        <DCCReference Include="..\Synapse\synautil.pas"/>
+        <DCCReference Include="..\Synapse\synsock.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
