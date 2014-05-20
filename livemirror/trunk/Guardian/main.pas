@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes, Vcl.Graphics, Vcl.Controls,
-  Vcl.SvcMgr, Vcl.Dialogs, ServiceManager, IniFiles;
+  Vcl.SvcMgr, Vcl.Dialogs, ServiceManager, IniFiles, Vcl.StdCtrls;
 
 type
   TLiveMirror = class(TService)
@@ -20,6 +20,7 @@ type
     {$IFNDEF LM_EVALUATION}
     function CheckServiceLicence(cConfigName: String): Boolean;
     {$ENDIF}
+    procedure StopServices;
   public
     function GetServiceController: TServiceController; override;
     { Déclarations publiques }
@@ -98,27 +99,56 @@ procedure TLiveMirror.ServiceExecute(Sender: TService);
 var
   I: Integer;
   srv: TServiceInfo;
+
+  {$IFDEF LM_EVALUATION}
+  timeStarted: TDateTime;
+  {$ENDIF}
+
+function EvalTimeExpired: Boolean;
 begin
+  {$IFDEF LM_EVALUATION}
+  Result := (Now - timeStarted > 1 / 24); //Close Guardian after 1 hour
+  {$ELSE}
+  Result := False;
+  {$ENDIF}
+end;
+
+begin
+  {$IFDEF LM_EVALUATION}
+  timeStarted := Now;
+  {$ENDIF}
+
   while not Terminated do
   begin
-    ServiceThread.ProcessRequests(False);
-    for I := 0 to slConfigs.Count-1 do begin
-      serviceMgr.Active := False;
-      serviceMgr.Active := True;
-
-      if Status <> csRunning then
-        Break;
-
-      srv := serviceMgr.ServiceByName['LiveMirror' + slConfigs[I]];
-      if srv.State <> ssRunning then begin
-        {$IFNDEF LM_EVALUATION}
-        if CheckServiceLicence(slConfigs[I]) then
-        {$ENDIF}
-        srv.ServiceStart(false);
-      end;
-      ServiceThread.ProcessRequests(False);
+    if EvalTimeExpired then begin
+      LogMessage('LiveMirror evaluation version, shutting down service...');
+      StopServices;
+      break;
     end;
-    Sleep(1000);
+
+    ServiceThread.ProcessRequests(False);
+    try
+      for I := 0 to slConfigs.Count-1 do begin
+        serviceMgr.Active := False;
+        serviceMgr.Active := True;
+
+        if Status <> csRunning then
+          Break;
+
+        srv := serviceMgr.ServiceByName['LiveMirror' + slConfigs[I]];
+        if srv.State <> ssRunning then begin
+          {$IFNDEF LM_EVALUATION}
+          if CheckServiceLicence(slConfigs[I]) then
+          {$ENDIF}
+          srv.ServiceStart(false);
+        end;
+        ServiceThread.ProcessRequests(False);
+      end;
+    except on E:Exception do begin
+        LogMessage(E.Message, EVENTLOG_ERROR_TYPE);
+      end;
+    end;
+    Sleep(500);
   end;
 end;
 
@@ -136,18 +166,28 @@ begin
   end;                          }
 end;
 
-procedure TLiveMirror.ServiceStop(Sender: TService; var Stopped: Boolean);
+procedure TLiveMirror.StopServices;
 var
   I: Integer;
   srv: TServiceInfo;
 begin
-  for I := 0 to slConfigs.Count-1 do begin
-    serviceMgr.Active := False;
-    serviceMgr.Active := True;
-    srv := serviceMgr.ServiceByName['LiveMirror' + slConfigs[I]];
-    if srv.State = ssRunning then
-      srv.ServiceStop(false);
+  try
+    for I := 0 to slConfigs.Count-1 do begin
+      serviceMgr.Active := False;
+      serviceMgr.Active := True;
+      srv := serviceMgr.ServiceByName['LiveMirror' + slConfigs[I]];
+      if srv.State = ssRunning then
+        srv.ServiceStop(false);
+    end;
+  except on E:Exception do begin
+      LogMessage(E.Message, EVENTLOG_ERROR_TYPE);
+    end;
   end;
+end;
+
+procedure TLiveMirror.ServiceStop(Sender: TService; var Stopped: Boolean);
+begin
+  StopServices;
 end;
 
 end.

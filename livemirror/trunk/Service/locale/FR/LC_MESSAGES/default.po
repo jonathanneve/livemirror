@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Microtec LiveMirror\n"
-"POT-Creation-Date: 2014-03-26 19:17\n"
+"POT-Creation-Date: 2014-05-07 17:03\n"
 "PO-Revision-Date: 2014-03-26 15:36+0100\n"
 "Last-Translator: Jonathan Neve <jonathan@jntraductions.fr>\n"
 "Language-Team: Jonathan Neve <jonathan@jntraductions.fr>\n"
@@ -29,13 +29,13 @@ msgstr "Microtec LiveMirror"
 #. LiveMirror..Replicator..Version
 #. LiveMirror..MasterConfig..Version
 #. LiveMirror..MirrorConfig..Version
-#: main.dfm:16  main.dfm:38 main.dfm:47
+#: main.dfm:16  main.dfm:39 main.dfm:49
 msgid "3.06.0 beta"
 msgstr "3.06.0 beta"
 
 #. LiveMirror..MasterConfig..ConfigName
 #. LiveMirror..MirrorConfig..ConfigName
-#: main.dfm:39  main.dfm:48
+#: main.dfm:41  main.dfm:51
 msgid "LM"
 msgstr "LM"
 
@@ -74,67 +74,73 @@ msgstr "Impossible de répliquer la ligne : Table "
 msgid "Row replicated : Table : "
 msgstr "Ligne répliquée : Table : "
 
-#: main.pas:119  main.pas:121 main.pas:123 main.pas:125 main.pas:127
-msgid "{now} LiveMirror Evaluation version... waiting 1s..."
-msgstr "{now} LiveMirror version d'évaluation... attente d'1s..."
-
-#: main.pas:149 
+#: main.pas:150 
 msgid "{now} Checking database configuration..."
 msgstr "{now} Vérification de la configuration des bases de données..."
 
-#: main.pas:170 
+#: main.pas:172 
 msgid "{now} Databases configuration configured successfully!"
 msgstr "{now} Configuration des bases de données effectuée avec succès !"
 
-#: main.pas:206 
+#: main.pas:176 
+#, fuzzy
+msgid "{now} Error setting up databases for replication!"
+msgstr "{now} Vérification de la configuration des bases de données..."
+
+#: main.pas:215 
 #, fuzzy
 msgid "{now} Checking licence information..."
 msgstr "{now} Vérification de la configuration des bases de données..."
 
-#: main.pas:209 
+#: main.pas:218 
 msgid "Error checking licence, please check your Internet connection"
 msgstr ""
 "Impossible de valider la licence, merci de vous assurer que votre connexion "
 "Internet fonctionne"
 
-#: main.pas:215 
+#: main.pas:224 
 msgid "Licencing error : "
 msgstr "Erreur de licence :"
 
-#: main.pas:248 
+#: main.pas:230 
+msgid ""
+"No licence set for this database configuration. Synchronization aborting."
+msgstr ""
+
+#: main.pas:261 
 msgid ">>>> Start {App_name}"
 msgstr ">>>> Démarrage  {App_name}"
 
-#: main.pas:249 
+#: main.pas:262 
 msgid "{@12}Path : {App_path}"
 msgstr "{@12}Chemin : {App_path}"
 
-#: main.pas:250 
+#: main.pas:263 
 msgid "{@12}Config. name : {App_prm-}{/}"
 msgstr "{@12}Nom de configuration : {App_prm-}{/}"
 
-#: main.pas:253 
+#: main.pas:266 
 msgid "!!! EVALUATION VERSION !!!"
 msgstr "!!! VERSION D'EVALUATION !!!"
 
-#: main.pas:256 
+#: main.pas:269 
 msgid "MASTER database :"
 msgstr "Base de données MAITRE : "
 
-#: main.pas:257 
+#: main.pas:270 
 msgid "MIRROR database :"
 msgstr "Base de données MIRROIR :"
 
-#: main.pas:258 
+#: main.pas:271 
 msgid "Replication frequency :"
 msgstr "Fréquence de réplication :"
 
-#: main.pas:258 
+#: main.pas:271 
 msgid " seconds"
 msgstr " secondes"
 
 #. Clear licence if it was incorrect
-#: main.pas:266 
+#: main.pas:279 
 msgid ""
 "LiveMirror licence invalid for configuration %s.\n"
 "Clearing licence information from setup.\n"
@@ -145,9 +151,18 @@ msgstr ""
 "La base de données ne sera plus synchronisée jusqu'à ce que la clé soit "
 "corrigée."
 
-#: main.pas:283 
+#. Any new tables are automatically detected and triggers added
+#: main.pas:295 
 msgid "{now} Service ready!"
 msgstr "{now} Service prêt !"
+
+#: main.pas:297 
+msgid "{now} DATABASE CONFIGURATION FAILED - CONTACT COPYCAT TEAM FOR SUPPORT!"
+msgstr ""
+
+#, fuzzy
+#~ msgid "{now} LiveMirror Evaluation version... waiting 5s..."
+#~ msgstr "{now} LiveMirror version d'évaluation... attente d'1s..."
 
 #, fuzzy
 #~ msgid "{now} Checking licence information 2..."

@@ -18,7 +18,8 @@ uses
   synafpc in '..\Synapse\synafpc.pas',
   licensing in 'licensing.pas' {fmLicensing},
   Vcl.Themes,
-  Vcl.Styles;
+  Vcl.Styles,
+  logfile in 'logfile.pas' {fmLogFile};
 
 {$R *.res}
 

@@ -4,17 +4,17 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Pipes, ServiceManager,
-  Vcl.ExtCtrls, Vcl.Buttons, Vcl.Grids;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, ServiceManager,
+  Vcl.ExtCtrls, Vcl.Buttons, Vcl.Grids, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Stan.Param,
+  FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, FireDAC.Moni.Base, FireDAC.Moni.FlatFile;
 
 type
   TfmConfigs = class(TForm)
-    PipeServer: TPipeServer;
-    PipeClient: TPipeClient;
     ServiceRefreshTimer: TTimer;
     Panel1: TPanel;
-    pnEvaluation: TPanel;
-    lbEvaluation: TLabel;
     GroupBox: TGroupBox;
     listConfigs: TListBox;
     btAdd: TBitBtn;
@@ -26,16 +26,20 @@ type
     Label2: TLabel;
     lbVersion: TLabel;
     btServiceStopStart: TButton;
+    pnEvaluation: TPanel;
+    lbEvaluation: TLabel;
+    btLog: TBitBtn;
     procedure btAddClick(Sender: TObject);
     procedure btPropertiesClick(Sender: TObject);
     procedure btDeleteClick(Sender: TObject);
     procedure listConfigsDblClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btServiceStopStartClick(Sender: TObject);
-    procedure PipeServerPipeConnect(Sender: TObject; Pipe: HPIPE);
     procedure FormDestroy(Sender: TObject);
     procedure ServiceRefreshTimerTimer(Sender: TObject);
+    procedure btLogClick(Sender: TObject);
   private
+    lServiceRunning: Boolean;
     slConfigLicences: TStringList;
     cConfigFileName: String;
     srvMgr: TServiceManager;
@@ -56,7 +60,7 @@ implementation
 
 {$R *.dfm}
 
-uses IniFiles, gnugettext, config, Registry, LMUtils, ShellApi;
+uses IniFiles, gnugettext, config, Registry, LMUtils, ShellApi, logfile;
 
 procedure TfmConfigs.Init;
 begin
@@ -74,9 +78,11 @@ end;
 
 procedure TfmConfigs.listConfigsDblClick(Sender: TObject);
 begin
-  if listConfigs.ItemIndex <> -1 then begin
-    TfmConfig.EditConfig(listConfigs.Items[listConfigs.ItemIndex]);
-    LoadConfigs;
+  if not lServiceRunning then begin
+    if listConfigs.ItemIndex <> -1 then begin
+      TfmConfig.EditConfig(listConfigs.Items[listConfigs.ItemIndex]);
+      LoadConfigs;
+    end;
   end;
 end;
 
@@ -100,17 +106,14 @@ begin
     ini.Free;
   end;
 
+  listConfigs.ItemIndex := 0;
+
   if listConfigs.Items.Count = 0 then begin
     if TfmConfig.NewConfig then
       LoadConfigs
     else
       Application.Terminate;
   end;
-end;
-
-procedure TfmConfigs.PipeServerPipeConnect(Sender: TObject; Pipe: HPIPE);
-begin
-//  Application.BringToFront;
 end;
 
 procedure TfmConfigs.btAddClick(Sender: TObject);
@@ -133,6 +136,42 @@ begin
       UnInstallService(cConfigName, Handle);
       DeleteDirectory(ExtractFileDir(cConfigFileName) + '\' + cConfigName);
       DeleteConfig(cConfigName);
+    end;
+  end;
+end;
+
+function GetLastModifiedFileName(AFolder: String; APattern: String = '*.*'): String;
+var
+  sr: TSearchRec;
+  aTime: Integer;
+begin
+  Result := '';
+  aTime := 0;
+  if FindFirst(IncludeTrailingPathDelimiter(AFolder) + APattern, faAnyFile, sr) = 0 then
+  begin
+    repeat
+      if sr.Time > aTime then
+      begin
+        aTime := sr.Time;
+        Result := sr.Name;
+      end;
+    until FindNext(sr) <> 0;
+    FindClose(sr);
+  end;
+end;
+
+procedure TfmConfigs.btLogClick(Sender: TObject);
+var
+  cConfigName, cLogDir, cLastLogFile : String;
+begin
+  if listConfigs.ItemIndex <> -1 then begin
+    cConfigName := listConfigs.Items[listConfigs.ItemIndex];
+    cLogDir := GetLiveMirrorRoot + '\Configs\' + cConfigName + '\log\';
+    cLastLogFile := GetLastModifiedFileName(cLogDir, '*.log');
+    if cLastLogFile = '' then
+      Application.MessageBox(PWideChar(_('No log file is available yet for this configuration.'+#13#10+'A log file will be created automatically when the service is first run.')), PWideChar(_('No log file found')), MB_ICONINFORMATION + MB_OK)
+    else begin
+      TfmLogFile.ShowLogFile(cLogDir + '\' + cLastLogFile);
     end;
   end;
 end;
@@ -174,8 +213,13 @@ begin
     if btServiceStopStart.Tag = 1 then
       //Service running
       srvMgr.ServiceByName['LiveMirror'].ServiceStop(True)
-    else
+    else begin
+      {$IFDEF LM_EVALUATION}
+      Application.MessageBox('You are using CopyCat LiveMirror evaluation version.'#13#10'The database synchronization service will stop after 1 hour of use.'#13#10'Please purchase registered version to remove this limitation',
+        'Evaluation version', MB_ICONINFORMATION + MB_OK);
+      {$ENDIF}
       srvMgr.ServiceByName['LiveMirror'].ServiceStart(True);
+    end;
     RefreshServiceStatus;
   finally
     Screen.Cursor := crDefault;
@@ -221,17 +265,19 @@ begin
       lbServiceStatus.Font.Color := clGreen;
       btServiceStopStart.Caption := _('Stop');
     end;
+    lServiceRunning := True;
     btServiceStopStart.Tag := 1;
-    listConfigs.Enabled := False;
+    //listConfigs.Enabled := False;
     btAdd.Enabled := False;
     btProperties.Enabled := False;
     btDelete.Enabled := False;
   end else begin
+    lServiceRunning := False;
     lbServiceStatus.Caption := _('STOPPED');
     lbServiceStatus.Font.Color := clRed;
     btServiceStopStart.Caption := _('Start');
     btServiceStopStart.Tag := 0;
-    listConfigs.Enabled := True;
+   // listConfigs.Enabled := True;
     btAdd.Enabled := True;
     btProperties.Enabled := True;
     btDelete.Enabled := True;

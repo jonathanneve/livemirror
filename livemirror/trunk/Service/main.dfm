@@ -14,6 +14,7 @@ object LiveMirror: TLiveMirror
   Width = 419
   object Replicator: TCcReplicator
     Version = '3.06.0 beta'
+    FailIfNoPK = False
     TrimCharFields = False
     AutoPriority = True
     LogErrors = False
@@ -36,6 +37,7 @@ object LiveMirror: TLiveMirror
   end
   object MasterConfig: TCcConfig
     Version = '3.06.0 beta'
+    FailIfNoPK = False
     ConfigName = 'LM'
     DatabaseNode = dnLocal
     Terminator = #167
@@ -45,6 +47,7 @@ object LiveMirror: TLiveMirror
   end
   object MirrorConfig: TCcConfig
     Version = '3.06.0 beta'
+    FailIfNoPK = False
     ConfigName = 'LM'
     DatabaseNode = dnLocal
     Terminator = #167

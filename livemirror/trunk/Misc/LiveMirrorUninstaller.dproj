@@ -1,7 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{84967569-5CA5-42A0-A249-FC3A57DFB602}</ProjectGuid>
-        <ProjectVersion>15.3</ProjectVersion>
+        <ProjectVersion>15.4</ProjectVersion>
         <FrameworkType>VCL</FrameworkType>
         <MainSource>LiveMirrorUninstaller.dpr</MainSource>
         <Base>True</Base>
@@ -51,6 +51,7 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
+        <SanitizedProjectName>LiveMirrorUninstaller</SanitizedProjectName>
         <VCL_Custom_Styles>&quot;Light|VCLSTYLE|$(PUBLIC)\Documents\RAD Studio\12.0\Styles\Light.vsf&quot;</VCL_Custom_Styles>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <PostBuildEvent><![CDATA[c:\projects\livemirror\gettext.bat
