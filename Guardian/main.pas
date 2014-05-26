@@ -18,7 +18,9 @@ type
     serviceMgr: TServiceManager;
     slConfigs: TStringList;
     {$IFNDEF LM_EVALUATION}
+    {$IFNDEF DEBUG}
     function CheckServiceLicence(cConfigName: String): Boolean;
+    {$ENDIF}
     {$ENDIF}
     procedure StopServices;
   public
@@ -74,6 +76,7 @@ begin
 end;
 
 {$IFNDEF LM_EVALUATION}
+{$IFNDEF DEBUG}
 function TLiveMirror.CheckServiceLicence(cConfigName: String): Boolean;
 var
   iniConfigs : TIniFile;
@@ -87,6 +90,7 @@ begin
     iniConfigs.Free;
   end;
 end;
+{$ENDIF}
 {$ENDIF}
 
 procedure TLiveMirror.ServiceDestroy(Sender: TObject);
@@ -138,7 +142,9 @@ begin
         srv := serviceMgr.ServiceByName['LiveMirror' + slConfigs[I]];
         if srv.State <> ssRunning then begin
           {$IFNDEF LM_EVALUATION}
+          {$IFNDEF DEBUG}
           if CheckServiceLicence(slConfigs[I]) then
+          {$ENDIF}
           {$ENDIF}
           srv.ServiceStart(false);
         end;

@@ -27,18 +27,18 @@
   </ProjectSortOrder>
 	<Transactions>
     <Transaction>2014/03/24 16:20:01.000.840,=C:\Projects\livemirror\uLkJSON.pas</Transaction>
+    <Transaction>2014/03/24 22:29:51.000.551,=C:\Projects\livemirror\Synapse\httpsend.pas</Transaction>
     <Transaction>2014/03/24 22:29:51.000.577,=C:\Projects\livemirror\Synapse\synaip.pas</Transaction>
+    <Transaction>2014/03/24 22:29:51.000.567,=C:\Projects\livemirror\Synapse\synacode.pas</Transaction>
+    <Transaction>2014/03/24 22:29:51.000.532,=C:\Projects\livemirror\Synapse\blcksock.pas</Transaction>
     <Transaction>2014/03/24 22:29:51.000.599,=C:\Projects\livemirror\Synapse\synsock.pas</Transaction>
     <Transaction>2014/03/24 22:29:51.000.590,=C:\Projects\livemirror\Synapse\synautil.pas</Transaction>
-    <Transaction>2014/03/24 22:29:51.000.532,=C:\Projects\livemirror\Synapse\blcksock.pas</Transaction>
-    <Transaction>2014/03/24 22:29:51.000.551,=C:\Projects\livemirror\Synapse\httpsend.pas</Transaction>
-    <Transaction>2014/03/24 22:29:51.000.567,=C:\Projects\livemirror\Synapse\synacode.pas</Transaction>
     <Transaction>2014/03/24 22:31:05.000.899,=C:\Projects\livemirror\Synapse\synafpc.pas</Transaction>
     <Transaction>2014/03/26 15:43:29.000.474,=C:\Projects\livemirror\Manager\licensing.pas</Transaction>
-    <Transaction>2014/03/26 18:19:49.000.727,C:\Projects\livemirror\Misc\uninst_main.pas=C:\Projects\livemirror\uLkJSON.pas</Transaction>
-    <Transaction>2014/03/26 18:21:22.000.361,C:\Projects\livemirror\uLkJSON.pas=C:\Projects\livemirror\Misc\uninst_main.pas</Transaction>
+    <Transaction>2014/03/26 18:19:49.000.727,C:\Projects\livemirror\uLkJSON.pas=C:\Projects\livemirror\Misc\uninst_main.pas</Transaction>
+    <Transaction>2014/03/26 18:21:22.000.361,C:\Projects\livemirror\Misc\uninst_main.pas=C:\Projects\livemirror\uLkJSON.pas</Transaction>
     <Transaction>2014/05/06 16:44:53.000.798,=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
-    <Transaction>2014/05/06 17:05:38.000.507,C:\Projects\livemirror\Manager\logfile.dfm=C:\Projects\livemirror\Manager\Unit1.dfm</Transaction>
-    <Transaction>2014/05/06 17:05:38.000.507,C:\Projects\livemirror\Manager\logfile.pas=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
+    <Transaction>2014/05/06 17:05:38.000.507,C:\Projects\livemirror\Manager\Unit1.dfm=C:\Projects\livemirror\Manager\logfile.dfm</Transaction>
+    <Transaction>2014/05/06 17:05:38.000.507,C:\Projects\livemirror\Manager\Unit1.pas=C:\Projects\livemirror\Manager\logfile.pas</Transaction>
   </Transactions>
 </BorlandProject>
