@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: LiveMirror\n"
-"POT-Creation-Date: 2014-05-20 15:20\n"
+"POT-Creation-Date: 2014-05-26 12:40\n"
 "PO-Revision-Date: 2014-05-07 11:33+0100\n"
 "Last-Translator: Jonathan Neve <jonathan@jntraductions.fr>\n"
 "Language-Team: Jonathan Neve <jonathan@jntraductions.fr>\n"
@@ -66,22 +66,22 @@ msgstr "Base de données mirroir"
 
 #. fmConfig..Button3..Caption
 #. fmLicensing..Button1..Caption
-#: config.dfm:77  licensing.dfm:470
+#: config.dfm:81  licensing.dfm:470
 msgid "Cancel"
 msgstr "Annuler"
 
 #. fmConfig..Button4..Caption
-#: config.dfm:87 
+#: config.dfm:91 
 msgid "Ok"
 msgstr "Ok"
 
 #. fmConfig..edConfigName..EditMask
-#: config.dfm:96 
+#: config.dfm:100 
 msgid ">aaaaaaaaaaaaa;0; "
 msgstr ""
 
 #. fmConfig..btLicensing..Caption
-#: config.dfm:107 
+#: config.dfm:111 
 msgid "Licensing"
 msgstr "Licence"
 
@@ -127,7 +127,7 @@ msgid "LiveMirror service is  :"
 msgstr "Le service LiveMirror est :"
 
 #. fmConfigs..Panel3..lbServiceStatus..Caption
-#: configs.dfm:128  configs.pas:264
+#: configs.dfm:128  configs.pas:266
 msgid "RUNNING"
 msgstr "ACTIF"
 
@@ -142,7 +142,7 @@ msgid "X.XX.X"
 msgstr ""
 
 #. fmConfigs..Panel3..btServiceStopStart..Caption
-#: configs.dfm:163  configs.pas:266
+#: configs.dfm:163  configs.pas:268
 msgid "Stop"
 msgstr "Arrêter"
 
@@ -318,7 +318,7 @@ msgstr "Vous devez donner un nom à cette configuration !"
 msgid "Configuration name missing"
 msgstr "Nom de configuration manquant"
 
-#: config.pas:145 
+#: config.pas:149 
 msgid "Can't create directory \"%s\" "
 msgstr "Impossible de créer le répertoire \"%s\" "
 
@@ -330,26 +330,26 @@ msgstr "Etes-vous sûr de vouloir supprimer cette configuration ?"
 msgid "Delete confirmation"
 msgstr "Confirmation de suppression"
 
-#: configs.pas:172 
+#: configs.pas:174 
 msgid ""
 "No log file is available yet for this configuration.\n"
 "A log file will be created automatically when the service is first run."
 msgstr ""
 
-#: configs.pas:172 
+#: configs.pas:174 
 msgid "No log file found"
 msgstr ""
 
-#: configs.pas:260 
+#: configs.pas:262 
 msgid "UNINSTALLED"
 msgstr "DESINSTALLE"
 
 #. listConfigs.Enabled := False;
-#: configs.pas:276 
+#: configs.pas:278 
 msgid "STOPPED"
 msgstr "ARRETE"
 
-#: configs.pas:278 
+#: configs.pas:280 
 msgid "Start"
 msgstr "Démarrer"
 

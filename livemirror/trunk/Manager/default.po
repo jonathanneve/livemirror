@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-05-20 15:20\n"
-"PO-Revision-Date: 2014-05-20 15:20\n"
+"POT-Creation-Date: 2014-05-26 12:50\n"
+"PO-Revision-Date: 2014-05-26 12:50\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -75,24 +75,24 @@ msgid "Mirror database"
 msgstr ""
 
 #. fmConfig..Button3..Caption
-#: config.dfm:77
+#: config.dfm:81
 #. fmLicensing..Button1..Caption
 #: licensing.dfm:470
 msgid "Cancel"
 msgstr ""
 
 #. fmConfig..Button4..Caption
-#: config.dfm:87
+#: config.dfm:91
 msgid "Ok"
 msgstr ""
 
 #. fmConfig..edConfigName..EditMask
-#: config.dfm:96
+#: config.dfm:100
 msgid ">aaaaaaaaaaaaa;0; "
 msgstr ""
 
 #. fmConfig..btLicensing..Caption
-#: config.dfm:107
+#: config.dfm:111
 msgid "Licensing"
 msgstr ""
 
@@ -140,7 +140,7 @@ msgstr ""
 
 #. fmConfigs..Panel3..lbServiceStatus..Caption
 #: configs.dfm:128
-#: configs.pas:264
+#: configs.pas:266
 msgid "RUNNING"
 msgstr ""
 
@@ -156,7 +156,7 @@ msgstr ""
 
 #. fmConfigs..Panel3..btServiceStopStart..Caption
 #: configs.dfm:163
-#: configs.pas:266
+#: configs.pas:268
 msgid "Stop"
 msgstr ""
 
@@ -334,7 +334,7 @@ msgstr ""
 msgid "Configuration name missing"
 msgstr ""
 
-#: config.pas:145
+#: config.pas:149
 msgid "Can't create directory \"%s\" "
 msgstr ""
 
@@ -347,26 +347,26 @@ msgstr ""
 msgid "Delete confirmation"
 msgstr ""
 
-#: configs.pas:172
+#: configs.pas:174
 msgid "No log file is available yet for this configuration.\n"
 "A log file will be created automatically when the service is first "
 "run."
 msgstr ""
 
-#: configs.pas:172
+#: configs.pas:174
 msgid "No log file found"
 msgstr ""
 
-#: configs.pas:260
+#: configs.pas:262
 msgid "UNINSTALLED"
 msgstr ""
 
 #. listConfigs.Enabled := False;
-#: configs.pas:276
+#: configs.pas:278
 msgid "STOPPED"
 msgstr ""
 
-#: configs.pas:278
+#: configs.pas:280
 msgid "Start"
 msgstr ""
 

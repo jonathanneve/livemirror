@@ -41,13 +41,16 @@ type
     FConfigName: String;
     FMasterNode, FMirrorNode : ILMNode;
     {$IFNDEF LM_EVALUATION}
+    {$IFNDEF DEBUG}
     FLicence: String;
     function CheckLiveMirrorLicence : Boolean;
+    {$ENDIF}
     {$ENDIF}
 
     function GetNode(dbType, nodeType: String): ILMNode;
     function ConfigDatabases: Boolean;
   public
+    procedure Initialize;
     function GetServiceController: TServiceController; override;
     { Déclarations publiques }
   end;
@@ -208,6 +211,7 @@ begin
 end;
 
 {$IFNDEF LM_EVALUATION}
+{$IFNDEF DEBUG}
 function TLiveMirror.CheckLiveMirrorLicence : Boolean;
 begin
   Result := False;
@@ -230,8 +234,9 @@ begin
     hLog.Add(_('No licence set for this database configuration. Synchronization aborting.'));
 end;
 {$ENDIF}
+{$ENDIF}
 
-procedure TLiveMirror.ServiceExecute(Sender: TService);
+procedure TLiveMirror.Initialize;
 var
   iniConfigs: TIniFile;
   cPath: String;
@@ -272,6 +277,7 @@ begin
     hLog.Add('{/}{LNumOff}{*80*}');
 
     {$IFNDEF LM_EVALUATION}
+    {$IFNDEF DEBUG}
     //Check licence and die if it's incorrect
     FLicence := iniConfigs.ReadString(FConfigName, 'Licence', '');
     if not CheckLiveMirrorLicence then begin
@@ -280,6 +286,7 @@ begin
       iniConfigs.WriteString(FConfigName, 'Licence', '');
       Abort;
     end;
+    {$ENDIF}
     {$ENDIF}
 
     //Create replication meta-data and triggers if they aren't there
@@ -303,7 +310,11 @@ begin
       iniConfigs.Free;
     end;
   end;
+end;
 
+procedure TLiveMirror.ServiceExecute(Sender: TService);
+begin
+  Initialize;
   while not Terminated do begin
     ServiceThread.ProcessRequests(true);
     Sleep(500);

@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-05-20 15:59\n"
-"PO-Revision-Date: 2014-05-20 15:59\n"
+"POT-Creation-Date: 2014-05-26 12:50\n"
+"PO-Revision-Date: 2014-05-26 12:50\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,6 +23,16 @@ msgstr ""
 #. dmInterbase..CcConnection..DBType
 #: dInterbase.dfm:33
 msgid "Interbase"
+msgstr ""
+
+#. Form1..Caption
+#: LiveMirrorSrvTest.dfm:4
+msgid "Form1"
+msgstr ""
+
+#. Form1..Font.Name
+#: LiveMirrorSrvTest.dfm:11
+msgid "Tahoma"
 msgstr ""
 
 #. LiveMirror..DisplayName
@@ -46,109 +56,109 @@ msgstr ""
 msgid "LM"
 msgstr ""
 
-#: main.pas:76
-#: main.pas:77
+#: main.pas:79
+#: main.pas:80
 msgid "Replication failed with error : "
 msgstr ""
 
 #. , EVENTLOG_INFORMATION_TYPE);
-#: main.pas:86
+#: main.pas:89
 msgid "Replication finished : "
 msgstr ""
 
-#: main.pas:86
+#: main.pas:89
 msgid "Rows replicated : "
 msgstr ""
 
-#: main.pas:87
+#: main.pas:90
 msgid "Rows with errors : "
 msgstr ""
 
 #. LogMessage('Starting replication : ' + IntToStr(Replicator.Log.LineCount) + ' rows to replicate...', EVENTLOG_INFORMATION_TYPE);
-#: main.pas:93
+#: main.pas:96
 msgid "Starting replication : "
 msgstr ""
 
-#: main.pas:93
+#: main.pas:96
 msgid " rows to replicate..."
 msgstr ""
 
-#: main.pas:99
-#: main.pas:100
+#: main.pas:102
+#: main.pas:103
 msgid "Error replicating row : Table "
 msgstr ""
 
 #. LogMessage('Row replicated : Table ' + TableName + ' [' +  Replicator.Log.PrimaryKeys + ']', EVENTLOG_INFORMATION_TYPE);
-#: main.pas:108
+#: main.pas:111
 msgid "Row replicated : Table : "
 msgstr ""
 
-#: main.pas:150
+#: main.pas:153
 msgid "{now} Checking database configuration..."
 msgstr ""
 
-#: main.pas:172
+#: main.pas:175
 msgid "{now} Databases configuration configured "
 "successfully!"
 msgstr ""
 
-#: main.pas:176
+#: main.pas:179
 msgid "{now} Error setting up databases for "
 "replication!"
 msgstr ""
 
-#: main.pas:215
+#: main.pas:219
 msgid "{now} Checking licence information..."
 msgstr ""
 
-#: main.pas:218
+#: main.pas:222
 msgid "Error checking licence, please check your Internet "
 "connection"
 msgstr ""
 
-#: main.pas:224
+#: main.pas:228
 msgid "Licencing error : "
 msgstr ""
 
-#: main.pas:230
+#: main.pas:234
 msgid "No licence set for this database configuration. Synchronization "
 "aborting."
 msgstr ""
 
-#: main.pas:261
+#: main.pas:266
 msgid ">>>> Start {App_name}"
 msgstr ""
 
-#: main.pas:262
+#: main.pas:267
 msgid "{@12}Path : {App_path}"
 msgstr ""
 
-#: main.pas:263
+#: main.pas:268
 msgid "{@12}Config. name : {App_prm-}{/}"
 msgstr ""
 
-#: main.pas:266
+#: main.pas:271
 msgid "!!! EVALUATION VERSION !!!"
 msgstr ""
 
-#: main.pas:269
+#: main.pas:274
 msgid "MASTER database :"
 msgstr ""
 
-#: main.pas:270
+#: main.pas:275
 msgid "MIRROR database :"
 msgstr ""
 
-#: main.pas:271
+#: main.pas:276
 msgid "Replication frequency :"
 msgstr ""
 
-#: main.pas:271
+#: main.pas:276
 msgid " seconds"
 msgstr ""
 
 #. Clear licence if it was incorrect
-#: main.pas:279
+#: main.pas:285
 msgid "LiveMirror licence invalid for configuration %s.\n"
 "Clearing licence information from setup.\n"
 "Database will not be synchronized till licence is "
@@ -156,11 +166,11 @@ msgid "LiveMirror licence invalid for configuration %s.\n"
 msgstr ""
 
 #. Any new tables are automatically detected and triggers added
-#: main.pas:295
+#: main.pas:302
 msgid "{now} Service ready!"
 msgstr ""
 
-#: main.pas:297
+#: main.pas:304
 msgid "{now} DATABASE CONFIGURATION FAILED - CONTACT COPYCAT TEAM FOR "
 "SUPPORT!"
 msgstr ""

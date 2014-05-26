@@ -66,6 +66,10 @@ object fmConfig: TfmConfig
     object tsMirror: TTabSheet
       Caption = 'Mirror database'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
   end
   object Button3: TButton

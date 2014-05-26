@@ -72,12 +72,14 @@ begin
     end;
 
     {$IFNDEF LM_EVALUATION}
+    {$IFNDEF DEBUG}
     if FLicence = '' then
       FLicence := TfmLicensing.AskForLicence(Trim(edConfigName.Text));
     if FLicence = '' then begin
       CanClose := False;
       Exit;
     end;
+    {$ENDIF}
     {$ENDIF}
 
     if lNewConfig then
@@ -119,7 +121,9 @@ var
   begin
     ConfigsIni.WriteString(cConfigName, 'SyncFrequency', edFrenquency.Text);
     {$IFNDEF LM_EVALUATION}
+    {$IFNDEF DEBUG}
     ConfigsIni.WriteString(cConfigName, 'Licence', FLicence);
+    {$ENDIF}
     {$ENDIF}
     ConfigsIni.WriteString(cConfigName, 'MasterDBType', FMasterFrame.DBType);
     ConfigsIni.WriteString(cConfigName, 'MirrorDBType', FMirrorFrame.DBType);

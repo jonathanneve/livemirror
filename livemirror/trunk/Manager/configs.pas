@@ -130,7 +130,9 @@ begin
     if Application.MessageBox(PWideChar(_('Are you sure you want to delete this backup configuration?')), PWideChar(_('Delete confirmation')), MB_YESNO + MB_ICONWARNING + MB_DEFBUTTON2) = IDYES then begin
       cConfigName := listConfigs.Items[listConfigs.ItemIndex];
       {$IFNDEF LM_EVALUATION}
+      {$IFNDEF DEBUG}
       DeactivateLicence(cConfigName, slConfigLicences.Values[cConfigName]);
+      {$ENDIF}
       {$ENDIF}
 
       UnInstallService(cConfigName, Handle);

@@ -18,6 +18,9 @@
         <Projects Include="Misc\LiveMirrorUninstaller.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="Service\LiveMirrorSrvTester.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -71,14 +74,23 @@
     <Target Name="LiveMirrorUninstaller:Make">
         <MSBuild Projects="Misc\LiveMirrorUninstaller.dproj" Targets="Make"/>
     </Target>
+    <Target Name="LiveMirrorSrvTester">
+        <MSBuild Projects="Service\LiveMirrorSrvTester.dproj"/>
+    </Target>
+    <Target Name="LiveMirrorSrvTester:Clean">
+        <MSBuild Projects="Service\LiveMirrorSrvTester.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="LiveMirrorSrvTester:Make">
+        <MSBuild Projects="Service\LiveMirrorSrvTester.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="LiveMirrorGuardian;LiveMirrorSrv;LiveMirrorCpl;LiveMirrorMgr;LiveMirrorUninstaller"/>
+        <CallTarget Targets="LiveMirrorGuardian;LiveMirrorSrv;LiveMirrorCpl;LiveMirrorMgr;LiveMirrorUninstaller;LiveMirrorSrvTester"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="LiveMirrorGuardian:Clean;LiveMirrorSrv:Clean;LiveMirrorCpl:Clean;LiveMirrorMgr:Clean;LiveMirrorUninstaller:Clean"/>
+        <CallTarget Targets="LiveMirrorGuardian:Clean;LiveMirrorSrv:Clean;LiveMirrorCpl:Clean;LiveMirrorMgr:Clean;LiveMirrorUninstaller:Clean;LiveMirrorSrvTester:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="LiveMirrorGuardian:Make;LiveMirrorSrv:Make;LiveMirrorCpl:Make;LiveMirrorMgr:Make;LiveMirrorUninstaller:Make"/>
+        <CallTarget Targets="LiveMirrorGuardian:Make;LiveMirrorSrv:Make;LiveMirrorCpl:Make;LiveMirrorMgr:Make;LiveMirrorUninstaller:Make;LiveMirrorSrvTester:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

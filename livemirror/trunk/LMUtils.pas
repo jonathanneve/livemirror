@@ -15,7 +15,7 @@ procedure InstallService(cConfigName: String; Handle: HWND);
 
 
 const
-  LiveMirrorVersion = '1.01.0';
+  LiveMirrorVersion = '1.01.1';
 
 implementation
 
