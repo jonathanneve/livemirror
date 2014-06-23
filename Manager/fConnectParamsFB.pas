@@ -9,7 +9,7 @@ uses
   FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
   FireDAC.Comp.Client, Data.DB, CcProviders, CcProvFireDAC, FireDAC.Phys.IBBase,
   FireDAC.Phys.FB, Vcl.StdCtrls, Vcl.Buttons, config, FireDAC.VCLUI.Wait,
-  FireDAC.Comp.UI;
+  FireDAC.Comp.UI, dconfig;
 
 type
   TfrConnectParamsFB = class(TFrame, ILMConnectionFrame)
@@ -29,25 +29,24 @@ type
     edCharset: TEdit;
     edClientDLL: TEdit;
     cbVersions: TComboBox;
-    FDPhysFBDriverLink: TFDPhysFBDriverLink;
+    FDPhysFBDriverLinkOld: TFDPhysFBDriverLink;
     OpenDialogDLL: TFileOpenDialog;
     OpenDialog: TFileOpenDialog;
-    Connection: TCcConnectionFireDAC;
-    FDConnection: TFDConnection;
-    FDTransaction1: TFDTransaction;
+    ConnectionOld: TCcConnectionFireDAC;
+    FDConnectionOld: TFDConnection;
+    FDTransaction1Old: TFDTransaction;
     btTest: TButton;
-    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure btTestClick(Sender: TObject);
   private
+    FNode: ILMNode;
+    procedure LoadFromNode;
   public
-    procedure SetName(cName: String);
-    function GetDBType: String;
+    function GetNode: ILMNode;
+    procedure SetNode(n: ILMNode);
+    procedure SaveToNode;
     procedure Init(parentCtrl: TWinControl);
-    procedure Save(configFileName: String);
-    procedure Load(configFileName: String);
-    procedure SetConnectParams;
     constructor Create(AOwner: TComponent);override;
   end;
 
@@ -55,35 +54,20 @@ implementation
 
 {$R *.dfm}
 
-uses IniFiles, gnugettext;
+uses IniFiles, gnugettext, dInterbase;
 
-procedure TfrConnectParamsFB.SetName(cName: String);
+procedure TfrConnectParamsFB.SetNode(n: ILMNode);
 begin
-  Name := 'frConnectParamsFB' + cName;
-end;
-
-procedure TfrConnectParamsFB.Load(configFileName: String);
-var
-  ini : TIniFile;
-begin
-  ini := TIniFile.Create(configFileName);
-  try
-    cbVersions.ItemIndex := cbVersions.Items.IndexOf(ini.ReadString('General', 'DBVersion', 'FB2.5'));
-    edDBName.Text := ini.ReadString('General', 'DBName', '');
-    edUserName.Text := ini.ReadString('General', 'Username', '');
-    edPassword.Text := ini.ReadString('General', 'Password', '');
-    cbDialect.ItemIndex := cbDialect.Items.IndexOf(ini.ReadString('General', 'SQLDialect', '3'));
-    edClientDLL.Text := ini.ReadString('General', 'Clientdll', 'fbclient.dll');
-  finally
-    ini.Free;
-  end;
+  FNode := n;
+  Name := 'frConnectParamsFB_' + n.NodeType;
+  LoadFromNode;
 end;
 
 procedure TfrConnectParamsFB.btTestClick(Sender: TObject);
 begin
-  SetConnectParams;
-  Connection.Connect;
-  Connection.Disconnect;
+  SaveToNode;
+  FNode.Connection.Connect;
+  FNode.Connection.Disconnect;
   ShowMessage(_('Connection established successfully'));
 end;
 
@@ -93,47 +77,48 @@ begin
   TranslateComponent(Self);
 end;
 
-function TfrConnectParamsFB.GetDBType: String;
+function TfrConnectParamsFB.GetNode: ILMNode;
 begin
-  Result := Connection.DBType;
+  Result := FNode;
 end;
 
 procedure TfrConnectParamsFB.Init(parentCtrl: TWinControl);
 begin
   parent := parentCtrl;
   Align := alClient;
-  cbVersions.Items.Assign(Connection.DBAdaptor.SupportedVersions);
 end;
-  
-procedure TfrConnectParamsFB.Save(configFileName: String);
-var
-  ini : TIniFile;
+
+procedure TfrConnectParamsFB.LoadFromNode;
 begin
-  ini := TIniFile.Create(configFileName);
-  try
-    ini.WriteString('General', 'DBVersion', cbVersions.Text);
-    ini.WriteString('General', 'DBName', edDBName.Text);
-    ini.WriteString('General', 'Username', edUserName.Text);
-    ini.WriteString('General', 'Password', edPassword.Text);
-    ini.WriteString('General', 'SQLDialect', cbDialect.Text);
-    ini.WriteString('General', 'Clientdll', edClientDLL.Text);
-  finally
-    ini.Free;
+  cbVersions.Items.Assign(FNode.Connection.DBAdaptor.SupportedVersions);
+  with FNode as TdmInterbase do begin
+    cbVersions.ItemIndex := cbVersions.Items.IndexOf(CcConnection.DBVersion);
+    edDBName.Text := FDConnection.Params.Values['Database'];
+    edUserName.Text := FDConnection.Params.Values['User_Name'];
+    edPassword.Text := FDConnection.Params.Values['Password'];
+    cbDialect.ItemIndex := cbDialect.Items.IndexOf(FDConnection.Params.Values['SQLDialect']);
+
+    if FDConnection.DriverName = 'IB' then
+      edClientDLL.Text := FDPhysIBDriverLink.VendorLib
+    else
+      edClientDLL.Text := FDPhysFBDriverLink.VendorLib;
   end;
 end;
 
-procedure TfrConnectParamsFB.SetConnectParams;
+procedure TfrConnectParamsFB.SaveToNode;
 begin
-  Connection.DBVersion := cbVersions.Text;
-  FDConnection.DriverName := 'FB';
-  FDConnection.Params.Values['Database'] := Trim(edDBName.Text);
-  FDConnection.Params.Values['User_Name'] := Trim(edUserName.Text);
-  FDConnection.Params.Values['Password'] := Trim(edPassword.Text);
-  FDConnection.Params.Values['SQLDialect'] := cbDialect.Text;
-  if Trim(edClientDLL.Text) <> '' then
-    FDPhysFBDriverLink.VendorLib := edClientDLL.Text
-  else
-    FDPhysFBDriverLink.VendorLib := '';
+  with FNode as TdmInterbase do begin
+    CcConnection.DBVersion := cbVersions.Text;
+    FDConnection.DriverName := 'FB';
+    FDConnection.Params.Values['Database'] := Trim(edDBName.Text);
+    FDConnection.Params.Values['User_Name'] := Trim(edUserName.Text);
+    FDConnection.Params.Values['Password'] := Trim(edPassword.Text);
+    FDConnection.Params.Values['SQLDialect'] := cbDialect.Text;
+    if Trim(edClientDLL.Text) <> '' then
+      FDPhysFBDriverLink.VendorLib := edClientDLL.Text
+    else
+      FDPhysFBDriverLink.VendorLib := '';
+  end;
 end;
 
 procedure TfrConnectParamsFB.SpeedButton1Click(Sender: TObject);

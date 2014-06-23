@@ -57,6 +57,7 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
+        <DCC_UnitSearchPath>c:\projects\copycat\;c:\projects\copycat\firedac;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <SanitizedProjectName>LiveMirrorSrv</SanitizedProjectName>
         <PostBuildEvent><![CDATA[C:\projects\livemirror\gettext.bat
 $(PostBuildEvent)]]></PostBuildEvent>
@@ -92,7 +93,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <Debugger_RunParams>Test /Install</Debugger_RunParams>
+        <Debugger_RunParams>CALLASSIST /runonce</Debugger_RunParams>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <DCC_DcuOutput>.\</DCC_DcuOutput>
         <DCC_ExeOutput>.\</DCC_ExeOutput>
@@ -128,11 +129,6 @@ $(PostBuildEvent)]]></PostBuildEvent>
             <DesignClass>TService</DesignClass>
         </DCCReference>
         <DCCReference Include="..\LMUtils.pas"/>
-        <DCCReference Include="dInterbase.pas">
-            <Form>dmInterbase</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
         <DCCReference Include="..\gnugettext.pas"/>
         <DCCReference Include="HotLog.pas"/>
         <DCCReference Include="..\uLkJSON.pas"/>
@@ -143,6 +139,16 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <DCCReference Include="..\Synapse\synaip.pas"/>
         <DCCReference Include="..\Synapse\synautil.pas"/>
         <DCCReference Include="..\Synapse\synsock.pas"/>
+        <DCCReference Include="..\dInterbase.pas">
+            <Form>dmInterbase</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\dconfig.pas">
+            <Form>dmConfig</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -218,11 +224,10 @@ $(PostBuildEvent)]]></PostBuildEvent>
                     <Source Name="MainSource">LiveMirrorSrv.dpr</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k200.bpl">Package Serveurs Office 2000 Embarcadero C++Builder</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp200.bpl">Package Serveurs Office XP Embarcadero C++Builder</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k200.bpl">Composants Microsoft Office 2000 Sample Automation Server Wrapper</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp200.bpl">Composants Microsoft Office XP Sample Automation Server Wrapper</Excluded_Packages>
-                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\14.0\BPL\MicrotecXE6.bpl">MicrotecXE6</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k200.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp200.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k200.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp200.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment>

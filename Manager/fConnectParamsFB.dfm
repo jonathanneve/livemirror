@@ -147,9 +147,9 @@ object frConnectParamsFB: TfrConnectParamsFB
     TabOrder = 7
     OnClick = btTestClick
   end
-  object FDPhysFBDriverLink: TFDPhysFBDriverLink
-    Left = 280
-    Top = 8
+  object FDPhysFBDriverLinkOld: TFDPhysFBDriverLink
+    Left = 240
+    Top = 40
   end
   object OpenDialogDLL: TFileOpenDialog
     FavoriteLinks = <>
@@ -163,8 +163,8 @@ object frConnectParamsFB: TfrConnectParamsFB
         FileMask = '*.*'
       end>
     Options = []
-    Left = 152
-    Top = 56
+    Left = 56
+    Top = 16
   end
   object OpenDialog: TFileOpenDialog
     FavoriteLinks = <>
@@ -183,16 +183,17 @@ object frConnectParamsFB: TfrConnectParamsFB
       end>
     FileTypeIndex = 2
     Options = []
-    Left = 112
-    Top = 40
+    Left = 64
+    Top = 56
   end
-  object Connection: TCcConnectionFireDAC
-    FDConnection = FDConnection
-    FDTransaction = FDTransaction1
+  object ConnectionOld: TCcConnectionFireDAC
+    FDConnection = FDConnectionOld
+    FDTransaction = FDTransaction1Old
     DBType = 'Interbase'
-    Left = 168
+    Left = 208
+    Top = 65528
   end
-  object FDConnection: TFDConnection
+  object FDConnectionOld: TFDConnection
     Params.Strings = (
       'Database=fdl'
       'User_Name=sys'
@@ -200,18 +201,13 @@ object frConnectParamsFB: TfrConnectParamsFB
       'SQLDialect=1'
       'DriverID=FB')
     LoginPrompt = False
-    Transaction = FDTransaction1
-    UpdateTransaction = FDTransaction1
-    Left = 128
+    Transaction = FDTransaction1Old
+    UpdateTransaction = FDTransaction1Old
+    Left = 152
   end
-  object FDTransaction1: TFDTransaction
-    Connection = FDConnection
-    Left = 168
-    Top = 32
-  end
-  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
-    Provider = 'Forms'
-    Left = 48
-    Top = 40
+  object FDTransaction1Old: TFDTransaction
+    Connection = FDConnectionOld
+    Left = 160
+    Top = 48
   end
 end

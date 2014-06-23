@@ -29,6 +29,7 @@ type
     pnEvaluation: TPanel;
     lbEvaluation: TLabel;
     btLog: TBitBtn;
+    btRun: TBitBtn;
     procedure btAddClick(Sender: TObject);
     procedure btPropertiesClick(Sender: TObject);
     procedure btDeleteClick(Sender: TObject);
@@ -38,6 +39,7 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure ServiceRefreshTimerTimer(Sender: TObject);
     procedure btLogClick(Sender: TObject);
+    procedure btRunClick(Sender: TObject);
   private
     lServiceRunning: Boolean;
     slConfigLicences: TStringList;
@@ -116,6 +118,21 @@ begin
   end;
 end;
 
+procedure TfmConfigs.btRunClick(Sender: TObject);
+begin
+  if listConfigs.ItemIndex <> -1 then begin
+    Screen.Cursor := crHourGlass;
+    try
+      RunServiceOnce(listConfigs.Items[listConfigs.ItemIndex], Handle);
+      Sleep(500);
+      Screen.Cursor := crDefault;
+      btLog.Click;
+    finally
+      Screen.Cursor := crDefault;
+    end;
+  end;
+end;
+
 procedure TfmConfigs.btAddClick(Sender: TObject);
 begin
   TfmConfig.NewConfig;
@@ -145,16 +162,16 @@ end;
 function GetLastModifiedFileName(AFolder: String; APattern: String = '*.*'): String;
 var
   sr: TSearchRec;
-  aTime: Integer;
+  aTimeStamp: TDateTime;
 begin
   Result := '';
-  aTime := 0;
+  aTimeStamp := 0;
   if FindFirst(IncludeTrailingPathDelimiter(AFolder) + APattern, faAnyFile, sr) = 0 then
   begin
     repeat
-      if sr.Time > aTime then
+      if sr.TimeStamp > aTimeStamp then
       begin
-        aTime := sr.Time;
+        aTimeStamp := sr.TimeStamp;
         Result := sr.Name;
       end;
     until FindNext(sr) <> 0;
@@ -234,8 +251,6 @@ begin
 end;
 
 procedure TfmConfigs.FormCreate(Sender: TObject);
-var
-  ResultMessage:String;
 begin
   TranslateComponent (self);
   slConfigLicences := TStringList.Create;
@@ -256,6 +271,9 @@ procedure TfmConfigs.RefreshServiceStatus;
 var
   srv: TServiceInfo;
 begin
+  srvMgr.Active := False;
+  srvMgr.Active := True;
+
   srv :=  srvMgr.ServiceByName['LiveMirror'];
   if not Assigned(srv) or (srvMgr.ServiceByName['LiveMirror'].State = ssRunning) then begin
     if not Assigned(srv)  then begin
@@ -273,6 +291,7 @@ begin
     btAdd.Enabled := False;
     btProperties.Enabled := False;
     btDelete.Enabled := False;
+    btRun.Enabled := False;
   end else begin
     lServiceRunning := False;
     lbServiceStatus.Caption := _('STOPPED');
@@ -283,6 +302,7 @@ begin
     btAdd.Enabled := True;
     btProperties.Enabled := True;
     btDelete.Enabled := True;
+    btRun.Enabled := True;
   end;
 end;
 

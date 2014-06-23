@@ -3,23 +3,12 @@ unit main;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.SvcMgr, Vcl.Dialogs,
-  CcConf, CcConfStorage, CcReplicator, CcProviders, DB;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes,
+  CcReplicator, CcConf, CcProviders, DB, dconfig, CcConfStorage, Vcl.SvcMgr;
 
 type
-  ILMNode = interface['{F9C5A7A6-C810-4C96-8D23-A35F004DB262}']
-    procedure Load(configFileName: String);
-    function GetConnection: TCcConnection;
-    function GetDescription: String;
-
-    property Description: String read GetDescription;
-    property Connection: TCcConnection read GetConnection;
-  end;
-
   TLiveMirror = class(TService)
     Replicator: TCcReplicator;
-    MasterConfig: TCcConfig;
-    MirrorConfig: TCcConfig;
     procedure ServiceStart(Sender: TService; var Started: Boolean);
     procedure ServiceCreate(Sender: TObject);
     procedure ServiceStop(Sender: TService; var Stopped: Boolean);
@@ -35,19 +24,17 @@ type
       var CanContinue: Boolean);
     procedure ReplicatorException(Sender: TObject; e: Exception);
     procedure ReplicatorFinished(Sender: TObject);
-    procedure ReplicatorRowReplicating(Sender: TObject; TableName: string;
-      Fields: TFields; var ReplicateRow, AbortAndTryLater: Boolean);
+    procedure ServiceDestroy(Sender: TObject);
+    procedure ReplicatorEmptyLog(Sender: TObject);
   private
-    FConfigName: String;
-    FMasterNode, FMirrorNode : ILMNode;
+    FDMConfig: TdmConfig;
+    FRunOnce: Boolean;
     {$IFNDEF LM_EVALUATION}
     {$IFNDEF DEBUG}
-    FLicence: String;
     function CheckLiveMirrorLicence : Boolean;
     {$ENDIF}
     {$ENDIF}
 
-    function GetNode(dbType, nodeType: String): ILMNode;
     function ConfigDatabases: Boolean;
   public
     procedure Initialize;
@@ -72,6 +59,12 @@ end;
 function TLiveMirror.GetServiceController: TServiceController;
 begin
   Result := ServiceController;
+end;
+
+procedure TLiveMirror.ReplicatorEmptyLog(Sender: TObject);
+begin
+  if FRunOnce then
+    hLog.Add(_('{now} Nothing to replicate'));
 end;
 
 procedure TLiveMirror.ReplicatorException(Sender: TObject; e: Exception);
@@ -113,65 +106,18 @@ begin
 	Replicator.RemoteDB.CommitRetaining;
 end;
 
-procedure TLiveMirror.ReplicatorRowReplicating(Sender: TObject;
-  TableName: string; Fields: TFields; var ReplicateRow,
-  AbortAndTryLater: Boolean);
-
-begin
-(*{$IFDEF LM_EVALUATION}
-	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 5s...'));
-  Sleep(5000);
-	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 5s...'));
-  Sleep(5000);
-	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 5s...'));
-  Sleep(5000);
-	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 5s...'));
-  Sleep(5000);
-	hLog.Add(_('{now} LiveMirror Evaluation version... waiting 5s...'));
-  Sleep(5000);
-{  for I := 0 to Fields.Count do begin
-    if (Fields[I].DataType in [ftString, ftWideString]) and (Replicator.Log.Keys.FindKey(Fields[I].FieldName = nil)) then
-      Fields[I].Value := 'LM' + Fields[I].Value;
-  end;}
-{$ENDIF}*)
-end;
-
-function TLiveMirror.GetNode(dbType, nodeType: String): ILMNode;
-begin
-  Assert(dbType = 'Interbase');
-  if dbType = 'Interbase' then
-    Result := TdmInterbase.Create(Application);
-  Result.Load(GetLiveMirrorRoot + 'Configs\' + FConfigName + '\' + nodeType + '.ini');
-end;
-
 function TLiveMirror.ConfigDatabases: Boolean;
 var
   slTables: TStringList;
   I: Integer;
+  slExcludedTables: TStringList;
 begin
   Result := False;
  	hLog.Add(_('{now} Checking database configuration...'));
   LogMessage('Configuring databases for replication...', EVENTLOG_INFORMATION_TYPE);
   try
-    MasterConfig.Connection := FMasterNode.Connection;
-    MasterConfig.Connect;
-    slTables := MasterConfig.Connection.ListTables;
-    MasterConfig.Tables.Clear;
-    for I := 0 to slTables.Count-1 do begin
-      if Copy(Uppercase(slTables[I]), 1, 4) <> 'RPL$' then begin
-        MasterConfig.Tables.Add.TableName := slTables[I];
-      end;
-    end;
-    MasterConfig.Nodes.Text := 'MIRROR';
-    MasterConfig.GenerateConfig;
-    MasterConfig.Disconnect;
-
-    MirrorConfig.Connection := FMirrorNode.Connection;
-    MirrorConfig.Connect;
-    MirrorConfig.Nodes.Clear;
-    MirrorConfig.Tables.Clear;
-    MirrorConfig.GenerateConfig;
-    MirrorConfig.Disconnect;
+    FDMConfig.ConfigureNodes;
+    FDMConfig.SaveConfig; //We save the config file so that the MetaDataCreated field gets set
     hLog.Add(_('{now} Databases configuration configured successfully!'));
     Result := True;
   except on E:Exception do
@@ -189,7 +135,7 @@ begin
     RootKey := HKEY_LOCAL_MACHINE;
     if OpenKey('SYSTEM\CurrentControlSet\Services\' + Name, True) then
     begin
-      WriteString('ImagePath', ReadString('ImagePath')+' ' + FConfigName);
+      WriteString('ImagePath', ReadString('ImagePath')+' ' + FDMConfig.ConfigName);
       WriteString('Description', 'Microtec LiveMirror replication service'{$IFDEF LM_EVALUATION} + ' EVALUATION VERSION' {$ENDIF} );
     end
   finally
@@ -205,9 +151,21 @@ end;
 
 procedure TLiveMirror.ServiceCreate(Sender: TObject);
 begin
-  FConfigName := ParamStr(1);
-  Name := 'LiveMirror' + FConfigName;
-  DisplayName := DisplayName + ' (' + FConfigName + ')';
+  FDMConfig := TdmConfig.Create(Self);
+  FDMConfig.ConfigName := ParamStr(1);
+  Name := 'LiveMirror' + FDMConfig.ConfigName;
+  DisplayName := DisplayName + ' (' + FDMConfig.ConfigName + ')';
+
+  FRunOnce := False;
+  if ParamStr(2) = '/runonce' then begin
+    FRunOnce := True;
+    Initialize;
+  end;
+end;
+
+procedure TLiveMirror.ServiceDestroy(Sender: TObject);
+begin
+  FDMConfig.Free;
 end;
 
 {$IFNDEF LM_EVALUATION}
@@ -215,10 +173,10 @@ end;
 function TLiveMirror.CheckLiveMirrorLicence : Boolean;
 begin
   Result := False;
-  if (FLicence <> '') then begin
+  if (FDMConfig.Licence <> '') then begin
      hLog.Add(_('{now} Checking licence information...'));
      try
-       if not CheckLicenceActivation(FConfigName, FLicence) then begin
+       if not CheckLicenceActivation(FDMConfig.ConfigName, FDMConfig.Licence) then begin
          hLog.Add(_('Error checking licence, please check your Internet connection'));
          Exit;
        end;
@@ -243,17 +201,11 @@ var
   nReplFrequency: Integer;
   cErrorMessage: String;
 begin
-  iniConfigs := TIniFile.Create(GetLiveMirrorRoot + '\configs.ini');
   try
-    cPath := GetLiveMirrorRoot + 'Configs\' + FConfigName + '\log\';
-    ForceDirectories(cPath);
-
-    nReplFrequency := StrToInt(iniConfigs.ReadString(FConfigName, 'SyncFrequency', '30'));
-    FMasterNode := GetNode(iniConfigs.ReadString(FConfigName, 'MasterDBType', '') , 'master');
-    FMirrorNode := GetNode(iniConfigs.ReadString(FConfigName, 'MasterDBType', ''), 'mirror');
+    FDMConfig.LoadConfig(FDMConfig.ConfigName);
 
     with hLog.hlWriter.hlFileDef do begin
-      path := cPath;
+      path := GetLiveMirrorRoot + '\Configs\' + FDMConfig.ConfigName + '\log\';
       SafegdgMax := 100;
       UseSafeFilenames := true;
       UseFileSizeLimit := true;
@@ -268,22 +220,22 @@ begin
     hLog.Add(_('{@12}Config. name : {App_prm-}{/}'));
 
     {$IFDEF LM_EVALUATION}
-  	hLog.Add(_('!!! EVALUATION VERSION !!!'));
+    hLog.Add(_('!!! EVALUATION VERSION !!!'));
     {$ENDIF}
 
-  	hLog.Add(_('MASTER database :') + #9 + FMasterNode.Description);
-  	hLog.Add(_('MIRROR database :') + #9 + FMirrorNode.Description);
-	  hLog.Add(_('Replication frequency :') + #9 + IntToStr(nReplFrequency) + _(' seconds'));
+    hLog.Add(_('MASTER database :') + #9 + FDMConfig.MasterNode.Description);
+    hLog.Add(_('MIRROR database :') + #9 + FDMConfig.MirrorNode.Description);
+    hLog.Add(_('Replication frequency :') + #9 + IntToStr(FDMConfig.SyncFrequency) + _(' seconds'));
     hLog.Add('{/}{LNumOff}{*80*}');
 
     {$IFNDEF LM_EVALUATION}
     {$IFNDEF DEBUG}
     //Check licence and die if it's incorrect
-    FLicence := iniConfigs.ReadString(FConfigName, 'Licence', '');
     if not CheckLiveMirrorLicence then begin
       //Clear licence if it was incorrect
-      LogMessage(Format(_('LiveMirror licence invalid for configuration %s.'#13#10'Clearing licence information from setup.'#13#10'Database will not be synchronized till licence is corrected.'), [FConfigName]), EVENTLOG_ERROR_TYPE);
-      iniConfigs.WriteString(FConfigName, 'Licence', '');
+      LogMessage(Format(_('LiveMirror licence invalid for configuration %s.'#13#10'Clearing licence information from setup.'#13#10'Database will not be synchronized till licence is corrected.'), [FDMConfig.ConfigName]), EVENTLOG_ERROR_TYPE);
+      FDMConfig.Licence := '';
+      FDMConfig.SaveConfig;
       Abort;
     end;
     {$ENDIF}
@@ -292,14 +244,19 @@ begin
     //Create replication meta-data and triggers if they aren't there
     //Any new tables are automatically detected and triggers added
     if ConfigDatabases then begin
-      Replicator.AutoReplicate.Frequency := nReplFrequency;
+      Replicator.AutoReplicate.Frequency := FDMConfig.SyncFrequency;
       Replicator.AutoReplicate.Enabled := True;
-      Replicator.LocalNode.Connection := FMasterNode.Connection;
+      Replicator.LocalNode.Connection := FDMConfig.MasterNode.Connection;
       Replicator.LocalNode.Name := 'MASTER';
-      Replicator.RemoteNode.Connection := FMirrorNode.Connection;
+      Replicator.RemoteNode.Connection := FDMConfig.MirrorNode.Connection;
       Replicator.RemoteNode.Name := 'MIRROR';
-      Replicator.AutoReplicate.Start;
+
       hLog.Add(_('{now} Service ready!'));
+
+      if FRunOnce then
+        Replicator.Replicate
+      else
+        Replicator.AutoReplicate.Start;
     end else begin
       cErrorMessage := _('{now} DATABASE CONFIGURATION FAILED - CONTACT COPYCAT TEAM FOR SUPPORT!');
       hLog.Add(cErrorMessage);

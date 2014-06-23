@@ -17,8 +17,8 @@
     <Transaction>2014/03/26 18:23:29.000.198,=C:\Projects\livemirror\Synapse\synacode.pas</Transaction>
     <Transaction>2014/03/26 18:23:29.000.187,=C:\Projects\livemirror\Synapse\httpsend.pas</Transaction>
     <Transaction>2014/03/26 18:23:29.000.244,=C:\Projects\livemirror\Synapse\synsock.pas</Transaction>
-    <Transaction>2014/03/26 18:23:29.000.178,=C:\Projects\livemirror\Synapse\blcksock.pas</Transaction>
-    <Transaction>2014/03/26 18:23:29.000.205,=C:\Projects\livemirror\Synapse\synafpc.pas</Transaction>
     <Transaction>2014/03/26 18:23:29.000.236,=C:\Projects\livemirror\Synapse\synautil.pas</Transaction>
+    <Transaction>2014/03/26 18:23:29.000.205,=C:\Projects\livemirror\Synapse\synafpc.pas</Transaction>
+    <Transaction>2014/03/26 18:23:29.000.178,=C:\Projects\livemirror\Synapse\blcksock.pas</Transaction>
   </Transactions>
 </BorlandProject>

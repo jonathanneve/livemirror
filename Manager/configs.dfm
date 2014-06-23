@@ -2,8 +2,8 @@ object fmConfigs: TfmConfigs
   Left = 0
   Top = 0
   Caption = 'LiveMirror Manager'
-  ClientHeight = 213
-  ClientWidth = 311
+  ClientHeight = 239
+  ClientWidth = 312
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,31 +19,31 @@ object fmConfigs: TfmConfigs
   object Panel1: TPanel
     Left = 0
     Top = 50
-    Width = 311
-    Height = 134
+    Width = 312
+    Height = 160
     Align = alClient
     BevelOuter = bvNone
     Caption = 'Panel1'
     TabOrder = 0
     DesignSize = (
-      311
-      134)
+      312
+      160)
     object GroupBox: TGroupBox
-      Left = 6
-      Top = 0
-      Width = 295
-      Height = 129
+      Left = 11
+      Top = -1
+      Width = 296
+      Height = 155
       Anchors = [akLeft, akTop, akRight, akBottom]
       Caption = 'Configurations'
       TabOrder = 0
       DesignSize = (
-        295
-        129)
+        296
+        155)
       object listConfigs: TListBox
         Left = 3
         Top = 18
-        Width = 200
-        Height = 108
+        Width = 201
+        Height = 134
         Anchors = [akLeft, akTop, akRight, akBottom]
         ItemHeight = 13
         TabOrder = 0
@@ -89,7 +89,7 @@ object fmConfigs: TfmConfigs
       end
       object btLog: TBitBtn
         Left = 210
-        Top = 96
+        Top = 122
         Width = 75
         Height = 25
         Anchors = [akTop, akRight]
@@ -98,18 +98,29 @@ object fmConfigs: TfmConfigs
         TabOrder = 4
         OnClick = btLogClick
       end
+      object btRun: TBitBtn
+        Left = 210
+        Top = 96
+        Width = 75
+        Height = 25
+        Anchors = [akTop, akRight]
+        Caption = 'Run now'
+        DoubleBuffered = False
+        TabOrder = 5
+        OnClick = btRunClick
+      end
     end
   end
   object Panel3: TPanel
     Left = 0
     Top = 0
-    Width = 311
+    Width = 312
     Height = 50
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
     DesignSize = (
-      311
+      312
       50)
     object Label1: TLabel
       Left = 11
@@ -155,7 +166,7 @@ object fmConfigs: TfmConfigs
       ParentFont = False
     end
     object btServiceStopStart: TButton
-      Left = 220
+      Left = 221
       Top = 25
       Width = 75
       Height = 25
@@ -167,19 +178,19 @@ object fmConfigs: TfmConfigs
   end
   object pnEvaluation: TPanel
     Left = 0
-    Top = 184
-    Width = 311
+    Top = 210
+    Width = 312
     Height = 29
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
     DesignSize = (
-      311
+      312
       29)
     object lbEvaluation: TLabel
       Left = 0
       Top = 0
-      Width = 311
+      Width = 312
       Height = 23
       Alignment = taCenter
       Anchors = [akLeft, akTop, akRight]
@@ -192,6 +203,7 @@ object fmConfigs: TfmConfigs
       Font.Style = [fsBold]
       ParentFont = False
       StyleElements = [seClient, seBorder]
+      ExplicitWidth = 311
     end
   end
   object ServiceRefreshTimer: TTimer

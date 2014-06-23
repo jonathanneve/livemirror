@@ -12,10 +12,11 @@ function DeactivateLicence(cConfigName, cLicence: String): Boolean;
 function CheckLicenceActivation(cConfigName, cLicence: String): Boolean;
 procedure UnInstallService(cConfigName: String; Handle: HWND);
 procedure InstallService(cConfigName: String; Handle: HWND);
+procedure RunServiceOnce(cConfigName: String; Handle: HWND);
 
 
 const
-  LiveMirrorVersion = '1.01.1';
+  LiveMirrorVersion = '1.2.0';
 
 implementation
 
@@ -71,12 +72,10 @@ var
   NCB: PNCB;
   Adapter: PAdapterStatus;
 
-  URetCode: PChar;
   RetCode: Ansichar;
   I: integer;
   Lenum: PlanaEnum;
   _SystemID: string;
-  TMPSTR: string;
 begin
   Result    := '';
   _SystemID := '';
@@ -216,10 +215,10 @@ begin
 end;
 
 function CheckLicences: Boolean;
-var
+{var
   cLicenceFile: String;
   slLicences: TStringList;
-  I:Integer;
+  I:Integer;}
 begin
 {  Result := False;
   cLicenceFile := GetLiveMirrorRoot + 'licence.dat';
@@ -246,6 +245,12 @@ procedure InstallService(cConfigName: String; Handle: HWND);
 begin
   if ShellExecute(Handle,'open',PChar(GetLiveMirrorRoot + '\Service\LiveMirrorSrv.exe'), PChar(cConfigName + ' /install /silent'),'',SW_HIDE) <= 32 then
     raise Exception.Create(dgettext('common', 'Can''t install service!' + #13#10 + 'Please make sure you have are running with administrator rights.'));
+end;
+
+procedure RunServiceOnce(cConfigName: String; Handle: HWND);
+begin
+  if ShellExecute(Handle,'open',PChar(GetLiveMirrorRoot + '\Service\LiveMirrorSrv.exe'), PChar(cConfigName + ' /runonce'),'',SW_HIDE) <= 32 then
+    raise Exception.Create(dgettext('common', 'Can''t run synchronization!' + #13#10 + 'Please make sure you have are running with administrator rights.'));
 end;
 
 end.

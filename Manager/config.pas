@@ -10,22 +10,25 @@ uses
   FireDAC.Comp.Client, Vcl.StdCtrls, Vcl.ExtCtrls, Data.Bind.EngExt,
   Vcl.Bind.DBEngExt, System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors,
   Data.Bind.Components, Vcl.ComCtrls, FireDAC.Phys.FB, FireDAC.Phys.IBBase,
-  FireDAC.Phys.IB, FireDAC.Phys.ODBCBase, FireDAC.Phys.MSSQL, Vcl.Mask;
+  FireDAC.Phys.IB, FireDAC.Phys.ODBCBase, FireDAC.Phys.MSSQL, Vcl.Mask, IniFiles, CcProviders,
+  CcConfStorage, CcConf, dconfig;
 
 type
-  ILMConnectionFrame = interface['{E67ED917-1575-4159-B547-35CCD40881A9}']
+(*  ILMConnectionFrame = interface['{E67ED917-1575-4159-B547-35CCD40881A9}']
     procedure Init(parentCtrl: TWinControl);
     procedure Load(configFileName: String);
     procedure Save(configFileName: String);
     procedure SetName(cName: String);
     function GetDBType: String;
+    function GetConnection: TCcConnection;
 
+    property Connection : TCcConnection read GetConnection;
     property DBType: String read GetDBType;
-  end;
+  end; *)
 
   TfmConfig = class(TForm)
     edFrenquency: TLabeledEdit;
-    PageControl1: TPageControl;
+    PageControl: TPageControl;
     tsMaster: TTabSheet;
     tsMirror: TTabSheet;
     Button3: TButton;
@@ -34,24 +37,44 @@ type
     Label1: TLabel;
     btLicensing: TButton;
     lbEvaluation: TLabel;
+    CcConfig: TCcConfig;
+    Options: TTabSheet;
+    rbAllTables: TRadioButton;
+    rbExcludeSelectedTables: TRadioButton;
+    lbSelectExcludedTables: TLabel;
+    lbMetaDataStatus: TLabel;
+    lbAddRemoveMetaData: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure btLicensingClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure lbSelectExcludedTablesClick(Sender: TObject);
+    procedure lbAddRemoveMetaDataClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure edConfigNameChange(Sender: TObject);
+    procedure edFrenquencyChange(Sender: TObject);
+    procedure rbAllTablesClick(Sender: TObject);
   private
+    ConfigsIni: TIniFile;
     lNewConfig: Boolean;
-    FLicence: String;
+    FRootDir: String;
     FMasterFrame, FMirrorFrame: ILMConnectionFrame;
-    procedure LoadConfig(cConfigName: String);
-    procedure SaveConfig;
-    procedure SaveLoadConfig(cConfigName: String; save: Boolean);
-    function CreateConnectionFrame(dbType: String;
-      ts: TTabSheet; frameName: String): ILMConnectionFrame;
-    procedure CreateConnectionFrames(dbTypeMaster, dbTypeMirror: String);
+    FdmConfig: TdmConfig;
+
+    function CreateConnectionFrame(node: ILMNode;
+      ts: TTabSheet): ILMConnectionFrame;
     { Déclarations privées }
     procedure ServiceInstall;
+    procedure RefreshGUI;
+    procedure MasterDBTypeChanged(Sender: TObject);
+    procedure MirrorDBTypeChanged(Sender: TObject);
+    class function DoEditConfig(cConfigName: String): Boolean; static;
+//    procedure LoadConfig(cConfigName: String);
   public
+    property dmConfig: TdmConfig read FdmConfig;
+    procedure RemoveCopyCatConfig(cConfigName: String);
     class function NewConfig: Boolean;
-    class procedure EditConfig(cConfigName: String);
+    class function EditConfig(cConfigName: String): Boolean;
   end;
 
 
@@ -59,8 +82,8 @@ implementation
 
 {$R *.dfm}
 
-uses FireDAC.VCLUI.ConnEdit, gnugettext, Inifiles, fConnectParamsFB, LMUtils, ShellAPI,
-  licensing;
+uses FireDAC.VCLUI.ConnEdit, gnugettext, fConnectParamsFB, LMUtils, ShellAPI,
+  licensing, configoptions;
 
 procedure TfmConfig.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
@@ -73,14 +96,17 @@ begin
 
     {$IFNDEF LM_EVALUATION}
     {$IFNDEF DEBUG}
-    if FLicence = '' then
-      FLicence := TfmLicensing.AskForLicence(Trim(edConfigName.Text));
-    if FLicence = '' then begin
+    if dmConfig.Licence = '' then
+      dmConfig.Licence := TfmLicensing.AskForLicence(Trim(edConfigName.Text));
+    if dmConfig.Licence = '' then begin
       CanClose := False;
       Exit;
     end;
     {$ENDIF}
     {$ENDIF}
+
+    FMasterFrame.SaveToNode;
+    FMirrorFrame.SaveToNode;
 
     if lNewConfig then
       ServiceInstall;
@@ -97,66 +123,76 @@ begin
   lbEvaluation.Visible := False;
   btLicensing.Visible := True;
   {$ENDIF}
+
+  FRootDir := GetLiveMirrorRoot;
+  ConfigsIni := TIniFile.Create(FRootDir + 'configs.ini');
+
+  FdmConfig := TdmConfig.Create(Self);
+  FdmConfig.OnMasterDBTypeChanged := MasterDBTypeChanged;
+  FdmConfig.OnMirrorDBTypeChanged := MirrorDBTypeChanged;
+end;
+
+procedure TfmConfig.MirrorDBTypeChanged(Sender: TObject);
+begin
+  FMirrorFrame := CreateConnectionFrame(FdmConfig.MirrorNode, tsMirror);
+end;
+
+procedure TfmConfig.MasterDBTypeChanged(Sender: TObject);
+begin
+  FMasterFrame := CreateConnectionFrame(FdmConfig.MasterNode, tsMaster);
+end;
+
+procedure TfmConfig.FormDestroy(Sender: TObject);
+begin
+  ConfigsIni.Free;
+  FdmConfig.Free;
+end;
+
+procedure TfmConfig.FormShow(Sender: TObject);
+begin
+  if lNewConfig then begin
+    //For now, we hard-code to Interbase/Firebird frames
+    //Eventually, we will give the end user a choice
+    FdmConfig.MasterDBType := 'Interbase';
+    FdmConfig.MirrorDBType := 'Interbase';
+  end;
+  RefreshGUI;
+  PageControl.ActivePage := tsMaster;
+end;
+
+procedure TfmConfig.lbAddRemoveMetaDataClick(Sender: TObject);
+begin
+  if dmConfig.MetaDataCreated then
+    dmConfig.RemoveConfigurationFromNodes
+  else
+    dmConfig.ConfigureNodes;
+  RefreshGUI;
+end;
+
+procedure TfmConfig.lbSelectExcludedTablesClick(Sender: TObject);
+var
+  confOptions :TfmConfigOptions;
+begin
+  confOptions := TfmConfigOptions.Create(Self);
+  try
+    confOptions.ShowOptions(dmConfig);
+    RefreshGUI;
+  finally
+    confOptions.Free;
+  end;
 end;
 
 procedure TfmConfig.btLicensingClick(Sender: TObject);
 begin
-  FLicence := TfmLicensing.AskForLicence(Trim(edConfigName.Text));
+  dmConfig.Licence := TfmLicensing.AskForLicence(Trim(edConfigName.Text));
 end;
 
-function TfmConfig.CreateConnectionFrame(dbType: String; ts: TTabSheet; frameName: String): ILMConnectionFrame;
+function TfmConfig.CreateConnectionFrame(node: ILMNode; ts: TTabSheet): ILMConnectionFrame;
 begin
-  if dbType = 'Interbase' then
+  if node.Connection.DBType = 'Interbase' then
     Result := TfrConnectParamsFB.Create(Application);
+  Result.Node := node;
   Result.Init(ts);
-  Result.SetName(frameName);
-end;
-
-procedure TfmConfig.SaveLoadConfig(cConfigName: String; save: Boolean);
-var
-  cRootDir, cConfigDir : String;
-  ConfigsIni: TIniFile;
-
-  procedure DoSaveConfig;
-  begin
-    ConfigsIni.WriteString(cConfigName, 'SyncFrequency', edFrenquency.Text);
-    {$IFNDEF LM_EVALUATION}
-    {$IFNDEF DEBUG}
-    ConfigsIni.WriteString(cConfigName, 'Licence', FLicence);
-    {$ENDIF}
-    {$ENDIF}
-    ConfigsIni.WriteString(cConfigName, 'MasterDBType', FMasterFrame.DBType);
-    ConfigsIni.WriteString(cConfigName, 'MirrorDBType', FMirrorFrame.DBType);
-    FMasterFrame.Save(cConfigDir + 'master.ini');
-    FMirrorFrame.Save(cConfigDir + 'mirror.ini');
-  end;
-
-  procedure DoLoadConfig;
-  begin
-    edConfigName.Enabled := False;
-    edConfigName.Text := cConfigName;
-    edFrenquency.Text := ConfigsIni.ReadString(cConfigName, 'SyncFrequency', '');
-    FMasterFrame := CreateConnectionFrame(ConfigsIni.ReadString(cConfigName, 'MasterDBType', ''), tsMaster, '_Master');
-    FMasterFrame.Load(cConfigDir + 'master.ini');
-    FMirrorFrame := CreateConnectionFrame(ConfigsIni.ReadString(cConfigName, 'MirrorDBType', ''), tsMirror, '_Mirror');
-    FMirrorFrame.Load(cConfigDir + 'mirror.ini');
-  end;
-
-begin
-  cRootDir := GetLiveMirrorRoot;
-  cConfigDir := cRootDir + 'Configs\' + cConfigName + '\';
-  if not ForceDirectories(cConfigDir) then
-    raise Exception.Create(Format(_('Can''t create directory "%s" '), [cConfigDir]));
-
-  ConfigsIni := TIniFile.Create(cRootDir + 'configs.ini');
-  try
-    if save then
-      DoSaveConfig
-    else
-      DoLoadConfig;
-  finally
-    ConfigsIni.Free;
-  end;
 end;
 
 procedure TfmConfig.ServiceInstall;
@@ -164,32 +200,19 @@ begin
   InstallService(Trim(edConfigName.Text), Handle);
 end;
 
-procedure TfmConfig.SaveConfig;
-begin
-  SaveLoadConfig(Trim(edConfigName.Text), true);
-end;
-
-procedure TfmConfig.LoadConfig(cConfigName: String);
-begin
-  SaveLoadConfig(cConfigName, false);
-end;
-
-procedure TfmConfig.CreateConnectionFrames(dbTypeMaster, dbTypeMirror: String);
-begin
-  FMasterFrame := CreateConnectionFrame(dbTypeMaster, tsMaster, '_Master');
-  FMirrorFrame := CreateConnectionFrame(dbTypeMirror, tsMirror, '_Mirror');
-end;
-
-class function TfmConfig.NewConfig: Boolean;
+class function TfmConfig.DoEditConfig(cConfigName: String): Boolean;
 var
   fmConfig : TfmConfig;
 begin
   fmConfig := TfmConfig.Create(Application);
-  fmConfig.lNewConfig := True;
-  fmConfig.CreateConnectionFrames('Interbase', 'Interbase');
   try
+    if cConfigName = '' then
+      fmConfig.lNewConfig := True
+    else
+      fmConfig.dmConfig.LoadConfig(cConfigName);
+
     if fmConfig.ShowModal = mrOk then begin
-      fmConfig.SaveConfig;
+      fmConfig.dmConfig.SaveConfig;
       Result := True;
     end
     else
@@ -199,18 +222,67 @@ begin
   end;
 end;
 
-class procedure TfmConfig.EditConfig(cConfigName: String);
-var
-  fmConfig : TfmConfig;
+procedure TfmConfig.edConfigNameChange(Sender: TObject);
 begin
-  fmConfig := TfmConfig.Create(Application);
+  dmConfig.ConfigName := edConfigName.Text;
+end;
+
+procedure TfmConfig.edFrenquencyChange(Sender: TObject);
+begin
+  dmConfig.SyncFrequency := StrToInt(edFrenquency.Text);
+end;
+
+class function TfmConfig.NewConfig: Boolean;
+begin
+  Result := DoEditConfig('');
+end;
+
+procedure TfmConfig.rbAllTablesClick(Sender: TObject);
+begin
+  if rbAllTables.Checked then
+    dmConfig.ExcludedTables := '';
+end;
+
+class function TfmConfig.EditConfig(cConfigName: String): Boolean;
+begin
+  Result := DoEditConfig(cConfigName);
+end;
+
+procedure TfmConfig.RemoveCopyCatConfig(cConfigName: String);
+//var
+//  dmMetaData: TdmMetaData;
+begin
+{  LoadConfig(cConfigName);
+  dmMetaData := TdmMetaData.Create(self);
   try
-    fmConfig.LoadConfig(cConfigName);
-    if fmConfig.ShowModal = mrOk then
-      fmConfig.SaveConfig;
+    dmMetaData.MasterConnection := FMasterFrame.Connection;
+    dmMetaData.ConfigureMaster;
   finally
-    fmConfig.Free;
+    dmMetaData.Free;
+  end;}
+end;
+
+procedure TfmConfig.RefreshGUI;
+begin
+  edConfigName.Enabled := lNewConfig;
+
+  edConfigName.Text := dmConfig.ConfigName;
+  edFrenquency.Text := IntToStr(dmConfig.SyncFrequency);
+
+  if dmConfig.ExcludedTables = '' then
+    rbAllTables.Checked := True
+  else
+    rbExcludeSelectedTables.Checked := True;
+
+  if dmConfig.MetaDataCreated then begin
+    lbMetaDataStatus.Caption := _('LiveMirror meta-data has been CREATED in master database.');
+    lbAddRemoveMetaData.Caption := _('Remove meta-data');
+  end
+  else begin
+    lbMetaDataStatus.Caption := _('LiveMirror meta-data has been NOT BEEN created in master database.');
+    lbAddRemoveMetaData.Caption := _('Create meta-data now');
   end;
+
 end;
 
 end.
