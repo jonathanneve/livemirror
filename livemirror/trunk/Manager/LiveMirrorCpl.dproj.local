@@ -3,16 +3,16 @@
 	<Transactions>
     <Transaction>2014/03/11 11:48:25.000.689,=C:\Users\Jonathan\Documents\RAD Studio\Projets\AppletModule1.pas</Transaction>
     <Transaction>2014/03/11 11:48:38.000.248,=C:\Users\Jonathan\Documents\RAD Studio\Projets\AppletModule1.pas</Transaction>
-    <Transaction>2014/03/11 11:49:44.000.292,C:\Projects\livemirror\Manager\main.pas=C:\Users\Jonathan\Documents\RAD Studio\Projets\AppletModule1.pas</Transaction>
-    <Transaction>2014/03/11 11:49:44.000.292,C:\Projects\livemirror\Manager\main.dfm=C:\Users\Jonathan\Documents\RAD Studio\Projets\AppletModule1.dfm</Transaction>
-    <Transaction>2014/03/11 11:50:23.000.082,C:\Projects\livemirror\Manager\LiveMirrorMgr.dproj=C:\Users\Jonathan\Documents\RAD Studio\Projets\Project7.dproj</Transaction>
+    <Transaction>2014/03/11 11:49:44.000.292,C:\Users\Jonathan\Documents\RAD Studio\Projets\AppletModule1.pas=C:\Projects\livemirror\Manager\main.pas</Transaction>
+    <Transaction>2014/03/11 11:49:44.000.292,C:\Users\Jonathan\Documents\RAD Studio\Projets\AppletModule1.dfm=C:\Projects\livemirror\Manager\main.dfm</Transaction>
+    <Transaction>2014/03/11 11:50:23.000.082,C:\Users\Jonathan\Documents\RAD Studio\Projets\Project7.dproj=C:\Projects\livemirror\Manager\LiveMirrorMgr.dproj</Transaction>
     <Transaction>2014/03/11 11:51:03.000.523,=C:\Projects\livemirror\Manager\config.pas</Transaction>
     <Transaction>2014/03/11 11:51:04.000.284,=C:\Projects\livemirror\Manager\configs.pas</Transaction>
     <Transaction>2014/03/11 11:51:05.000.036,=C:\Projects\livemirror\Manager\fConnectParamsFB.pas</Transaction>
     <Transaction>2014/03/11 12:06:36.000.719,=C:\Projects\livemirror\LMUtils.pas</Transaction>
     <Transaction>2014/03/11 12:06:36.000.710,=C:\Projects\livemirror\gnugettext.pas</Transaction>
     <Transaction>2014/03/11 12:06:57.000.884,=C:\Projects\livemirror\ServiceManager.pas</Transaction>
-    <Transaction>2014/03/11 15:59:03.000.478,C:\Projects\livemirror\Manager\LiveMirrorMgr.dproj=C:\Projects\livemirror\Manager\LiveMirrorCpl.dproj</Transaction>
+    <Transaction>2014/03/11 15:59:03.000.478,C:\Projects\livemirror\Manager\LiveMirrorCpl.dproj=C:\Projects\livemirror\Manager\LiveMirrorMgr.dproj</Transaction>
     <Transaction>2014/03/11 16:03:21.000.484,C:\Projects\livemirror\Manager\config.pas=</Transaction>
     <Transaction>2014/03/11 16:03:24.000.228,C:\Projects\livemirror\Manager\configs.pas=</Transaction>
     <Transaction>2014/03/11 16:03:27.000.258,C:\Projects\livemirror\Manager\fConnectParamsFB.pas=</Transaction>
@@ -22,13 +22,13 @@
     <Transaction>2014/03/11 16:04:45.000.210,=C:\Projects\livemirror\LMUtils.pas</Transaction>
     <Transaction>2014/03/14 10:25:11.000.647,=C:\Projects\livemirror\gnugettext.pas</Transaction>
     <Transaction>2014/05/20 14:59:40.000.647,=C:\Projects\livemirror\uLkJSON.pas</Transaction>
-    <Transaction>2014/05/20 15:00:07.000.529,=C:\Projects\livemirror\Synapse\blcksock.pas</Transaction>
-    <Transaction>2014/05/20 15:00:07.000.566,=C:\Projects\livemirror\Synapse\synacode.pas</Transaction>
-    <Transaction>2014/05/20 15:00:07.000.595,=C:\Projects\livemirror\Synapse\synafpc.pas</Transaction>
-    <Transaction>2014/05/20 15:00:07.000.606,=C:\Projects\livemirror\Synapse\synaip.pas</Transaction>
     <Transaction>2014/05/20 15:00:07.000.630,=C:\Projects\livemirror\Synapse\synsock.pas</Transaction>
+    <Transaction>2014/05/20 15:00:07.000.595,=C:\Projects\livemirror\Synapse\synafpc.pas</Transaction>
+    <Transaction>2014/05/20 15:00:07.000.566,=C:\Projects\livemirror\Synapse\synacode.pas</Transaction>
     <Transaction>2014/05/20 15:00:07.000.550,=C:\Projects\livemirror\Synapse\httpsend.pas</Transaction>
     <Transaction>2014/05/20 15:00:07.000.620,=C:\Projects\livemirror\Synapse\synautil.pas</Transaction>
+    <Transaction>2014/05/20 15:00:07.000.529,=C:\Projects\livemirror\Synapse\blcksock.pas</Transaction>
+    <Transaction>2014/05/20 15:00:07.000.606,=C:\Projects\livemirror\Synapse\synaip.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="..\..\livemirror"/>

@@ -7,83 +7,89 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-05-26 12:50\n"
-"PO-Revision-Date: 2014-05-26 12:50\n"
+"POT-Creation-Date: 2014-06-23 18:35\n"
+"PO-Revision-Date: 2014-06-23 18:35\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: dxgettext 1.2.2\n"
 
-#: LMUtils.pas:54
+#: LMUtils.pas:55
 msgid "LiveMirror path not configured"
 msgstr ""
 
-#: LMUtils.pas:154
+#: LMUtils.pas:153
 msgid "Error connecting to licence server!\n"
 "Please make sure your Internet connection is "
 "available."
 msgstr ""
 
-#: LMUtils.pas:156
+#: LMUtils.pas:155
 msgid "Empty or invalid licence key submitted"
 msgstr ""
 
-#: LMUtils.pas:158
+#: LMUtils.pas:157
 msgid "Licence key invalid"
 msgstr ""
 
-#: LMUtils.pas:160
+#: LMUtils.pas:159
 msgid "Licence key has been disabled"
 msgstr ""
 
-#: LMUtils.pas:162
+#: LMUtils.pas:161
 msgid "License key expired"
 msgstr ""
 
-#: LMUtils.pas:164
+#: LMUtils.pas:163
 msgid "Licence server is not available - please try again "
 "later"
 msgstr ""
 
-#: LMUtils.pas:166
+#: LMUtils.pas:165
 msgid "Activation server error"
 msgstr ""
 
-#: LMUtils.pas:168
+#: LMUtils.pas:167
 msgid "Activation failed: invalid input\n"
 msgstr ""
 
-#: LMUtils.pas:170
+#: LMUtils.pas:169
 msgid "Sorry, this licence key has already been activated for a different "
 "database or on a different machine. You need to purchase one licence "
 "of LiveMirror per master database that you want to "
 "mirror."
 msgstr ""
 
-#: LMUtils.pas:172
+#: LMUtils.pas:171
 msgid "Sorry, we have not found an activation record to "
 "deactivate"
 msgstr ""
 
-#: LMUtils.pas:174
+#: LMUtils.pas:173
 msgid "Internal problem on activation server"
 msgstr ""
 
-#: LMUtils.pas:176
+#: LMUtils.pas:175
 msgid "Sorry, license re-activation limit reached"
 msgstr ""
 
-#: LMUtils.pas:178
+#: LMUtils.pas:177
 msgid "Error returned from activation server"
 msgstr ""
 
-#: LMUtils.pas:242
+#: LMUtils.pas:241
 msgid "Can't uninstall service!"
 msgstr ""
 
-#: LMUtils.pas:248
+#: LMUtils.pas:247
 msgid "Can't install service!\n"
+"Please make sure you have are running with administrator "
+"rights."
+msgstr ""
+
+#: LMUtils.pas:253
+msgid "Can't run synchronization!\n"
 "Please make sure you have are running with administrator "
 "rights."
 msgstr ""

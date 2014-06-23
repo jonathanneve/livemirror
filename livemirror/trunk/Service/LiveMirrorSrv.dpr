@@ -4,7 +4,6 @@ uses
   Vcl.SvcMgr,
   main in 'main.pas' {LiveMirror: TService},
   LMUtils in '..\LMUtils.pas',
-  dInterbase in 'dInterbase.pas' {dmInterbase: TDataModule},
   gnugettext in '..\gnugettext.pas',
   HotLog in 'HotLog.pas',
   uLkJSON in '..\uLkJSON.pas',
@@ -14,7 +13,9 @@ uses
   synafpc in '..\Synapse\synafpc.pas',
   synaip in '..\Synapse\synaip.pas',
   synautil in '..\Synapse\synautil.pas',
-  synsock in '..\Synapse\synsock.pas';
+  synsock in '..\Synapse\synsock.pas',
+  dInterbase in '..\dInterbase.pas' {dmInterbase: TDataModule},
+  dconfig in '..\dconfig.pas' {dmConfig: TDataModule};
 
 {$R *.RES}
 

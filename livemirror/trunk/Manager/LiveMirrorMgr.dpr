@@ -19,7 +19,10 @@ uses
   licensing in 'licensing.pas' {fmLicensing},
   Vcl.Themes,
   Vcl.Styles,
-  logfile in 'logfile.pas' {fmLogFile};
+  logfile in 'logfile.pas' {fmLogFile},
+  configoptions in 'configoptions.pas' {fmConfigOptions},
+  dconfig in '..\dconfig.pas' {dmConfig: TDataModule},
+  dInterbase in '..\dInterbase.pas' {dmInterbase: TDataModule};
 
 {$R *.res}
 
@@ -29,5 +32,7 @@ begin
   TStyleManager.TrySetStyle('Light');
   Application.Title := 'LiveMirror Manager';
   Application.CreateForm(TfmConfigs, fmConfigs);
+  Application.CreateForm(TfmConfigOptions, fmConfigOptions);
+  Application.CreateForm(TdmInterbase, dmInterbase);
   Application.Run;
 end.
