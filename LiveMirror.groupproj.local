@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2014/03/11 11:47:16.000.942,C:\Projects\livemirror\LiveMirror.groupproj=C:\Users\Jonathan\Documents\RAD Studio\Projets\ProjectGroup2.groupproj</Transaction>
+    <Transaction>2014/03/11 11:47:16.000.942,C:\Users\Jonathan\Documents\RAD Studio\Projets\ProjectGroup2.groupproj=C:\Projects\livemirror\LiveMirror.groupproj</Transaction>
   </Transactions>
 	<Default.Personality>
-		<Projects ActiveProject="C:\Projects\livemirror\Service\LiveMirrorSrv.dproj"/>
+		<Projects ActiveProject="C:\Projects\livemirror\Guardian\LiveMirrorGuardian.dproj"/>
 	</Default.Personality>
 </BorlandProject>

@@ -16,7 +16,7 @@ procedure RunServiceOnce(cConfigName: String; Handle: HWND);
 
 
 const
-  LiveMirrorVersion = '1.2.0';
+  LiveMirrorVersion = '1.2.0 p1';
 
 implementation
 

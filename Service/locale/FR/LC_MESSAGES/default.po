@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Microtec LiveMirror\n"
-"POT-Creation-Date: 2014-06-23 18:35\n"
+"POT-Creation-Date: 2014-06-24 14:39\n"
 "PO-Revision-Date: 2014-03-26 15:36+0100\n"
 "Last-Translator: Jonathan Neve <jonathan@jntraductions.fr>\n"
 "Language-Team: Jonathan Neve <jonathan@jntraductions.fr>\n"
@@ -10,6 +10,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.5\n"
 "Language: Français\n"
+
+#. dmInterbase..FDGUIxWaitCursor1..Provider
+#: dInterbase.dfm:26 
+msgid "Forms"
+msgstr "Forms"
+
+#. dmInterbase..CcConnection..DBType
+#: dInterbase.dfm:33 
+msgid "Interbase"
+msgstr "Interbase"
 
 #. Form1..Caption
 #: LiveMirrorSrvTest.dfm:4 
@@ -158,12 +168,6 @@ msgstr "{now} Service prêt !"
 #: main.pas:261 
 msgid "{now} DATABASE CONFIGURATION FAILED - CONTACT COPYCAT TEAM FOR SUPPORT!"
 msgstr ""
-
-#~ msgid "Forms"
-#~ msgstr "Forms"
-
-#~ msgid "Interbase"
-#~ msgstr "Interbase"
 
 #~ msgid "LM"
 #~ msgstr "LM"
