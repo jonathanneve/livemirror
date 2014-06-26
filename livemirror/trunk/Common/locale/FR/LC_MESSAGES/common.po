@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: LiveMirror\n"
-"POT-Creation-Date: 2014-06-23 17:50\n"
+"POT-Creation-Date: 2014-06-25 15:01\n"
 "PO-Revision-Date: 2014-03-26 16:43+0100\n"
 "Last-Translator: Jonathan Neve <jonathan@jntraductions.fr>\n"
 "Language-Team: Jonathan Neve <jonathan@jntraductions.fr>\n"
@@ -16,11 +16,11 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "Language: Français\n"
 
-#: LMUtils.pas:55 
+#: LMUtils.pas:52 
 msgid "LiveMirror path not configured"
 msgstr "Chemin LiveMirror inexistant"
 
-#: LMUtils.pas:153 
+#: LMUtils.pas:150 
 msgid ""
 "Error connecting to licence server!\n"
 "Please make sure your Internet connection is available."
@@ -28,36 +28,36 @@ msgstr ""
 "Erreur lors de la connexion au serveur de licences !\n"
 "Assurez-vous qu'une connexion Internet est disponible."
 
-#: LMUtils.pas:155 
+#: LMUtils.pas:152 
 msgid "Empty or invalid licence key submitted"
 msgstr "Clé de licence vide ou incorrecte"
 
-#: LMUtils.pas:157 
+#: LMUtils.pas:154 
 msgid "Licence key invalid"
 msgstr "Clé de licence invalide"
 
-#: LMUtils.pas:159 
+#: LMUtils.pas:156 
 msgid "Licence key has been disabled"
 msgstr "Cette clé de licence a été annulée"
 
-#: LMUtils.pas:161 
+#: LMUtils.pas:158 
 msgid "License key expired"
 msgstr "Clé de licence expirée"
 
-#: LMUtils.pas:163 
+#: LMUtils.pas:160 
 msgid "Licence server is not available - please try again later"
 msgstr ""
 "Le serveur de licences n'est pas disponible, veuillez ressayer plus tard"
 
-#: LMUtils.pas:165 
+#: LMUtils.pas:162 
 msgid "Activation server error"
 msgstr "Erreur du serveur d'activation"
 
-#: LMUtils.pas:167 
+#: LMUtils.pas:164 
 msgid "Activation failed: invalid input\n"
 msgstr "Activation impossible, erreur dans les paramètres\n"
 
-#: LMUtils.pas:169 
+#: LMUtils.pas:166 
 msgid ""
 "Sorry, this licence key has already been activated for a different database "
 "or on a different machine. You need to purchase one licence of LiveMirror "
@@ -67,34 +67,34 @@ msgstr ""
 "données ou sur un poste différent. Vous devez acheter une licence de "
 "LiveMirror par base de données maître que vous souhaiter sauvegarder."
 
-#: LMUtils.pas:171 
+#: LMUtils.pas:168 
 msgid "Sorry, we have not found an activation record to deactivate"
 msgstr ""
 "Aucune activation n'existe pour cette licence : impossible de désactiver"
 
-#: LMUtils.pas:173 
+#: LMUtils.pas:170 
 msgid "Internal problem on activation server"
 msgstr "Problème interne du serveur d'activation"
 
-#: LMUtils.pas:175 
+#: LMUtils.pas:172 
 msgid "Sorry, license re-activation limit reached"
 msgstr "Impossible de réactiver cette licence"
 
-#: LMUtils.pas:177 
+#: LMUtils.pas:174 
 msgid "Error returned from activation server"
 msgstr "Le serveur d'activation a renvoyé une erreur"
 
-#: LMUtils.pas:241 
+#: LMUtils.pas:238 
 msgid "Can't uninstall service!"
 msgstr "Impossible de désinstaller le service !"
 
-#: LMUtils.pas:247 
+#: LMUtils.pas:244 
 msgid ""
 "Can't install service!\n"
 "Please make sure you have are running with administrator rights."
 msgstr ""
 
-#: LMUtils.pas:253 
+#: LMUtils.pas:250 
 msgid ""
 "Can't run synchronization!\n"
 "Please make sure you have are running with administrator rights."

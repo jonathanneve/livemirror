@@ -1,6 +1,9 @@
 program LiveMirrorGuardian;
 
+{$R 'version.res' '..\version.rc'}
+
 uses
+  EMemLeaks,
   Vcl.SvcMgr,
   main in 'main.pas' {LiveMirror: TService},
   ServiceManager in '..\ServiceManager.pas',

@@ -1,6 +1,9 @@
 program LiveMirrorUninstaller;
 
+{$R 'version.res' '..\version.rc'}
+
 uses
+  EMemLeaks,
   Vcl.Forms,
   uninst_main in 'uninst_main.pas' {fmMain},
   gnugettext in '..\gnugettext.pas',

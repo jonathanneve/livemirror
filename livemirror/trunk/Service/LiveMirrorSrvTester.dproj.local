@@ -7,24 +7,25 @@
     <Transaction>2014/05/16 14:42:06.000.989,=C:\Users\Jonathan\Documents\Embarcadero\Studio\Projets\SplitItemDetail1.pas</Transaction>
     <Transaction>2014/05/16 14:42:06.000.546,=C:\Users\Jonathan\Documents\Embarcadero\Studio\Projets\GroupedItems1.pas</Transaction>
     <Transaction>2014/05/23 10:29:35.000.584,=C:\Users\Jonathan\Documents\Embarcadero\Studio\Projets\Unit1.pas</Transaction>
+    <Transaction>2014/05/23 10:30:10.000.888,=C:\Projects\livemirror\Service\dInterbase.pas</Transaction>
     <Transaction>2014/05/23 10:30:10.000.912,=C:\Projects\livemirror\Service\HotLog.pas</Transaction>
     <Transaction>2014/05/23 10:30:10.000.919,=C:\Projects\livemirror\Service\main.pas</Transaction>
-    <Transaction>2014/05/23 10:30:10.000.888,=C:\Projects\livemirror\Service\dInterbase.pas</Transaction>
-    <Transaction>2014/05/23 10:30:29.000.101,C:\Projects\livemirror\Service\LiveMirrorSrvTest.pas=C:\Users\Jonathan\Documents\Embarcadero\Studio\Projets\Unit1.pas</Transaction>
     <Transaction>2014/05/23 10:30:29.000.101,C:\Projects\livemirror\Service\LiveMirrorSrvTest.dfm=C:\Users\Jonathan\Documents\Embarcadero\Studio\Projets\Unit1.dfm</Transaction>
+    <Transaction>2014/05/23 10:30:29.000.101,C:\Projects\livemirror\Service\LiveMirrorSrvTest.pas=C:\Users\Jonathan\Documents\Embarcadero\Studio\Projets\Unit1.pas</Transaction>
     <Transaction>2014/05/23 10:30:43.000.606,C:\Projects\livemirror\Service\LiveMirrorSrvTester.dproj=C:\Users\Jonathan\Documents\Embarcadero\Studio\Projets\Project1.dproj</Transaction>
+    <Transaction>2014/05/26 12:49:54.000.481,=C:\Projects\livemirror\ServiceManager.pas</Transaction>
+    <Transaction>2014/05/26 12:49:54.000.514,=C:\Projects\livemirror\uLkJSON.pas</Transaction>
     <Transaction>2014/05/26 12:49:54.000.448,=C:\Projects\livemirror\LMUtils.pas</Transaction>
     <Transaction>2014/05/26 12:49:54.000.393,=C:\Projects\livemirror\gnugettext.pas</Transaction>
-    <Transaction>2014/05/26 12:49:54.000.514,=C:\Projects\livemirror\uLkJSON.pas</Transaction>
-    <Transaction>2014/05/26 12:49:54.000.481,=C:\Projects\livemirror\ServiceManager.pas</Transaction>
-    <Transaction>2014/05/26 12:50:06.000.596,=C:\Projects\livemirror\Synapse\synsock.pas</Transaction>
-    <Transaction>2014/05/26 12:50:06.000.413,=C:\Projects\livemirror\Synapse\synafpc.pas</Transaction>
     <Transaction>2014/05/26 12:50:06.000.391,=C:\Projects\livemirror\Synapse\synacode.pas</Transaction>
     <Transaction>2014/05/26 12:50:06.000.333,=C:\Projects\livemirror\Synapse\httpsend.pas</Transaction>
+    <Transaction>2014/05/26 12:50:06.000.413,=C:\Projects\livemirror\Synapse\synafpc.pas</Transaction>
     <Transaction>2014/05/26 12:50:06.000.494,=C:\Projects\livemirror\Synapse\synaip.pas</Transaction>
-    <Transaction>2014/05/26 12:50:06.000.538,=C:\Projects\livemirror\Synapse\synautil.pas</Transaction>
     <Transaction>2014/05/26 12:50:06.000.284,=C:\Projects\livemirror\Synapse\blcksock.pas</Transaction>
+    <Transaction>2014/05/26 12:50:06.000.596,=C:\Projects\livemirror\Synapse\synsock.pas</Transaction>
+    <Transaction>2014/05/26 12:50:06.000.538,=C:\Projects\livemirror\Synapse\synautil.pas</Transaction>
     <Transaction>2014/06/20 15:44:49.000.930,=C:\Projects\livemirror\dInterbase.pas</Transaction>
     <Transaction>2014/06/20 15:45:09.000.027,=C:\Projects\livemirror\dconfig.pas</Transaction>
+    <Transaction>2014/06/25 15:00:41.481,=C:\Projects\livemirror\version.rc</Transaction>
   </Transactions>
 </BorlandProject>

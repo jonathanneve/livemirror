@@ -148,9 +148,9 @@ object fmConfigs: TfmConfigs
     object Label2: TLabel
       Left = 11
       Top = 8
-      Width = 110
+      Width = 112
       Height = 13
-      Caption = 'Microtec LiverMirror  v.'
+      Caption = 'CopyCat LiverMirror  v.'
     end
     object lbVersion: TLabel
       Left = 125

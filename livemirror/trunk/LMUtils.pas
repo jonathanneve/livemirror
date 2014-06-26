@@ -13,10 +13,7 @@ function CheckLicenceActivation(cConfigName, cLicence: String): Boolean;
 procedure UnInstallService(cConfigName: String; Handle: HWND);
 procedure InstallService(cConfigName: String; Handle: HWND);
 procedure RunServiceOnce(cConfigName: String; Handle: HWND);
-
-
-const
-  LiveMirrorVersion = '1.2.0 p1';
+function LiveMirrorVersion: String;
 
 implementation
 
@@ -251,6 +248,29 @@ procedure RunServiceOnce(cConfigName: String; Handle: HWND);
 begin
   if ShellExecute(Handle,'open',PChar(GetLiveMirrorRoot + '\Service\LiveMirrorSrv.exe'), PChar(cConfigName + ' /runonce'),'',SW_HIDE) <= 32 then
     raise Exception.Create(dgettext('common', 'Can''t run synchronization!' + #13#10 + 'Please make sure you have are running with administrator rights.'));
+end;
+
+function LiveMirrorVersion: string;
+var
+  Exe: string;
+  Size, Handle: DWORD;
+  Buffer: TBytes;
+  FixedPtr: PVSFixedFileInfo;
+begin
+  Exe := ParamStr(0);
+  Size := GetFileVersionInfoSize(PChar(Exe), Handle);
+  if Size = 0 then
+    RaiseLastOSError;
+  SetLength(Buffer, Size);
+  if not GetFileVersionInfo(PChar(Exe), Handle, Size, Buffer) then
+    RaiseLastOSError;
+  if not VerQueryValue(Buffer, '\', Pointer(FixedPtr), Size) then
+    RaiseLastOSError;
+  Result := Format('%d.%d.%d.%d',
+    [LongRec(FixedPtr.dwFileVersionMS).Hi,  //major
+     LongRec(FixedPtr.dwFileVersionMS).Lo,  //minor
+     LongRec(FixedPtr.dwFileVersionLS).Hi,  //release
+     LongRec(FixedPtr.dwFileVersionLS).Lo]) //build
 end;
 
 end.

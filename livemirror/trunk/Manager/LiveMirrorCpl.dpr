@@ -1,6 +1,9 @@
 library LiveMirrorCpl;
 
+{$R 'version.res' '..\version.rc'}
+
 uses
+  EMemLeaks,
   CtlPanel,
   main in 'main.pas' {LiveMirrorManager: TAppletModule},
   LMUtils in '..\LMUtils.pas',

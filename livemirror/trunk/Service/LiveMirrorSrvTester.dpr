@@ -1,6 +1,9 @@
 program LiveMirrorSrvTester;
 
+{$R 'version.res' '..\version.rc'}
+
 uses
+  EMemLeaks,
   Vcl.Forms,
   LiveMirrorSrvTest in 'LiveMirrorSrvTest.pas' {Form1},
   HotLog in 'HotLog.pas',
