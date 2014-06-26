@@ -1,305 +1,366 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <PropertyGroup>
-        <ProjectGuid>{7896BA1C-4599-4CC4-942B-27A4EA63B22F}</ProjectGuid>
-        <ProjectVersion>15.4</ProjectVersion>
-        <FrameworkType>VCL</FrameworkType>
-        <MainSource>LiveMirrorMgr.dpr</MainSource>
-        <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
-        <TargetedPlatforms>1</TargetedPlatforms>
-        <AppType>Application</AppType>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
-        <Base>true</Base>
-    </PropertyGroup>
-    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
-        <Base_Win32>true</Base_Win32>
-        <CfgParent>Base</CfgParent>
-        <Base>true</Base>
-    </PropertyGroup>
-    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
-        <Base_Win64>true</Base_Win64>
-        <CfgParent>Base</CfgParent>
-        <Base>true</Base>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
-        <Cfg_1>true</Cfg_1>
-        <CfgParent>Base</CfgParent>
-        <Base>true</Base>
-    </PropertyGroup>
-    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
-        <Cfg_1_Win32>true</Cfg_1_Win32>
-        <CfgParent>Cfg_1</CfgParent>
-        <Cfg_1>true</Cfg_1>
-        <Base>true</Base>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
-        <Cfg_2>true</Cfg_2>
-        <CfgParent>Base</CfgParent>
-        <Base>true</Base>
-    </PropertyGroup>
-    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
-        <Cfg_2_Win32>true</Cfg_2_Win32>
-        <CfgParent>Cfg_2</CfgParent>
-        <Cfg_2>true</Cfg_2>
-        <Base>true</Base>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Config)'=='Eval' or '$(Cfg_3)'!=''">
-        <Cfg_3>true</Cfg_3>
-        <CfgParent>Base</CfgParent>
-        <Base>true</Base>
-    </PropertyGroup>
-    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_3)'=='true') or '$(Cfg_3_Win32)'!=''">
-        <Cfg_3_Win32>true</Cfg_3_Win32>
-        <CfgParent>Cfg_3</CfgParent>
-        <Cfg_3>true</Cfg_3>
-        <Base>true</Base>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Base)'!=''">
-        <SanitizedProjectName>LiveMirrorMgr</SanitizedProjectName>
-        <VCL_Custom_Styles>Light|VCLSTYLE|$(PUBLIC)\Documents\Embarcadero\Studio\14.0\Styles\Light.vsf</VCL_Custom_Styles>
-        <PostBuildEvent><![CDATA[c:\projects\livemirror\gettext.bat
+  <PropertyGroup>
+    <ProjectGuid>{7896BA1C-4599-4CC4-942B-27A4EA63B22F}</ProjectGuid>
+    <ProjectVersion>15.4</ProjectVersion>
+    <FrameworkType>VCL</FrameworkType>
+    <MainSource>LiveMirrorMgr.dpr</MainSource>
+    <Base>True</Base>
+    <Config Condition="'$(Config)'==''">Eval</Config>
+    <Platform Condition="'$(Platform)'==''">Win32</Platform>
+    <TargetedPlatforms>1</TargetedPlatforms>
+    <AppType>Application</AppType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+    <Base>true</Base>
+  </PropertyGroup>
+  <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+    <Base_Win32>true</Base_Win32>
+    <CfgParent>Base</CfgParent>
+    <Base>true</Base>
+  </PropertyGroup>
+  <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+    <Base_Win64>true</Base_Win64>
+    <CfgParent>Base</CfgParent>
+    <Base>true</Base>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+    <Cfg_1>true</Cfg_1>
+    <CfgParent>Base</CfgParent>
+    <Base>true</Base>
+  </PropertyGroup>
+  <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+    <Cfg_1_Win32>true</Cfg_1_Win32>
+    <CfgParent>Cfg_1</CfgParent>
+    <Cfg_1>true</Cfg_1>
+    <Base>true</Base>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+    <Cfg_2>true</Cfg_2>
+    <CfgParent>Base</CfgParent>
+    <Base>true</Base>
+  </PropertyGroup>
+  <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+    <Cfg_2_Win32>true</Cfg_2_Win32>
+    <CfgParent>Cfg_2</CfgParent>
+    <Cfg_2>true</Cfg_2>
+    <Base>true</Base>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Eval' or '$(Cfg_3)'!=''">
+    <Cfg_3>true</Cfg_3>
+    <CfgParent>Base</CfgParent>
+    <Base>true</Base>
+  </PropertyGroup>
+  <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_3)'=='true') or '$(Cfg_3_Win32)'!=''">
+    <Cfg_3_Win32>true</Cfg_3_Win32>
+    <CfgParent>Cfg_3</CfgParent>
+    <Cfg_3>true</Cfg_3>
+    <Base>true</Base>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Base)'!=''">
+    <SanitizedProjectName>LiveMirrorMgr</SanitizedProjectName>
+    <VCL_Custom_Styles>Light|VCLSTYLE|$(PUBLIC)\Documents\Embarcadero\Studio\14.0\Styles\Light.vsf</VCL_Custom_Styles>
+    <PostBuildEvent><![CDATA[c:\projects\livemirror\gettext.bat
 $(PostBuildEvent)]]></PostBuildEvent>
-        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
-        <VerInfo_Locale>1036</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
-        <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
-        <DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
-        <DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
-        <DCC_E>false</DCC_E>
-        <DCC_N>false</DCC_N>
-        <DCC_S>false</DCC_S>
-        <DCC_F>false</DCC_F>
-        <DCC_K>false</DCC_K>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <Icon_MainIcon>LiveMirrorMgr_Icon.ico</Icon_MainIcon>
-        <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
-        <VerInfo_Locale>1033</VerInfo_Locale>
-        <DCC_UsePackage>FireDACSqliteDriver;DBXSqliteDriver;FireDACPgDriver;fmx;IndySystem;TeeDB;inetdbbde;vclib;DBXInterBaseDriver;DataSnapClient;DataSnapCommon;DataSnapServer;DataSnapProviderClient;DBXSybaseASEDriver;DbxCommonDriver;vclimg;dbxcds;DatasnapConnectorsFreePascal;MetropolisUILiveTile;vcldb;vcldsnap;fmxFireDAC;CopyCatDataSnap_XE5;DBXDb2Driver;DBXOracleDriver;CustomIPTransport;vclribbon;dsnap;IndyIPServer;fmxase;vcl;IndyCore;IndyIPCommon;CloudService;DBXMSSQLDriver;FmxTeeUI;FireDACIBDriver;CodeSiteExpressPkg;DataSnapFireDAC;FireDACDBXDriver;inetdbxpress;webdsnap;FireDACDb2Driver;adortl;FireDACASADriver;bindcompfmx;vcldbx;FireDACODBCDriver;rtl;dbrtl;DbxClientDriver;FireDACCommon;bindcomp;inetdb;Tee;DBXOdbcDriver;vclFireDAC;xmlrtl;svnui;ibxpress;IndyProtocols;DBXMySQLDriver;FireDACCommonDriver;vclactnband;bindengine;soaprtl;bindcompdbx;FMXTee;TeeUI;bindcompvcl;vclie;FireDACADSDriver;vcltouch;CopyCatFireDAC_XE5;VclSmp;FireDACMSSQLDriver;FireDAC;VCLRESTComponents;Intraweb;DBXInformixDriver;DataSnapConnectors;FireDACDataSnapDriver;dsnapcon;DBXFirebirdDriver;inet;fmxobj;FireDACMySQLDriver;vclx;svn;DBXSybaseASADriver;FireDACOracleDriver;fmxdae;RESTComponents;bdertl;CopyCat_XE5;FireDACMSAccDriver;DataSnapIndy10ServerTransport;dbexpress;IndyIPClient;$(DCC_UsePackage)</DCC_UsePackage>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Base_Win64)'!=''">
-        <DCC_UsePackage>FireDACSqliteDriver;DBXSqliteDriver;FireDACPgDriver;fmx;IndySystem;TeeDB;vclib;DBXInterBaseDriver;DataSnapClient;DataSnapCommon;DataSnapServer;DataSnapProviderClient;DBXSybaseASEDriver;DbxCommonDriver;vclimg;dbxcds;DatasnapConnectorsFreePascal;MetropolisUILiveTile;vcldb;vcldsnap;fmxFireDAC;DBXDb2Driver;DBXOracleDriver;CustomIPTransport;vclribbon;dsnap;IndyIPServer;fmxase;vcl;IndyCore;IndyIPCommon;CloudService;DBXMSSQLDriver;FmxTeeUI;FireDACIBDriver;DataSnapFireDAC;FireDACDBXDriver;inetdbxpress;webdsnap;FireDACDb2Driver;adortl;FireDACASADriver;bindcompfmx;FireDACODBCDriver;rtl;dbrtl;DbxClientDriver;FireDACCommon;bindcomp;inetdb;Tee;DBXOdbcDriver;vclFireDAC;xmlrtl;ibxpress;IndyProtocols;DBXMySQLDriver;FireDACCommonDriver;vclactnband;bindengine;soaprtl;bindcompdbx;FMXTee;TeeUI;bindcompvcl;vclie;FireDACADSDriver;vcltouch;VclSmp;FireDACMSSQLDriver;FireDAC;VCLRESTComponents;Intraweb;DBXInformixDriver;DataSnapConnectors;FireDACDataSnapDriver;dsnapcon;DBXFirebirdDriver;inet;fmxobj;FireDACMySQLDriver;vclx;DBXSybaseASADriver;FireDACOracleDriver;fmxdae;RESTComponents;FireDACMSAccDriver;DataSnapIndy10ServerTransport;dbexpress;IndyIPClient;$(DCC_UsePackage)</DCC_UsePackage>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Cfg_1)'!=''">
-        <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
-        <DCC_DebugDCUs>true</DCC_DebugDCUs>
-        <DCC_Optimize>false</DCC_Optimize>
-        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
-        <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
-        <DCC_RemoteDebug>true</DCC_RemoteDebug>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <DCC_UnitSearchPath>c:\projects\copycat;c:\projects\copycat\firedac;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
-        <DCC_DcuOutput>.</DCC_DcuOutput>
-        <DCC_ExeOutput>.</DCC_ExeOutput>
-        <VerInfo_Locale>1033</VerInfo_Locale>
-        <DCC_RemoteDebug>false</DCC_RemoteDebug>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Cfg_2)'!=''">
-        <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
-        <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
-        <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
-        <DCC_DebugInformation>0</DCC_DebugInformation>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Locale>1033</VerInfo_Locale>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Cfg_3)'!=''">
-        <DCC_Define>RELEASE;LM_EVALUATION;$(DCC_Define)</DCC_Define>
-        <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
-        <DCC_DebugInformation>0</DCC_DebugInformation>
-        <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Cfg_3_Win32)'!=''">
-        <VerInfo_Locale>1033</VerInfo_Locale>
-    </PropertyGroup>
-    <ItemGroup>
-        <DelphiCompile Include="$(MainSource)">
-            <MainSource>MainSource</MainSource>
-        </DelphiCompile>
-        <DCCReference Include="config.pas">
-            <Form>fmConfig</Form>
-        </DCCReference>
-        <DCCReference Include="configs.pas">
-            <Form>fmConfigs</Form>
-        </DCCReference>
-        <DCCReference Include="fConnectParamsFB.pas">
-            <Form>frConnectParamsFB</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TFrame</DesignClass>
-        </DCCReference>
-        <DCCReference Include="..\LMUtils.pas"/>
-        <DCCReference Include="..\ServiceManager.pas"/>
-        <DCCReference Include="..\gnugettext.pas"/>
-        <DCCReference Include="..\uLkJSON.pas"/>
-        <DCCReference Include="..\Synapse\blcksock.pas"/>
-        <DCCReference Include="..\Synapse\httpsend.pas"/>
-        <DCCReference Include="..\Synapse\synacode.pas"/>
-        <DCCReference Include="..\Synapse\synaip.pas"/>
-        <DCCReference Include="..\Synapse\synautil.pas"/>
-        <DCCReference Include="..\Synapse\synsock.pas"/>
-        <DCCReference Include="..\Synapse\synafpc.pas"/>
-        <DCCReference Include="licensing.pas">
-            <Form>fmLicensing</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="logfile.pas">
-            <Form>fmLogFile</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="configoptions.pas">
-            <Form>fmConfigOptions</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="..\dconfig.pas">
-            <Form>dmConfig</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
-        <DCCReference Include="..\dInterbase.pas">
-            <Form>dmInterbase</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
-        <BuildConfiguration Include="Release">
-            <Key>Cfg_2</Key>
-            <CfgParent>Base</CfgParent>
-        </BuildConfiguration>
-        <BuildConfiguration Include="Eval">
-            <Key>Cfg_3</Key>
-            <CfgParent>Base</CfgParent>
-        </BuildConfiguration>
-        <BuildConfiguration Include="Base">
-            <Key>Base</Key>
-        </BuildConfiguration>
-        <BuildConfiguration Include="Debug">
-            <Key>Cfg_1</Key>
-            <CfgParent>Base</CfgParent>
-        </BuildConfiguration>
-    </ItemGroup>
-    <ProjectExtensions>
-        <Borland.Personality>Delphi.Personality.12</Borland.Personality>
-        <Borland.ProjectType/>
-        <BorlandProject>
-            <Delphi.Personality>
-                <VersionInfo>
-                    <VersionInfo Name="IncludeVerInfo">False</VersionInfo>
-                    <VersionInfo Name="AutoIncBuild">False</VersionInfo>
-                    <VersionInfo Name="MajorVer">1</VersionInfo>
-                    <VersionInfo Name="MinorVer">0</VersionInfo>
-                    <VersionInfo Name="Release">0</VersionInfo>
-                    <VersionInfo Name="Build">0</VersionInfo>
-                    <VersionInfo Name="Debug">False</VersionInfo>
-                    <VersionInfo Name="PreRelease">False</VersionInfo>
-                    <VersionInfo Name="Special">False</VersionInfo>
-                    <VersionInfo Name="Private">False</VersionInfo>
-                    <VersionInfo Name="DLL">False</VersionInfo>
-                    <VersionInfo Name="Locale">1036</VersionInfo>
-                    <VersionInfo Name="CodePage">1252</VersionInfo>
-                </VersionInfo>
-                <VersionInfoKeys>
-                    <VersionInfoKeys Name="CompanyName"/>
-                    <VersionInfoKeys Name="FileDescription"/>
-                    <VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
-                    <VersionInfoKeys Name="InternalName"/>
-                    <VersionInfoKeys Name="LegalCopyright"/>
-                    <VersionInfoKeys Name="LegalTrademarks"/>
-                    <VersionInfoKeys Name="OriginalFilename"/>
-                    <VersionInfoKeys Name="ProductName"/>
-                    <VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
-                    <VersionInfoKeys Name="Comments"/>
-                    <VersionInfoKeys Name="CFBundleName"/>
-                    <VersionInfoKeys Name="CFBundleDisplayName"/>
-                    <VersionInfoKeys Name="UIDeviceFamily"/>
-                    <VersionInfoKeys Name="CFBundleIdentifier"/>
-                    <VersionInfoKeys Name="CFBundleVersion"/>
-                    <VersionInfoKeys Name="CFBundlePackageType"/>
-                    <VersionInfoKeys Name="CFBundleSignature"/>
-                    <VersionInfoKeys Name="CFBundleAllowMixedLocalizations"/>
-                    <VersionInfoKeys Name="UISupportedInterfaceOrientations"/>
-                    <VersionInfoKeys Name="CFBundleExecutable"/>
-                    <VersionInfoKeys Name="CFBundleResourceSpecification"/>
-                    <VersionInfoKeys Name="LSRequiresIPhoneOS"/>
-                    <VersionInfoKeys Name="CFBundleInfoDictionaryVersion"/>
-                    <VersionInfoKeys Name="CFBundleDevelopmentRegion"/>
-                    <VersionInfoKeys Name="package"/>
-                    <VersionInfoKeys Name="label"/>
-                    <VersionInfoKeys Name="versionCode"/>
-                    <VersionInfoKeys Name="versionName"/>
-                    <VersionInfoKeys Name="persistent"/>
-                    <VersionInfoKeys Name="restoreAnyVersion"/>
-                    <VersionInfoKeys Name="installLocation"/>
-                    <VersionInfoKeys Name="largeHeap"/>
-                    <VersionInfoKeys Name="theme"/>
-                </VersionInfoKeys>
-                <Source>
-                    <Source Name="MainSource">LiveMirrorMgr.dpr</Source>
-                </Source>
-                <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k200.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp200.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k200.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp200.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
-                </Excluded_Packages>
-            </Delphi.Personality>
-            <Deployment/>
-            <Platforms>
-                <Platform value="Win32">True</Platform>
-                <Platform value="Win64">False</Platform>
-            </Platforms>
-        </BorlandProject>
-        <ProjectFileVersion>12</ProjectFileVersion>
-    </ProjectExtensions>
-    <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
-    <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
-    <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Win32'">
-        <PreBuildEvent/>
-        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
-        <PreLinkEvent/>
-        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>c:\projects\livemirror\gettext.bat</PostBuildEvent>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Win64'">
-        <PreBuildEvent/>
-        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
-        <PreLinkEvent/>
-        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>c:\projects\livemirror\gettext.bat</PostBuildEvent>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win32'">
-        <PreBuildEvent/>
-        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
-        <PreLinkEvent/>
-        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>c:\projects\livemirror\gettext.bat</PostBuildEvent>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win64'">
-        <PreBuildEvent/>
-        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
-        <PreLinkEvent/>
-        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>c:\projects\livemirror\gettext.bat</PostBuildEvent>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Config)'=='Eval' And '$(Platform)'=='Win32'">
-        <PreBuildEvent/>
-        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
-        <PreLinkEvent/>
-        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>c:\projects\livemirror\gettext.bat</PostBuildEvent>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Config)'=='Eval' And '$(Platform)'=='Win64'">
-        <PreBuildEvent/>
-        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
-        <PreLinkEvent/>
-        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>c:\projects\livemirror\gettext.bat</PostBuildEvent>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
-    </PropertyGroup>
+    <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+    <VerInfo_Locale>1036</VerInfo_Locale>
+    <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+    <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
+    <DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
+    <DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
+    <DCC_E>false</DCC_E>
+    <DCC_N>false</DCC_N>
+    <DCC_S>false</DCC_S>
+    <DCC_F>false</DCC_F>
+    <DCC_K>false</DCC_K>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Base_Win32)'!=''">
+    <Icon_MainIcon>LiveMirrorMgr_Icon.ico</Icon_MainIcon>
+    <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+    <VerInfo_Locale>1033</VerInfo_Locale>
+    <DCC_UsePackage>FireDACSqliteDriver;DBXSqliteDriver;FireDACPgDriver;fmx;IndySystem;TeeDB;inetdbbde;vclib;DBXInterBaseDriver;DataSnapClient;DataSnapCommon;DataSnapServer;DataSnapProviderClient;DBXSybaseASEDriver;DbxCommonDriver;vclimg;dbxcds;DatasnapConnectorsFreePascal;MetropolisUILiveTile;vcldb;vcldsnap;fmxFireDAC;CopyCatDataSnap_XE5;DBXDb2Driver;DBXOracleDriver;CustomIPTransport;vclribbon;dsnap;IndyIPServer;fmxase;vcl;IndyCore;IndyIPCommon;CloudService;DBXMSSQLDriver;FmxTeeUI;FireDACIBDriver;CodeSiteExpressPkg;DataSnapFireDAC;FireDACDBXDriver;inetdbxpress;webdsnap;FireDACDb2Driver;adortl;FireDACASADriver;bindcompfmx;vcldbx;FireDACODBCDriver;rtl;dbrtl;DbxClientDriver;FireDACCommon;bindcomp;inetdb;Tee;DBXOdbcDriver;vclFireDAC;xmlrtl;svnui;ibxpress;IndyProtocols;DBXMySQLDriver;FireDACCommonDriver;vclactnband;bindengine;soaprtl;bindcompdbx;FMXTee;TeeUI;bindcompvcl;vclie;FireDACADSDriver;vcltouch;CopyCatFireDAC_XE5;VclSmp;FireDACMSSQLDriver;FireDAC;VCLRESTComponents;Intraweb;DBXInformixDriver;DataSnapConnectors;FireDACDataSnapDriver;dsnapcon;DBXFirebirdDriver;inet;fmxobj;FireDACMySQLDriver;vclx;svn;DBXSybaseASADriver;FireDACOracleDriver;fmxdae;RESTComponents;bdertl;CopyCat_XE5;FireDACMSAccDriver;DataSnapIndy10ServerTransport;dbexpress;IndyIPClient;$(DCC_UsePackage)</DCC_UsePackage>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Base_Win64)'!=''">
+    <DCC_UsePackage>FireDACSqliteDriver;DBXSqliteDriver;FireDACPgDriver;fmx;IndySystem;TeeDB;vclib;DBXInterBaseDriver;DataSnapClient;DataSnapCommon;DataSnapServer;DataSnapProviderClient;DBXSybaseASEDriver;DbxCommonDriver;vclimg;dbxcds;DatasnapConnectorsFreePascal;MetropolisUILiveTile;vcldb;vcldsnap;fmxFireDAC;DBXDb2Driver;DBXOracleDriver;CustomIPTransport;vclribbon;dsnap;IndyIPServer;fmxase;vcl;IndyCore;IndyIPCommon;CloudService;DBXMSSQLDriver;FmxTeeUI;FireDACIBDriver;DataSnapFireDAC;FireDACDBXDriver;inetdbxpress;webdsnap;FireDACDb2Driver;adortl;FireDACASADriver;bindcompfmx;FireDACODBCDriver;rtl;dbrtl;DbxClientDriver;FireDACCommon;bindcomp;inetdb;Tee;DBXOdbcDriver;vclFireDAC;xmlrtl;ibxpress;IndyProtocols;DBXMySQLDriver;FireDACCommonDriver;vclactnband;bindengine;soaprtl;bindcompdbx;FMXTee;TeeUI;bindcompvcl;vclie;FireDACADSDriver;vcltouch;VclSmp;FireDACMSSQLDriver;FireDAC;VCLRESTComponents;Intraweb;DBXInformixDriver;DataSnapConnectors;FireDACDataSnapDriver;dsnapcon;DBXFirebirdDriver;inet;fmxobj;FireDACMySQLDriver;vclx;DBXSybaseASADriver;FireDACOracleDriver;fmxdae;RESTComponents;FireDACMSAccDriver;DataSnapIndy10ServerTransport;dbexpress;IndyIPClient;$(DCC_UsePackage)</DCC_UsePackage>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Cfg_1)'!=''">
+    <Icon_MainIcon>LiveMirrorMgr_Icon.ico</Icon_MainIcon>
+    <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+    <DCC_DebugDCUs>true</DCC_DebugDCUs>
+    <DCC_Optimize>false</DCC_Optimize>
+    <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+    <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+    <DCC_RemoteDebug>true</DCC_RemoteDebug>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+    <DCC_Define>EUREKALOG;EUREKALOG_VER7;$(DCC_Define)</DCC_Define>
+    <DCC_MapFile>3</DCC_MapFile>
+    <DCC_UnitSearchPath>c:\projects\copycat;c:\projects\copycat\firedac;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+    <DCC_DcuOutput>.</DCC_DcuOutput>
+    <DCC_ExeOutput>.</DCC_ExeOutput>
+    <VerInfo_Locale>1033</VerInfo_Locale>
+    <DCC_RemoteDebug>false</DCC_RemoteDebug>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Cfg_2)'!=''">
+    <Icon_MainIcon>LiveMirrorMgr_Icon.ico</Icon_MainIcon>
+    <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+    <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_DebugInformation>0</DCC_DebugInformation>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+    <VerInfo_MinorVer>2</VerInfo_MinorVer>
+    <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.2.0.4;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.2.0.0;Comments=</VerInfo_Keys>
+    <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
+    <DCC_MapFile>3</DCC_MapFile>
+    <DCC_DebugInformation>2</DCC_DebugInformation>
+    <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+    <DCC_Define>EUREKALOG;EUREKALOG_VER7;$(DCC_Define)</DCC_Define>
+    <VerInfo_Locale>1033</VerInfo_Locale>
+    <VerInfo_Build>4</VerInfo_Build>
+    <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.2.0.4;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.2.0.0;Comments=</VerInfo_Keys>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Cfg_3)'!=''">
+    <DCC_Define>RELEASE;LM_EVALUATION;$(DCC_Define)</DCC_Define>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_DebugInformation>0</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Cfg_3_Win32)'!=''">
+    <DCC_DebugInformation>2</DCC_DebugInformation>
+    <DCC_MapFile>3</DCC_MapFile>
+    <DCC_UnitSearchPath>C:\components\XE6\lib\dcu\Win32;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+    <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+    <DCC_Define>EUREKALOG;EUREKALOG_VER7;$(DCC_Define)</DCC_Define>
+    <VerInfo_Locale>1033</VerInfo_Locale>
+  </PropertyGroup>
+  <ItemGroup>
+    <DelphiCompile Include="$(MainSource)">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <RcCompile Include="..\version.rc">
+      <Form>version.res</Form>
+    </RcCompile>
+    <DCCReference Include="config.pas">
+      <Form>fmConfig</Form>
+    </DCCReference>
+    <DCCReference Include="configs.pas">
+      <Form>fmConfigs</Form>
+    </DCCReference>
+    <DCCReference Include="fConnectParamsFB.pas">
+      <Form>frConnectParamsFB</Form>
+      <FormType>dfm</FormType>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\LMUtils.pas" />
+    <DCCReference Include="..\ServiceManager.pas" />
+    <DCCReference Include="..\gnugettext.pas" />
+    <DCCReference Include="..\uLkJSON.pas" />
+    <DCCReference Include="..\Synapse\blcksock.pas" />
+    <DCCReference Include="..\Synapse\httpsend.pas" />
+    <DCCReference Include="..\Synapse\synacode.pas" />
+    <DCCReference Include="..\Synapse\synaip.pas" />
+    <DCCReference Include="..\Synapse\synautil.pas" />
+    <DCCReference Include="..\Synapse\synsock.pas" />
+    <DCCReference Include="..\Synapse\synafpc.pas" />
+    <DCCReference Include="licensing.pas">
+      <Form>fmLicensing</Form>
+      <FormType>dfm</FormType>
+    </DCCReference>
+    <DCCReference Include="logfile.pas">
+      <Form>fmLogFile</Form>
+      <FormType>dfm</FormType>
+    </DCCReference>
+    <DCCReference Include="configoptions.pas">
+      <Form>fmConfigOptions</Form>
+      <FormType>dfm</FormType>
+    </DCCReference>
+    <DCCReference Include="..\dconfig.pas">
+      <Form>dmConfig</Form>
+      <FormType>dfm</FormType>
+      <DesignClass>TDataModule</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\dInterbase.pas">
+      <Form>dmInterbase</Form>
+      <FormType>dfm</FormType>
+      <DesignClass>TDataModule</DesignClass>
+    </DCCReference>
+    <BuildConfiguration Include="Release">
+      <Key>Cfg_2</Key>
+      <CfgParent>Base</CfgParent>
+    </BuildConfiguration>
+    <BuildConfiguration Include="Eval">
+      <Key>Cfg_3</Key>
+      <CfgParent>Base</CfgParent>
+    </BuildConfiguration>
+    <BuildConfiguration Include="Base">
+      <Key>Base</Key>
+    </BuildConfiguration>
+    <BuildConfiguration Include="Debug">
+      <Key>Cfg_1</Key>
+      <CfgParent>Base</CfgParent>
+    </BuildConfiguration>
+  </ItemGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+      <Delphi.Personality>
+        <VersionInfo>
+          <VersionInfo Name="IncludeVerInfo">False</VersionInfo>
+          <VersionInfo Name="AutoIncBuild">False</VersionInfo>
+          <VersionInfo Name="MajorVer">1</VersionInfo>
+          <VersionInfo Name="MinorVer">0</VersionInfo>
+          <VersionInfo Name="Release">0</VersionInfo>
+          <VersionInfo Name="Build">0</VersionInfo>
+          <VersionInfo Name="Debug">False</VersionInfo>
+          <VersionInfo Name="PreRelease">False</VersionInfo>
+          <VersionInfo Name="Special">False</VersionInfo>
+          <VersionInfo Name="Private">False</VersionInfo>
+          <VersionInfo Name="DLL">False</VersionInfo>
+          <VersionInfo Name="Locale">1036</VersionInfo>
+          <VersionInfo Name="CodePage">1252</VersionInfo>
+        </VersionInfo>
+        <VersionInfoKeys>
+          <VersionInfoKeys Name="CompanyName" />
+          <VersionInfoKeys Name="FileDescription" />
+          <VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
+          <VersionInfoKeys Name="InternalName" />
+          <VersionInfoKeys Name="LegalCopyright" />
+          <VersionInfoKeys Name="LegalTrademarks" />
+          <VersionInfoKeys Name="OriginalFilename" />
+          <VersionInfoKeys Name="ProductName" />
+          <VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+          <VersionInfoKeys Name="Comments" />
+          <VersionInfoKeys Name="CFBundleName" />
+          <VersionInfoKeys Name="CFBundleDisplayName" />
+          <VersionInfoKeys Name="UIDeviceFamily" />
+          <VersionInfoKeys Name="CFBundleIdentifier" />
+          <VersionInfoKeys Name="CFBundleVersion" />
+          <VersionInfoKeys Name="CFBundlePackageType" />
+          <VersionInfoKeys Name="CFBundleSignature" />
+          <VersionInfoKeys Name="CFBundleAllowMixedLocalizations" />
+          <VersionInfoKeys Name="UISupportedInterfaceOrientations" />
+          <VersionInfoKeys Name="CFBundleExecutable" />
+          <VersionInfoKeys Name="CFBundleResourceSpecification" />
+          <VersionInfoKeys Name="LSRequiresIPhoneOS" />
+          <VersionInfoKeys Name="CFBundleInfoDictionaryVersion" />
+          <VersionInfoKeys Name="CFBundleDevelopmentRegion" />
+          <VersionInfoKeys Name="package" />
+          <VersionInfoKeys Name="label" />
+          <VersionInfoKeys Name="versionCode" />
+          <VersionInfoKeys Name="versionName" />
+          <VersionInfoKeys Name="persistent" />
+          <VersionInfoKeys Name="restoreAnyVersion" />
+          <VersionInfoKeys Name="installLocation" />
+          <VersionInfoKeys Name="largeHeap" />
+          <VersionInfoKeys Name="theme" />
+        </VersionInfoKeys>
+        <Source>
+          <Source Name="MainSource">LiveMirrorMgr.dpr</Source>
+        </Source>
+        <Excluded_Packages>
+          <Excluded_Packages Name="$(BDSBIN)\bcboffice2k200.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+          <Excluded_Packages Name="$(BDSBIN)\bcbofficexp200.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+          <Excluded_Packages Name="$(BDSBIN)\dcloffice2k200.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+          <Excluded_Packages Name="$(BDSBIN)\dclofficexp200.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+        </Excluded_Packages>
+      </Delphi.Personality>
+      <Deployment />
+      <Platforms>
+        <Platform value="Win32">True</Platform>
+        <Platform value="Win64">False</Platform>
+      </Platforms>
+    </BorlandProject>
+    <ProjectFileVersion>12</ProjectFileVersion>
+  </ProjectExtensions>
+  <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" />
+  <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" />
+  <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Win32'">
+    <PreBuildEvent />
+    <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+    <PreLinkEvent />
+    <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+    <PostBuildEvent>c:\projects\livemirror\gettext.bat</PostBuildEvent>
+    <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Win64'">
+    <PreBuildEvent />
+    <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+    <PreLinkEvent />
+    <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+    <PostBuildEvent>c:\projects\livemirror\gettext.bat</PostBuildEvent>
+    <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win32'">
+    <PreBuildEvent />
+    <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+    <PreLinkEvent />
+    <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+    <PostBuildEvent>c:\projects\livemirror\gettext.bat</PostBuildEvent>
+    <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win64'">
+    <PreBuildEvent />
+    <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+    <PreLinkEvent />
+    <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+    <PostBuildEvent>c:\projects\livemirror\gettext.bat</PostBuildEvent>
+    <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Eval' And '$(Platform)'=='Win32'">
+    <PreBuildEvent />
+    <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+    <PreLinkEvent />
+    <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+    <PostBuildEvent>c:\projects\livemirror\gettext.bat</PostBuildEvent>
+    <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Eval' And '$(Platform)'=='Win64'">
+    <PreBuildEvent />
+    <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+    <PreLinkEvent />
+    <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+    <PostBuildEvent>c:\projects\livemirror\gettext.bat</PostBuildEvent>
+    <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+  </PropertyGroup>
 </Project>
+<!-- EurekaLog First Line
+[Exception Log]
+EurekaLog Version=7007
+Activate=1
+atFixSafeCallException=1
+atVCL=1
+atWin32=1
+DeleteMapAfterCompile=1
+dpJCL=1
+edoUseRealIcon=1
+edoUseRealName=1
+Encrypt Password=""
+idEurekaLog=1
+idEurekaLogDetailed=1
+idMSClassic=1
+idStepsToReproduce=1
+InjectCode=1
+InjectInfo=1
+InjectOptions=1
+loAddDateInLogFileName=1
+loAppendReproduceText=1
+Mandatory e-mail=1
+mtDialog_Caption="An error occurred"
+mtMSDialog_DescriptionCaption="We have created an error report that you can send to help us improve %%s. We will treat this report as confidential."
+Output Path="%%_MainModulePath%%\\"
+ProjectID="{C37E9A0F-EFD2-4FE7-9B5D-57780379A44C}"
+Sender Classes="TELMailSMTPServerSender;TELMailShellSender;TELMailSimpleMAPISender"
+seSMAPI=1
+seSMTP=1
+ShowEMailControl=1
+sndMAPITarget="contact@copycat.fr"
+sndShellRecepient="contact@copycat.fr"
+sndShowFailureMsg=1
+sndSMAPITarget="contact@copycat.fr"
+sndSMTPClientLogin="your-email"
+sndSMTPServerFrom="smtp.copycat.fr"
+sndSMTPServerTarget="contact@copycat.fr"
+sndSMTPServerUseRealEMail=1
+TextsCollection=""
+EurekaLog Last Line -->

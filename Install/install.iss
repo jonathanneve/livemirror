@@ -2,10 +2,11 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "LiveMirror"
-#define MyAppVersion "1.2.0 p1"
 #define MyAppPublisher "Microtec Communications"
 #define MyAppURL "http://www.copycat.fr"
 #define MyAppExeName "LiveMirrorMgr.exe"
+#define MyAppExePath "c:\projects\livemirror\manager\Win32\Release\LiveMirrorMgr.exe"
+#define MyAppVersion GetFileVersion(MyAppExePath)
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.

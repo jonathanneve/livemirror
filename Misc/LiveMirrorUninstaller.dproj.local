@@ -11,14 +11,15 @@
     <Transaction>2014/03/26 18:19:32.000.917,=C:\Projects\livemirror\uLkJSON.pas</Transaction>
     <Transaction>2014/03/26 18:19:50.000.019,C:\Projects\livemirror\uLkJSON.pas=C:\Projects\livemirror\Misc\uninst_main.pas</Transaction>
     <Transaction>2014/03/26 18:21:22.000.311,C:\Projects\livemirror\Misc\uninst_main.pas=C:\Projects\livemirror\uLkJSON.pas</Transaction>
-    <Transaction>2014/03/26 18:21:50.000.137,C:\Projects\livemirror\Uninstaller\Unit1.pas=C:\Projects\livemirror\Misc\uninst_main.pas</Transaction>
     <Transaction>2014/03/26 18:21:50.000.137,C:\Projects\livemirror\Uninstaller\Unit1.dfm=C:\Projects\livemirror\Misc\uninst_main.dfm</Transaction>
-    <Transaction>2014/03/26 18:23:29.000.220,=C:\Projects\livemirror\Synapse\synaip.pas</Transaction>
+    <Transaction>2014/03/26 18:21:50.000.137,C:\Projects\livemirror\Uninstaller\Unit1.pas=C:\Projects\livemirror\Misc\uninst_main.pas</Transaction>
     <Transaction>2014/03/26 18:23:29.000.198,=C:\Projects\livemirror\Synapse\synacode.pas</Transaction>
-    <Transaction>2014/03/26 18:23:29.000.187,=C:\Projects\livemirror\Synapse\httpsend.pas</Transaction>
     <Transaction>2014/03/26 18:23:29.000.244,=C:\Projects\livemirror\Synapse\synsock.pas</Transaction>
     <Transaction>2014/03/26 18:23:29.000.236,=C:\Projects\livemirror\Synapse\synautil.pas</Transaction>
     <Transaction>2014/03/26 18:23:29.000.205,=C:\Projects\livemirror\Synapse\synafpc.pas</Transaction>
+    <Transaction>2014/03/26 18:23:29.000.220,=C:\Projects\livemirror\Synapse\synaip.pas</Transaction>
     <Transaction>2014/03/26 18:23:29.000.178,=C:\Projects\livemirror\Synapse\blcksock.pas</Transaction>
+    <Transaction>2014/03/26 18:23:29.000.187,=C:\Projects\livemirror\Synapse\httpsend.pas</Transaction>
+    <Transaction>2014/06/25 15:00:31.596,=C:\Projects\livemirror\version.rc</Transaction>
   </Transactions>
 </BorlandProject>

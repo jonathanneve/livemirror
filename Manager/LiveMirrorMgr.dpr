@@ -1,6 +1,21 @@
 program LiveMirrorMgr;
 
+{$R 'version.res' '..\version.rc'}
+
 uses
+  EMemLeaks,
+  EResLeaks,
+  ESendMailSMAPI,
+  ESendMailSMTP,
+  EDialogWinAPIMSClassic,
+  EDialogWinAPIEurekaLogDetailed,
+  EDialogWinAPIStepsToReproduce,
+  EDebugExports,
+  EDebugJCL,
+  EFixSafeCallException,
+  EMapWin32,
+  EAppVCL,
+  ExceptionLog7,
   Vcl.Forms,
   config in 'config.pas' {fmConfig},
   configs in 'configs.pas' {fmConfigs},

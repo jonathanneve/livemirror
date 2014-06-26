@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: LiveMirror\n"
-"POT-Creation-Date: 2014-06-23 17:44\n"
+"POT-Creation-Date: 2014-06-25 12:14\n"
 "PO-Revision-Date: 2014-05-07 11:33+0100\n"
 "Last-Translator: Jonathan Neve <jonathan@jntraductions.fr>\n"
 "Language-Team: Jonathan Neve <jonathan@jntraductions.fr>\n"
@@ -227,7 +227,8 @@ msgstr "ACTIF"
 
 #. fmConfigs..Panel3..Label2..Caption
 #: configs.dfm:153 
-msgid "Microtec LiverMirror  v."
+#, fuzzy
+msgid "CopyCat LiverMirror  v."
 msgstr "Microtec LiverMirror  v."
 
 #. fmConfigs..Panel3..lbVersion..Caption

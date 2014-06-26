@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Microtec LiveMirror\n"
-"POT-Creation-Date: 2014-06-24 14:39\n"
+"POT-Creation-Date: 2014-06-25 15:15\n"
 "PO-Revision-Date: 2014-03-26 15:36+0100\n"
 "Last-Translator: Jonathan Neve <jonathan@jntraductions.fr>\n"
 "Language-Team: Jonathan Neve <jonathan@jntraductions.fr>\n"

@@ -5,7 +5,7 @@
         <FrameworkType>VCL</FrameworkType>
         <MainSource>LiveMirrorCpl.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Eval</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Library</AppType>
@@ -128,6 +128,9 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
+        <RcCompile Include="..\version.rc">
+            <Form>version.res</Form>
+        </RcCompile>
         <DCCReference Include="main.pas">
             <Form>LiveMirrorManager</Form>
             <FormType>dfm</FormType>
@@ -251,3 +254,11 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
 </Project>
+
+<!-- EurekaLog First Line
+[Exception Log]
+EurekaLog Version=7007
+Activate=0
+DeleteMapAfterCompile=1
+Encrypt Password=""
+EurekaLog Last Line -->
