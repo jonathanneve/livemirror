@@ -5,6 +5,7 @@ program LiveMirrorSrv;
 uses
   EMemLeaks,
   EResLeaks,
+  ESendMailSMTP,
   EDebugExports,
   EDebugJCL,
   EFixSafeCallException,

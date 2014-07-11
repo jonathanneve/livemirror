@@ -3,28 +3,28 @@
 	<Transactions>
     <Transaction>2014/03/07 17:29:46.000.898,=C:\Users\Jonathan\Documents\RAD Studio\Projets\Unit7.pas</Transaction>
     <Transaction>2014/03/07 17:30:37.000.898,=C:\Projects\livemirror\ServiceManager.pas</Transaction>
-    <Transaction>2014/03/07 17:31:12.000.439,C:\Users\Jonathan\Documents\RAD Studio\Projets\Unit7.pas=C:\Projects\livemirror\Guardian\main.pas</Transaction>
-    <Transaction>2014/03/07 17:31:12.000.439,C:\Users\Jonathan\Documents\RAD Studio\Projets\Unit7.dfm=C:\Projects\livemirror\Guardian\main.dfm</Transaction>
-    <Transaction>2014/03/07 17:31:27.000.573,C:\Users\Jonathan\Documents\RAD Studio\Projets\Project7.dproj=C:\Projects\livemirror\Guardian\LiveMirrorGuardian.dproj</Transaction>
+    <Transaction>2014/03/07 17:31:12.000.439,C:\Projects\livemirror\Guardian\main.pas=C:\Users\Jonathan\Documents\RAD Studio\Projets\Unit7.pas</Transaction>
+    <Transaction>2014/03/07 17:31:12.000.439,C:\Projects\livemirror\Guardian\main.dfm=C:\Users\Jonathan\Documents\RAD Studio\Projets\Unit7.dfm</Transaction>
+    <Transaction>2014/03/07 17:31:27.000.573,C:\Projects\livemirror\Guardian\LiveMirrorGuardian.dproj=C:\Users\Jonathan\Documents\RAD Studio\Projets\Project7.dproj</Transaction>
     <Transaction>2014/03/07 17:57:35.000.265,=C:\Projects\livemirror\LMUtils.pas</Transaction>
     <Transaction>2014/03/07 17:58:05.000.959,=C:\Projects\livemirror\gnugettext.pas</Transaction>
-    <Transaction>2014/03/25 06:46:23.000.298,=C:\Projects\livemirror\Synapse\synafpc.pas</Transaction>
-    <Transaction>2014/03/25 06:46:23.000.328,=C:\Projects\livemirror\Synapse\synsock.pas</Transaction>
     <Transaction>2014/03/25 06:46:23.000.227,=C:\Projects\livemirror\Synapse\blcksock.pas</Transaction>
-    <Transaction>2014/03/25 06:46:23.000.264,=C:\Projects\livemirror\Synapse\httpsend.pas</Transaction>
     <Transaction>2014/03/25 06:46:23.000.318,=C:\Projects\livemirror\Synapse\synautil.pas</Transaction>
-    <Transaction>2014/03/25 06:46:23.000.271,=C:\Projects\livemirror\Synapse\synacode.pas</Transaction>
+    <Transaction>2014/03/25 06:46:23.000.328,=C:\Projects\livemirror\Synapse\synsock.pas</Transaction>
     <Transaction>2014/03/25 06:46:23.000.304,=C:\Projects\livemirror\Synapse\synaip.pas</Transaction>
+    <Transaction>2014/03/25 06:46:23.000.264,=C:\Projects\livemirror\Synapse\httpsend.pas</Transaction>
+    <Transaction>2014/03/25 06:46:23.000.271,=C:\Projects\livemirror\Synapse\synacode.pas</Transaction>
+    <Transaction>2014/03/25 06:46:23.000.298,=C:\Projects\livemirror\Synapse\synafpc.pas</Transaction>
     <Transaction>2014/03/25 06:46:58.000.579,=C:\Projects\livemirror\uLkJSON.pas</Transaction>
     <Transaction>2014/03/25 07:16:39.000.602,=C:\Projects\livemirror\Guardian\Unit1.pas</Transaction>
     <Transaction>2014/03/25 07:22:32.000.368,=C:\Projects\livemirror\nagscreen.pas</Transaction>
-    <Transaction>2014/03/25 07:29:38.000.326,C:\Projects\livemirror\Manager\licensing.pas=C:\Projects\livemirror\Guardian\Unit1.pas</Transaction>
-    <Transaction>2014/03/25 07:29:38.000.326,C:\Projects\livemirror\Manager\licensing.dfm=C:\Projects\livemirror\Guardian\Unit1.dfm</Transaction>
+    <Transaction>2014/03/25 07:29:38.000.326,C:\Projects\livemirror\Guardian\Unit1.dfm=C:\Projects\livemirror\Manager\licensing.dfm</Transaction>
+    <Transaction>2014/03/25 07:29:38.000.326,C:\Projects\livemirror\Guardian\Unit1.pas=C:\Projects\livemirror\Manager\licensing.pas</Transaction>
     <Transaction>2014/03/26 11:51:49.000.689,C:\Projects\livemirror\Manager\licensing.pas=</Transaction>
     <Transaction>2014/03/26 11:52:03.000.609,C:\Projects\livemirror\nagscreen.pas=</Transaction>
-    <Transaction>2014/03/26 18:19:49.000.868,C:\Projects\livemirror\Misc\uninst_main.pas=C:\Projects\livemirror\uLkJSON.pas</Transaction>
+    <Transaction>2014/03/26 18:19:49.000.868,C:\Projects\livemirror\uLkJSON.pas=C:\Projects\livemirror\Misc\uninst_main.pas</Transaction>
     <Transaction>2014/03/26 18:20:39.000.891,C:\Projects\livemirror\Misc\uninst_main.pas=</Transaction>
     <Transaction>2014/03/26 18:20:55.000.888,=C:\Projects\livemirror\uLkJSON.pas</Transaction>
-    <Transaction>2014/06/25 15:00:04.213,=C:\Projects\livemirror\version.rc</Transaction>
+    <Transaction>2014/06/25 15:00:04.000.213,=C:\Projects\livemirror\version.rc</Transaction>
   </Transactions>
 </BorlandProject>

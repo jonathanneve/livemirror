@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes,
-  CcReplicator, CcConf, CcProviders, DB, dconfig, CcConfStorage, Vcl.SvcMgr;
+  CcReplicator, CcConf, CcProviders, DB, dconfig, CcConfStorage, Vcl.SvcMgr,
+  EExceptionManager;
 
 type
   TLiveMirror = class(TService)
@@ -72,6 +73,9 @@ begin
   LogMessage(_('Replication failed with error : ') + #13#10 + e.Message, EVENTLOG_ERROR_TYPE);
 	hLog.Add('{now} ' + _('Replication failed with error : '));
 	hLog.AddException(e);
+  hLog.Add(E.StackTrace);
+  raise TObject(AcquireExceptionObject);
+//  ExceptionManager.StandardEurekaNotify(ExceptObject,ExceptAddr)
 end;
 
 procedure TLiveMirror.ReplicatorFinished(Sender: TObject);
@@ -95,6 +99,11 @@ begin
   LogMessage(_('Error replicating row : Table ') + Replicator.Log.TableName + ' [' + Replicator.Log.PrimaryKeys + ']' + #13#10 + e.Message, EVENTLOG_WARNING_TYPE);
 	hLog.Add('{now} ' + _('Error replicating row : Table ') + Replicator.Log.TableName + ' [' + Replicator.Log.Keys.PrimaryKeyValues + ']');
 	hLog.AddException(e);
+
+  {$IFDEF DEBUG}
+  hLog.Add(E.StackTrace);
+  raise TObject(AcquireExceptionObject);
+  {$ENDIF}
 end;
 
 procedure TLiveMirror.ReplicatorRowReplicated(Sender: TObject;
@@ -124,6 +133,8 @@ begin
     begin
       hLog.Add(_('{now} Error setting up databases for replication!'));
       hLog.AddException(E);
+      hLog.Add(E.StackTrace);
+      ExceptionManager.ShowLastExceptionData;
     end;
   end;
 end;
@@ -203,9 +214,11 @@ var
 begin
   try
     FDMConfig.LoadConfig(FDMConfig.ConfigName);
+    cPath := GetLiveMirrorRoot + '\Configs\' + FDMConfig.ConfigName + '\log\';
+    ForceDirectories(cPath);
 
     with hLog.hlWriter.hlFileDef do begin
-      path := GetLiveMirrorRoot + '\Configs\' + FDMConfig.ConfigName + '\log\';
+      path := cPath;
       SafegdgMax := 100;
       UseSafeFilenames := true;
       UseFileSizeLimit := true;
