@@ -5,7 +5,7 @@
         <FrameworkType>VCL</FrameworkType>
         <MainSource>LiveMirrorSrv.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Eval</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Application</AppType>
@@ -556,7 +556,8 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>C:\projects\livemirror\gettext.bat</PostBuildEvent>
+        <PostBuildEvent>C:\projects\livemirror\gettext.bat
+</PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Win64'">
@@ -564,7 +565,8 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>C:\projects\livemirror\gettext.bat</PostBuildEvent>
+        <PostBuildEvent>C:\projects\livemirror\gettext.bat
+</PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win32'">
@@ -572,7 +574,8 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>C:\projects\livemirror\gettext.bat</PostBuildEvent>
+        <PostBuildEvent>C:\projects\livemirror\gettext.bat
+</PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win64'">
@@ -580,7 +583,8 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>C:\projects\livemirror\gettext.bat</PostBuildEvent>
+        <PostBuildEvent>C:\projects\livemirror\gettext.bat
+</PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Eval' And '$(Platform)'=='Win32'">
@@ -588,7 +592,8 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>C:\projects\livemirror\gettext.bat</PostBuildEvent>
+        <PostBuildEvent>C:\projects\livemirror\gettext.bat
+</PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Eval' And '$(Platform)'=='Win64'">
@@ -596,7 +601,8 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>C:\projects\livemirror\gettext.bat</PostBuildEvent>
+        <PostBuildEvent>C:\projects\livemirror\gettext.bat
+</PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
 </Project>
@@ -615,14 +621,22 @@ Encrypt Password=""
 InjectCode=1
 InjectInfo=1
 InjectOptions=1
+loDeleteLogAtVersionChange=1
 loModulesSecton=0
+loNoDuplicateErrors=1
+loOnlyUnderDebugger=0
 loSaveAssemblerAndCPUSections=0
 Output Path="%%_MainModulePath%%\\"
 ProjectID="{3108F8B7-2483-497D-9DD9-B750D88E64C6}"
+Sender Classes="TELMailSMTPServerSender"
+seSMTP=1
+SlowAndSafe=0
+sndDeleteFileAfterSend=0
 sndScreenshot=0
 sndShowSendDialog=0
 sndShowSuccessBugClosedOnly=0
 sndShowSuccessMsg=0
+sndSMTPServerTarget="jonathan@copycat.fr"
 soAppCompilationDate=1
 soAppParameters=1
 soAppStartDate=1

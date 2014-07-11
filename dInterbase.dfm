@@ -4,9 +4,9 @@ object dmInterbase: TdmInterbase
   Width = 355
   object FDConnection: TFDConnection
     Params.Strings = (
-      'DriverID=FB'
       'User_Name=sysdba'
-      'Password=masterkey')
+      'Password=masterkey'
+      'DriverID=FB')
     LoginPrompt = False
     Transaction = FDTransaction
     UpdateTransaction = FDTransaction

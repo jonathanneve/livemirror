@@ -5,8 +5,8 @@
 #define MyAppPublisher "Microtec Communications"
 #define MyAppURL "http://www.copycat.fr"
 #define MyAppExeName "LiveMirrorMgr.exe"
-#define MyAppExePath "c:\projects\livemirror\manager\Win32\Release\LiveMirrorMgr.exe"
-#define MyAppVersion GetFileVersion(MyAppExePath)
+#define MyAppExePath "c:\projects\livemirror\manager\Win32\"
+#define MyAppVersion GetFileVersion(MyAppExePath + Config + "\LiveMirrorMgr.exe")
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.

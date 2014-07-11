@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-06-25 17:02\n"
-"PO-Revision-Date: 2014-06-25 17:02\n"
+"POT-Creation-Date: 2014-07-11 18:04\n"
+"PO-Revision-Date: 2014-07-11 18:04\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,125 +45,125 @@ msgstr ""
 msgid "3.06.0"
 msgstr ""
 
-#: main.pas:67
+#: main.pas:68
 msgid "{now} Nothing to replicate"
 msgstr ""
 
-#: main.pas:72
 #: main.pas:73
+#: main.pas:74
 msgid "Replication failed with error : "
 msgstr ""
 
 #. , EVENTLOG_INFORMATION_TYPE);
-#: main.pas:82
+#: main.pas:86
 msgid "Replication finished : "
 msgstr ""
 
-#: main.pas:82
+#: main.pas:86
 msgid "Rows replicated : "
 msgstr ""
 
-#: main.pas:83
+#: main.pas:87
 msgid "Rows with errors : "
 msgstr ""
 
 #. LogMessage('Starting replication : ' + IntToStr(Replicator.Log.LineCount) + ' rows to replicate...', EVENTLOG_INFORMATION_TYPE);
-#: main.pas:89
+#: main.pas:93
 msgid "Starting replication : "
 msgstr ""
 
-#: main.pas:89
+#: main.pas:93
 msgid " rows to replicate..."
 msgstr ""
 
-#: main.pas:95
-#: main.pas:96
+#: main.pas:99
+#: main.pas:100
 msgid "Error replicating row : Table "
 msgstr ""
 
 #. LogMessage('Row replicated : Table ' + TableName + ' [' +  Replicator.Log.PrimaryKeys + ']', EVENTLOG_INFORMATION_TYPE);
-#: main.pas:104
+#: main.pas:113
 msgid "Row replicated : Table : "
 msgstr ""
 
-#: main.pas:116
+#: main.pas:125
 msgid "{now} Checking database configuration..."
 msgstr ""
 
 #. We save the config file so that the MetaDataCreated field gets set
-#: main.pas:121
+#: main.pas:130
 msgid "{now} Databases configuration configured "
 "successfully!"
 msgstr ""
 
-#: main.pas:125
+#: main.pas:134
 msgid "{now} Error setting up databases for "
 "replication!"
 msgstr ""
 
-#: main.pas:177
+#: main.pas:188
 msgid "{now} Checking licence information..."
 msgstr ""
 
-#: main.pas:180
+#: main.pas:191
 msgid "Error checking licence, please check your Internet "
 "connection"
 msgstr ""
 
-#: main.pas:186
+#: main.pas:197
 msgid "Licencing error : "
 msgstr ""
 
-#: main.pas:192
+#: main.pas:203
 msgid "No licence set for this database configuration. Synchronization "
 "aborting."
 msgstr ""
 
-#: main.pas:218
+#: main.pas:231
 msgid ">>>> Start {App_name}"
 msgstr ""
 
-#: main.pas:219
+#: main.pas:232
 msgid "{@12}Path : {App_path}"
 msgstr ""
 
-#: main.pas:220
+#: main.pas:233
 msgid "{@12}Config. name : {App_prm-}{/}"
 msgstr ""
 
-#: main.pas:223
+#: main.pas:236
 msgid "!!! EVALUATION VERSION !!!"
 msgstr ""
 
-#: main.pas:226
+#: main.pas:239
 msgid "MASTER database :"
 msgstr ""
 
-#: main.pas:227
+#: main.pas:240
 msgid "MIRROR database :"
 msgstr ""
 
-#: main.pas:228
+#: main.pas:241
 msgid "Replication frequency :"
 msgstr ""
 
-#: main.pas:228
+#: main.pas:241
 msgid " seconds"
 msgstr ""
 
 #. Clear licence if it was incorrect
-#: main.pas:236
+#: main.pas:249
 msgid "LiveMirror licence invalid for configuration %s.\n"
 "Clearing licence information from setup.\n"
 "Database will not be synchronized till licence is "
 "corrected."
 msgstr ""
 
-#: main.pas:254
+#: main.pas:267
 msgid "{now} Service ready!"
 msgstr ""
 
-#: main.pas:261
+#: main.pas:274
 msgid "{now} DATABASE CONFIGURATION FAILED - CONTACT COPYCAT TEAM FOR "
 "SUPPORT!"
 msgstr ""
