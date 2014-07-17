@@ -66,6 +66,9 @@ var
 begin
   FNodeType := nodeType;
   FConfigFileName := configDir + nodeType + '.ini';
+  if not FileExists(FConfigFileName) then
+    Exit;
+
   ini := TIniFile.Create(FConfigFileName);
   try
     CcConnection.DBVersion := ini.ReadString('General', 'DBVersion', 'FB2.5');

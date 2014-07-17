@@ -27,6 +27,8 @@ type
     procedure ReplicatorFinished(Sender: TObject);
     procedure ServiceDestroy(Sender: TObject);
     procedure ReplicatorEmptyLog(Sender: TObject);
+    procedure ReplicatorConnectionLost(Sender: TObject;
+      Database: TCcConnection);
   private
     FDMConfig: TdmConfig;
     FRunOnce: Boolean;
@@ -60,6 +62,19 @@ end;
 function TLiveMirror.GetServiceController: TServiceController;
 begin
   Result := ServiceController;
+end;
+
+procedure TLiveMirror.ReplicatorConnectionLost(Sender: TObject;
+  Database: TCcConnection);
+var
+  dbNode: String;
+begin
+  if Database = Replicator.LocalDB then
+    dbNode := Replicator.LocalNode.Name
+  else
+    dbNode := Replicator.RemoteNode.Name;
+
+  hLog.Add('Connection lost to ' + dbNode + ' database');
 end;
 
 procedure TLiveMirror.ReplicatorEmptyLog(Sender: TObject);
@@ -243,14 +258,14 @@ begin
 
     {$IFNDEF LM_EVALUATION}
     {$IFNDEF DEBUG}
-    //Check licence and die if it's incorrect
+{    //Check licence and die if it's incorrect
     if not CheckLiveMirrorLicence then begin
       //Clear licence if it was incorrect
       LogMessage(Format(_('LiveMirror licence invalid for configuration %s.'#13#10'Clearing licence information from setup.'#13#10'Database will not be synchronized till licence is corrected.'), [FDMConfig.ConfigName]), EVENTLOG_ERROR_TYPE);
       FDMConfig.Licence := '';
       FDMConfig.SaveConfig;
       Abort;
-    end;
+    end;}
     {$ENDIF}
     {$ENDIF}
 
@@ -266,10 +281,9 @@ begin
 
       hLog.Add(_('{now} Service ready!'));
 
-      if FRunOnce then
-        Replicator.Replicate
-      else
+      if not FRunOnce then
         Replicator.AutoReplicate.Start;
+      Replicator.Replicate;
     end else begin
       cErrorMessage := _('{now} DATABASE CONFIGURATION FAILED - CONTACT COPYCAT TEAM FOR SUPPORT!');
       hLog.Add(cErrorMessage);

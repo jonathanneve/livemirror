@@ -69,6 +69,7 @@ type
     procedure MasterDBTypeChanged(Sender: TObject);
     procedure MirrorDBTypeChanged(Sender: TObject);
     class function DoEditConfig(cConfigName: String): Boolean; static;
+    procedure SaveConfig;
 //    procedure LoadConfig(cConfigName: String);
   public
     property dmConfig: TdmConfig read FdmConfig;
@@ -104,9 +105,6 @@ begin
     end;
     {$ENDIF}
     {$ENDIF}
-
-    FMasterFrame.SaveToNode;
-    FMirrorFrame.SaveToNode;
 
     if lNewConfig then
       ServiceInstall;
@@ -200,6 +198,13 @@ begin
   InstallService(Trim(edConfigName.Text), Handle);
 end;
 
+procedure TfmConfig.SaveConfig;
+begin
+  FMasterFrame.SaveToNode;
+  FMirrorFrame.SaveToNode;
+  dmConfig.SaveConfig;
+end;
+
 class function TfmConfig.DoEditConfig(cConfigName: String): Boolean;
 var
   fmConfig : TfmConfig;
@@ -212,7 +217,7 @@ begin
       fmConfig.dmConfig.LoadConfig(cConfigName);
 
     if fmConfig.ShowModal = mrOk then begin
-      fmConfig.dmConfig.SaveConfig;
+      fmConfig.SaveConfig;
       Result := True;
     end
     else

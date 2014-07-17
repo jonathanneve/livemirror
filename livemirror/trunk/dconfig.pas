@@ -53,6 +53,7 @@ type
     procedure ConfigureMirror;
     procedure RemoveConfigurationFromMaster;
     procedure RemoveConfigurationFromMirror;
+    procedure GrantAll(conf: TCcConfig);
   public
     property ExcludedTables : String read FExcludedTables write FExcludedTables;
     property Licence : String read FLicence write FLicence;
@@ -238,7 +239,21 @@ begin
   end;
   MasterConfig.Nodes.Text := 'MIRROR';
   MasterConfig.GenerateConfig;
+  GrantAll(MasterConfig);
   MasterConfig.Disconnect;
+end;
+
+procedure TdmConfig.GrantAll(conf: TCcConfig);
+begin
+  conf.Connection.ExecQuery('GRANT ALL ON RPL$LOG TO PUBLIC');
+  conf.Connection.ExecQuery('GRANT ALL ON RPL$TABLES TO PUBLIC');
+  conf.Connection.ExecQuery('GRANT ALL ON RPL$TABLES_CONFIG TO PUBLIC');
+  conf.Connection.ExecQuery('GRANT ALL ON RPL$ERRORS TO PUBLIC');
+  conf.Connection.ExecQuery('GRANT ALL ON RPL$PROCEDURES TO PUBLIC');
+  conf.Connection.ExecQuery('GRANT ALL ON RPL$CONFLICTS TO PUBLIC');
+  conf.Connection.ExecQuery('GRANT ALL ON RPL$TRACE TO PUBLIC');
+  conf.Connection.ExecQuery('GRANT ALL ON RPL$USERS TO PUBLIC');
+  conf.Connection.CommitRetaining;
 end;
 
 procedure TdmConfig.ConfigureMirror;
@@ -248,6 +263,7 @@ begin
   MirrorConfig.Nodes.Clear;
   MirrorConfig.Tables.Clear;
   MirrorConfig.GenerateConfig;
+  GrantAll(MirrorConfig);
   MirrorConfig.Disconnect;
 end;
 
