@@ -41,6 +41,7 @@ procedure TfmLogFile.LoadFile(cLogFileName: String);
 var
   slLines :TStringList;
   Stream: TStream;
+  I: Integer;
 begin
   cFileName := cLogFileName;
   Caption := ExtractFileName(cLogFileName);
@@ -49,7 +50,9 @@ begin
   try
     slLines.LoadFromStream(Stream);
     if slLines.Count > memLog.Lines.Count then begin
-      memLog.Lines.Assign(slLines);
+      for I := memLog.Lines.Count to slLines.Count-1 do
+        memLog.Lines.Add(slLines[I]);
+
       memLog.SelStart := memLog.GetTextLen;
       memLog.SelLength := 0;
       memLog.ScrollBy(0, memLog.Lines.Count);

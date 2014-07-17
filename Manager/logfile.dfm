@@ -31,10 +31,6 @@ object fmLogFile: TfmLogFile
     ScrollBars = ssBoth
     TabOrder = 0
     WordWrap = False
-    ExplicitLeft = 120
-    ExplicitTop = 32
-    ExplicitWidth = 257
-    ExplicitHeight = 217
   end
   object FileRefreshTimer: TTimer
     Enabled = False

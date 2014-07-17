@@ -70,10 +70,18 @@ object fmConfig: TfmConfig
     object tsMirror: TTabSheet
       Caption = 'Mirror database'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
     object Options: TTabSheet
       Caption = 'Options'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lbSelectExcludedTables: TLabel
         Left = 257
         Top = 34

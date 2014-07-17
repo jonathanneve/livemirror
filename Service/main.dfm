@@ -34,6 +34,7 @@ object LiveMirror: TLiveMirror
     OnException = ReplicatorException
     OnEmptyLog = ReplicatorEmptyLog
     OnLogLoaded = ReplicatorLogLoaded
+    OnConnectionLost = ReplicatorConnectionLost
     Left = 32
     Top = 24
   end

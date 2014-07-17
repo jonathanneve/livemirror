@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-07-11 18:05\n"
-"PO-Revision-Date: 2014-07-11 18:05\n"
+"POT-Creation-Date: 2014-07-17 11:54\n"
+"PO-Revision-Date: 2014-07-17 11:54\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,9 +25,9 @@ msgstr ""
 #. fmConfig..lbEvaluation..Font.Name
 #: config.dfm:40
 #. fmConfig..PageControl..Options..lbSelectExcludedTables..Font.Name
-#: config.dfm:87
+#: config.dfm:95
 #. fmConfig..PageControl..Options..lbAddRemoveMetaData..Font.Name
-#: config.dfm:109
+#: config.dfm:117
 #. fmConfigOptions..Font.Name
 #: configoptions.dfm:11
 #. fmConfigs..Font.Name
@@ -81,40 +81,40 @@ msgid "Mirror database"
 msgstr ""
 
 #. fmConfig..PageControl..Options..Caption
-#: config.dfm:75
+#: config.dfm:79
 msgid "Options"
 msgstr ""
 
 #. fmConfig..PageControl..Options..lbSelectExcludedTables..Caption
-#: config.dfm:83
+#: config.dfm:91
 msgid "Select tables"
 msgstr ""
 
 #. fmConfig..PageControl..Options..lbMetaDataStatus..Caption
-#: config.dfm:97
-#: config.pas:278
+#: config.dfm:105
+#: config.pas:283
 msgid "LiveMirror meta-data has been CREATED in master "
 "database."
 msgstr ""
 
 #. fmConfig..PageControl..Options..lbAddRemoveMetaData..Caption
-#: config.dfm:105
-#: config.pas:279
+#: config.dfm:113
+#: config.pas:284
 msgid "Remove meta-data"
 msgstr ""
 
 #. fmConfig..PageControl..Options..rbAllTables..Caption
-#: config.dfm:119
+#: config.dfm:127
 msgid "Synchronize all tables"
 msgstr ""
 
 #. fmConfig..PageControl..Options..rbExcludeSelectedTables..Caption
-#: config.dfm:130
+#: config.dfm:138
 msgid "Synchronize all except selected tables"
 msgstr ""
 
 #. fmConfig..Button3..Caption
-#: config.dfm:142
+#: config.dfm:150
 #. fmConfigOptions..Button1..Caption
 #: configoptions.dfm:80
 #. fmLicensing..Button1..Caption
@@ -123,22 +123,22 @@ msgid "Cancel"
 msgstr ""
 
 #. fmConfig..Button4..Caption
-#: config.dfm:152
+#: config.dfm:160
 msgid "Ok"
 msgstr ""
 
 #. fmConfig..edConfigName..EditMask
-#: config.dfm:161
+#: config.dfm:169
 msgid ">aaaaaaaaaaaaa;0; "
 msgstr ""
 
 #. fmConfig..btLicensing..Caption
-#: config.dfm:173
+#: config.dfm:181
 msgid "Licensing"
 msgstr ""
 
 #. fmConfig..CcConfig..Version
-#: config.dfm:178
+#: config.dfm:186
 msgid "3.06.0"
 msgstr ""
 
@@ -423,20 +423,20 @@ msgstr ""
 msgid "Courier New"
 msgstr ""
 
-#: config.pas:92
+#: config.pas:93
 msgid "You must enter a name for this configuration!"
 msgstr ""
 
-#: config.pas:92
+#: config.pas:93
 msgid "Configuration name missing"
 msgstr ""
 
-#: config.pas:282
+#: config.pas:287
 msgid "LiveMirror meta-data has been NOT BEEN created in master "
 "database."
 msgstr ""
 
-#: config.pas:283
+#: config.pas:288
 msgid "Create meta-data now"
 msgstr ""
 
