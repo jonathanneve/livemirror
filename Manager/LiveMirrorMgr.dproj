@@ -115,8 +115,8 @@ $(PostBuildEvent)]]></PostBuildEvent>
     <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
     <DCC_Define>EUREKALOG;EUREKALOG_VER7;$(DCC_Define)</DCC_Define>
     <VerInfo_Locale>1033</VerInfo_Locale>
-    <VerInfo_Build>10</VerInfo_Build>
-    <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.2.0.10;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.2.0.0;Comments=</VerInfo_Keys>
+    <VerInfo_Build>15</VerInfo_Build>
+    <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.2.0.15;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.2.0.0;Comments=</VerInfo_Keys>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Cfg_3)'!=''">
     <DCC_Define>RELEASE;LM_EVALUATION;$(DCC_Define)</DCC_Define>

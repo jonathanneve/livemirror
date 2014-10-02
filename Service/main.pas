@@ -29,6 +29,7 @@ type
     procedure ReplicatorEmptyLog(Sender: TObject);
     procedure ReplicatorConnectionLost(Sender: TObject;
       Database: TCcConnection);
+    procedure ReplicatorReplicationAborted(Sender: TObject);
   private
     FDMConfig: TdmConfig;
     FRunOnce: Boolean;
@@ -74,7 +75,7 @@ begin
   else
     dbNode := Replicator.RemoteNode.Name;
 
-  hLog.Add('Connection lost to ' + dbNode + ' database');
+  hLog.Add(Format(_('Connection lost to database : %s'), [dbNode]));
 end;
 
 procedure TLiveMirror.ReplicatorEmptyLog(Sender: TObject);
@@ -106,6 +107,11 @@ procedure TLiveMirror.ReplicatorLogLoaded(Sender: TObject);
 begin
 //  LogMessage('Starting replication : ' + IntToStr(Replicator.Log.LineCount) + ' rows to replicate...', EVENTLOG_INFORMATION_TYPE);
 	hLog.Add('{now} ' + _('Starting replication : ') + IntToStr(Replicator.Log.LineCount) + _(' rows to replicate...'));
+end;
+
+procedure TLiveMirror.ReplicatorReplicationAborted(Sender: TObject);
+begin
+  hLog.Add('{now} Replication aborted!');
 end;
 
 procedure TLiveMirror.ReplicatorReplicationError(Sender: TObject; e: Exception;
@@ -149,7 +155,8 @@ begin
       hLog.Add(_('{now} Error setting up databases for replication!'));
       hLog.AddException(E);
       hLog.Add(E.StackTrace);
-      ExceptionManager.ShowLastExceptionData;
+      raise TObject(AcquireExceptionObject);
+//      ExceptionManager.ShowLastExceptionData;
     end;
   end;
 end;
@@ -242,6 +249,7 @@ begin
     end;
     hlog.SetLogFileTimerInterval(OneMinute);
     hLog.StartLogging;
+
     hLog.Add('{/}{LNumOff}{*80*}');
     hLog.Add(_('>>>> Start {App_name}') + ' v ' + LiveMirrorVersion + '{80@}{&}{dte} {hms}{&}');
     hLog.Add(_('{@12}Path : {App_path}'));

@@ -32,6 +32,7 @@ object LiveMirror: TLiveMirror
     OnRowReplicated = ReplicatorRowReplicated
     OnReplicationError = ReplicatorReplicationError
     OnException = ReplicatorException
+    OnReplicationAborted = ReplicatorReplicationAborted
     OnEmptyLog = ReplicatorEmptyLog
     OnLogLoaded = ReplicatorLogLoaded
     OnConnectionLost = ReplicatorConnectionLost

@@ -7,13 +7,14 @@ uses
   Vcl.Controls, gnugettext;
 
 type
+  TdmConfig = class;
+
   ILMNode = interface['{F9C5A7A6-C810-4C96-8D23-A35F004DB262}']
     function GetConnection: TCcConnection;
     function GetDescription: String;
     function GetNodeType: String;
-    procedure Load(configDir: String; nodeType: String);
+    procedure Load(dmConfig: TdmConfig; nodeType: String);
     procedure Save;
-
     property NodeType: String read GetNodeType;
     property Description: String read GetDescription;
     property Connection: TCcConnection read GetConnection;
@@ -45,6 +46,7 @@ type
     FRootDir: String;
     FOnMasterDBTypeChanged: TNotifyEvent;
     FOnMirrorDBTypeChanged: TNotifyEvent;
+    FMirrorExcludedFields, FMasterExcludedFields: TStringList;
     procedure SaveLoadConfig(save: Boolean);
     procedure SetMasterDBType(const Value: String);
     procedure SetMirrorDBType(const Value: String);
@@ -53,8 +55,8 @@ type
     procedure ConfigureMirror;
     procedure RemoveConfigurationFromMaster;
     procedure RemoveConfigurationFromMirror;
-    procedure GrantAll(conf: TCcConfig);
   public
+    procedure ExcludeKeywordFieldNames(FieldList : TStringList);
     property ExcludedTables : String read FExcludedTables write FExcludedTables;
     property Licence : String read FLicence write FLicence;
     property SyncFrequency : Integer read FSyncFrequency write FSyncFrequency;
@@ -157,6 +159,11 @@ constructor TdmConfig.Create(AOwner: TComponent);
 begin
   inherited;
 
+  FMasterExcludedFields := TStringList.Create;
+  FMasterExcludedFields.Sorted := True;
+  FMirrorExcludedFields := TStringList.Create;
+  FMirrorExcludedFields.Sorted := True;
+
   FRootDir := GetLiveMirrorRoot;
   ConfigsIni := TIniFile.Create(FRootDir + 'configs.ini');
 end;
@@ -164,7 +171,20 @@ end;
 destructor TdmConfig.Destroy;
 begin
   ConfigsIni.Free;
+  FMirrorExcludedFields.Free;
+  FMasterExcludedFields.Free;
   inherited;
+end;
+
+procedure TdmConfig.ExcludeKeywordFieldNames(FieldList: TStringList);
+var
+  I: Integer;
+begin
+  for I := FieldList.Count-1 downto 0 do begin
+    if (FMirrorExcludedFields.IndexOf(FieldList[I]) > 0) or (FMasterExcludedFields.IndexOf(FieldList[I]) > 0) then begin
+      FieldList.Delete(I);
+    end;
+  end;
 end;
 
 function TdmConfig.GetNode(dbType, nodeType: String): ILMNode;
@@ -172,7 +192,7 @@ begin
   Assert(dbType = 'Interbase');
   if dbType = 'Interbase' then
     Result := TdmInterbase.Create(Self);
-  Result.Load(GetLiveMirrorRoot + 'Configs\' + FConfigName + '\', nodeType);
+  Result.Load(Self, nodeType)
 end;
 
 procedure TdmConfig.LoadConfig(cConfigName: String);
@@ -239,21 +259,7 @@ begin
   end;
   MasterConfig.Nodes.Text := 'MIRROR';
   MasterConfig.GenerateConfig;
-  GrantAll(MasterConfig);
   MasterConfig.Disconnect;
-end;
-
-procedure TdmConfig.GrantAll(conf: TCcConfig);
-begin
-  conf.Connection.ExecQuery('GRANT ALL ON RPL$LOG TO PUBLIC');
-  conf.Connection.ExecQuery('GRANT ALL ON RPL$TABLES TO PUBLIC');
-  conf.Connection.ExecQuery('GRANT ALL ON RPL$TABLES_CONFIG TO PUBLIC');
-  conf.Connection.ExecQuery('GRANT ALL ON RPL$ERRORS TO PUBLIC');
-  conf.Connection.ExecQuery('GRANT ALL ON RPL$PROCEDURES TO PUBLIC');
-  conf.Connection.ExecQuery('GRANT ALL ON RPL$CONFLICTS TO PUBLIC');
-  conf.Connection.ExecQuery('GRANT ALL ON RPL$TRACE TO PUBLIC');
-  conf.Connection.ExecQuery('GRANT ALL ON RPL$USERS TO PUBLIC');
-  conf.Connection.CommitRetaining;
 end;
 
 procedure TdmConfig.ConfigureMirror;
@@ -263,7 +269,6 @@ begin
   MirrorConfig.Nodes.Clear;
   MirrorConfig.Tables.Clear;
   MirrorConfig.GenerateConfig;
-  GrantAll(MirrorConfig);
   MirrorConfig.Disconnect;
 end;
 
