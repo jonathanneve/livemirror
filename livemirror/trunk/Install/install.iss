@@ -74,7 +74,7 @@ Filename: {app}\Manager\{#MyAppExeName}; Description: {cm:RunLMMgr}; Flags: nowa
 Filename: {app}\Guardian\LiveMirrorGuardian.exe; Parameters: /INSTALL /SILENT
 
 [Dirs]
-Name: {app}\Configs
+Name: {app}\Configs; Flags: uninsalwaysuninstall
 [Registry]
 Root: HKLM; Subkey: Software\Microtec\LiveMirror; ValueType: string; ValueName: InstallPath; ValueData: {app}; Flags: createvalueifdoesntexist uninsdeletekey
 [UninstallRun]
@@ -85,3 +85,6 @@ Filename: {app}\Misc\LiveMirrorUninstaller.exe
 [CustomMessages]
 english.RunLMMgr=Run LiveMirror Manager
 french.RunLMMgr=Ouvrir l'Administrateur LiveMirror
+[UninstallDelete]
+Name: {app}\config.ini; Type: files; Languages: 
+Name: {app}\Configs; Type: filesandordirs

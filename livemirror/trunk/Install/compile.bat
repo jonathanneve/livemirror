@@ -1,4 +1,8 @@
 @echo off
+cd c:\projects\livemirror\install
+type ..\version.rc | perl getversionnumber.pl > version.txt
+IF ERRORLEVEL 1 GOTO error
+
 call "C:\Program Files\Embarcadero\Studio\14.0\bin\rsvars.bat"
 
 brcc32 c:\projects\livemirror\version.rc

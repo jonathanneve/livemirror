@@ -89,7 +89,7 @@ uses FireDAC.VCLUI.ConnEdit, gnugettext, fConnectParamsFB, LMUtils, ShellAPI,
 procedure TfmConfig.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   if ModalResult = mrOk then begin
-    if Trim(edConfigName.Text) = '' then begin
+    if Trim(dmConfig.ConfigName) = '' then begin
       Application.MessageBox(PChar(_('You must enter a name for this configuration!')), PChar(_('Configuration name missing')), MB_ICONERROR + MB_OK);
       CanClose := False;
       Exit;
@@ -98,7 +98,7 @@ begin
     {$IFNDEF LM_EVALUATION}
     {$IFNDEF DEBUG}
     if dmConfig.Licence = '' then
-      dmConfig.Licence := TfmLicensing.AskForLicence(Trim(edConfigName.Text));
+      dmConfig.Licence := TfmLicensing.AskForLicence(Trim(dmConfig.ConfigName));
     if dmConfig.Licence = '' then begin
       CanClose := False;
       Exit;
@@ -182,7 +182,7 @@ end;
 
 procedure TfmConfig.btLicensingClick(Sender: TObject);
 begin
-  dmConfig.Licence := TfmLicensing.AskForLicence(Trim(edConfigName.Text));
+  dmConfig.Licence := TfmLicensing.AskForLicence(Trim(dmConfig.ConfigName));
 end;
 
 function TfmConfig.CreateConnectionFrame(node: ILMNode; ts: TTabSheet): ILMConnectionFrame;
@@ -195,7 +195,7 @@ end;
 
 procedure TfmConfig.ServiceInstall;
 begin
-  InstallService(Trim(edConfigName.Text), Handle);
+  InstallService(Trim(dmConfig.ConfigName), Handle);
 end;
 
 procedure TfmConfig.SaveConfig;

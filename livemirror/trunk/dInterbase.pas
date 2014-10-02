@@ -21,10 +21,10 @@ type
     CcConnection: TCcConnectionFireDAC;
   private
     FNodeType: String;
-    FConfigFileName: string;
+    FdmConfig: TdmConfig;
   public
     function GetNodeType: String;
-    procedure Load(configDir: String; nodeType: String);
+    procedure Load(dmConfig: TdmConfig; nodeType: String);
     procedure Save;
     function GetConnection: TCcConnection;
     function GetDescription: String;
@@ -59,17 +59,22 @@ begin
   Result := FNodeType;
 end;
 
-procedure TdmInterbase.Load(configDir: String; nodeType: String);
+procedure TdmInterbase.Load(dmConfig: TdmConfig; nodeType: String);
 var
   ini : TIniFile;
-  cClientDLL: String;
+  cClientDLL, configFile: String;
 begin
   FNodeType := nodeType;
-  FConfigFileName := configDir + nodeType + '.ini';
-  if not FileExists(FConfigFileName) then
+  FdmConfig := dmConfig;
+
+  if FdmConfig.ConfigName = '' then
     Exit;
 
-  ini := TIniFile.Create(FConfigFileName);
+  configFile := GetLiveMirrorRoot + 'Configs\' + FdmConfig.ConfigName + '\' + FNodeType + '.ini';;
+  if not FileExists(configFile) then
+    Exit;
+
+  ini := TIniFile.Create(configFile);
   try
     CcConnection.DBVersion := ini.ReadString('General', 'DBVersion', 'FB2.5');
     FDConnection.DriverName := Copy(CcConnection.DBVersion, 1, 2); //FB or IB
@@ -79,7 +84,7 @@ begin
     FDConnection.Params.Values['SQLDialect'] := ini.ReadString('General', 'SQLDialect', '3');
     {$IFDEF DEBUG}
     FDConnection.Params.Values['MonitorBy'] := 'FlatFile';
-    FDMoniFlatFileClientLink.FileName := ExtractFileDir(FConfigFileName) + '\debug.txt';
+    FDMoniFlatFileClientLink.FileName := ExtractFileDir(configFile) + '\debug.txt';
     FDMoniFlatFileClientLink.Tracing := True;
     {$ENDIF}
 
@@ -96,8 +101,10 @@ end;
 procedure TdmInterbase.Save;
 var
   ini : TIniFile;
+  configFile: String;
 begin
-  ini := TIniFile.Create(FConfigFileName);
+  configFile := GetLiveMirrorRoot + 'Configs\' + FdmConfig.ConfigName + '\' + FNodeType + '.ini';;
+  ini := TIniFile.Create(configFile);
   try
     ini.WriteString('General', 'DBVersion', CcConnection.DBVersion);
     ini.WriteString('General', 'DBName', FDConnection.Params.Values['Database']);

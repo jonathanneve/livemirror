@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-07-17 11:54\n"
-"PO-Revision-Date: 2014-07-17 11:54\n"
+"POT-Creation-Date: 2014-10-02 11:58\n"
+"PO-Revision-Date: 2014-10-02 11:58\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,9 +25,9 @@ msgstr ""
 #. fmConfig..lbEvaluation..Font.Name
 #: config.dfm:40
 #. fmConfig..PageControl..Options..lbSelectExcludedTables..Font.Name
-#: config.dfm:95
+#: config.dfm:87
 #. fmConfig..PageControl..Options..lbAddRemoveMetaData..Font.Name
-#: config.dfm:117
+#: config.dfm:109
 #. fmConfigOptions..Font.Name
 #: configoptions.dfm:11
 #. fmConfigs..Font.Name
@@ -81,40 +81,40 @@ msgid "Mirror database"
 msgstr ""
 
 #. fmConfig..PageControl..Options..Caption
-#: config.dfm:79
+#: config.dfm:75
 msgid "Options"
 msgstr ""
 
 #. fmConfig..PageControl..Options..lbSelectExcludedTables..Caption
-#: config.dfm:91
+#: config.dfm:83
 msgid "Select tables"
 msgstr ""
 
 #. fmConfig..PageControl..Options..lbMetaDataStatus..Caption
-#: config.dfm:105
+#: config.dfm:97
 #: config.pas:283
 msgid "LiveMirror meta-data has been CREATED in master "
 "database."
 msgstr ""
 
 #. fmConfig..PageControl..Options..lbAddRemoveMetaData..Caption
-#: config.dfm:113
+#: config.dfm:105
 #: config.pas:284
 msgid "Remove meta-data"
 msgstr ""
 
 #. fmConfig..PageControl..Options..rbAllTables..Caption
-#: config.dfm:127
+#: config.dfm:119
 msgid "Synchronize all tables"
 msgstr ""
 
 #. fmConfig..PageControl..Options..rbExcludeSelectedTables..Caption
-#: config.dfm:138
+#: config.dfm:130
 msgid "Synchronize all except selected tables"
 msgstr ""
 
 #. fmConfig..Button3..Caption
-#: config.dfm:150
+#: config.dfm:142
 #. fmConfigOptions..Button1..Caption
 #: configoptions.dfm:80
 #. fmLicensing..Button1..Caption
@@ -123,22 +123,22 @@ msgid "Cancel"
 msgstr ""
 
 #. fmConfig..Button4..Caption
-#: config.dfm:160
+#: config.dfm:152
 msgid "Ok"
 msgstr ""
 
 #. fmConfig..edConfigName..EditMask
-#: config.dfm:169
+#: config.dfm:161
 msgid ">aaaaaaaaaaaaa;0; "
 msgstr ""
 
 #. fmConfig..btLicensing..Caption
-#: config.dfm:181
+#: config.dfm:173
 msgid "Licensing"
 msgstr ""
 
 #. fmConfig..CcConfig..Version
-#: config.dfm:186
+#: config.dfm:178
 msgid "3.06.0"
 msgstr ""
 

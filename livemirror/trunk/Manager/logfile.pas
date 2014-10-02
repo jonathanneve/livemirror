@@ -53,10 +53,10 @@ begin
       for I := memLog.Lines.Count to slLines.Count-1 do
         memLog.Lines.Add(slLines[I]);
 
-      memLog.SelStart := memLog.GetTextLen;
-      memLog.SelLength := 0;
-      memLog.ScrollBy(0, memLog.Lines.Count);
-      memLog.Refresh;
+//      memLog.SelStart := memLog.GetTextLen;
+//      memLog.SelLength := 0;
+//      memLog.ScrollBy(0, memLog.Lines.Count);
+//      memLog.Refresh;
     end;
   finally
     Stream.Free;

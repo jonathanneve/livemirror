@@ -4,6 +4,6 @@
     <Transaction>2014/03/11 11:47:16.000.942,C:\Projects\livemirror\LiveMirror.groupproj=C:\Users\Jonathan\Documents\RAD Studio\Projets\ProjectGroup2.groupproj</Transaction>
   </Transactions>
 	<Default.Personality>
-		<Projects ActiveProject="C:\Projects\livemirror\Guardian\LiveMirrorGuardian.dproj"/>
+		<Projects ActiveProject="C:\Projects\livemirror\Manager\LiveMirrorMgr.dproj"/>
 	</Default.Personality>
 </BorlandProject>
