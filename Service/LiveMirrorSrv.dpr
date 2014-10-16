@@ -7,6 +7,7 @@ uses
   EResLeaks,
   ESendMailSMTP,
   EDebugExports,
+  EDebugMap,
   EDebugJCL,
   EFixSafeCallException,
   EMapWin32,

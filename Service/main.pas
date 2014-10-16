@@ -90,8 +90,7 @@ begin
 	hLog.Add('{now} ' + _('Replication failed with error : '));
 	hLog.AddException(e);
   hLog.Add(E.StackTrace);
-  raise TObject(AcquireExceptionObject);
-//  ExceptionManager.StandardEurekaNotify(ExceptObject,ExceptAddr)
+  ExceptionManager.StandardEurekaNotify(ExceptObject,ExceptAddr)
 end;
 
 procedure TLiveMirror.ReplicatorFinished(Sender: TObject);
@@ -123,7 +122,8 @@ begin
 
   {$IFDEF DEBUG}
   hLog.Add(E.StackTrace);
-  raise TObject(AcquireExceptionObject);
+  ExceptionManager.StandardEurekaNotify(ExceptObject,ExceptAddr);
+//  raise TObject(AcquireExceptionObject);
   {$ENDIF}
 end;
 
@@ -155,7 +155,8 @@ begin
       hLog.Add(_('{now} Error setting up databases for replication!'));
       hLog.AddException(E);
       hLog.Add(E.StackTrace);
-      raise TObject(AcquireExceptionObject);
+      ExceptionManager.StandardEurekaNotify(ExceptObject,ExceptAddr)
+//      raise TObject(AcquireExceptionObject);
 //      ExceptionManager.ShowLastExceptionData;
     end;
   end;
