@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-10-07 17:59\n"
-"PO-Revision-Date: 2014-10-07 17:59\n"
+"POT-Creation-Date: 2014-10-10 15:08\n"
+"PO-Revision-Date: 2014-10-10 15:08\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -59,29 +59,29 @@ msgid "Replication failed with error : "
 msgstr ""
 
 #. , EVENTLOG_INFORMATION_TYPE);
-#: main.pas:102
+#: main.pas:101
 msgid "Replication finished : "
 msgstr ""
 
-#: main.pas:102
+#: main.pas:101
 msgid "Rows replicated : "
 msgstr ""
 
-#: main.pas:103
+#: main.pas:102
 msgid "Rows with errors : "
 msgstr ""
 
 #. LogMessage('Starting replication : ' + IntToStr(Replicator.Log.LineCount) + ' rows to replicate...', EVENTLOG_INFORMATION_TYPE);
-#: main.pas:109
+#: main.pas:108
 msgid "Starting replication : "
 msgstr ""
 
-#: main.pas:109
+#: main.pas:108
 msgid " rows to replicate..."
 msgstr ""
 
+#: main.pas:119
 #: main.pas:120
-#: main.pas:121
 msgid "Error replicating row : Table "
 msgstr ""
 
@@ -105,61 +105,61 @@ msgid "{now} Error setting up databases for "
 "replication!"
 msgstr ""
 
-#: main.pas:210
+#: main.pas:211
 msgid "{now} Checking licence information..."
 msgstr ""
 
-#: main.pas:213
+#: main.pas:214
 msgid "Error checking licence, please check your Internet "
 "connection"
 msgstr ""
 
-#: main.pas:219
+#: main.pas:220
 msgid "Licencing error : "
 msgstr ""
 
-#: main.pas:225
+#: main.pas:226
 msgid "No licence set for this database configuration. Synchronization "
 "aborting."
 msgstr ""
 
-#: main.pas:254
+#: main.pas:255
 msgid ">>>> Start {App_name}"
 msgstr ""
 
-#: main.pas:255
+#: main.pas:256
 msgid "{@12}Path : {App_path}"
 msgstr ""
 
-#: main.pas:256
+#: main.pas:257
 msgid "{@12}Config. name : {App_prm-}{/}"
 msgstr ""
 
-#: main.pas:259
+#: main.pas:260
 msgid "!!! EVALUATION VERSION !!!"
 msgstr ""
 
-#: main.pas:262
+#: main.pas:263
 msgid "MASTER database :"
 msgstr ""
 
-#: main.pas:263
+#: main.pas:264
 msgid "MIRROR database :"
 msgstr ""
 
-#: main.pas:264
+#: main.pas:265
 msgid "Replication frequency :"
 msgstr ""
 
-#: main.pas:264
+#: main.pas:265
 msgid " seconds"
 msgstr ""
 
-#: main.pas:290
+#: main.pas:291
 msgid "{now} Service ready!"
 msgstr ""
 
-#: main.pas:296
+#: main.pas:297
 msgid "{now} DATABASE CONFIGURATION FAILED - CONTACT COPYCAT TEAM FOR "
 "SUPPORT!"
 msgstr ""

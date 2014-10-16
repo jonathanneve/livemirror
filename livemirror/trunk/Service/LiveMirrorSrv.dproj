@@ -5,7 +5,7 @@
         <FrameworkType>VCL</FrameworkType>
         <MainSource>LiveMirrorSrv.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Eval</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Application</AppType>
@@ -613,9 +613,12 @@ Activate=1
 atFixSafeCallException=1
 atService=1
 atWin32=1
+boSaveCompressedCopyInCaseOfError=1
+csoAllowedRenderMethods=64
 DeleteMapAfterCompile=1
 Dialog Class=""
 dpJCL=1
+dpMap=1
 Encrypt Password=""
 InjectCode=1
 InjectInfo=1

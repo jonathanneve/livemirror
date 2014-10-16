@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Microtec LiveMirror\n"
-"POT-Creation-Date: 2014-10-02 10:47\n"
+"POT-Creation-Date: 2014-10-08 17:10\n"
 "PO-Revision-Date: 2014-03-26 15:36+0100\n"
 "Last-Translator: Jonathan Neve <jonathan@jntraductions.fr>\n"
 "Language-Team: Jonathan Neve <jonathan@jntraductions.fr>\n"
@@ -57,28 +57,28 @@ msgid "Replication failed with error : "
 msgstr "Réplication échouée avec erreur : "
 
 #. , EVENTLOG_INFORMATION_TYPE);
-#: main.pas:102 
+#: main.pas:101 
 msgid "Replication finished : "
 msgstr "Réplication terminée : "
 
-#: main.pas:102 
+#: main.pas:101 
 msgid "Rows replicated : "
 msgstr "Lignes répliquées : "
 
-#: main.pas:103 
+#: main.pas:102 
 msgid "Rows with errors : "
 msgstr "Lignes en erreur : "
 
 #. LogMessage('Starting replication : ' + IntToStr(Replicator.Log.LineCount) + ' rows to replicate...', EVENTLOG_INFORMATION_TYPE);
-#: main.pas:109 
+#: main.pas:108 
 msgid "Starting replication : "
 msgstr "Réplication : "
 
-#: main.pas:109 
+#: main.pas:108 
 msgid " rows to replicate..."
 msgstr " lignes à répliquer..."
 
-#: main.pas:120  main.pas:121
+#: main.pas:119  main.pas:120
 msgid "Error replicating row : Table "
 msgstr "Impossible de répliquer la ligne : Table "
 
@@ -101,63 +101,63 @@ msgstr "{now} Configuration des bases de données effectuée avec succès !"
 msgid "{now} Error setting up databases for replication!"
 msgstr "{now} Vérification de la configuration des bases de données..."
 
-#: main.pas:210 
+#: main.pas:211 
 #, fuzzy
 msgid "{now} Checking licence information..."
 msgstr "{now} Vérification de la configuration des bases de données..."
 
-#: main.pas:213 
+#: main.pas:214 
 msgid "Error checking licence, please check your Internet connection"
 msgstr ""
 "Impossible de valider la licence, merci de vous assurer que votre connexion "
 "Internet fonctionne"
 
-#: main.pas:219 
+#: main.pas:220 
 msgid "Licencing error : "
 msgstr "Erreur de licence :"
 
-#: main.pas:225 
+#: main.pas:226 
 msgid ""
 "No licence set for this database configuration. Synchronization aborting."
 msgstr ""
 
-#: main.pas:254 
+#: main.pas:255 
 msgid ">>>> Start {App_name}"
 msgstr ">>>> Démarrage  {App_name}"
 
-#: main.pas:255 
+#: main.pas:256 
 msgid "{@12}Path : {App_path}"
 msgstr "{@12}Chemin : {App_path}"
 
-#: main.pas:256 
+#: main.pas:257 
 msgid "{@12}Config. name : {App_prm-}{/}"
 msgstr "{@12}Nom de configuration : {App_prm-}{/}"
 
-#: main.pas:259 
+#: main.pas:260 
 msgid "!!! EVALUATION VERSION !!!"
 msgstr "!!! VERSION D'EVALUATION !!!"
 
-#: main.pas:262 
+#: main.pas:263 
 msgid "MASTER database :"
 msgstr "Base de données MAITRE : "
 
-#: main.pas:263 
+#: main.pas:264 
 msgid "MIRROR database :"
 msgstr "Base de données MIRROIR :"
 
-#: main.pas:264 
+#: main.pas:265 
 msgid "Replication frequency :"
 msgstr "Fréquence de réplication :"
 
-#: main.pas:264 
+#: main.pas:265 
 msgid " seconds"
 msgstr " secondes"
 
-#: main.pas:290 
+#: main.pas:291 
 msgid "{now} Service ready!"
 msgstr "{now} Service prêt !"
 
-#: main.pas:296 
+#: main.pas:297 
 msgid "{now} DATABASE CONFIGURATION FAILED - CONTACT COPYCAT TEAM FOR SUPPORT!"
 msgstr ""
 
