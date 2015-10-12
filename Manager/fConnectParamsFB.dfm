@@ -151,37 +151,16 @@ object frConnectParamsFB: TfrConnectParamsFB
     Left = 240
     Top = 40
   end
-  object OpenDialogDLL: TFileOpenDialog
-    FavoriteLinks = <>
-    FileTypes = <
-      item
-        DisplayName = 'Windows library'
-        FileMask = '*.dll'
-      end
-      item
-        DisplayName = 'Any file'
-        FileMask = '*.*'
-      end>
+  object OpenDialogDLL: TOpenDialog
+    Filter = 'Libraries (*.dll)|*.dll'
     Options = []
     Left = 56
     Top = 16
   end
-  object OpenDialog: TFileOpenDialog
-    FavoriteLinks = <>
-    FileTypes = <
-      item
-        DisplayName = 'Interbase databases'
-        FileMask = '*.gdb'
-      end
-      item
-        DisplayName = 'FireBird databases'
-        FileMask = '*.fdb'
-      end
-      item
-        DisplayName = 'Any file'
-        FileMask = '*.*'
-      end>
-    FileTypeIndex = 2
+  object OpenDialog: TOpenDialog
+    Filter = 
+      'Firebird databases (*.fdb)|*.fdb|Interbase databases (*.gdb)|*.g' +
+      'db|Any file|*.*'
     Options = []
     Left = 64
     Top = 56
@@ -200,12 +179,14 @@ object frConnectParamsFB: TfrConnectParamsFB
       'Password=dfgdc'
       'SQLDialect=1'
       'DriverID=FB')
+    TxOptions.AutoStop = False
     LoginPrompt = False
     Transaction = FDTransaction1Old
     UpdateTransaction = FDTransaction1Old
     Left = 152
   end
   object FDTransaction1Old: TFDTransaction
+    Options.AutoStop = False
     Connection = FDConnectionOld
     Left = 160
     Top = 48

@@ -14,19 +14,22 @@ object LiveMirror: TLiveMirror
   Height = 276
   Width = 419
   object Replicator: TCcReplicator
-    Version = '3.06.0'
+    TrackInconsistentDeletes = False
+    MergeChangedFieldsOnConflict = False
+    Direction = sdLocalToRemote
+    ReplicateOnlyChangedFields = True
     AutoClearMetadata = True
     FailIfNoPK = False
     TrimCharFields = False
     AutoPriority = True
-    LogErrors = False
+    OnReplicationResult = ReplicatorReplicationResult
     HarmonizeFields = False
-    KeepConnection = False
+    KeepConnection = True
     AutoReplicate.Frequency = 30
     AutoReplicate.Enabled = False
     AutoCommit.Frequency = 30
     AutoCommit.CommitType = ctNone
-    CommitOnFinished = ctCommit
+    CommitOnFinished = ctNone
     AbortOnError = False
     OnFinished = ReplicatorFinished
     OnRowReplicated = ReplicatorRowReplicated
@@ -36,7 +39,67 @@ object LiveMirror: TLiveMirror
     OnEmptyLog = ReplicatorEmptyLog
     OnLogLoaded = ReplicatorLogLoaded
     OnConnectionLost = ReplicatorConnectionLost
+    Version = '3.9.1'
+    KeepRowsInLog = False
     Left = 32
     Top = 24
+  end
+  object qGenerators: TCcQuery
+    SelectStatement = True
+    ParamCheck = True
+    SQL.Strings = (
+      ' select rdb$generator_name as gen_name'
+      '  from rdb$generators'
+      '  where (rdb$system_flag = 0 or rdb$system_flag is null)')
+    Left = 32
+    Top = 88
+  end
+  object qSyncGenerator: TCcQuery
+    SelectStatement = False
+    ParamCheck = True
+    SQL.Strings = (
+      'set generator %gen_name to %value')
+    Left = 128
+    Top = 80
+  end
+  object CcQuery1: TCcQuery
+    SelectStatement = False
+    ParamCheck = False
+    SQL.Strings = (
+      'execute block'
+      'returns (gen_name varchar(50), val numeric(18,0))'
+      'as'
+      'begin'
+      '  for select rdb$generator_name '
+      '  from rdb$generators'
+      
+        '  where coalesce(rdb$system_flag, 0) = 0  into :gen_name do begi' +
+        'n'
+      
+        '    execute statement ('#39'select gen_id('#39' || :gen_name || '#39', 0) fr' +
+        'om rdb$database'#39') into :val;'
+      '    suspend;'
+      '  end'
+      'end')
+    Left = 312
+    Top = 32
+  end
+  object qGetGenValue: TCcQuery
+    SelectStatement = True
+    ParamCheck = True
+    SQL.Strings = (
+      'select gen_id(%gen_name, 0) as val from rdb$database')
+    Left = 128
+    Top = 32
+  end
+  object qMirrorGenerators: TCcQuery
+    SelectStatement = True
+    ParamCheck = True
+    SQL.Strings = (
+      ' select rdb$generator_name as gen_name'
+      '  from rdb$generators'
+      '  where (rdb$system_flag = 0 or rdb$system_flag is null)')
+    Left = 32
+    Top = 144
   end
 end

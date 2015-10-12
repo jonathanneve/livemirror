@@ -4,12 +4,17 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes,
-  CcReplicator, CcConf, CcProviders, DB, dconfig, CcConfStorage, Vcl.SvcMgr,
-  EExceptionManager;
+  CcReplicator, CcConf, CcProviders, DB, dconfig, Vcl.SvcMgr,
+  EExceptionManager, CcDB;
 
 type
   TLiveMirror = class(TService)
     Replicator: TCcReplicator;
+    qGenerators: TCcQuery;
+    qSyncGenerator: TCcQuery;
+    CcQuery1: TCcQuery;
+    qGetGenValue: TCcQuery;
+    qMirrorGenerators: TCcQuery;
     procedure ServiceStart(Sender: TService; var Started: Boolean);
     procedure ServiceCreate(Sender: TObject);
     procedure ServiceStop(Sender: TService; var Stopped: Boolean);
@@ -19,10 +24,6 @@ type
     procedure ServiceShutdown(Sender: TService);
     procedure ServiceAfterInstall(Sender: TService);
     procedure ReplicatorLogLoaded(Sender: TObject);
-    procedure ReplicatorRowReplicated(Sender: TObject; TableName: string;
-      Fields: TFields);
-    procedure ReplicatorReplicationError(Sender: TObject; e: Exception;
-      var CanContinue: Boolean);
     procedure ReplicatorException(Sender: TObject; e: Exception);
     procedure ReplicatorFinished(Sender: TObject);
     procedure ServiceDestroy(Sender: TObject);
@@ -30,6 +31,11 @@ type
     procedure ReplicatorConnectionLost(Sender: TObject;
       Database: TCcConnection);
     procedure ReplicatorReplicationAborted(Sender: TObject);
+    procedure ReplicatorReplicationResult(Sender: TObject);
+    procedure ReplicatorReplicationError(Sender: TObject; e: Exception;
+      var CanContinue, SkipToRemote: Boolean);
+    procedure ReplicatorRowReplicated(Sender: TObject; TableName: string;
+      Fields: TCcMemoryFields; QueryType: TCcQueryType);
   private
     FDMConfig: TdmConfig;
     FRunOnce: Boolean;
@@ -40,6 +46,7 @@ type
     {$ENDIF}
 
     function ConfigDatabases: Boolean;
+    procedure ReplicateGenerators;
   public
     procedure Initialize;
     function GetServiceController: TServiceController; override;
@@ -105,7 +112,7 @@ end;
 procedure TLiveMirror.ReplicatorLogLoaded(Sender: TObject);
 begin
 //  LogMessage('Starting replication : ' + IntToStr(Replicator.Log.LineCount) + ' rows to replicate...', EVENTLOG_INFORMATION_TYPE);
-	hLog.Add('{now} ' + _('Starting replication : ') + IntToStr(Replicator.Log.LineCount) + _(' rows to replicate...'));
+	hLog.Add('{now} ' + _('Starting replication : '));// + IntToStr(Replicator.Log.LineCount) + _(' rows to replicate...'));
 end;
 
 procedure TLiveMirror.ReplicatorReplicationAborted(Sender: TObject);
@@ -114,7 +121,7 @@ begin
 end;
 
 procedure TLiveMirror.ReplicatorReplicationError(Sender: TObject; e: Exception;
-  var CanContinue: Boolean);
+  var CanContinue, SkipToRemote: Boolean);
 begin
   LogMessage(_('Error replicating row : Table ') + Replicator.Log.TableName + ' [' + Replicator.Log.PrimaryKeys + ']' + #13#10 + e.Message, EVENTLOG_WARNING_TYPE);
 	hLog.Add('{now} ' + _('Error replicating row : Table ') + Replicator.Log.TableName + ' [' + Replicator.Log.Keys.PrimaryKeyValues + ']');
@@ -127,13 +134,80 @@ begin
   {$ENDIF}
 end;
 
+procedure TLiveMirror.ReplicateGenerators;
+var
+  slMirrorGenerators: TStringList;
+begin
+  if (FDMConfig.MasterDBType = 'Interbase') and (FDMConfig.MirrorDBType = 'Interbase') then
+  begin
+    qGenerators.Close;
+    qGenerators.Connection := FDMConfig.MasterNode.Connection;
+    qGenerators.Exec;
+
+    slMirrorGenerators := TStringList.Create;
+    try
+      qMirrorGenerators.Close;
+      qMirrorGenerators.Connection := FDMConfig.MirrorNode.Connection;
+      qMirrorGenerators.Exec;
+      while not qMirrorGenerators.Eof do
+      begin
+        slMirrorGenerators.Add(qMirrorGenerators.Field['gen_name'].AsString);
+        qMirrorGenerators.Next;
+      end;
+
+      while not qGenerators.Eof do
+      begin
+        if slMirrorGenerators.IndexOf(qGenerators.Field['gen_name'].Value) >= 0 then
+        begin
+          qGetGenValue.Close;
+          qGetGenValue.Connection := FDMConfig.MasterNode.Connection;
+          qGetGenValue.Macro['gen_name'].Value := qGenerators.Field['gen_name'].Value;
+          qGetGenValue.Exec;
+
+          qSyncGenerator.Close;
+          qSyncGenerator.Connection := FDMConfig.MirrorNode.Connection;
+          qSyncGenerator.Macro['gen_name'].Value := qGenerators.Field['gen_name'].Value;
+          qSyncGenerator.Macro['value'].Value := qGetGenValue.Field['val'].Value;
+          qSyncGenerator.Exec;
+        end;
+        qGenerators.Next;
+      end;
+    finally
+      slMirrorGenerators.Free;
+    end;
+  end;
+end;
+
+procedure TLiveMirror.ReplicatorReplicationResult(Sender: TObject);
+begin
+  ReplicateGenerators;
+
+  if Replicator.ReplicateOnlyChangedFields then begin
+    if (Replicator.LastResult.ResultType = rtReplicated) or (Replicator.LastResult.ResultType = rtNothingToReplicate) then begin
+      if Replicator.LocalDB.InTransaction then
+        Replicator.LocalDB.Commit;
+      if Replicator.RemoteDB.InTransaction then
+        Replicator.RemoteDB.Commit;
+    end else begin
+      if Replicator.LocalDB.InTransaction then
+        Replicator.LocalDB.Rollback;
+      if Replicator.RemoteDB.InTransaction then
+        Replicator.RemoteDB.Rollback;
+    end;
+    Replicator.Disconnect;
+  end;
+end;
+
 procedure TLiveMirror.ReplicatorRowReplicated(Sender: TObject;
-  TableName: string; Fields: TFields);
+  TableName: string; Fields: TCcMemoryFields; QueryType: TCcQueryType);
 begin
 //  LogMessage('Row replicated : Table ' + TableName + ' [' +  Replicator.Log.PrimaryKeys + ']', EVENTLOG_INFORMATION_TYPE);
   hLog.Add('{now} ' + _('Row replicated : Table : ') + TableName + ' [' + Replicator.Log.Keys.PrimaryKeyValues + ']');
-	Replicator.LocalDB.CommitRetaining;
-	Replicator.RemoteDB.CommitRetaining;
+
+  if not Replicator.ReplicateOnlyChangedFields then begin
+    Replicator.LocalDB.CommitRetaining;
+    Replicator.RemoteDB.CommitRetaining;
+  end;
 end;
 
 function TLiveMirror.ConfigDatabases: Boolean;
@@ -263,6 +337,7 @@ begin
     hLog.Add(_('MASTER database :') + #9 + FDMConfig.MasterNode.Description);
     hLog.Add(_('MIRROR database :') + #9 + FDMConfig.MirrorNode.Description);
     hLog.Add(_('Replication frequency :') + #9 + IntToStr(FDMConfig.SyncFrequency) + _(' seconds'));
+//    hLog.Add(_('Replicating only changed fields :') + #9 + BoolToStr(FDMConfig.TrackChanges));
     hLog.Add('{/}{LNumOff}{*80*}');
 
     {$IFNDEF LM_EVALUATION}
@@ -283,6 +358,8 @@ begin
     if ConfigDatabases then begin
       Replicator.AutoReplicate.Frequency := FDMConfig.SyncFrequency;
       Replicator.AutoReplicate.Enabled := True;
+      Replicator.Direction := sdLocalToRemote;
+      Replicator.ReplicateOnlyChangedFields := FDMConfig.MasterDBType = 'Interbase';//FDMConfig.TrackChanges;
       Replicator.LocalNode.Connection := FDMConfig.MasterNode.Connection;
       Replicator.LocalNode.Name := 'MASTER';
       Replicator.RemoteNode.Connection := FDMConfig.MirrorNode.Connection;

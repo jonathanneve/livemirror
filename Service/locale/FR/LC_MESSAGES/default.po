@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Microtec LiveMirror\n"
-"POT-Creation-Date: 2014-10-08 17:10\n"
+"POT-Creation-Date: 2015-10-12 15:50\n"
 "PO-Revision-Date: 2014-03-26 15:36+0100\n"
 "Last-Translator: Jonathan Neve <jonathan@jntraductions.fr>\n"
 "Language-Team: Jonathan Neve <jonathan@jntraductions.fr>\n"
@@ -38,128 +38,216 @@ msgid "Microtec LiveMirror"
 msgstr "Microtec LiveMirror"
 
 #. LiveMirror..Replicator..Version
-#: main.dfm:17 
-#, fuzzy
-msgid "3.06.0"
-msgstr "3.06.0 beta"
+#: main.dfm:42 
+msgid "3.9.1"
+msgstr ""
 
-#: main.pas:78 
+#. LiveMirror..qGenerators....SQL.Strings
+#. LiveMirror..qMirrorGenerators....SQL.Strings
+#: main.dfm:51  main.dfm:99
+msgid " select rdb$generator_name as gen_name"
+msgstr ""
+
+#. LiveMirror..qGenerators....SQL.Strings
+#. LiveMirror..CcQuery1....SQL.Strings
+#. LiveMirror..qMirrorGenerators....SQL.Strings
+#: main.dfm:52  main.dfm:74 main.dfm:100
+msgid "  from rdb$generators"
+msgstr ""
+
+#. LiveMirror..qGenerators....SQL.Strings
+#. LiveMirror..qMirrorGenerators....SQL.Strings
+#: main.dfm:53  main.dfm:101
+msgid "  where (rdb$system_flag = 0 or rdb$system_flag is null)"
+msgstr ""
+
+#. LiveMirror..qSyncGenerator....SQL.Strings
+#: main.dfm:61 
+msgid "set generator %gen_name to %value"
+msgstr ""
+
+#. LiveMirror..CcQuery1....SQL.Strings
+#: main.dfm:69 
+msgid "execute block"
+msgstr ""
+
+#. LiveMirror..CcQuery1....SQL.Strings
+#: main.dfm:70 
+msgid "returns (gen_name varchar(50), val numeric(18,0))"
+msgstr ""
+
+#. LiveMirror..CcQuery1....SQL.Strings
+#: main.dfm:71 
+msgid "as"
+msgstr ""
+
+#. LiveMirror..CcQuery1....SQL.Strings
+#: main.dfm:72 
+msgid "begin"
+msgstr ""
+
+#. LiveMirror..CcQuery1....SQL.Strings
+#: main.dfm:73 
+msgid "  for select rdb$generator_name "
+msgstr ""
+
+#. LiveMirror..CcQuery1......SQL.Strings
+#: main.dfm:77 
+msgid "  where coalesce(rdb$system_flag, 0) = 0  into :gen_name do begin"
+msgstr ""
+
+#. LiveMirror..CcQuery1......SQL.Strings
+#: main.dfm:80 
+msgid ""
+"    execute statement ('select gen_id(' || :gen_name || ', 0) from rdb"
+"$database') into :val;"
+msgstr ""
+
+#. LiveMirror..CcQuery1....SQL.Strings
+#: main.dfm:81 
+msgid "    suspend;"
+msgstr ""
+
+#. LiveMirror..CcQuery1....SQL.Strings
+#: main.dfm:82 
+#, fuzzy
+msgid "  end"
+msgstr " secondes"
+
+#. LiveMirror..CcQuery1....SQL.Strings
+#: main.dfm:83 
+msgid "end"
+msgstr ""
+
+#. LiveMirror..qGetGenValue....SQL.Strings
+#: main.dfm:91 
+msgid "select gen_id(%gen_name, 0) as val from rdb$database"
+msgstr ""
+
+#: main.pas:85 
 msgid "Connection lost to database : %s"
 msgstr ""
 
-#: main.pas:84 
+#: main.pas:91 
 #, fuzzy
 msgid "{now} Nothing to replicate"
 msgstr " lignes à répliquer..."
 
-#: main.pas:89  main.pas:90
+#: main.pas:96  main.pas:97
 msgid "Replication failed with error : "
 msgstr "Réplication échouée avec erreur : "
 
 #. , EVENTLOG_INFORMATION_TYPE);
-#: main.pas:101 
+#: main.pas:108 
 msgid "Replication finished : "
 msgstr "Réplication terminée : "
 
-#: main.pas:101 
+#: main.pas:108 
 msgid "Rows replicated : "
 msgstr "Lignes répliquées : "
 
-#: main.pas:102 
+#: main.pas:109 
 msgid "Rows with errors : "
 msgstr "Lignes en erreur : "
 
-#. LogMessage('Starting replication : ' + IntToStr(Replicator.Log.LineCount) + ' rows to replicate...', EVENTLOG_INFORMATION_TYPE);
-#: main.pas:108 
+#. + IntToStr(Replicator.Log.LineCount) + _(' rows to replicate...'));
+#: main.pas:115 
 msgid "Starting replication : "
 msgstr "Réplication : "
 
-#: main.pas:108 
-msgid " rows to replicate..."
-msgstr " lignes à répliquer..."
-
-#: main.pas:119  main.pas:120
+#: main.pas:126  main.pas:127
 msgid "Error replicating row : Table "
 msgstr "Impossible de répliquer la ligne : Table "
 
 #. LogMessage('Row replicated : Table ' + TableName + ' [' +  Replicator.Log.PrimaryKeys + ']', EVENTLOG_INFORMATION_TYPE);
-#: main.pas:134 
+#: main.pas:205 
 msgid "Row replicated : Table : "
 msgstr "Ligne répliquée : Table : "
 
-#: main.pas:146 
+#: main.pas:220 
 msgid "{now} Checking database configuration..."
 msgstr "{now} Vérification de la configuration des bases de données..."
 
 #. We save the config file so that the MetaDataCreated field gets set
-#: main.pas:151 
+#: main.pas:225 
 msgid "{now} Databases configuration configured successfully!"
 msgstr "{now} Configuration des bases de données effectuée avec succès !"
 
-#: main.pas:155 
+#: main.pas:229 
 #, fuzzy
 msgid "{now} Error setting up databases for replication!"
 msgstr "{now} Vérification de la configuration des bases de données..."
 
-#: main.pas:211 
+#: main.pas:285 
 #, fuzzy
 msgid "{now} Checking licence information..."
 msgstr "{now} Vérification de la configuration des bases de données..."
 
-#: main.pas:214 
+#: main.pas:288 
 msgid "Error checking licence, please check your Internet connection"
 msgstr ""
 "Impossible de valider la licence, merci de vous assurer que votre connexion "
 "Internet fonctionne"
 
-#: main.pas:220 
+#: main.pas:294 
 msgid "Licencing error : "
 msgstr "Erreur de licence :"
 
-#: main.pas:226 
+#: main.pas:300 
 msgid ""
 "No licence set for this database configuration. Synchronization aborting."
 msgstr ""
 
-#: main.pas:255 
+#: main.pas:329 
 msgid ">>>> Start {App_name}"
 msgstr ">>>> Démarrage  {App_name}"
 
-#: main.pas:256 
+#: main.pas:330 
 msgid "{@12}Path : {App_path}"
 msgstr "{@12}Chemin : {App_path}"
 
-#: main.pas:257 
+#: main.pas:331 
 msgid "{@12}Config. name : {App_prm-}{/}"
 msgstr "{@12}Nom de configuration : {App_prm-}{/}"
 
-#: main.pas:260 
+#: main.pas:334 
 msgid "!!! EVALUATION VERSION !!!"
 msgstr "!!! VERSION D'EVALUATION !!!"
 
-#: main.pas:263 
+#: main.pas:337 
 msgid "MASTER database :"
 msgstr "Base de données MAITRE : "
 
-#: main.pas:264 
+#: main.pas:338 
 msgid "MIRROR database :"
 msgstr "Base de données MIRROIR :"
 
-#: main.pas:265 
+#: main.pas:339 
 msgid "Replication frequency :"
 msgstr "Fréquence de réplication :"
 
-#: main.pas:265 
+#: main.pas:339 
 msgid " seconds"
 msgstr " secondes"
 
-#: main.pas:291 
+#: main.pas:368 
 msgid "{now} Service ready!"
 msgstr "{now} Service prêt !"
 
-#: main.pas:297 
+#: main.pas:374 
 msgid "{now} DATABASE CONFIGURATION FAILED - CONTACT COPYCAT TEAM FOR SUPPORT!"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Replicating only changed fields :"
+#~ msgstr "Réplication terminée : "
+
+#, fuzzy
+#~ msgid "3.08.0"
+#~ msgstr "3.06.0 beta"
+
+#~ msgid " rows to replicate..."
+#~ msgstr " lignes à répliquer..."
 
 #~ msgid ""
 #~ "LiveMirror licence invalid for configuration %s.\n"

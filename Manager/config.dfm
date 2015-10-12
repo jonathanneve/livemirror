@@ -2,7 +2,7 @@ object fmConfig: TfmConfig
   Left = 0
   Top = 0
   Caption = 'Setup backup configuration'
-  ClientHeight = 241
+  ClientHeight = 274
   ClientWidth = 433
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -18,7 +18,7 @@ object fmConfig: TfmConfig
   OnShow = FormShow
   DesignSize = (
     433
-    241)
+    274)
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -30,9 +30,10 @@ object fmConfig: TfmConfig
   end
   object lbEvaluation: TLabel
     Left = 12
-    Top = 211
+    Top = 243
     Width = 223
     Height = 23
+    Anchors = [akLeft, akBottom]
     Caption = 'EVALUATION VERSION'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clMaroon
@@ -41,6 +42,7 @@ object fmConfig: TfmConfig
     Font.Style = [fsBold]
     ParentFont = False
     StyleElements = [seClient, seBorder]
+    ExplicitTop = 211
   end
   object edFrenquency: TLabeledEdit
     Left = 269
@@ -60,20 +62,81 @@ object fmConfig: TfmConfig
     Left = 8
     Top = 51
     Width = 418
-    Height = 154
+    Height = 187
     ActivePage = tsMaster
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 2
+    ExplicitHeight = 154
     object tsMaster: TTabSheet
       Caption = 'Master database'
+      ExplicitTop = 25
+      ExplicitHeight = 126
+      object Panel1: TPanel
+        Left = 0
+        Top = 0
+        Width = 410
+        Height = 33
+        Align = alTop
+        TabOrder = 0
+        object Label2: TLabel
+          Left = 8
+          Top = 8
+          Width = 71
+          Height = 13
+          Caption = 'Database type'
+        end
+        object cbMasterDBType: TComboBox
+          Left = 85
+          Top = 5
+          Width = 164
+          Height = 21
+          Style = csDropDownList
+          TabOrder = 0
+          OnChange = cbMasterDBTypeChange
+          Items.Strings = (
+            'Firebird'
+            'Microsoft SQL Server')
+        end
+      end
     end
     object tsMirror: TTabSheet
       Caption = 'Mirror database'
       ImageIndex = 1
+      ExplicitTop = 25
+      ExplicitHeight = 126
+      object Panel2: TPanel
+        Left = 0
+        Top = 0
+        Width = 410
+        Height = 33
+        Align = alTop
+        TabOrder = 0
+        ExplicitTop = 8
+        object Label3: TLabel
+          Left = 8
+          Top = 8
+          Width = 71
+          Height = 13
+          Caption = 'Database type'
+        end
+        object cbMirrorDBType: TComboBox
+          Left = 85
+          Top = 5
+          Width = 164
+          Height = 21
+          Style = csDropDownList
+          TabOrder = 0
+          OnChange = cbMirrorDBTypeChange
+          Items.Strings = (
+            'Firebird'
+            'Microsoft SQL Server')
+        end
+      end
     end
     object Options: TTabSheet
       Caption = 'Options'
       ImageIndex = 2
+      ExplicitHeight = 126
       object lbSelectExcludedTables: TLabel
         Left = 257
         Top = 34
@@ -91,14 +154,14 @@ object fmConfig: TfmConfig
       end
       object lbMetaDataStatus: TLabel
         Left = 10
-        Top = 71
+        Top = 87
         Width = 295
         Height = 13
         Caption = 'LiveMirror meta-data has been CREATED in master database.'
       end
       object lbAddRemoveMetaData: TLabel
         Left = 10
-        Top = 90
+        Top = 106
         Width = 111
         Height = 13
         Cursor = crHandPoint
@@ -131,27 +194,41 @@ object fmConfig: TfmConfig
         TabOrder = 1
         OnClick = rbAllTablesClick
       end
+      object cbTrackChanges: TCheckBox
+        Left = 10
+        Top = 62
+        Width = 322
+        Height = 17
+        Caption = 'Replicate only changed fields'
+        Ctl3D = False
+        ParentCtl3D = False
+        TabOrder = 2
+        Visible = False
+        OnClick = cbTrackChangesClick
+      end
     end
   end
   object Button3: TButton
     Left = 350
-    Top = 208
+    Top = 241
     Width = 75
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = 'Cancel'
     ModalResult = 2
     TabOrder = 3
+    ExplicitTop = 208
   end
   object Button4: TButton
     Left = 269
-    Top = 208
+    Top = 241
     Width = 75
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = 'Ok'
     ModalResult = 1
     TabOrder = 4
+    ExplicitTop = 208
   end
   object edConfigName: TMaskEdit
     Left = 8
@@ -166,20 +243,20 @@ object fmConfig: TfmConfig
   end
   object btLicensing: TButton
     Left = 8
-    Top = 208
+    Top = 241
     Width = 75
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = 'Licensing'
     TabOrder = 5
     OnClick = btLicensingClick
+    ExplicitTop = 208
   end
   object CcConfig: TCcConfig
-    Version = '3.06.0'
+    TrackFieldChanges = False
     FailIfNoPK = False
-    DatabaseNode = dnLocal
-    Terminator = #167
     Tables = <>
+    Version = '3.9.1'
     Left = 156
     Top = 6
   end

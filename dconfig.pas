@@ -3,7 +3,7 @@ unit dconfig;
 interface
 
 uses
-  System.SysUtils, System.Classes, CcConfStorage, CcConf, IniFiles, CcProviders,
+  System.SysUtils, System.Classes, CcConf, IniFiles, CcProviders,
   Vcl.Controls, gnugettext;
 
 type
@@ -25,6 +25,7 @@ type
     procedure SaveToNode;
     function GetNode: ILMNode;
     procedure SetNode(n: ILMNode);
+    procedure FreeFrame;
 
     property Node : ILMNode read GetNode write SetNode;
   end;
@@ -44,6 +45,7 @@ type
     FConfigName: string;
     FMetaDataCreated: Boolean;
     FRootDir: String;
+    FTrackChanges :Boolean;
     FOnMasterDBTypeChanged: TNotifyEvent;
     FOnMirrorDBTypeChanged: TNotifyEvent;
     FMirrorExcludedFields, FMasterExcludedFields: TStringList;
@@ -55,19 +57,26 @@ type
     procedure ConfigureMirror;
     procedure RemoveConfigurationFromMaster;
     procedure RemoveConfigurationFromMirror;
+    function GetMasterDBTypeDescription: String;
+    function GetMirrorDBTypeDescription: String;
+    function DBTypeDescription(dbType: String): String;
   public
     procedure ExcludeKeywordFieldNames(FieldList : TStringList);
     property ExcludedTables : String read FExcludedTables write FExcludedTables;
     property Licence : String read FLicence write FLicence;
     property SyncFrequency : Integer read FSyncFrequency write FSyncFrequency;
+    property TrackChanges : Boolean read FTrackChanges write FTrackChanges;
     property MasterNode: ILMNode read FMasterNode;
     property MirrorNode: ILMNode read FMirrorNode;
     property MasterDBType: String read FMasterDBType write SetMasterDBType;
     property MirrorDBType: String read FMirrorDBType write SetMirrorDBType;
+    property MasterDBTypeDescription: String read GetMasterDBTypeDescription;
+    property MirrorDBTypeDescription: String read GetMirrorDBTypeDescription;
     property MetaDataCreated: Boolean read FMetaDataCreated write FMetaDataCreated;
     property ConfigName: String read FConfigName write FConfigName;
     property OnMasterDBTypeChanged: TNotifyEvent read FOnMasterDBTypeChanged write FOnMasterDBTypeChanged;
     property OnMirrorDBTypeChanged: TNotifyEvent read FOnMirrorDBTypeChanged write FOnMirrorDBTypeChanged;
+    function DBTypeByDescription(desc: string): String;
 
     procedure LoadConfig(cConfigName: String);
     procedure SaveConfig;
@@ -81,7 +90,7 @@ implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
-uses dInterbase, LMUtils;
+uses dInterbase, LMUtils, dFireDAC;
 
 {$R *.dfm}
 
@@ -98,6 +107,7 @@ var
   begin
     ConfigsIni.WriteString(FConfigName, 'ExcludedTables', FExcludedTables);
     ConfigsIni.WriteString(FConfigName, 'SyncFrequency', IntToStr(FSyncFrequency));
+    ConfigsIni.WriteBool(FConfigName, 'TrackChanges', FTrackChanges);
     {$IFNDEF LM_EVALUATION}
     {$IFNDEF DEBUG}
     ConfigsIni.WriteString(FConfigName, 'Licence', FLicence);
@@ -114,6 +124,7 @@ var
   begin
     FMetaDataCreated := StrToBool(ConfigsIni.ReadString(FConfigName, 'MetaDataCreated', 'False'));
     FExcludedTables := ConfigsIni.ReadString(FConfigName, 'ExcludedTables', '');
+    FTrackChanges := ConfigsIni.ReadBool(FConfigName, 'TrackChanges', True);
 
     {$IFNDEF LM_EVALUATION}
     {$IFNDEF DEBUG}
@@ -135,6 +146,18 @@ begin
     DoSaveConfig
   else
     DoLoadConfig;
+end;
+
+function TdmConfig.DBTypeByDescription(desc: string): String;
+begin
+  if desc = 'Firebird' then
+    Result := 'Interbase'
+  else if desc =  'Microsoft SQL Server' then
+    Result := 'MSSQL'
+  else if desc =  'PostgreSQL' then
+    Result := 'Postgres'
+  else
+    Result := desc;
 end;
 
 procedure TdmConfig.SetMasterDBType(const Value: String);
@@ -187,11 +210,35 @@ begin
   end;
 end;
 
+function TdmConfig.GetMasterDBTypeDescription: String;
+begin
+  Result := DBTypeDescription(MasterDBType);
+end;
+
+function TdmConfig.GetMirrorDBTypeDescription: String;
+begin
+  Result := DBTypeDescription(MirrorDBType);
+end;
+
+function TdmConfig.DBTypeDescription(dbType: String): String;
+begin
+  if dbType = 'Interbase' then
+    Result := 'Firebird'
+  else if dbType =  'MSSQL' then
+    Result := 'Microsoft SQL Server'
+  else if dbType =  'Postgres' then
+    Result := 'PostgreSQL'
+  else
+    Result := dbType;
+end;
+
 function TdmConfig.GetNode(dbType, nodeType: String): ILMNode;
 begin
-  Assert(dbType = 'Interbase');
+  //Assert(dbType = 'Interbase');
   if dbType = 'Interbase' then
-    Result := TdmInterbase.Create(Self);
+    Result := TdmInterbase.Create(Self)
+  else
+    Result := TdmFireDAC.Create(Self, dbType);
   Result.Load(Self, nodeType)
 end;
 
@@ -239,6 +286,7 @@ var
   I: Integer;
   slExcludedTables: TStringList;
 begin
+  MasterConfig.TrackFieldChanges := MasterDBType = 'Interbase';//TrackChanges;
   MasterConfig.Connection := FMasterNode.Connection;
   MasterConfig.Connect;
   slTables := MasterConfig.Connection.ListTables;
@@ -264,12 +312,12 @@ end;
 
 procedure TdmConfig.ConfigureMirror;
 begin
-  MirrorConfig.Connection := FMirrorNode.Connection;
+{  MirrorConfig.Connection := FMirrorNode.Connection;
   MirrorConfig.Connect;
   MirrorConfig.Nodes.Clear;
   MirrorConfig.Tables.Clear;
   MirrorConfig.GenerateConfig;
-  MirrorConfig.Disconnect;
+  MirrorConfig.Disconnect; }
 end;
 
 procedure TdmConfig.RemoveConfigurationFromMirror;

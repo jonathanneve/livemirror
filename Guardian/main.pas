@@ -23,6 +23,7 @@ type
     {$ENDIF}
     {$ENDIF}
     procedure StopServices;
+    procedure DoExecute;
   public
     function GetServiceController: TServiceController; override;
     { Déclarations publiques }
@@ -100,6 +101,11 @@ begin
 end;
 
 procedure TLiveMirror.ServiceExecute(Sender: TService);
+begin
+  DoExecute;
+end;
+
+procedure TLiveMirror.DoExecute;
 var
   I: Integer;
   srv: TServiceInfo;

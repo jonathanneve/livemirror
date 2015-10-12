@@ -3,7 +3,7 @@ cd c:\projects\livemirror\install
 type ..\version.rc | perl getversionnumber.pl > version.txt
 IF ERRORLEVEL 1 GOTO error
 
-call "C:\Program Files\Embarcadero\Studio\14.0\bin\rsvars.bat"
+call "C:\Program Files (x86)\Embarcadero\Studio\14.0\bin\rsvars.bat"
 
 brcc32 c:\projects\livemirror\version.rc
 
@@ -18,7 +18,7 @@ IF ERRORLEVEL 1 GOTO error
 
 echo.
 echo Compiling Trial setup...
-"C:\program files\Inno Setup 5\iscc.exe" eval.iss 
+"C:\program files (x86)\Inno Setup 5\iscc.exe" eval.iss 
 IF ERRORLEVEL 1 GOTO error
 
 echo.
@@ -33,7 +33,7 @@ IF ERRORLEVEL 1 GOTO error
 
 echo.
 echo Compiling Registered setup...
-"C:\program files\Inno Setup 5\iscc.exe" registered.iss 
+"C:\program files (x86)\Inno Setup 5\iscc.exe" registered.iss 
 IF ERRORLEVEL 1 GOTO error
 
 goto end
@@ -44,4 +44,3 @@ echo *** There is an error! ***
 echo.
 
 :end
-pause

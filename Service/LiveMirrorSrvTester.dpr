@@ -20,7 +20,8 @@ uses
   synautil in '..\Synapse\synautil.pas',
   synsock in '..\Synapse\synsock.pas',
   dInterbase in '..\dInterbase.pas' {dmInterbase: TDataModule},
-  dconfig in '..\dconfig.pas' {dmConfig: TDataModule};
+  dconfig in '..\dconfig.pas' {dmConfig: TDataModule},
+  dFireDAC in '..\dFireDAC.pas' {dmFireDAC: TDataModule};
 
 {$R *.res}
 
@@ -30,5 +31,6 @@ begin
   Application.CreateForm(TForm1, Form1);
   Application.CreateForm(TLiveMirror, LiveMirror);
   Application.CreateForm(TdmInterbase, dmInterbase);
+  Application.CreateForm(TdmFireDAC, dmFireDAC);
   Application.Run;
 end.

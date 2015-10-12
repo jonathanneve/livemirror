@@ -92,6 +92,7 @@ procedure TfmConfigs.LoadConfigs;
 var
   ini:TIniFile;
   I: Integer;
+  cConfigName: string;
 begin
 //  if not FileExists(cConfigFileName) then
 //    TfmConfig.NewConfig;
@@ -111,8 +112,11 @@ begin
   listConfigs.ItemIndex := 0;
 
   if listConfigs.Items.Count = 0 then begin
-    if TfmConfig.NewConfig then
-      LoadConfigs
+    cConfigName := TfmConfig.NewConfig;
+    if cConfigName <> '' then begin
+      LoadConfigs;
+      listConfigs.ItemIndex := listConfigs.Items.IndexOf(cConfigName);
+    end
     else
       Application.Terminate;
   end;
@@ -134,9 +138,15 @@ begin
 end;
 
 procedure TfmConfigs.btAddClick(Sender: TObject);
+var
+  cConfigName: string;
 begin
-  TfmConfig.NewConfig;
-  LoadConfigs;
+  cConfigName := TfmConfig.NewConfig;
+  if cConfigName <> '' then
+  begin
+    LoadConfigs;
+    listConfigs.ItemIndex := listConfigs.Items.IndexOf(cConfigName);
+  end;
 end;
 
 procedure TfmConfigs.btDeleteClick(Sender: TObject);
@@ -218,10 +228,14 @@ begin
 end;
 
 procedure TfmConfigs.btPropertiesClick(Sender: TObject);
+var
+  cConfigName: string;
 begin
   if listConfigs.ItemIndex <> -1 then begin
-    TfmConfig.EditConfig(listConfigs.Items[listConfigs.ItemIndex]);
+    cConfigName := listConfigs.Items[listConfigs.ItemIndex];
+    TfmConfig.EditConfig(cConfigName);
     LoadConfigs;
+    listConfigs.ItemIndex := listConfigs.Items.IndexOf(cConfigName);
   end;
 end;
                     

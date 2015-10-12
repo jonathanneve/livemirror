@@ -28,6 +28,7 @@ type
     procedure Save;
     function GetConnection: TCcConnection;
     function GetDescription: String;
+    constructor Create(AOwner: TComponent);
   end;
 
 var
@@ -43,6 +44,12 @@ uses
   IniFiles, LMUtils, gnugettext;
 
 { TdmInterbase }
+
+constructor TdmInterbase.Create(AOwner: TComponent);
+begin
+  inherited;
+  FDConnection.Params.Clear;
+end;
 
 function TdmInterbase.GetConnection: TCcConnection;
 begin
@@ -78,6 +85,10 @@ begin
   try
     CcConnection.DBVersion := ini.ReadString('General', 'DBVersion', 'FB2.5');
     FDConnection.DriverName := Copy(CcConnection.DBVersion, 1, 2); //FB or IB
+    if FDConnection.DriverName = '' then begin
+      FDConnection.DriverName := 'FB';
+      CcConnection.DBVersion := 'FB2.5';
+    end;
     FDConnection.Params.Values['Database'] := ini.ReadString('General', 'DBName', '');
     FDConnection.Params.Values['User_Name'] := ini.ReadString('General', 'Username', '');
     FDConnection.Params.Values['Password'] := ini.ReadString('General', 'Password', '');

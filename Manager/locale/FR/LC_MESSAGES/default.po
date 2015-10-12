@@ -6,14 +6,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: LiveMirror\n"
-"POT-Creation-Date: 2014-08-14 20:13\n"
-"PO-Revision-Date: 2014-05-07 11:33+0100\n"
+"POT-Creation-Date: 2015-10-12 17:59\n"
+"PO-Revision-Date: 2015-10-12 16:02+0100\n"
 "Last-Translator: Jonathan Neve <jonathan@jntraductions.fr>\n"
 "Language-Team: Jonathan Neve <jonathan@jntraductions.fr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.7.4\n"
+"Language: fr\n"
 
 #. fmConfig..Caption
 #: config.dfm:4 
@@ -30,14 +31,20 @@ msgstr "Paramétrage de configuration de sauvegarde"
 #. fmConfigs..Panel3..lbServiceStatus..Font.Name
 #. fmConfigs..Panel3..lbVersion..Font.Name
 #. fmConfigs..pnEvaluation..lbEvaluation..Font.Name
+#. frmFDGUIxFormsConnEdit..pcMain..tsOptions..pnlOptions..ptreeOptions..frmFormatOptions..Font.Name
+#. frmFDGUIxFormsConnEdit..pcMain..tsOptions..pnlOptions..ptreeOptions..frmFetchOptions..Font.Name
+#. frmFDGUIxFormsConnEdit..pcMain..tsOptions..pnlOptions..ptreeOptions..frmUpdateOptions..Font.Name
+#. frmFDGUIxFormsConnEdit..pcMain..tsOptions..pnlOptions..ptreeOptions..frmResourceOptions..Font.Name
 #. fmLicensing..Font.Name
 #. fmLicensing..Label1..Font.Name
 #. fmLicensing..Label2..Font.Name
 #. fmLicensing..Label3..Font.Name
 #. fmLogFile..Font.Name
-#: config.dfm:11  config.dfm:40 config.dfm:87 config.dfm:109
+#: config.dfm:11  config.dfm:41 config.dfm:150 config.dfm:172
 #: configoptions.dfm:11 configs.dfm:11 configs.dfm:73 configs.dfm:143
-#: configs.dfm:164 configs.dfm:202 licensing.dfm:11 licensing.dfm:29
+#: configs.dfm:164 configs.dfm:202 FireDAC.VCLUI.ConnEdit.dfm:251
+#: FireDAC.VCLUI.ConnEdit.dfm:271 FireDAC.VCLUI.ConnEdit.dfm:290
+#: FireDAC.VCLUI.ConnEdit.dfm:309 licensing.dfm:11 licensing.dfm:29
 #: licensing.dfm:44 licensing.dfm:452 logfile.dfm:11
 msgid "Tahoma"
 msgstr ""
@@ -49,82 +56,110 @@ msgstr "Nom de configuration :"
 
 #. fmConfig..lbEvaluation..Caption
 #. fmConfigs..pnEvaluation..lbEvaluation..Caption
-#: config.dfm:36  configs.dfm:198
+#: config.dfm:37  configs.dfm:198
 msgid "EVALUATION VERSION"
 msgstr "VERSION D'EVALUATION"
 
 #. fmConfig..edFrenquency..EditLabel.Caption
-#: config.dfm:53 
+#: config.dfm:55 
 msgid "Sync frequency (sec)"
 msgstr "Fréquence de réplication (sec)"
 
 #. fmConfig..PageControl..tsMaster..Caption
-#: config.dfm:68 
+#: config.dfm:71 
 msgid "Master database"
 msgstr "Base de données maître"
 
+#. fmConfig..PageControl..tsMaster..Panel1..Label2..Caption
+#. fmConfig..PageControl..tsMirror..Panel2..Label3..Caption
+#: config.dfm:86  config.dfm:120
+msgid "Database type"
+msgstr "Type de base"
+
+#. fmConfig..PageControl..tsMaster..Panel1..cbMasterDBType....Items.Strings
+#. fmConfig..PageControl..tsMirror..Panel2..cbMirrorDBType....Items.Strings
+#: config.dfm:97  config.dfm:131
+msgid "Firebird"
+msgstr ""
+
+#. fmConfig..PageControl..tsMaster..Panel1..cbMasterDBType....Items.Strings
+#. fmConfig..PageControl..tsMirror..Panel2..cbMirrorDBType....Items.Strings
+#: config.dfm:98  config.dfm:132
+msgid "Microsoft SQL Server"
+msgstr ""
+
 #. fmConfig..PageControl..tsMirror..Caption
-#: config.dfm:71 
+#: config.dfm:103 
 msgid "Mirror database"
 msgstr "Base de données mirroir"
 
 #. fmConfig..PageControl..Options..Caption
-#: config.dfm:75 
+#. frmFDGUIxFormsConnEdit..pcMain..tsOptions..Caption
+#. frmFDGUIxFormsConnEdit..ActionList1..acContinueOnError..Category
+#. frmFDGUIxFormsConnEdit..ActionList1..acDropNonexistObj..Category
+#. frmFDGUIxFormsConnEdit..ActionList1..acShowMessages..Category
+#: config.dfm:137  FireDAC.VCLUI.ConnEdit.dfm:214
+#: FireDAC.VCLUI.ConnEdit.dfm:504 FireDAC.VCLUI.ConnEdit.dfm:509
+#: FireDAC.VCLUI.ConnEdit.dfm:513
 msgid "Options"
 msgstr ""
 
 #. fmConfig..PageControl..Options..lbSelectExcludedTables..Caption
-#: config.dfm:83 
+#: config.dfm:146 
 msgid "Select tables"
 msgstr ""
 
 #. fmConfig..PageControl..Options..lbMetaDataStatus..Caption
-#: config.dfm:97  config.pas:283
+#: config.dfm:160  config.pas:316
 msgid "LiveMirror meta-data has been CREATED in master database."
 msgstr ""
 
 #. fmConfig..PageControl..Options..lbAddRemoveMetaData..Caption
-#: config.dfm:105  config.pas:284
+#: config.dfm:168  config.pas:317
 msgid "Remove meta-data"
 msgstr ""
 
 #. fmConfig..PageControl..Options..rbAllTables..Caption
-#: config.dfm:119 
+#: config.dfm:182 
 msgid "Synchronize all tables"
 msgstr ""
 
 #. fmConfig..PageControl..Options..rbExcludeSelectedTables..Caption
-#: config.dfm:130 
+#: config.dfm:193 
 msgid "Synchronize all except selected tables"
+msgstr ""
+
+#. fmConfig..PageControl..Options..cbTrackChanges..Caption
+#: config.dfm:202 
+msgid "Replicate only changed fields"
 msgstr ""
 
 #. fmConfig..Button3..Caption
 #. fmConfigOptions..Button1..Caption
 #. fmLicensing..Button1..Caption
-#: config.dfm:142  configoptions.dfm:80 licensing.dfm:470
+#: config.dfm:217  configoptions.dfm:80 licensing.dfm:470
 msgid "Cancel"
 msgstr "Annuler"
 
 #. fmConfig..Button4..Caption
-#: config.dfm:152 
+#: config.dfm:228 
 msgid "Ok"
 msgstr "Ok"
 
 #. fmConfig..edConfigName..EditMask
-#: config.dfm:161 
+#: config.dfm:238 
 msgid ">aaaaaaaaaaaaa;0; "
 msgstr ""
 
 #. fmConfig..btLicensing..Caption
-#: config.dfm:173 
+#: config.dfm:250 
 msgid "Licensing"
 msgstr "Licence"
 
 #. fmConfig..CcConfig..Version
-#: config.dfm:178 
-#, fuzzy
-msgid "3.06.0"
-msgstr "1.00.0"
+#: config.dfm:259 
+msgid "3.9.1"
+msgstr "3.9.1"
 
 #. fmConfigOptions..Caption
 #: configoptions.dfm:4 
@@ -221,15 +256,14 @@ msgid "LiveMirror service is  :"
 msgstr "Le service LiveMirror est :"
 
 #. fmConfigs..Panel3..lbServiceStatus..Caption
-#: configs.dfm:139  configs.pas:284
+#: configs.dfm:139  configs.pas:298
 msgid "RUNNING"
 msgstr "ACTIF"
 
 #. fmConfigs..Panel3..Label2..Caption
 #: configs.dfm:153 
-#, fuzzy
 msgid "CopyCat LiverMirror  v."
-msgstr "Microtec LiverMirror  v."
+msgstr "CopyCat LiveMirror  v."
 
 #. fmConfigs..Panel3..lbVersion..Caption
 #: configs.dfm:160 
@@ -237,12 +271,13 @@ msgid "X.XX.X"
 msgstr ""
 
 #. fmConfigs..Panel3..btServiceStopStart..Caption
-#: configs.dfm:174  configs.pas:286
+#: configs.dfm:174  configs.pas:300
 msgid "Stop"
 msgstr "Arrêter"
 
 #. frConnectParamsFB..Label1..Caption
-#: fConnectParamsFB.dfm:15 
+#. frConnectParamsFireDAC..Label1..Caption
+#: fConnectParamsFB.dfm:15  fConnectParamsFireDAC.dfm:15
 msgid "Database name :"
 msgstr "Nom de la base :"
 
@@ -253,12 +288,14 @@ msgid "..."
 msgstr ""
 
 #. frConnectParamsFB..Label2..Caption
-#: fConnectParamsFB.dfm:31 
+#. frConnectParamsFireDAC..Label2..Caption
+#: fConnectParamsFB.dfm:31  fConnectParamsFireDAC.dfm:22
 msgid "User name :"
 msgstr "Nom d'utilisateur :"
 
 #. frConnectParamsFB..Label3..Caption
-#: fConnectParamsFB.dfm:38 
+#. frConnectParamsFireDAC..Label3..Caption
+#: fConnectParamsFB.dfm:38  fConnectParamsFireDAC.dfm:29
 msgid "Password :"
 msgstr "Mot de passe :"
 
@@ -283,86 +320,312 @@ msgid "Version :"
 msgstr "Version :"
 
 #. frConnectParamsFB..edPassword..PasswordChar
-#: fConnectParamsFB.dfm:99 
+#. frConnectParamsFireDAC..edPassword..PasswordChar
+#: fConnectParamsFB.dfm:99  fConnectParamsFireDAC.dfm:60
 msgid "*"
 msgstr ""
 
 #. frConnectParamsFB..btTest..Caption
-#: fConnectParamsFB.dfm:146 
+#. frConnectParamsFireDAC..btTest..Caption
+#: fConnectParamsFB.dfm:146  fConnectParamsFireDAC.dfm:69
 msgid "Test connect"
 msgstr "Tester la connexion"
 
-#. frConnectParamsFB..OpenDialogDLL......DisplayName
-#: fConnectParamsFB.dfm:158 
-msgid "Windows library"
-msgstr "Librairie"
+#. frConnectParamsFB..OpenDialogDLL..Filter
+#: fConnectParamsFB.dfm:155 
+msgid "Libraries (*.dll)|*.dll"
+msgstr "Librairies (*.dll)|*.dll"
 
-#. frConnectParamsFB..OpenDialogDLL......FileMask
-#: fConnectParamsFB.dfm:159 
-msgid "*.dll"
-msgstr "*.dll"
-
-#. frConnectParamsFB..OpenDialogDLL......DisplayName
-#. frConnectParamsFB..OpenDialog......DisplayName
-#: fConnectParamsFB.dfm:162  fConnectParamsFB.dfm:181
-msgid "Any file"
-msgstr "Tous les fichiers"
-
-#. frConnectParamsFB..OpenDialogDLL......FileMask
-#. frConnectParamsFB..OpenDialog......FileMask
-#: fConnectParamsFB.dfm:163  fConnectParamsFB.dfm:182
-msgid "*.*"
-msgstr "*.*"
-
-#. frConnectParamsFB..OpenDialog......DisplayName
-#: fConnectParamsFB.dfm:173 
-msgid "Interbase databases"
-msgstr "Bases Interbase"
-
-#. frConnectParamsFB..OpenDialog......FileMask
-#: fConnectParamsFB.dfm:174 
-msgid "*.gdb"
-msgstr "*.gdb"
-
-#. frConnectParamsFB..OpenDialog......DisplayName
-#: fConnectParamsFB.dfm:177 
-msgid "FireBird databases"
-msgstr "Bases Firebird"
-
-#. frConnectParamsFB..OpenDialog......FileMask
-#: fConnectParamsFB.dfm:178 
-msgid "*.fdb"
-msgstr "*.fdb"
+#. frConnectParamsFB..OpenDialog....Filter
+#: fConnectParamsFB.dfm:163 
+msgid ""
+"Firebird databases (*.fdb)|*.fdb|Interbase databases (*.gdb)|*.gdb|Any file|"
+"*.*"
+msgstr ""
+"Bases de données Firebird (*.fdb)|*.fdb|Bases de données Interbase (*.gdb)|*."
+"gdb|Tous types de fichier|*.*"
 
 #. frConnectParamsFB..ConnectionOld..DBType
-#: fConnectParamsFB.dfm:192 
+#: fConnectParamsFB.dfm:171 
 msgid "Interbase"
 msgstr "Interbase"
 
 # Don't translate
 #. frConnectParamsFB..FDConnectionOld....Params.Strings
-#: fConnectParamsFB.dfm:198 
+#: fConnectParamsFB.dfm:177 
 msgid "Database=fdl"
 msgstr ""
 
 #. frConnectParamsFB..FDConnectionOld....Params.Strings
-#: fConnectParamsFB.dfm:199 
+#: fConnectParamsFB.dfm:178 
 msgid "User_Name=sys"
 msgstr ""
 
 #. frConnectParamsFB..FDConnectionOld....Params.Strings
-#: fConnectParamsFB.dfm:200 
+#: fConnectParamsFB.dfm:179 
 msgid "Password=dfgdc"
 msgstr ""
 
 #. frConnectParamsFB..FDConnectionOld....Params.Strings
-#: fConnectParamsFB.dfm:201 
+#: fConnectParamsFB.dfm:180 
 msgid "SQLDialect=1"
 msgstr ""
 
 #. frConnectParamsFB..FDConnectionOld....Params.Strings
-#: fConnectParamsFB.dfm:202 
+#: fConnectParamsFB.dfm:181 
 msgid "DriverID=FB"
+msgstr ""
+
+#. frConnectParamsFireDAC..Label5..Caption
+#: fConnectParamsFireDAC.dfm:36 
+msgid "Server name :"
+msgstr "Nom du serveur :"
+
+#. frConnectParamsFireDAC..Button1..Caption
+#: fConnectParamsFireDAC.dfm:86 
+msgid "Configure connection"
+msgstr "Paramétrer la connexion"
+
+#. frmFDGUIxFormsConnEdit..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:6 
+msgid "FireDAC Connection Editor"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..pnlTop..lblPrompt..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:29  fConnectParamsFireDAC.pas:60
+msgid "Setup database connection parameters for your %s database"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..pcMain..tsConnection..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:70 
+msgid "Definition"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..pcMain..tsConnection..pnlConnection..pnlTitle..Label1..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:136 
+msgid "&Driver ID:"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..pcMain..tsConnection..pnlConnection..pnlTitle..lbCnxDef..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:144 
+msgid "Connection Definition &Name:"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..pcMain..tsConnection..pnlConnection..pnlTitle..btnDefaults..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:179 
+msgid "&Revert To Defaults"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..pcMain..tsConnection..pnlConnection..pnlTitle..btnTest..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:188 
+msgid "&Test"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..pcMain..tsConnection..pnlConnection..pnlTitle..btnWizard..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:197 
+msgid "&Wizard"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..pcMain..tsConnection..pnlConnection..pnlTitle..btnWiki..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:206 
+msgid "&Help"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..pcMain..tsOptions..pnlOptions..ptreeOptions..frmFormatOptions..Hint
+#: FireDAC.VCLUI.ConnEdit.dfm:245 
+msgid "Format Options"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..pcMain..tsOptions..pnlOptions..ptreeOptions..frmFetchOptions..Hint
+#: FireDAC.VCLUI.ConnEdit.dfm:265 
+msgid "Fetch Options"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..pcMain..tsOptions..pnlOptions..ptreeOptions..frmUpdateOptions..Hint
+#: FireDAC.VCLUI.ConnEdit.dfm:284 
+msgid "Update Options"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..pcMain..tsOptions..pnlOptions..ptreeOptions..frmResourceOptions..Hint
+#: FireDAC.VCLUI.ConnEdit.dfm:303 
+msgid "Resource Options"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..pcMain..tsInfo..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:321 
+msgid "Info"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..pcMain..tsSQL..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:346 
+msgid "SQL Script"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..pcMain..tsSQL..pnlSQL..mmLog..Font.Name
+#. fmLogFile..memLog..Font.Name
+#: FireDAC.VCLUI.ConnEdit.dfm:374  logfile.dfm:27
+msgid "Courier New"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..pcMain..tsSQL..pnlSQL..ToolBar1..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:388 
+msgid "ToolBar1"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..scrEngine......Name
+#: FireDAC.VCLUI.ConnEdit.dfm:418 
+msgid "Main"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..sdMain..Provider
+#: FireDAC.VCLUI.ConnEdit.dfm:432 
+msgid "Forms"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acNewScript..Category
+#. frmFDGUIxFormsConnEdit..ActionList1..acOpenScript..Category
+#. frmFDGUIxFormsConnEdit..ActionList1..acSaveScript..Category
+#. frmFDGUIxFormsConnEdit..ActionList1..acSaveScriptAs..Category
+#. frmFDGUIxFormsConnEdit..ActionList1..acSaveLog..Category
+#. frmFDGUIxFormsConnEdit..ActionList1..acExit..Category
+#: FireDAC.VCLUI.ConnEdit.dfm:442  FireDAC.VCLUI.ConnEdit.dfm:448
+#: FireDAC.VCLUI.ConnEdit.dfm:455 FireDAC.VCLUI.ConnEdit.dfm:462
+#: FireDAC.VCLUI.ConnEdit.dfm:468 FireDAC.VCLUI.ConnEdit.dfm:473
+msgid "File"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acNewScript..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:443 
+msgid "&New Script"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acNewScript..Hint
+#: FireDAC.VCLUI.ConnEdit.dfm:444 
+msgid "Create empty script"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acOpenScript..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:449 
+msgid "&Open Script..."
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acOpenScript..Hint
+#: FireDAC.VCLUI.ConnEdit.dfm:450 
+msgid "Load a script into executor window"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acSaveScript..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:456 
+msgid "&Save Script"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acSaveScript..Hint
+#: FireDAC.VCLUI.ConnEdit.dfm:457 
+msgid "Save executor window into script file"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acSaveScriptAs..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:463 
+msgid "Save Script &As..."
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acSaveScriptAs..Hint
+#: FireDAC.VCLUI.ConnEdit.dfm:464 
+msgid "Save executor window into script file, ask user for file name"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acSaveLog..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:469 
+msgid "Save &Log..."
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acSaveLog..Hint
+#: FireDAC.VCLUI.ConnEdit.dfm:470 
+msgid "Save log content into file"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acExit..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:474 
+msgid "E&xit"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acRun..Category
+#. frmFDGUIxFormsConnEdit..ActionList1..acRunByStep..Category
+#. frmFDGUIxFormsConnEdit..ActionList1..acSkipStep..Category
+#: FireDAC.VCLUI.ConnEdit.dfm:477  FireDAC.VCLUI.ConnEdit.dfm:486
+#: FireDAC.VCLUI.ConnEdit.dfm:495
+msgid "Run"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acRun..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:478 
+msgid "&Run Script"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acRun..Hint
+#: FireDAC.VCLUI.ConnEdit.dfm:479 
+msgid "Run the script until it is finished"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acRunByStep..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:487 
+msgid "Run by &Step"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acRunByStep..Hint
+#: FireDAC.VCLUI.ConnEdit.dfm:488 
+msgid "Run next script command"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acSkipStep..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:496 
+msgid "S&kip Command"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acSkipStep..Hint
+#: FireDAC.VCLUI.ConnEdit.dfm:497 
+msgid "Skip next script command"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acContinueOnError..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:505 
+msgid "&Continue on Error"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acContinueOnError..Hint
+#: FireDAC.VCLUI.ConnEdit.dfm:506 
+msgid "Stop or continue script execution on error"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acDropNonexistObj..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:510 
+msgid "&Drop Nonexistent Object"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acShowMessages..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:514 
+msgid "Show &Messages"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acHelp..Category
+#. frmFDGUIxFormsConnEdit..ActionList1..acAbout..Category
+#: FireDAC.VCLUI.ConnEdit.dfm:517  FireDAC.VCLUI.ConnEdit.dfm:524
+msgid "Help"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acHelp..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:518 
+msgid "&Help..."
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acHelp..Hint
+#: FireDAC.VCLUI.ConnEdit.dfm:519 
+msgid "Show FDExecutor commands help"
+msgstr ""
+
+#. frmFDGUIxFormsConnEdit..ActionList1..acAbout..Caption
+#: FireDAC.VCLUI.ConnEdit.dfm:525 
+msgid "&About ..."
 msgstr ""
 
 #. fmLicensing..Caption
@@ -395,61 +658,61 @@ msgstr "Activer la licence"
 msgid "fmLogFile"
 msgstr ""
 
-#. fmLogFile..memLog..Font.Name
-#: logfile.dfm:27 
-msgid "Courier New"
-msgstr ""
-
-#: config.pas:93 
+#: config.pas:103 
 msgid "You must enter a name for this configuration!"
 msgstr "Vous devez donner un nom à cette configuration !"
 
-#: config.pas:93 
+#: config.pas:103 
 msgid "Configuration name missing"
 msgstr "Nom de configuration manquant"
 
-#: config.pas:287 
+#: config.pas:320 
 msgid "LiveMirror meta-data has been NOT BEEN created in master database."
 msgstr ""
 
-#: config.pas:288 
+#: config.pas:321 
 msgid "Create meta-data now"
 msgstr ""
 
-#: configs.pas:147 
+#: configs.pas:157 
 msgid "Are you sure you want to delete this backup configuration?"
 msgstr "Etes-vous sûr de vouloir supprimer cette configuration ?"
 
-#: configs.pas:147 
+#: configs.pas:157 
 msgid "Delete confirmation"
 msgstr "Confirmation de suppression"
 
-#: configs.pas:191 
+#: configs.pas:201 
 msgid ""
 "No log file is available yet for this configuration.\n"
 "A log file will be created automatically when the service is first run."
 msgstr ""
 
-#: configs.pas:191 
+#: configs.pas:201 
 msgid "No log file found"
 msgstr ""
 
-#: configs.pas:280 
+#: configs.pas:294 
 msgid "UNINSTALLED"
 msgstr "DESINSTALLE"
 
 #. listConfigs.Enabled := False;
-#: configs.pas:297 
+#: configs.pas:311 
 msgid "STOPPED"
 msgstr "ARRETE"
 
-#: configs.pas:299 
+#: configs.pas:313 
 msgid "Start"
 msgstr "Démarrer"
 
-#: fConnectParamsFB.pas:71 
+#: fConnectParamsFB.pas:73  fConnectParamsFireDAC.pas:50
 msgid "Connection established successfully"
 msgstr "Connexion établie avec succès"
+
+#: fConnectParamsFireDAC.pas:60 
+#, fuzzy
+msgid "Database connection setup"
+msgstr "Nom de la base :"
 
 #: licensing.pas:52 
 msgid "You must enter a licence key"
@@ -462,6 +725,30 @@ msgstr "Licence activée avec succès pour cette installation"
 #: licensing.pas:57 
 msgid "Licence activated"
 msgstr "Licence activée"
+
+#~ msgid "Windows library"
+#~ msgstr "Librairie"
+
+#~ msgid "*.dll"
+#~ msgstr "*.dll"
+
+#~ msgid "Any file"
+#~ msgstr "Tous les fichiers"
+
+#~ msgid "*.*"
+#~ msgstr "*.*"
+
+#~ msgid "Interbase databases"
+#~ msgstr "Bases Interbase"
+
+#~ msgid "*.gdb"
+#~ msgstr "*.gdb"
+
+#~ msgid "FireBird databases"
+#~ msgstr "Bases Firebird"
+
+#~ msgid "*.fdb"
+#~ msgstr "*.fdb"
 
 #, fuzzy
 #~ msgid "ConfigName"
