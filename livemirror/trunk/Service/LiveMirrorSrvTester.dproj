@@ -77,7 +77,7 @@
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <Debugger_RunParams>CALLASSIST</Debugger_RunParams>
+        <Debugger_RunParams>TEST</Debugger_RunParams>
         <Debugger_DebugSourcePath>C:\Projects\CopyCat\;$(Debugger_DebugSourcePath)</Debugger_DebugSourcePath>
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
     </PropertyGroup>
@@ -122,6 +122,11 @@
         </DCCReference>
         <DCCReference Include="..\dconfig.pas">
             <Form>dmConfig</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\dFireDAC.pas">
+            <Form>dmFireDAC</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>

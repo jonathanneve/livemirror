@@ -37,7 +37,11 @@ uses
   logfile in 'logfile.pas' {fmLogFile},
   configoptions in 'configoptions.pas' {fmConfigOptions},
   dconfig in '..\dconfig.pas' {dmConfig: TDataModule},
-  dInterbase in '..\dInterbase.pas' {dmInterbase: TDataModule};
+  dInterbase in '..\dInterbase.pas' {dmInterbase: TDataModule},
+  fConnectParamsFireDAC in 'fConnectParamsFireDAC.pas' {frConnectParamsFireDAC: TFrame},
+  dFireDAC in '..\dFireDAC.pas' {dmFireDAC: TDataModule},
+  FireDAC.VCLUI.OptsBase in 'C:\Program Files (x86)\Embarcadero\Studio\14.0\source\data\firedac\FireDAC.VCLUI.OptsBase.pas' {frmFDGUIxFormsOptsBase},
+  FireDAC.VCLUI.ConnEdit in 'FireDAC.VCLUI.ConnEdit.pas' {frmFDGUIxFormsConnEdit};
 
 {$R *.res}
 
@@ -49,5 +53,8 @@ begin
   Application.CreateForm(TfmConfigs, fmConfigs);
   Application.CreateForm(TfmConfigOptions, fmConfigOptions);
   Application.CreateForm(TdmInterbase, dmInterbase);
+  Application.CreateForm(TdmFireDAC, dmFireDAC);
+  Application.CreateForm(TfrmFDGUIxFormsOptsBase, frmFDGUIxFormsOptsBase);
+  Application.CreateForm(TfrmFDGUIxFormsConnEdit, frmFDGUIxFormsConnEdit);
   Application.Run;
 end.

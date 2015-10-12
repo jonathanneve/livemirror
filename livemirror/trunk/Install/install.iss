@@ -19,7 +19,7 @@ AppVersion={#MyAppVersion} Evaluation
 #else
 AppVersion={#MyAppVersion}
 #endif
-;AppVerName={#MyAppName} {#MyAppVersion}
+AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}

@@ -1,5 +1,5 @@
 1 VERSIONINFO
-FILEVERSION 1, 3, 1, 1
+FILEVERSION 1, 6, 0, 0
 //PRODUCTVERSION 9999, 9999, 99, 18048
 FILEOS 0x00000004L // comment: VOS_WINDOWS32
 FILETYPE VFT_APP
@@ -14,7 +14,7 @@ FILETYPE VFT_APP
   BLOCK "040904E4"
   {
    VALUE "CompanyName", "Microtec Communications\0"
-   VALUE "LegalCopyright", "Copyright 2014\0"
+   VALUE "LegalCopyright", "Copyright 2015\0"
    VALUE "ProductName", "CopyCat LiveMirror\0"
    VALUE "Homepage", "http://www.copycat.fr\0"
   }

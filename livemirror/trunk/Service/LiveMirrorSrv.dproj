@@ -5,7 +5,7 @@
         <FrameworkType>VCL</FrameworkType>
         <MainSource>LiveMirrorSrv.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Application</AppType>
@@ -95,7 +95,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <DCC_MapFile>3</DCC_MapFile>
         <DCC_Define>EUREKALOG;EUREKALOG_VER7;$(DCC_Define)</DCC_Define>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <Debugger_RunParams>CALLASSIST /runonce</Debugger_RunParams>
+        <Debugger_RunParams>TEST /runonce</Debugger_RunParams>
         <DCC_DcuOutput>.\</DCC_DcuOutput>
         <DCC_ExeOutput>.\</DCC_ExeOutput>
     </PropertyGroup>
@@ -155,6 +155,11 @@ $(PostBuildEvent)]]></PostBuildEvent>
         </DCCReference>
         <DCCReference Include="..\dconfig.pas">
             <Form>dmConfig</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\dFireDAC.pas">
+            <Form>dmFireDAC</Form>
+            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <BuildConfiguration Include="Release">
@@ -620,6 +625,7 @@ Dialog Class=""
 dpJCL=1
 dpMap=1
 Encrypt Password=""
+Errors Number=10
 InjectCode=1
 InjectInfo=1
 InjectOptions=1
@@ -630,8 +636,6 @@ loOnlyUnderDebugger=0
 loSaveAssemblerAndCPUSections=0
 Output Path="%%_MainModulePath%%\\"
 ProjectID="{3108F8B7-2483-497D-9DD9-B750D88E64C6}"
-Sender Classes="TELMailSMTPServerSender"
-seSMTP=1
 SlowAndSafe=0
 sndDeleteFileAfterSend=0
 sndScreenshot=0

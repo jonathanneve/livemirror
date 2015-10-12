@@ -7,6 +7,7 @@ object dmInterbase: TdmInterbase
       'DriverID=FB'
       'User_Name=sysdba'
       'Password=masterkey')
+    TxOptions.AutoStop = False
     LoginPrompt = False
     Transaction = FDTransaction
     UpdateTransaction = FDTransaction

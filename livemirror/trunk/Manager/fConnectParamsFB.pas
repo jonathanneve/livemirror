@@ -30,8 +30,8 @@ type
     edClientDLL: TEdit;
     cbVersions: TComboBox;
     FDPhysFBDriverLinkOld: TFDPhysFBDriverLink;
-    OpenDialogDLL: TFileOpenDialog;
-    OpenDialog: TFileOpenDialog;
+    OpenDialogDLL: TOpenDialog;
+    OpenDialog: TOpenDialog;
     ConnectionOld: TCcConnectionFireDAC;
     FDConnectionOld: TFDConnection;
     FDTransaction1Old: TFDTransaction;
@@ -42,12 +42,14 @@ type
   private
     FNode: ILMNode;
     procedure LoadFromNode;
+
   public
     function GetNode: ILMNode;
     procedure SetNode(n: ILMNode);
     procedure SaveToNode;
     procedure Init(parentCtrl: TWinControl);
     constructor Create(AOwner: TComponent);override;
+    procedure FreeFrame;
   end;
 
 implementation
@@ -69,6 +71,12 @@ begin
   FNode.Connection.Connect;
   FNode.Connection.Disconnect;
   ShowMessage(_('Connection established successfully'));
+end;
+
+procedure TfrConnectParamsFB.FreeFrame;
+begin
+  Parent := nil;
+  Free;
 end;
 
 constructor TfrConnectParamsFB.Create(AOwner: TComponent);
