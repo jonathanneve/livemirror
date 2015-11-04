@@ -132,7 +132,7 @@ var
     {$ENDIF}
     {$ENDIF}
 
-    FSyncFrequency := StrToInt(ConfigsIni.ReadString(FConfigName, 'SyncFrequency', ''));
+    FSyncFrequency := StrToIntDef(ConfigsIni.ReadString(FConfigName, 'SyncFrequency', ''), 0);
     MasterDBType := ConfigsIni.ReadString(FConfigName, 'MasterDBType', '');
     MirrorDBType := ConfigsIni.ReadString(FConfigName, 'MirrorDBType', '');
   end;
@@ -286,7 +286,7 @@ var
   I: Integer;
   slExcludedTables: TStringList;
 begin
-  MasterConfig.TrackFieldChanges := MasterDBType = 'Interbase';//TrackChanges;
+  MasterConfig.TrackFieldChanges := (MasterDBType = 'Interbase') and (MasterNode.Connection.DBVersion = 'FB2.5');//TrackChanges;
   MasterConfig.Connection := FMasterNode.Connection;
   MasterConfig.Connect;
   slTables := MasterConfig.Connection.ListTables;
@@ -312,12 +312,12 @@ end;
 
 procedure TdmConfig.ConfigureMirror;
 begin
-{  MirrorConfig.Connection := FMirrorNode.Connection;
+  MirrorConfig.Connection := FMirrorNode.Connection;
   MirrorConfig.Connect;
   MirrorConfig.Nodes.Clear;
   MirrorConfig.Tables.Clear;
   MirrorConfig.GenerateConfig;
-  MirrorConfig.Disconnect; }
+  MirrorConfig.Disconnect;
 end;
 
 procedure TdmConfig.RemoveConfigurationFromMirror;

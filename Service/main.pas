@@ -359,7 +359,7 @@ begin
       Replicator.AutoReplicate.Frequency := FDMConfig.SyncFrequency;
       Replicator.AutoReplicate.Enabled := True;
       Replicator.Direction := sdLocalToRemote;
-      Replicator.ReplicateOnlyChangedFields := FDMConfig.MasterDBType = 'Interbase';//FDMConfig.TrackChanges;
+      Replicator.ReplicateOnlyChangedFields := (FDMConfig.MasterDBType = 'Interbase') and (FDMConfig.MasterNode.Connection.DBVersion = 'FB2.5');//FDMConfig.TrackChanges;
       Replicator.LocalNode.Connection := FDMConfig.MasterNode.Connection;
       Replicator.LocalNode.Name := 'MASTER';
       Replicator.RemoteNode.Connection := FDMConfig.MirrorNode.Connection;
