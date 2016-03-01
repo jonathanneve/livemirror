@@ -21,6 +21,16 @@
     <File Path="..\version.rc"/>
     <File Path="..\dFireDAC.pas"/>
     <File Path="..\dFireDAC.dfm"/>
+    <File Path="C:"/>
+    <File Path="C:\Program Files (x86)"/>
+    <File Path="C:\Program Files (x86)\Embarcadero"/>
+    <File Path="C:\Program Files (x86)\Embarcadero\Studio"/>
+    <File Path="C:\Program Files (x86)\Embarcadero\Studio\14.0"/>
+    <File Path="C:\Program Files (x86)\Embarcadero\Studio\14.0\source"/>
+    <File Path="C:\Program Files (x86)\Embarcadero\Studio\14.0\source\data"/>
+    <File Path="C:\Program Files (x86)\Embarcadero\Studio\14.0\source\data\firedac"/>
+    <File Path="C:\Program Files (x86)\Embarcadero\Studio\14.0\source\data\firedac\FireDAC.VCLUI.OptsBase.pas"/>
+    <File Path="C:\Program Files (x86)\Embarcadero\Studio\14.0\source\data\firedac\FireDAC.VCLUI.OptsBase.dfm"/>
     <File Path="config.pas"/>
     <File Path="config.dfm"/>
     <File Path="configs.pas"/>
@@ -35,16 +45,6 @@
     <File Path="configoptions.dfm"/>
     <File Path="fConnectParamsFireDAC.pas"/>
     <File Path="fConnectParamsFireDAC.dfm"/>
-    <File Path="C:"/>
-    <File Path="C:\Program Files (x86)"/>
-    <File Path="C:\Program Files (x86)\Embarcadero"/>
-    <File Path="C:\Program Files (x86)\Embarcadero\Studio"/>
-    <File Path="C:\Program Files (x86)\Embarcadero\Studio\14.0"/>
-    <File Path="C:\Program Files (x86)\Embarcadero\Studio\14.0\source"/>
-    <File Path="C:\Program Files (x86)\Embarcadero\Studio\14.0\source\data"/>
-    <File Path="C:\Program Files (x86)\Embarcadero\Studio\14.0\source\data\firedac"/>
-    <File Path="C:\Program Files (x86)\Embarcadero\Studio\14.0\source\data\firedac\FireDAC.VCLUI.OptsBase.pas"/>
-    <File Path="C:\Program Files (x86)\Embarcadero\Studio\14.0\source\data\firedac\FireDAC.VCLUI.OptsBase.dfm"/>
     <File Path="FireDAC.VCLUI.ConnEdit.pas"/>
     <File Path="FireDAC.VCLUI.ConnEdit.dfm"/>
   </ProjectSortOrder>
@@ -54,8 +54,8 @@
     <Transaction>2014/03/24 22:29:51.000.577,=C:\Projects\livemirror\Synapse\synaip.pas</Transaction>
     <Transaction>2014/03/24 22:29:51.000.567,=C:\Projects\livemirror\Synapse\synacode.pas</Transaction>
     <Transaction>2014/03/24 22:29:51.000.532,=C:\Projects\livemirror\Synapse\blcksock.pas</Transaction>
-    <Transaction>2014/03/24 22:29:51.000.599,=C:\Projects\livemirror\Synapse\synsock.pas</Transaction>
     <Transaction>2014/03/24 22:29:51.000.590,=C:\Projects\livemirror\Synapse\synautil.pas</Transaction>
+    <Transaction>2014/03/24 22:29:51.000.599,=C:\Projects\livemirror\Synapse\synsock.pas</Transaction>
     <Transaction>2014/03/24 22:31:05.000.899,=C:\Projects\livemirror\Synapse\synafpc.pas</Transaction>
     <Transaction>2014/03/26 15:43:29.000.474,=C:\Projects\livemirror\Manager\licensing.pas</Transaction>
     <Transaction>2014/03/26 18:19:49.000.727,C:\Projects\livemirror\uLkJSON.pas=C:\Projects\livemirror\Misc\uninst_main.pas</Transaction>

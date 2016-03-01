@@ -232,8 +232,10 @@ end;
 
 procedure TfmConfig.SaveConfig;
 begin
-  FMasterFrame.SaveToNode;
-  FMirrorFrame.SaveToNode;
+  if FMasterFrame <> nil then
+    FMasterFrame.SaveToNode;
+  if FMirrorFrame <> nil then
+    FMirrorFrame.SaveToNode;
   dmConfig.SaveConfig;
 end;
 

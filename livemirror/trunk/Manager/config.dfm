@@ -66,11 +66,8 @@ object fmConfig: TfmConfig
     ActivePage = tsMaster
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 2
-    ExplicitHeight = 154
     object tsMaster: TTabSheet
       Caption = 'Master database'
-      ExplicitTop = 25
-      ExplicitHeight = 126
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -102,7 +99,9 @@ object fmConfig: TfmConfig
     object tsMirror: TTabSheet
       Caption = 'Mirror database'
       ImageIndex = 1
+      ExplicitLeft = 0
       ExplicitTop = 25
+      ExplicitWidth = 0
       ExplicitHeight = 126
       object Panel2: TPanel
         Left = 0
@@ -136,6 +135,9 @@ object fmConfig: TfmConfig
     object Options: TTabSheet
       Caption = 'Options'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
       ExplicitHeight = 126
       object lbSelectExcludedTables: TLabel
         Left = 257
@@ -217,7 +219,6 @@ object fmConfig: TfmConfig
     Caption = 'Cancel'
     ModalResult = 2
     TabOrder = 3
-    ExplicitTop = 208
   end
   object Button4: TButton
     Left = 269
@@ -228,7 +229,6 @@ object fmConfig: TfmConfig
     Caption = 'Ok'
     ModalResult = 1
     TabOrder = 4
-    ExplicitTop = 208
   end
   object edConfigName: TMaskEdit
     Left = 8
@@ -250,7 +250,6 @@ object fmConfig: TfmConfig
     Caption = 'Licensing'
     TabOrder = 5
     OnClick = btLicensingClick
-    ExplicitTop = 208
   end
   object CcConfig: TCcConfig
     TrackFieldChanges = False
