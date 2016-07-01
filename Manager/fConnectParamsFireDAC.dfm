@@ -41,7 +41,7 @@ object frConnectParamsFireDAC: TfrConnectParamsFireDAC
     Width = 344
     Height = 21
     Anchors = [akLeft, akTop, akRight]
-    TabOrder = 0
+    TabOrder = 3
   end
   object edUserName: TEdit
     Left = 96
@@ -49,7 +49,7 @@ object frConnectParamsFireDAC: TfrConnectParamsFireDAC
     Width = 98
     Height = 21
     CharCase = ecUpperCase
-    TabOrder = 1
+    TabOrder = 4
   end
   object edPassword: TEdit
     Left = 279
@@ -58,7 +58,7 @@ object frConnectParamsFireDAC: TfrConnectParamsFireDAC
     Height = 21
     Anchors = [akLeft, akTop, akRight]
     PasswordChar = '*'
-    TabOrder = 2
+    TabOrder = 5
   end
   object btTest: TButton
     Left = 338
@@ -67,7 +67,7 @@ object frConnectParamsFireDAC: TfrConnectParamsFireDAC
     Height = 25
     Anchors = [akTop, akRight]
     Caption = 'Test connect'
-    TabOrder = 3
+    TabOrder = 2
     OnClick = btTestClick
   end
   object edServerName: TEdit
@@ -76,7 +76,7 @@ object frConnectParamsFireDAC: TfrConnectParamsFireDAC
     Width = 236
     Height = 21
     Anchors = [akLeft, akTop, akRight]
-    TabOrder = 4
+    TabOrder = 1
   end
   object Button1: TButton
     Left = 8
@@ -84,7 +84,7 @@ object frConnectParamsFireDAC: TfrConnectParamsFireDAC
     Width = 161
     Height = 25
     Caption = 'Configure connection'
-    TabOrder = 5
+    TabOrder = 0
     OnClick = Button1Click
   end
 end
