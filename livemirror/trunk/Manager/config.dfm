@@ -92,17 +92,14 @@ object fmConfig: TfmConfig
           OnChange = cbMasterDBTypeChange
           Items.Strings = (
             'Firebird'
-            'Microsoft SQL Server')
+            'Microsoft SQL Server'
+            'SQLite')
         end
       end
     end
     object tsMirror: TTabSheet
       Caption = 'Mirror database'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 25
-      ExplicitWidth = 0
-      ExplicitHeight = 126
       object Panel2: TPanel
         Left = 0
         Top = 0
@@ -110,7 +107,6 @@ object fmConfig: TfmConfig
         Height = 33
         Align = alTop
         TabOrder = 0
-        ExplicitTop = 8
         object Label3: TLabel
           Left = 8
           Top = 8
@@ -128,17 +124,14 @@ object fmConfig: TfmConfig
           OnChange = cbMirrorDBTypeChange
           Items.Strings = (
             'Firebird'
-            'Microsoft SQL Server')
+            'Microsoft SQL Server'
+            'SQLite')
         end
       end
     end
     object Options: TTabSheet
       Caption = 'Options'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 126
       object lbSelectExcludedTables: TLabel
         Left = 257
         Top = 34
@@ -255,7 +248,7 @@ object fmConfig: TfmConfig
     TrackFieldChanges = False
     FailIfNoPK = False
     Tables = <>
-    Version = '3.9.1'
+    Version = '3.9.2'
     Left = 156
     Top = 6
   end

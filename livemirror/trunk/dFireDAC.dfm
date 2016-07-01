@@ -45,4 +45,25 @@ object dmFireDAC: TdmFireDAC
     Left = 304
     Top = 224
   end
+  object CcConnectionSQLite: TCcConnectionFDSQLite
+    FDConnection = FDConnection
+    FDTransaction = FDTransaction
+    DriverLink = FDPhysSQLiteDriverLink1
+    DBVersion = '3.x'
+    Left = 48
+    Top = 136
+  end
+  object FDPhysSQLiteDriverLink1: TFDPhysSQLiteDriverLink
+    Left = 448
+    Top = 168
+  end
+  object FDSQLiteFunction1: TFDSQLiteFunction
+    DriverLink = FDPhysSQLiteDriverLink1
+    Left = 528
+    Top = 56
+  end
+  object FDSQLiteRTree1: TFDSQLiteRTree
+    Left = 488
+    Top = 104
+  end
 end

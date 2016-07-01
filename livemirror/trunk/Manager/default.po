@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-01-19 16:11\n"
-"PO-Revision-Date: 2016-01-19 16:11\n"
+"POT-Creation-Date: 2016-04-27 16:25\n"
+"PO-Revision-Date: 2016-04-27 16:25\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,9 +25,9 @@ msgstr ""
 #. fmConfig..lbEvaluation..Font.Name
 #: config.dfm:41
 #. fmConfig..PageControl..Options..lbSelectExcludedTables..Font.Name
-#: config.dfm:152
+#: config.dfm:145
 #. fmConfig..PageControl..Options..lbAddRemoveMetaData..Font.Name
-#: config.dfm:174
+#: config.dfm:167
 #. fmConfigOptions..Font.Name
 #: configoptions.dfm:11
 #. fmConfigs..Font.Name
@@ -86,31 +86,38 @@ msgstr ""
 #. fmConfig..PageControl..tsMaster..Panel1..Label2..Caption
 #: config.dfm:83
 #. fmConfig..PageControl..tsMirror..Panel2..Label3..Caption
-#: config.dfm:119
+#: config.dfm:115
 msgid "Database type"
 msgstr ""
 
 #. fmConfig..PageControl..tsMaster..Panel1..cbMasterDBType....Items.Strings
 #: config.dfm:94
 #. fmConfig..PageControl..tsMirror..Panel2..cbMirrorDBType....Items.Strings
-#: config.dfm:130
+#: config.dfm:126
 msgid "Firebird"
 msgstr ""
 
 #. fmConfig..PageControl..tsMaster..Panel1..cbMasterDBType....Items.Strings
 #: config.dfm:95
 #. fmConfig..PageControl..tsMirror..Panel2..cbMirrorDBType....Items.Strings
-#: config.dfm:131
+#: config.dfm:127
 msgid "Microsoft SQL Server"
 msgstr ""
 
+#. fmConfig..PageControl..tsMaster..Panel1..cbMasterDBType....Items.Strings
+#: config.dfm:96
+#. fmConfig..PageControl..tsMirror..Panel2..cbMirrorDBType....Items.Strings
+#: config.dfm:128
+msgid "SQLite"
+msgstr ""
+
 #. fmConfig..PageControl..tsMirror..Caption
-#: config.dfm:100
+#: config.dfm:101
 msgid "Mirror database"
 msgstr ""
 
 #. fmConfig..PageControl..Options..Caption
-#: config.dfm:136
+#: config.dfm:133
 #. frmFDGUIxFormsConnEdit..pcMain..tsOptions..Caption
 #: FireDAC.VCLUI.ConnEdit.dfm:214
 #. frmFDGUIxFormsConnEdit..ActionList1..acContinueOnError..Category
@@ -123,40 +130,40 @@ msgid "Options"
 msgstr ""
 
 #. fmConfig..PageControl..Options..lbSelectExcludedTables..Caption
-#: config.dfm:148
+#: config.dfm:141
 msgid "Select tables"
 msgstr ""
 
 #. fmConfig..PageControl..Options..lbMetaDataStatus..Caption
-#: config.dfm:162
+#: config.dfm:155
 #: config.pas:318
 msgid "LiveMirror meta-data has been CREATED in master "
 "database."
 msgstr ""
 
 #. fmConfig..PageControl..Options..lbAddRemoveMetaData..Caption
-#: config.dfm:170
+#: config.dfm:163
 #: config.pas:319
 msgid "Remove meta-data"
 msgstr ""
 
 #. fmConfig..PageControl..Options..rbAllTables..Caption
-#: config.dfm:184
+#: config.dfm:177
 msgid "Synchronize all tables"
 msgstr ""
 
 #. fmConfig..PageControl..Options..rbExcludeSelectedTables..Caption
-#: config.dfm:195
+#: config.dfm:188
 msgid "Synchronize all except selected tables"
 msgstr ""
 
 #. fmConfig..PageControl..Options..cbTrackChanges..Caption
-#: config.dfm:204
+#: config.dfm:197
 msgid "Replicate only changed fields"
 msgstr ""
 
 #. fmConfig..Button3..Caption
-#: config.dfm:219
+#: config.dfm:212
 #. fmConfigOptions..Button1..Caption
 #: configoptions.dfm:80
 #. fmLicensing..Button1..Caption
@@ -165,23 +172,23 @@ msgid "Cancel"
 msgstr ""
 
 #. fmConfig..Button4..Caption
-#: config.dfm:229
+#: config.dfm:222
 msgid "Ok"
 msgstr ""
 
 #. fmConfig..edConfigName..EditMask
-#: config.dfm:238
+#: config.dfm:231
 msgid ">aaaaaaaaaaaaa;0; "
 msgstr ""
 
 #. fmConfig..btLicensing..Caption
-#: config.dfm:250
+#: config.dfm:243
 msgid "Licensing"
 msgstr ""
 
 #. fmConfig..CcConfig..Version
-#: config.dfm:258
-msgid "3.9.1"
+#: config.dfm:251
+msgid "3.9.2"
 msgstr ""
 
 #. fmConfigOptions..Caption

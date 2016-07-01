@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Microtec LiveMirror\n"
-"POT-Creation-Date: 2015-10-12 15:50\n"
+"POT-Creation-Date: 2016-04-27 16:05\n"
 "PO-Revision-Date: 2014-03-26 15:36+0100\n"
 "Last-Translator: Jonathan Neve <jonathan@jntraductions.fr>\n"
 "Language-Team: Jonathan Neve <jonathan@jntraductions.fr>\n"
@@ -39,7 +39,7 @@ msgstr "Microtec LiveMirror"
 
 #. LiveMirror..Replicator..Version
 #: main.dfm:42 
-msgid "3.9.1"
+msgid "3.9.2"
 msgstr ""
 
 #. LiveMirror..qGenerators....SQL.Strings
