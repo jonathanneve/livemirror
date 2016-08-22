@@ -3,15 +3,6 @@ program LiveMirrorSrv;
 {$R 'version.res' '..\version.rc'}
 
 uses
-  EMemLeaks,
-  EResLeaks,
-  EDebugExports,
-  EDebugMap,
-  EDebugJCL,
-  EFixSafeCallException,
-  EMapWin32,
-  EAppService,
-  ExceptionLog7,
   Vcl.SvcMgr,
   main in 'main.pas' {LiveMirror: TService},
   LMUtils in '..\LMUtils.pas',
