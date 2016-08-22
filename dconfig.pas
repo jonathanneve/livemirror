@@ -263,6 +263,7 @@ begin
 
     if Assigned(OnMirrorDBTypeChanged) then
       OnMirrorDBTypeChanged(Self);
+
   end;
 end;
 

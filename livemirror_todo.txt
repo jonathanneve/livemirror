@@ -1,0 +1,6 @@
+LIVEMIRROR TO IMPROVE
+
+- Show Query type in Log (i/u/d)
+- Deactivate triggers in mirror?
+- Error reporting
+- Avoid error with FBclient.dll

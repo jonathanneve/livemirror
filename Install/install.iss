@@ -71,7 +71,7 @@ Name: {group}\{#MyAppName}; Filename: {app}\Manager\{#MyAppExeName}
 
 [Run]
 Filename: {app}\Manager\{#MyAppExeName}; Description: {cm:RunLMMgr}; Flags: nowait postinstall skipifsilent
-Filename: {app}\Guardian\LiveMirrorGuardian.exe; Parameters: /INSTALL /SILENT
+Filename: {app}\Guardian\LiveMirrorGuardian.exe; Parameters: /INSTALL /SILENT; Check: not LMIsInstalled
 
 [Dirs]
 Name: {app}\Configs; Flags: uninsalwaysuninstall
@@ -88,3 +88,8 @@ french.RunLMMgr=Ouvrir l'Administrateur LiveMirror
 [UninstallDelete]
 Name: {app}\config.ini; Type: files; Languages: 
 Name: {app}\Configs; Type: filesandordirs
+[Code]
+function LMIsInstalled: Boolean;
+begin
+  Result := RegValueExists(HKEY_LOCAL_MACHINE,'Software\Microsoft\Windows\CurrentVersion\Uninstall\{{BBFC71D7-E12F-4206-9799-41C56BA604F1}_is1', 'UninstallString');
+end;

@@ -52,11 +52,6 @@ begin
     if slLines.Count > memLog.Lines.Count then begin
       for I := memLog.Lines.Count to slLines.Count-1 do
         memLog.Lines.Add(slLines[I]);
-
-//      memLog.SelStart := memLog.GetTextLen;
-//      memLog.SelLength := 0;
-//      memLog.ScrollBy(0, memLog.Lines.Count);
-//      memLog.Refresh;
     end;
   finally
     Stream.Free;
