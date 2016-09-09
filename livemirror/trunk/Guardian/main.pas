@@ -109,33 +109,9 @@ procedure TLiveMirror.DoExecute;
 var
   I: Integer;
   srv: TServiceInfo;
-
-  {$IFDEF LM_EVALUATION}
-  timeStarted: TDateTime;
-  {$ENDIF}
-
-function EvalTimeExpired: Boolean;
 begin
-  {$IFDEF LM_EVALUATION}
-  Result := (Now - timeStarted > 1 / 24); //Close Guardian after 1 hour
-  {$ELSE}
-  Result := False;
-  {$ENDIF}
-end;
-
-begin
-  {$IFDEF LM_EVALUATION}
-  timeStarted := Now;
-  {$ENDIF}
-
   while not Terminated do
   begin
-    if EvalTimeExpired then begin
-      LogMessage('LiveMirror evaluation version, shutting down service...');
-      StopServices;
-      break;
-    end;
-
     ServiceThread.ProcessRequests(False);
     try
       for I := 0 to slConfigs.Count-1 do begin
