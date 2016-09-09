@@ -18,7 +18,10 @@ uses
   synsock in '..\Synapse\synsock.pas',
   dInterbase in '..\dInterbase.pas' {dmInterbase: TDataModule},
   dconfig in '..\dconfig.pas' {dmConfig: TDataModule},
-  dFireDAC in '..\dFireDAC.pas' {dmFireDAC: TDataModule};
+  dFireDAC in '..\dFireDAC.pas' {dmFireDAC: TDataModule},
+  dLiveMirrorNode in 'dLiveMirrorNode.pas' {dmLiveMirrorNode: TDataModule},
+  ServiceManager in '..\ServiceManager.pas',
+  LiveMirrorRunnerThread in 'LiveMirrorRunnerThread.pas';
 
 {$R *.RES}
 
@@ -42,5 +45,6 @@ begin
   Application.CreateForm(TLiveMirror, LiveMirror);
   Application.CreateForm(TdmInterbase, dmInterbase);
   Application.CreateForm(TdmFireDAC, dmFireDAC);
+  Application.CreateForm(TdmLiveMirrorNode, dmLiveMirrorNode);
   Application.Run;
 end.

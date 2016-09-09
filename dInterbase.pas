@@ -95,8 +95,9 @@ begin
     FDConnection.Params.Values['SQLDialect'] := ini.ReadString('General', 'SQLDialect', '3');
     {$IFDEF DEBUG}
     FDConnection.Params.Values['MonitorBy'] := 'FlatFile';
+    FDMoniFlatFileClientLink.Tracing := False;
     FDMoniFlatFileClientLink.FileName := ExtractFileDir(configFile) + '\debug.txt';
-    FDMoniFlatFileClientLink.Tracing := True;
+//    FDMoniFlatFileClientLink.Tracing := True;
     {$ENDIF}
 
     cClientDLL := ini.ReadString('General', 'Clientdll', '');
