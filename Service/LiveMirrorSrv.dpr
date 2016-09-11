@@ -7,7 +7,6 @@ uses
   main in 'main.pas' {LiveMirror: TService},
   LMUtils in '..\LMUtils.pas',
   gnugettext in '..\gnugettext.pas',
-  HotLog in 'HotLog.pas',
   uLkJSON in '..\uLkJSON.pas',
   blcksock in '..\Synapse\blcksock.pas',
   httpsend in '..\Synapse\httpsend.pas',
