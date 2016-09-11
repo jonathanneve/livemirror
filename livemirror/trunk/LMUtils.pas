@@ -14,6 +14,7 @@ procedure UnInstallService(cConfigName: String; Handle: HWND);
 procedure InstallService(cConfigName: String; Handle: HWND);
 procedure RunServiceOnce(cConfigName: String; Handle: HWND);
 function LiveMirrorVersion: String;
+function LMFileSize(const aFilename: String): Int64;
 
 implementation
 
@@ -56,6 +57,18 @@ begin
   finally
     reg.Free;
   end;
+end;
+
+function LMFileSize(const aFilename: String): Int64;
+var
+  info: TWin32FileAttributeData;
+begin
+  result := -1;
+
+  if NOT GetFileAttributesEx(PWideChar(aFileName), GetFileExInfoStandard, @info) then
+    EXIT;
+
+  result := Int64(info.nFileSizeLow) or Int64(info.nFileSizeHigh shl 32);
 end;
 
 function RegisteredVersion: Boolean;

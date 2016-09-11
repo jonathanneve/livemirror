@@ -139,7 +139,6 @@ $(PostBuildEvent)]]></PostBuildEvent>
         </DCCReference>
         <DCCReference Include="..\LMUtils.pas"/>
         <DCCReference Include="..\gnugettext.pas"/>
-        <DCCReference Include="HotLog.pas"/>
         <DCCReference Include="..\uLkJSON.pas"/>
         <DCCReference Include="..\Synapse\blcksock.pas"/>
         <DCCReference Include="..\Synapse\httpsend.pas"/>

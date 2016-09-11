@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes,
   CcReplicator, CcConf, CcProviders, DB, dconfig, Vcl.SvcMgr,
-  EExceptionManager, CcDB;
+  EExceptionManager, CcDB, main;
 
 type
   TdmLiveMirrorNode = class(TDataModule)
@@ -29,10 +29,12 @@ type
       Fields: TCcMemoryFields; QueryType: TCcQueryType);
     procedure DataModuleDestroy(Sender: TObject);
     procedure DataModuleCreate(Sender: TObject);
+    procedure ReplicatorProgress(Sender: TObject);
   private
     FDMConfig: TdmConfig;
     FRunOnce: Boolean;
     FLiveMirrorService: TService;
+    FLogFileName: string;
     {$IFNDEF LM_EVALUATION}
     {$IFNDEF DEBUG}
     function CheckLiveMirrorLicence : Boolean;
@@ -41,6 +43,10 @@ type
 
     function ConfigDatabases: Boolean;
     procedure ReplicateGenerators;
+    procedure CreateNewLogFile;
+    procedure WriteLog(line: String; timestamp: Boolean = True);overload;
+    procedure WriteLog(sl: TStringList);overload;
+    procedure WriteLog(E: Exception);overload;
   public
     LastReplicationTickCount: Int64;
     property LiveMirrorService: TService read FLiveMirrorService write FLiveMirrorService;
@@ -57,7 +63,38 @@ implementation
 
 {$R *.DFM}
 
-uses LMUtils, IniFiles, dInterbase, Registry, HotLog, gnugettext;
+uses LMUtils, IniFiles, dInterbase, Registry, gnugettext, IOUtils;
+
+procedure TdmLiveMirrorNode.WriteLog(line: String; timestamp: Boolean);
+begin
+  if timestamp then
+    line := '[' + FormatDateTime('hh:nn:ss', Now) + '] ' + line;
+
+  TFile.AppendAllText(FLogFileName, line + #13#10, TEncoding.ANSI);
+end;
+
+procedure TdmLiveMirrorNode.WriteLog(E: Exception);
+var
+  sl: TStringList;
+begin
+  sl := TStringList.Create;
+  try
+    sl.Add('•••••••••••••••••••••••');
+    sl.Add('•••    E R R O R    •••' + E.Message);
+    sl.Add('•••••••••••••••••••••••');
+    WriteLog(sl);
+  finally
+    sl.Free;
+  end;
+end;
+
+procedure TdmLiveMirrorNode.WriteLog(sl: TStringList);
+var
+  I: Integer;
+begin
+  for I := 0 to sl.Count-1 do
+    WriteLog(sl[i], false);
+end;
 
 procedure TdmLiveMirrorNode.ReplicatorConnectionLost(Sender: TObject;
   Database: TCcConnection);
@@ -69,21 +106,21 @@ begin
   else
     dbNode := Replicator.RemoteNode.Name;
 
-  hLog.Add(Format(_('Connection lost to database : %s'), [dbNode]));
+  WriteLog(Format(_('Connection lost to database : %s'), [dbNode]));
 end;
 
 procedure TdmLiveMirrorNode.ReplicatorEmptyLog(Sender: TObject);
 begin
   if FRunOnce then
-    hLog.Add(_('{now} Nothing to replicate'));
+    WriteLog(_('Nothing to replicate'));
 end;
 
 procedure TdmLiveMirrorNode.ReplicatorException(Sender: TObject; e: Exception);
 begin
   FLiveMirrorService.LogMessage(_('Replication failed with error : ') + #13#10 + e.Message, EVENTLOG_ERROR_TYPE);
-	hLog.Add('{now} ' + _('Replication failed with error : '));
-	hLog.AddException(e);
-  hLog.Add(E.StackTrace);
+	WriteLog(_('Replication failed with error : '));
+	WriteLog(e);
+  WriteLog(E.StackTrace, false);
   ExceptionManager.StandardEurekaNotify(ExceptObject,ExceptAddr)
 end;
 
@@ -92,30 +129,36 @@ begin
 //  LogMessage('Replication finished : ' + #13#10 + 'Rows replicated : ' + IntToStr(Replicator.LastResult.RowsReplicated)
 //  + #13#10 + 'Rows with errors : ' + IntToStr(Replicator.LastResult.RowsErrors)
 //   , EVENTLOG_INFORMATION_TYPE);
-  hLog.Add(_('Replication finished : ') + #13#10 + _('Rows replicated : ') + IntToStr(Replicator.LastResult.RowsReplicated)
+  WriteLog(_('Replication finished : ') + #13#10 + _('Rows replicated : ') + IntToStr(Replicator.LastResult.RowsReplicated)
   + #13#10 + _('Rows with errors : ') + IntToStr(Replicator.LastResult.RowsErrors));
 end;
 
 procedure TdmLiveMirrorNode.ReplicatorLogLoaded(Sender: TObject);
 begin
 //  LogMessage('Starting replication : ' + IntToStr(Replicator.Log.LineCount) + ' rows to replicate...', EVENTLOG_INFORMATION_TYPE);
-	hLog.Add('{now} ' + _('Starting replication : '));// + IntToStr(Replicator.Log.LineCount) + _(' rows to replicate...'));
+	WriteLog(_('Starting replication : '));// + IntToStr(Replicator.Log.LineCount) + _(' rows to replicate...'));
+end;
+
+procedure TdmLiveMirrorNode.ReplicatorProgress(Sender: TObject);
+begin
+  if (LiveMirrorService as TLiveMirror).LiveMirrorTerminating then
+    Replicator.AbortReplication;
 end;
 
 procedure TdmLiveMirrorNode.ReplicatorReplicationAborted(Sender: TObject);
 begin
-  hLog.Add('{now} Replication aborted!');
+  WriteLog('Replication aborted!');
 end;
 
 procedure TdmLiveMirrorNode.ReplicatorReplicationError(Sender: TObject; e: Exception;
   var CanContinue, SkipToRemote: Boolean);
 begin
   FLiveMirrorService.LogMessage(_('Error replicating row : Table ') + Replicator.Log.TableName + ' [' + Replicator.Log.PrimaryKeys + ']' + #13#10 + e.Message, EVENTLOG_WARNING_TYPE);
-	hLog.Add('{now} ' + _('Error replicating row : Table ') + Replicator.Log.TableName + ' [' + Replicator.Log.Keys.PrimaryKeyValues + ']');
-	hLog.AddException(e);
+	WriteLog(_('Error replicating row : Table ') + Replicator.Log.TableName + ' [' + Replicator.Log.Keys.PrimaryKeyValues + ']');
+	WriteLog(e);
 
   {$IFDEF DEBUG}
-  hLog.Add(E.StackTrace);
+  WriteLog(E.StackTrace, false);
   ExceptionManager.StandardEurekaNotify(ExceptObject,ExceptAddr);
 //  raise TObject(AcquireExceptionObject);
   {$ENDIF}
@@ -189,7 +232,7 @@ procedure TdmLiveMirrorNode.ReplicatorRowReplicated(Sender: TObject;
   TableName: string; Fields: TCcMemoryFields; QueryType: TCcQueryType);
 begin
 //  LogMessage('Row replicated : Table ' + TableName + ' [' +  Replicator.Log.PrimaryKeys + ']', EVENTLOG_INFORMATION_TYPE);
-  hLog.Add('{now} ' + _('Row replicated : Table : ') + TableName + ' [' + Replicator.Log.Keys.PrimaryKeyValues + ']');
+  WriteLog(_('Row replicated : Table : ') + TableName + ' [' + Replicator.Log.Keys.PrimaryKeyValues + ']');
 
   if not Replicator.ReplicateOnlyChangedFields then begin
     Replicator.LocalDB.CommitRetaining;
@@ -204,18 +247,18 @@ var
   slExcludedTables: TStringList;
 begin
   Result := False;
- 	hLog.Add(_('{now} Checking database configuration...'));
+ 	WriteLog(_('Checking database configuration...'));
   FLiveMirrorService.LogMessage('Configuring databases for replication...', EVENTLOG_INFORMATION_TYPE);
   try
     FDMConfig.ConfigureNodes;
     FDMConfig.SaveConfig; //We save the config file so that the MetaDataCreated field gets set
-    hLog.Add(_('{now} Databases configuration configured successfully!'));
+    WriteLog(_('Databases configuration configured successfully!'));
     Result := True;
   except on E:Exception do
     begin
-      hLog.Add(_('{now} Error setting up databases for replication!'));
-      hLog.AddException(E);
-      hLog.Add(E.StackTrace);
+      WriteLog(_('Error setting up databases for replication!'));
+      WriteLog(E);
+      WriteLog(E.StackTrace, false);
       ExceptionManager.StandardEurekaNotify(ExceptObject,ExceptAddr)
 //      raise TObject(AcquireExceptionObject);
 //      ExceptionManager.ShowLastExceptionData;
@@ -229,22 +272,22 @@ function TdmLiveMirrorRunner.CheckLiveMirrorLicence : Boolean;
 begin
   Result := False;
   if (FDMConfig.Licence <> '') then begin
-     hLog.Add(_('{now} Checking licence information...'));
+     WriteLog(_('Checking licence information...'));
      try
        if not CheckLicenceActivation(FDMConfig.ConfigName, FDMConfig.Licence) then begin
-         hLog.Add(_('Error checking licence, please check your Internet connection'));
+         WriteLog(_('Error checking licence, please check your Internet connection'));
          Exit;
        end;
        Result := True;
      except
        on E: Exception do begin
-         hLog.Add(_('Licencing error : '));
-         hLog.Add(E.Message);
+         WriteLog(_('Licencing error : '));
+         WriteLog(E.Message);
        end;
      end;
   end
   else
-    hLog.Add(_('No licence set for this database configuration. Synchronization aborting.'));
+    WriteLog(_('No licence set for this database configuration. Synchronization aborting.'));
 end;
 {$ENDIF}
 {$ENDIF}
@@ -260,6 +303,30 @@ begin
   FDMConfig.Free;
 end;
 
+procedure TdmLiveMirrorNode.CreateNewLogFile;
+var
+  slHeader: TStringList;
+  cPath: string;
+begin
+  cPath := GetLiveMirrorRoot + '\Configs\' + FDMConfig.ConfigName + '\log\';
+  ForceDirectories(cPath);
+  FLogFileName := cPath + '\' + FormatDateTime('yyyy-mm-dd hh.nn.ss', Now) + '.log';
+  slHeader := TStringList.Create;
+  try
+    slHeader.Add('********************************************************************************');
+    slHeader.Add('>>>> Initializing LiveMirror replication thread...');
+    slHeader.Add('           ' + _('Version:') + LiveMirrorVersion);
+    slHeader.Add('           ' + _('Configuration name: ') + FDMConfig.ConfigName);
+    slHeader.Add('           ' + _('MASTER database :') + #9 + FDMConfig.MasterNode.Description);
+    slHeader.Add('           ' + _('MIRROR database :') + #9 + FDMConfig.MirrorNode.Description);
+    slHeader.Add('           ' + _('Replication frequency :') + #9 + IntToStr(FDMConfig.SyncFrequency) + _(' seconds'));
+    slHeader.Add('********************************************************************************');
+    WriteLog(slHeader);
+  finally
+    slHeader.Free;
+  end;
+end;
+
 function TdmLiveMirrorNode.Initialize(ConfigName: String): Boolean;
 var
   iniConfigs: TIniFile;
@@ -271,34 +338,7 @@ begin
 
   try
     FDMConfig.LoadConfig(FDMConfig.ConfigName);
-    cPath := GetLiveMirrorRoot + '\Configs\' + FDMConfig.ConfigName + '\log\';
-    ForceDirectories(cPath);
-
-    with hLog.hlWriter.hlFileDef do begin
-      path := cPath;
-      SafegdgMax := 100;
-      UseSafeFilenames := true;
-      UseFileSizeLimit := true;
-      BuildSafeFileName;
-      LogFileMaxSize := OneMegabyte;
-    end;
-    hlog.SetLogFileTimerInterval(OneMinute);
-    hLog.StartLogging;
-
-    hLog.Add('{/}{LNumOff}{*80*}');
-    hLog.Add(_('>>>> Start {App_name}') + ' v ' + LiveMirrorVersion + '{80@}{&}{dte} {hms}{&}');
-    hLog.Add(_('{@12}Path : {App_path}'));
-    hLog.Add(_('{@12}Config. name : {App_prm-}{/}'));
-
-    {$IFDEF LM_EVALUATION}
-    hLog.Add(_('!!! EVALUATION VERSION !!!'));
-    {$ENDIF}
-
-    hLog.Add(_('MASTER database :') + #9 + FDMConfig.MasterNode.Description);
-    hLog.Add(_('MIRROR database :') + #9 + FDMConfig.MirrorNode.Description);
-    hLog.Add(_('Replication frequency :') + #9 + IntToStr(FDMConfig.SyncFrequency) + _(' seconds'));
-//    hLog.Add(_('Replicating only changed fields :') + #9 + BoolToStr(FDMConfig.TrackChanges));
-    hLog.Add('{/}{LNumOff}{*80*}');
+    CreateNewLogFile;
 
     {$IFNDEF LM_EVALUATION}
     {$IFNDEF DEBUG}
@@ -325,15 +365,16 @@ begin
       Replicator.RemoteNode.Connection := FDMConfig.MirrorNode.Connection;
       Replicator.RemoteNode.Name := 'MIRROR';
 
-      hLog.Add(_('{now} Service ready!'));
+      WriteLog(_('Service ready!'));
       Result := True;
     end else begin
-      cErrorMessage := _('{now} DATABASE CONFIGURATION FAILED - CONTACT COPYCAT TEAM FOR SUPPORT!');
-      hLog.Add(cErrorMessage);
+      cErrorMessage := _('DATABASE CONFIGURATION FAILED - CONTACT COPYCAT TEAM FOR SUPPORT!');
+      WriteLog(cErrorMessage);
       FLiveMirrorService.LogMessage(cErrorMessage, EVENTLOG_ERROR_TYPE);
       Result := False;
     end;
   except on E: Exception do begin
+      WriteLog(E.Message);
       FLiveMirrorService.LogMessage(E.Message, EVENTLOG_ERROR_TYPE);
       iniConfigs.Free;
       Result := False;
@@ -341,8 +382,12 @@ begin
   end;
 end;
 
+
 procedure TdmLiveMirrorNode.Run;
 begin
+  if LMFileSize(FLogFileName) > 1000000 then
+    CreateNewLogFile;
+
   Replicator.Replicate;
 end;
 

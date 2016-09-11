@@ -13,6 +13,7 @@ object dmLiveMirrorNode: TdmLiveMirrorNode
     FailIfNoPK = False
     TrimCharFields = False
     AutoPriority = True
+    OnReplicationResult = ReplicatorReplicationResult
     HarmonizeFields = False
     KeepConnection = True
     AutoReplicate.Frequency = 30
@@ -21,6 +22,15 @@ object dmLiveMirrorNode: TdmLiveMirrorNode
     AutoCommit.CommitType = ctNone
     CommitOnFinished = ctNone
     AbortOnError = False
+    OnFinished = ReplicatorFinished
+    OnRowReplicated = ReplicatorRowReplicated
+    OnReplicationError = ReplicatorReplicationError
+    OnException = ReplicatorException
+    OnReplicationAborted = ReplicatorReplicationAborted
+    OnEmptyLog = ReplicatorEmptyLog
+    OnProgress = ReplicatorProgress
+    OnLogLoaded = ReplicatorLogLoaded
+    OnConnectionLost = ReplicatorConnectionLost
     Version = '3.9.2'
     KeepRowsInLog = False
     Left = 32

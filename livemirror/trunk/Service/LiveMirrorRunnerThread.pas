@@ -54,10 +54,12 @@ implementation
 
 procedure TLiveMirrorRunnerThread.Execute;
 begin
-  node.Run;
-  node.LastReplicationTickCount := GetTickCount;
-
-  (FNode.LiveMirrorService as TLiveMirror).DecTotalThreadsRunning;
+  try
+    node.Run;
+    node.LastReplicationTickCount := GetTickCount;
+  finally
+    (FNode.LiveMirrorService as TLiveMirror).RemoveRunningThread(node.DMConfig.ConfigName);
+  end;
 end;
 
 procedure TLiveMirrorRunnerThread.SetNode(const Value: TdmLiveMirrorNode);
