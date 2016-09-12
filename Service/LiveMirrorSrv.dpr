@@ -19,7 +19,6 @@ uses
   dconfig in '..\dconfig.pas' {dmConfig: TDataModule},
   dFireDAC in '..\dFireDAC.pas' {dmFireDAC: TDataModule},
   dLiveMirrorNode in 'dLiveMirrorNode.pas' {dmLiveMirrorNode: TDataModule},
-  ServiceManager in '..\ServiceManager.pas',
   LiveMirrorRunnerThread in 'LiveMirrorRunnerThread.pas';
 
 {$R *.RES}
