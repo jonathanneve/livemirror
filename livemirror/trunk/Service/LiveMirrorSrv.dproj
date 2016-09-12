@@ -165,7 +165,6 @@ $(PostBuildEvent)]]></PostBuildEvent>
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="..\ServiceManager.pas"/>
         <DCCReference Include="LiveMirrorRunnerThread.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
