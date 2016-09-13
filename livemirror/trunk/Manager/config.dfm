@@ -28,22 +28,6 @@ object fmConfig: TfmConfig
     Height = 13
     Caption = 'Configuration name :'
   end
-  object lbEvaluation: TLabel
-    Left = 12
-    Top = 243
-    Width = 223
-    Height = 23
-    Anchors = [akLeft, akBottom]
-    Caption = 'EVALUATION VERSION'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clMaroon
-    Font.Height = -19
-    Font.Name = 'Tahoma'
-    Font.Style = [fsBold]
-    ParentFont = False
-    StyleElements = [seClient, seBorder]
-    ExplicitTop = 211
-  end
   object edFrenquency: TLabeledEdit
     Left = 269
     Top = 24
@@ -63,7 +47,7 @@ object fmConfig: TfmConfig
     Top = 51
     Width = 418
     Height = 187
-    ActivePage = tsMaster
+    ActivePage = TabSheet1
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 2
     object tsMaster: TTabSheet
@@ -132,6 +116,7 @@ object fmConfig: TfmConfig
     object Options: TTabSheet
       Caption = 'Options'
       ImageIndex = 2
+      ExplicitTop = 25
       object lbSelectExcludedTables: TLabel
         Left = 257
         Top = 34
@@ -149,14 +134,14 @@ object fmConfig: TfmConfig
       end
       object lbMetaDataStatus: TLabel
         Left = 10
-        Top = 87
+        Top = 111
         Width = 295
         Height = 13
         Caption = 'LiveMirror meta-data has been CREATED in master database.'
       end
       object lbAddRemoveMetaData: TLabel
         Left = 10
-        Top = 106
+        Top = 130
         Width = 111
         Height = 13
         Cursor = crHandPoint
@@ -191,7 +176,7 @@ object fmConfig: TfmConfig
       end
       object cbTrackChanges: TCheckBox
         Left = 10
-        Top = 62
+        Top = 70
         Width = 322
         Height = 17
         Caption = 'Replicate only changed fields'
@@ -200,6 +185,46 @@ object fmConfig: TfmConfig
         TabOrder = 2
         Visible = False
         OnClick = cbTrackChangesClick
+      end
+    end
+    object TabSheet1: TTabSheet
+      Caption = 'Error options'
+      ImageIndex = 3
+      ExplicitLeft = 0
+      ExplicitTop = 40
+      DesignSize = (
+        410
+        159)
+      object cbDefaultErrorReporting: TRadioButton
+        Left = 24
+        Top = 48
+        Width = 353
+        Height = 17
+        Caption = 'Use default error reporting options'
+        Checked = True
+        TabOrder = 0
+        TabStop = True
+        OnClick = cbDefaultErrorReportingClick
+      end
+      object cbCustomErrorManagement: TRadioButton
+        Left = 24
+        Top = 84
+        Width = 241
+        Height = 17
+        Caption = 'Customize error reporting:'
+        TabOrder = 1
+        OnClick = cbCustomErrorManagementClick
+      end
+      object btErrorConfig: TButton
+        Left = 304
+        Top = 84
+        Width = 103
+        Height = 25
+        Anchors = [akTop, akRight]
+        Caption = 'Configure...'
+        Enabled = False
+        TabOrder = 2
+        OnClick = btErrorConfigClick
       end
     end
   end

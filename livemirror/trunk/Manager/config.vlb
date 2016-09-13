@@ -38,9 +38,6 @@ Coordinates=282,10,80,58
 [CcConfig]
 Coordinates=458,265,67,36
 
-[lbEvaluation]
-Coordinates=302,78,85,58
-
 [rbExcludeSelectedTables]
 Coordinates=312,146,160,36
 

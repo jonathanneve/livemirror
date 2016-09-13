@@ -9,7 +9,7 @@ uses
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Stan.Param,
   FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client, FireDAC.Moni.Base, FireDAC.Moni.FlatFile;
+  FireDAC.Comp.Client, FireDAC.Moni.Base, FireDAC.Moni.FlatFile, erroroptions;
 
 type
   TfmConfigs = class(TForm)
@@ -26,10 +26,10 @@ type
     Label2: TLabel;
     lbVersion: TLabel;
     btServiceStopStart: TButton;
-    pnEvaluation: TPanel;
-    lbEvaluation: TLabel;
     btLog: TBitBtn;
     btRun: TBitBtn;
+    Panel2: TPanel;
+    Button1: TButton;
     procedure btAddClick(Sender: TObject);
     procedure btPropertiesClick(Sender: TObject);
     procedure btDeleteClick(Sender: TObject);
@@ -40,6 +40,7 @@ type
     procedure ServiceRefreshTimerTimer(Sender: TObject);
     procedure btLogClick(Sender: TObject);
     procedure btRunClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     lServiceRunning: Boolean;
     slConfigLicences: TStringList;
@@ -264,6 +265,16 @@ begin
   end; }
 end;
 
+procedure TfmConfigs.Button1Click(Sender: TObject);
+var
+  fmErrorOptions: TfmErrorOptions;
+begin
+  fmErrorOptions := TfmErrorOptions.Create(Self);
+  fmErrorOptions.Init(GetLiveMirrorRoot + '\erroroptions.ini');
+  fmErrorOptions.ShowModal;
+  fmErrorOptions.Free;
+end;
+
 procedure TfmConfigs.FormCreate(Sender: TObject);
 begin
   TranslateComponent (self);
@@ -273,12 +284,6 @@ begin
 
   Init;
   RefreshServiceStatus;
-
-  {$IFDEF LM_EVALUATION}
-  pnEvaluation.Visible := True;
-  {$ELSE}
-  pnEvaluation.Visible := False;
-  {$ENDIF}
 end;
 
 procedure TfmConfigs.RefreshServiceStatus;

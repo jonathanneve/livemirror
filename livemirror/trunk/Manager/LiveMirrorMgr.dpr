@@ -43,7 +43,9 @@ uses
   FireDAC.VCLUI.OptsBase in 'C:\Program Files (x86)\Embarcadero\Studio\14.0\source\data\firedac\FireDAC.VCLUI.OptsBase.pas' {frmFDGUIxFormsOptsBase},
   FireDAC.VCLUI.ConnEdit in 'FireDAC.VCLUI.ConnEdit.pas' {frmFDGUIxFormsConnEdit},
   erroroptions in 'erroroptions.pas' {fmErrorOptions},
-  errors in '..\errors.pas';
+  errors in '..\errors.pas',
+  fErrorConfig in 'fErrorConfig.pas' {frErrorConfig: TFrame},
+  fGeneralErrorConfig in 'fGeneralErrorConfig.pas' {frGeneralErrorConfig: TFrame};
 
 {$R *.res}
 
@@ -58,6 +60,5 @@ begin
   Application.CreateForm(TdmFireDAC, dmFireDAC);
   Application.CreateForm(TfrmFDGUIxFormsOptsBase, frmFDGUIxFormsOptsBase);
   Application.CreateForm(TfrmFDGUIxFormsConnEdit, frmFDGUIxFormsConnEdit);
-  Application.CreateForm(TfmErrorOptions, fmErrorOptions);
   Application.Run;
 end.

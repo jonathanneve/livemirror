@@ -11,7 +11,7 @@ uses
   Vcl.Bind.DBEngExt, System.Rtti, System.Bindings.Outputs, Vcl.Bind.Editors,
   Data.Bind.Components, Vcl.ComCtrls, FireDAC.Phys.FB, FireDAC.Phys.IBBase,
   FireDAC.Phys.IB, FireDAC.Phys.ODBCBase, FireDAC.Phys.MSSQL, Vcl.Mask, IniFiles, CcProviders,
-  CcConf, dconfig;
+  CcConf, dconfig, erroroptions;
 
 type
 (*  ILMConnectionFrame = interface['{E67ED917-1575-4159-B547-35CCD40881A9}']
@@ -36,7 +36,6 @@ type
     edConfigName: TMaskEdit;
     Label1: TLabel;
     btLicensing: TButton;
-    lbEvaluation: TLabel;
     CcConfig: TCcConfig;
     Options: TTabSheet;
     rbAllTables: TRadioButton;
@@ -51,6 +50,10 @@ type
     Panel2: TPanel;
     Label3: TLabel;
     cbMirrorDBType: TComboBox;
+    TabSheet1: TTabSheet;
+    cbDefaultErrorReporting: TRadioButton;
+    cbCustomErrorManagement: TRadioButton;
+    btErrorConfig: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure btLicensingClick(Sender: TObject);
@@ -64,6 +67,9 @@ type
     procedure cbTrackChangesClick(Sender: TObject);
     procedure cbMasterDBTypeChange(Sender: TObject);
     procedure cbMirrorDBTypeChange(Sender: TObject);
+    procedure cbDefaultErrorReportingClick(Sender: TObject);
+    procedure btErrorConfigClick(Sender: TObject);
+    procedure cbCustomErrorManagementClick(Sender: TObject);
   private
     ConfigsIni: TIniFile;
     lNewConfig: Boolean;
@@ -80,6 +86,7 @@ type
     procedure MirrorDBTypeChanged(Sender: TObject);
     class function DoEditConfig(cConfigName: String): String; static;
     procedure SaveConfig;
+    function GetErrorOptionsPath: String;
 //    procedure LoadConfig(cConfigName: String);
   public
     property dmConfig: TdmConfig read FdmConfig;
@@ -124,13 +131,7 @@ end;
 procedure TfmConfig.FormCreate(Sender: TObject);
 begin
   TranslateComponent(self);
-  {$IFDEF LM_EVALUATION}
-  lbEvaluation.Visible := True;
-  btLicensing.Visible := False;
-  {$ELSE}
-  lbEvaluation.Visible := False;
   btLicensing.Visible := True;
-  {$ENDIF}
 
   FRootDir := GetLiveMirrorRoot;
   ConfigsIni := TIniFile.Create(FRootDir + 'configs.ini');
@@ -197,6 +198,25 @@ end;
 procedure TfmConfig.btLicensingClick(Sender: TObject);
 begin
   dmConfig.Licence := TfmLicensing.AskForLicence(Trim(dmConfig.ConfigName));
+end;
+
+procedure TfmConfig.btErrorConfigClick(Sender: TObject);
+var
+  fmErrorOptions: TfmErrorOptions;
+begin
+  fmErrorOptions := TfmErrorOptions.Create(Self);
+  fmErrorOptions.Init(GetErrorOptionsPath);
+  fmErrorOptions.ShowModal;
+  fmErrorOptions.Free;
+end;
+
+procedure TfmConfig.cbDefaultErrorReportingClick(Sender: TObject);
+begin
+  if cbDefaultErrorReporting.Checked then begin
+    if FileExists(GetErrorOptionsPath) then
+      DeleteFile(GetErrorOptionsPath);
+    btErrorConfig.Enabled := False;
+  end;
 end;
 
 procedure TfmConfig.cbMasterDBTypeChange(Sender: TObject);
@@ -276,6 +296,16 @@ begin
   Result := DoEditConfig('');
 end;
 
+procedure TfmConfig.cbCustomErrorManagementClick(Sender: TObject);
+begin
+  btErrorConfig.Enabled := True;
+end;
+
+function TfmConfig.GetErrorOptionsPath: String;
+begin
+  Result := GetLiveMirrorRoot + 'Configs\' + dmConfig.ConfigName + '\erroroptions.ini'
+end;
+
 procedure TfmConfig.rbAllTablesClick(Sender: TObject);
 begin
   if rbAllTables.Checked then
@@ -325,6 +355,11 @@ begin
 
   cbMasterDBType.ItemIndex := cbMasterDBType.Items.IndexOf(dmConfig.MasterDBTypeDescription);
   cbMirrorDBType.ItemIndex := cbMirrorDBType.Items.IndexOf(dmConfig.MirrorDBTypeDescription);
+
+  if FileExists(GetErrorOptionsPath) then
+    cbCustomErrorManagement.Checked := True
+  else
+    cbDefaultErrorReporting.Checked := True;
 end;
 
 end.

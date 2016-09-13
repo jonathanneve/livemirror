@@ -1,8 +1,8 @@
 object fmErrorOptions: TfmErrorOptions
   Left = 0
   Top = 0
-  Caption = 'fmErrorOptions'
-  ClientHeight = 334
+  Caption = 'Error management options'
+  ClientHeight = 333
   ClientWidth = 952
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -11,311 +11,170 @@ object fmErrorOptions: TfmErrorOptions
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   DesignSize = (
     952
-    334)
+    333)
   PixelsPerInch = 96
   TextHeight = 13
   object GroupBox1: TGroupBox
     Left = 8
     Top = 120
     Width = 936
-    Height = 162
+    Height = 171
     Anchors = [akLeft, akTop, akRight]
     Caption = 'Row-level errors'
     TabOrder = 0
-    DesignSize = (
-      936
-      162)
-    object Label1: TLabel
-      Left = 16
-      Top = 31
-      Width = 130
-      Height = 33
-      AutoSize = False
-      Caption = 'Lock violations'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-      WordWrap = True
-    end
-    object Label2: TLabel
-      Left = 647
+    inline frLockError: TfrErrorConfig
+      Left = 2
       Top = 15
-      Width = 85
-      Height = 13
-      Caption = 'Report error to...'
-    end
-    object Label3: TLabel
-      Left = 248
-      Top = 15
-      Width = 36
-      Height = 13
-      Caption = 'Then...'
-    end
-    object Label4: TLabel
-      Left = 423
-      Top = 15
-      Width = 154
-      Height = 13
-      Caption = 'Try again next replication cycle?'
-    end
-    object Label5: TLabel
-      Left = 16
-      Top = 70
-      Width = 130
-      Height = 34
-      AutoSize = False
-      Caption = 'Foreign key violations'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-      WordWrap = True
-    end
-    object Label10: TLabel
-      Left = 152
-      Top = 15
-      Width = 74
-      Height = 13
-      Caption = 'Try again for...'
-    end
-    object Label11: TLabel
-      Left = 183
-      Top = 32
-      Width = 39
-      Height = 13
-      Caption = 'seconds'
-    end
-    object Label6: TLabel
-      Left = 647
-      Top = 63
-      Width = 85
-      Height = 13
-      Caption = 'Report error to...'
-    end
-    object Label7: TLabel
-      Left = 248
-      Top = 63
-      Width = 36
-      Height = 13
-      Caption = 'Then...'
-    end
-    object Label8: TLabel
-      Left = 423
-      Top = 63
-      Width = 154
-      Height = 13
-      Caption = 'Try again next replication cycle?'
-    end
-    object Label9: TLabel
-      Left = 152
-      Top = 63
-      Width = 74
-      Height = 13
-      Caption = 'Try again for...'
-    end
-    object Label12: TLabel
-      Left = 183
-      Top = 80
-      Width = 39
-      Height = 13
-      Caption = 'seconds'
-    end
-    object Label13: TLabel
-      Left = 16
-      Top = 118
-      Width = 130
-      Height = 34
-      AutoSize = False
-      Caption = 'Other errors'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-      WordWrap = True
-    end
-    object Label14: TLabel
-      Left = 647
-      Top = 111
-      Width = 85
-      Height = 13
-      Caption = 'Report error to...'
-    end
-    object Label15: TLabel
-      Left = 248
-      Top = 111
-      Width = 36
-      Height = 13
-      Caption = 'Then...'
-    end
-    object Label16: TLabel
-      Left = 152
-      Top = 111
-      Width = 74
-      Height = 13
-      Caption = 'Try again for...'
-    end
-    object Label17: TLabel
-      Left = 183
-      Top = 128
-      Width = 39
-      Height = 13
-      Caption = 'seconds'
-    end
-    object Label18: TLabel
-      Left = 423
-      Top = 111
-      Width = 154
-      Height = 13
-      Caption = 'Try again next replication cycle?'
-    end
-    object Edit1: TEdit
-      Left = 647
-      Top = 29
-      Width = 281
-      Height = 21
-      Anchors = [akLeft, akTop, akRight]
+      Width = 932
+      Height = 50
+      Align = alTop
       TabOrder = 0
-      TextHint = 'Email address(es)'
-      ExplicitWidth = 338
+      ExplicitLeft = 2
+      ExplicitTop = 15
+      ExplicitWidth = 932
+      DesignSize = (
+        932
+        50)
+      inherited edEmails: TEdit
+        Width = 277
+        ExplicitWidth = 277
+      end
     end
-    object ComboBox1: TComboBox
-      Left = 248
-      Top = 29
-      Width = 169
-      Height = 21
-      Style = csDropDownList
-      ItemIndex = 1
+    inline frFKError: TfrErrorConfig
+      Left = 2
+      Top = 65
+      Width = 932
+      Height = 50
+      Align = alTop
       TabOrder = 1
-      Text = 'Continue replication'
-      Items.Strings = (
-        'Abort replication'
-        'Continue replication')
+      ExplicitLeft = 2
+      ExplicitTop = 65
+      ExplicitWidth = 932
+      DesignSize = (
+        932
+        50)
+      inherited edEmails: TEdit
+        Width = 277
+        ExplicitWidth = 277
+      end
     end
-    object ComboBox2: TComboBox
-      Left = 423
-      Top = 29
-      Width = 218
-      Height = 21
-      Style = csDropDownList
-      ItemIndex = 0
+    inline frOtherRowError: TfrErrorConfig
+      Left = 2
+      Top = 115
+      Width = 932
+      Height = 50
+      Align = alTop
       TabOrder = 2
-      Text = 'No, report immediately'
-      Items.Strings = (
-        'No, report immediately'
-        'Yes, report if it still fails')
-    end
-    object Edit3: TEdit
-      Left = 152
-      Top = 29
-      Width = 25
-      Height = 21
-      TabOrder = 3
-      Text = '5'
-    end
-    object Edit2: TEdit
-      Left = 647
-      Top = 77
-      Width = 281
-      Height = 21
-      Anchors = [akLeft, akTop, akRight]
-      TabOrder = 4
-      TextHint = 'Email address(es)'
-    end
-    object ComboBox3: TComboBox
-      Left = 248
-      Top = 77
-      Width = 169
-      Height = 21
-      Style = csDropDownList
-      ItemIndex = 1
-      TabOrder = 5
-      Text = 'Continue replication'
-      Items.Strings = (
-        'Abort replication'
-        'Continue replication')
-    end
-    object ComboBox4: TComboBox
-      Left = 423
-      Top = 77
-      Width = 218
-      Height = 21
-      Style = csDropDownList
-      ItemIndex = 0
-      TabOrder = 6
-      Text = 'No, report immediately'
-      Items.Strings = (
-        'No, report immediately'
-        'Yes, report if it still fails')
-    end
-    object Edit4: TEdit
-      Left = 152
-      Top = 77
-      Width = 25
-      Height = 21
-      TabOrder = 7
-      Text = '0'
-    end
-    object Edit5: TEdit
-      Left = 647
-      Top = 125
-      Width = 281
-      Height = 21
-      Anchors = [akLeft, akTop, akRight]
-      TabOrder = 8
-      TextHint = 'Email address(es)'
-    end
-    object ComboBox5: TComboBox
-      Left = 248
-      Top = 125
-      Width = 169
-      Height = 21
-      Style = csDropDownList
-      ItemIndex = 1
-      TabOrder = 9
-      Text = 'Continue replication'
-      Items.Strings = (
-        'Abort replication'
-        'Continue replication')
-    end
-    object ComboBox6: TComboBox
-      Left = 423
-      Top = 125
-      Width = 218
-      Height = 21
-      Style = csDropDownList
-      ItemIndex = 0
-      TabOrder = 10
-      Text = 'No, report immediately'
-      Items.Strings = (
-        'No, report immediately'
-        'Yes, report if it still fails')
-    end
-    object Edit6: TEdit
-      Left = 152
-      Top = 125
-      Width = 25
-      Height = 21
-      TabOrder = 11
-      Text = '0'
+      ExplicitLeft = 2
+      ExplicitTop = 115
+      ExplicitWidth = 932
+      inherited edEmails: TEdit
+        Width = 277
+        ExplicitWidth = 277
+      end
     end
   end
   object GroupBox2: TGroupBox
     Left = 8
     Top = 8
     Width = 936
-    Height = 105
+    Height = 107
     Anchors = [akLeft, akTop, akRight]
     Caption = 'General errors'
     TabOrder = 1
-    ExplicitWidth = 619
+    inline frConnectionError: TfrGeneralErrorConfig
+      Left = 2
+      Top = 15
+      Width = 932
+      Height = 46
+      Align = alTop
+      TabOrder = 0
+      ExplicitLeft = 2
+      ExplicitTop = 15
+      ExplicitWidth = 932
+      inherited Label1: TLabel
+        Top = 2
+        ExplicitTop = 2
+      end
+      inherited Label2: TLabel
+        Left = 615
+        Top = 20
+        ExplicitLeft = 615
+        ExplicitTop = 20
+      end
+      inherited Label3: TLabel
+        Left = 584
+        Top = 2
+        Anchors = [akTop, akRight]
+        ExplicitLeft = 584
+        ExplicitTop = 2
+      end
+      inherited edEmails: TEdit
+        Top = 16
+        Width = 419
+        ExplicitTop = 16
+        ExplicitWidth = 419
+      end
+      inherited edReportAgainMin: TEdit
+        Left = 584
+        Top = 16
+        Anchors = [akTop, akRight]
+        ExplicitLeft = 584
+        ExplicitTop = 16
+      end
+      inherited cbReportWhenResolved: TCheckBox
+        Left = 733
+        Top = 13
+        Anchors = [akTop, akRight]
+        ExplicitLeft = 733
+        ExplicitTop = 13
+      end
+    end
+    inline frOtherGeneralError: TfrGeneralErrorConfig
+      Left = 2
+      Top = 61
+      Width = 932
+      Height = 46
+      Align = alTop
+      TabOrder = 1
+      ExplicitLeft = 2
+      ExplicitTop = 61
+      ExplicitWidth = 932
+      inherited Label2: TLabel
+        Left = 615
+        ExplicitLeft = 615
+      end
+      inherited Label3: TLabel
+        Left = 584
+        Anchors = [akTop, akRight]
+        ExplicitLeft = 584
+      end
+      inherited edEmails: TEdit
+        Width = 419
+        ExplicitWidth = 419
+      end
+      inherited edReportAgainMin: TEdit
+        Left = 584
+        Anchors = [akTop, akRight]
+        ExplicitLeft = 584
+      end
+      inherited cbReportWhenResolved: TCheckBox
+        Left = 733
+        Anchors = [akTop, akRight]
+        ExplicitLeft = 733
+      end
+    end
+  end
+  object Button1: TButton
+    Left = 832
+    Top = 301
+    Width = 112
+    Height = 25
+    Caption = 'Close'
+    ModalResult = 8
+    TabOrder = 2
   end
 end
