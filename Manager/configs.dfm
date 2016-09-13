@@ -2,8 +2,8 @@ object fmConfigs: TfmConfigs
   Left = 0
   Top = 0
   Caption = 'LiveMirror Manager'
-  ClientHeight = 239
-  ClientWidth = 312
+  ClientHeight = 477
+  ClientWidth = 478
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,38 +19,44 @@ object fmConfigs: TfmConfigs
   object Panel1: TPanel
     Left = 0
     Top = 50
-    Width = 312
-    Height = 160
+    Width = 478
+    Height = 398
     Align = alClient
     BevelOuter = bvNone
     Caption = 'Panel1'
     TabOrder = 0
+    ExplicitTop = 49
+    ExplicitHeight = 392
     DesignSize = (
-      312
-      160)
+      478
+      398)
     object GroupBox: TGroupBox
       Left = 11
       Top = -1
-      Width = 296
-      Height = 155
+      Width = 462
+      Height = 393
       Anchors = [akLeft, akTop, akRight, akBottom]
       Caption = 'Configurations'
       TabOrder = 0
+      ExplicitWidth = 296
+      ExplicitHeight = 155
       DesignSize = (
-        296
-        155)
+        462
+        393)
       object listConfigs: TListBox
         Left = 3
         Top = 18
-        Width = 201
-        Height = 134
+        Width = 367
+        Height = 372
         Anchors = [akLeft, akTop, akRight, akBottom]
         ItemHeight = 13
         TabOrder = 0
         OnDblClick = listConfigsDblClick
+        ExplicitWidth = 201
+        ExplicitHeight = 134
       end
       object btAdd: TBitBtn
-        Left = 210
+        Left = 376
         Top = 18
         Width = 75
         Height = 25
@@ -58,9 +64,10 @@ object fmConfigs: TfmConfigs
         Caption = 'Add'
         TabOrder = 1
         OnClick = btAddClick
+        ExplicitLeft = 210
       end
       object btDelete: TBitBtn
-        Left = 210
+        Left = 376
         Top = 70
         Width = 75
         Height = 25
@@ -75,9 +82,10 @@ object fmConfigs: TfmConfigs
         ParentFont = False
         TabOrder = 2
         OnClick = btDeleteClick
+        ExplicitLeft = 210
       end
       object btProperties: TBitBtn
-        Left = 210
+        Left = 376
         Top = 44
         Width = 75
         Height = 25
@@ -86,9 +94,10 @@ object fmConfigs: TfmConfigs
         DoubleBuffered = False
         TabOrder = 3
         OnClick = btPropertiesClick
+        ExplicitLeft = 210
       end
       object btLog: TBitBtn
-        Left = 210
+        Left = 376
         Top = 122
         Width = 75
         Height = 25
@@ -97,9 +106,10 @@ object fmConfigs: TfmConfigs
         DoubleBuffered = False
         TabOrder = 4
         OnClick = btLogClick
+        ExplicitLeft = 210
       end
       object btRun: TBitBtn
-        Left = 210
+        Left = 376
         Top = 96
         Width = 75
         Height = 25
@@ -108,19 +118,21 @@ object fmConfigs: TfmConfigs
         DoubleBuffered = False
         TabOrder = 5
         OnClick = btRunClick
+        ExplicitLeft = 210
       end
     end
   end
   object Panel3: TPanel
     Left = 0
     Top = 0
-    Width = 312
+    Width = 478
     Height = 50
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitWidth = 312
     DesignSize = (
-      312
+      478
       50)
     object Label1: TLabel
       Left = 11
@@ -166,7 +178,7 @@ object fmConfigs: TfmConfigs
       ParentFont = False
     end
     object btServiceStopStart: TButton
-      Left = 221
+      Left = 387
       Top = 25
       Width = 75
       Height = 25
@@ -174,42 +186,32 @@ object fmConfigs: TfmConfigs
       Caption = 'Stop'
       TabOrder = 0
       OnClick = btServiceStopStartClick
+      ExplicitLeft = 221
     end
   end
-  object pnEvaluation: TPanel
+  object Panel2: TPanel
     Left = 0
-    Top = 210
-    Width = 312
+    Top = 448
+    Width = 478
     Height = 29
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
-    DesignSize = (
-      312
-      29)
-    object lbEvaluation: TLabel
-      Left = 0
+    ExplicitTop = 447
+    object Button1: TButton
+      Left = 11
       Top = 0
-      Width = 312
-      Height = 23
-      Alignment = taCenter
-      Anchors = [akLeft, akTop, akRight]
-      AutoSize = False
-      Caption = 'EVALUATION VERSION'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clMaroon
-      Font.Height = -19
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-      StyleElements = [seClient, seBorder]
-      ExplicitWidth = 311
+      Width = 148
+      Height = 25
+      Caption = 'Error management options'
+      TabOrder = 0
+      OnClick = Button1Click
     end
   end
   object ServiceRefreshTimer: TTimer
     Enabled = False
     OnTimer = ServiceRefreshTimerTimer
-    Left = 104
-    Top = 120
+    Left = 248
+    Top = 16
   end
 end
