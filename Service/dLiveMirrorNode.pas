@@ -5,9 +5,19 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes,
   CcReplicator, CcConf, CcProviders, DB, dconfig, Vcl.SvcMgr,
-  EExceptionManager, CcDB, main;
+  EExceptionManager, CcDB, main, errors, Generics.Collections;
 
 type
+  TCcErrorRecord = record
+    ErrorType : String;
+    Ongoing: Boolean;
+    FirstOccurrence: TDateTime;
+    LastOccurrence: TDateTime;
+    ReportDateTime: TDateTime;
+    Reported: Boolean;
+    NumberOfCycles: Integer;
+  end;
+
   TdmLiveMirrorNode = class(TDataModule)
     Replicator: TCcReplicator;
     qGenerators: TCcQuery;
@@ -30,11 +40,19 @@ type
     procedure DataModuleDestroy(Sender: TObject);
     procedure DataModuleCreate(Sender: TObject);
     procedure ReplicatorProgress(Sender: TObject);
+    procedure ReplicatorRowReplicatingError(Sender: TObject; TableName: string;
+        Fields: TCcMemoryFields; E: Exception; var Retry: Boolean);
+    procedure ReplicatorConnectLocal(Sender: TObject);
+    procedure ReplicatorBeforeReplicate(Sender: TObject);
+    procedure ReplicatorConnectRemote(Sender: TObject);
   private
     FDMConfig: TdmConfig;
     FRunOnce: Boolean;
     FLiveMirrorService: TService;
     FLogFileName: string;
+    FLastConnectionErrorReport: TDateTime;
+    FGeneralErrorReports: TDictionary<String, TCcErrorRecord>;
+
     {$IFNDEF LM_EVALUATION}
     {$IFNDEF DEBUG}
     function CheckLiveMirrorLicence : Boolean;
@@ -47,6 +65,10 @@ type
     procedure WriteLog(line: String; timestamp: Boolean = True);overload;
     procedure WriteLog(sl: TStringList);overload;
     procedure WriteLog(E: Exception);overload;
+    function ErrorConfigByException(E: Exception): TCcErrorConfig;
+    procedure ReportGeneralError(errorType: String; errorKey: String);
+    procedure ReportErrorRecovery(errorType, errorKey: String);
+    procedure ResetGeneralErrors;
   public
     LastReplicationTickCount: Int64;
     property LiveMirrorService: TService read FLiveMirrorService write FLiveMirrorService;
@@ -63,7 +85,7 @@ implementation
 
 {$R *.DFM}
 
-uses LMUtils, IniFiles, dInterbase, Registry, gnugettext, IOUtils;
+uses LMUtils, IniFiles, dInterbase, Registry, gnugettext, IOUtils, FireDAC.Stan.Error;
 
 procedure TdmLiveMirrorNode.WriteLog(line: String; timestamp: Boolean);
 begin
@@ -96,17 +118,112 @@ begin
     WriteLog(sl[i], false);
 end;
 
+procedure TdmLiveMirrorNode.ReportGeneralError(errorType: String; errorKey: String);
+var
+  errorConf: TCcErrorConfig;
+  lReport: Boolean;
+  err: TCcErrorRecord;
+begin
+  errorConf := DMConfig.ErrorConfig.ErrorConfigs[errorType];
+  if errorConf.ReportErrorToEmail <> '' then begin
+    if FGeneralErrorReports.ContainsKey(errorType + errorKey) then
+      err := FGeneralErrorReports[errorType + errorKey]
+    else begin
+      err.ErrorType := errorType;
+      err.FirstOccurrence := Now;
+      err.LastOccurrence := Now;
+      err.NumberOfCycles := 0;
+      FGeneralErrorReports.Add(errorType + errorKey, err);
+    end;
+
+    //If the error hasn't been reported yet, then we should wait
+    //at least TryAgainSeconds before reporting it, to give the
+    //error time to fix itself
+    if not err.Reported and (((Now - err.FirstOccurrence) < errorConf.TryAgainSeconds) or
+         (err.NumberOfCycles = 0 and errorConf.TryAgainNextCycle)) then
+      lReport := false
+    else
+      lReport := (((Now - err.ReportDateTime) div 60) >= errorConf.ReportAgainMinutes);
+
+    err.Ongoing := True;
+    if lReport then
+    begin
+      err.ReportDateTime := Now;
+      err.Reported := True;
+
+      //TODO: Send actual email
+    end;
+  end;
+end;
+
+procedure TdmLiveMirrorNode.ReplicatorBeforeReplicate(Sender: TObject);
+var
+  key: String;
+begin
+  for key in FGeneralErrorReports.Keys do begin
+    with FGeneralErrorReports[key] do begin
+      if Ongoing then
+        Inc(NumberOfCycles);
+    end;
+  end;
+end;
+
 procedure TdmLiveMirrorNode.ReplicatorConnectionLost(Sender: TObject;
   Database: TCcConnection);
 var
   dbNode: String;
+  errorConf: TCcErrorConfig;
+  lReport: Boolean;
+  err: string;
 begin
-  if Database = Replicator.LocalDB then
-    dbNode := Replicator.LocalNode.Name
-  else
+  if Database = Replicator.LocalDB then begin
+    dbNode := Replicator.LocalNode.Name;
+  end
+  else begin
     dbNode := Replicator.RemoteNode.Name;
+  end;
 
   WriteLog(Format(_('Connection lost to database : %s'), [dbNode]));
+end;
+
+procedure TdmLiveMirrorNode.ReplicatorConnectLocal(Sender: TObject);
+begin
+  ReportErrorRecovery(CONNECTION_ERROR, CONNECTION_ERROR + 'LOCAL');
+end;
+
+procedure TdmLiveMirrorNode.ReplicatorConnectRemote(Sender: TObject);
+begin
+  ReportErrorRecovery(CONNECTION_ERROR, CONNECTION_ERROR + 'REMOTE');
+end;
+
+procedure TdmLiveMirrorNode.ReportErrorRecovery(errorType, errorKey: String);
+var
+  err: TCcErrorRecord;
+  errorConfig: TCcErrorConfig;
+begin
+  if FGeneralErrorReports.ContainsKey(errorType + errorKey) then
+  begin
+    err := FGeneralErrorReports[errorType + errorKey];
+    errorConfig := DMConfig.ErrorConfig.ErrorConfigs[errorType];
+    if err.Ongoing and errorConfig.ReportWhenResolved then
+    begin
+      //Send email to say that the error is resolved
+    end;
+
+    //Reset the error record in the the list so that the error is no longer
+    //considered current and can be reported again
+    //We don't initially remove it from the list, so as to make sure that
+    //it can't get reported again too frequently
+    err.NumberOfCycles := 0;
+    err.Ongoing := False;
+
+    //If it last occured more than ReportAgainMinutes minutes ago, we can remove
+    //the error from the list
+    //If the same error occurs again, it will get treated as a new error
+    //(including optionally not reporting it till a number of cycles or seconds)
+    if ((Now - err.LastOccurrence) div 60) > errorConfig.ReportAgainMinutes then
+      FGeneralErrorReports.Remove(errorType + errorKey);
+  end;
 end;
 
 procedure TdmLiveMirrorNode.ReplicatorEmptyLog(Sender: TObject);
@@ -116,12 +233,14 @@ begin
 end;
 
 procedure TdmLiveMirrorNode.ReplicatorException(Sender: TObject; e: Exception);
+var
+  errorConf: TCcErrorConfig;
 begin
   FLiveMirrorService.LogMessage(_('Replication failed with error : ') + #13#10 + e.Message, EVENTLOG_ERROR_TYPE);
 	WriteLog(_('Replication failed with error : '));
 	WriteLog(e);
   WriteLog(E.StackTrace, false);
-  ExceptionManager.StandardEurekaNotify(ExceptObject,ExceptAddr)
+  ExceptionManager.StandardEurekaNotify(ExceptObject,ExceptAddr);
 end;
 
 procedure TdmLiveMirrorNode.ReplicatorFinished(Sender: TObject);
@@ -203,29 +322,60 @@ begin
         qGenerators.Next;
       end;
     finally
+      if FDMConfig.MirrorNode.Connection.InTransaction then
+        FDMConfig.MirrorNode.Connection.Commit;
       slMirrorGenerators.Free;
     end;
   end;
 end;
 
-procedure TdmLiveMirrorNode.ReplicatorReplicationResult(Sender: TObject);
+procedure TdmLiveMirrorNode.ResetGeneralErrors;
+var
+  key: String;
 begin
-  ReplicateGenerators;
+  //This function sets all the general errors (not connection losses)
+  //to inactive so that if ever they occur again, they will be considered
+  //fresh errors and reported (or not) accordingly
+  for key in FGeneralErrorReports.Keys do begin
+    if FGeneralErrorReports[key].ErrorType = OTHER_ERROR then
+      ReportErrorRecovery(FGeneralErrorReports[key].ErrorType, key);
+  end;
+end;
 
-  if Replicator.ReplicateOnlyChangedFields then begin
-    if (Replicator.LastResult.ResultType = rtReplicated) or (Replicator.LastResult.ResultType = rtNothingToReplicate) then begin
+procedure TdmLiveMirrorNode.ReplicatorReplicationResult(Sender: TObject);
+var
+  rt: TCcReplicationResultType;
+begin
+  rt := Replicator.LastResult.ResultType;
+
+  Assert(rt <> rtNone);
+
+  if (rt = rtReplicatorBusy) then
+    Exit
+  else if rt = rtErrorConnectLocal then
+    ReportGeneralError(CONNECTION_ERROR, 'LOCAL')
+  else if rt = rtErrorConnectRemote then
+    ReportGeneralError(CONNECTION_ERROR, 'REMOTE')
+  else if (rt = rtException) or (rt = rtErrorCheckingConflicts) or (rt = rtErrorLoadingLog) then
+    ReportGeneralError(OTHER_ERROR, Replicator.LastResult.ExceptionMessage)
+  else begin
+    ResetGeneralErrors;
+
+    if Replicator.ReplicateOnlyChangedFields then begin
       if Replicator.LocalDB.InTransaction then
         Replicator.LocalDB.Commit;
       if Replicator.RemoteDB.InTransaction then
         Replicator.RemoteDB.Commit;
-    end else begin
-      if Replicator.LocalDB.InTransaction then
-        Replicator.LocalDB.Rollback;
-      if Replicator.RemoteDB.InTransaction then
-        Replicator.RemoteDB.Rollback;
     end;
-    Replicator.Disconnect;
+    ReplicateGenerators;
   end;
+
+  //If transactions and connection are still open, rollback and disconnect
+  if Replicator.LocalDB.InTransaction then
+    Replicator.LocalDB.Rollback;
+  if Replicator.RemoteDB.InTransaction then
+    Replicator.RemoteDB.Rollback;
+  Replicator.Disconnect;
 end;
 
 procedure TdmLiveMirrorNode.ReplicatorRowReplicated(Sender: TObject;
@@ -237,6 +387,41 @@ begin
   if not Replicator.ReplicateOnlyChangedFields then begin
     Replicator.LocalDB.CommitRetaining;
     Replicator.RemoteDB.CommitRetaining;
+  end;
+end;
+
+function TdmLiveMirrorNode.ErrorConfigByException(E: Exception): TCcErrorConfig;
+var
+  err: EFDDBEngineException;
+begin
+  err := E as EFDDBEngineException;
+  if err.Kind = ekRecordLocked then
+    Result := DMConfig.ErrorConfig.ErrorConfigs[LOCK_VIOLATION]
+  else if err.Kind = ekFKViolated then
+    Result := DMConfig.ErrorConfig.ErrorConfigs[FK_VIOLATION]
+  else
+    Result := DMConfig.ErrorConfig.ErrorConfigs[OTHER_ROW_ERROR];
+end;
+
+procedure TdmLiveMirrorNode.ReplicatorRowReplicatingError(Sender: TObject;
+  TableName: string; Fields: TCcMemoryFields; E: Exception; var Retry: Boolean);
+var
+  errorConf: TCcErrorConfig;
+  err: EFDDBEngineException;
+begin
+  errorConf := ErrorConfigByException(E);
+  if errorConf.TryAgainSeconds > 0 then begin
+    Sleep(1000 * errorConf.TryAgainSeconds);
+    Retry := True;
+  end;
+
+  if errorConf.ReportErrorToEmail <> '' then begin
+    if connectionErrors. then
+
+
+    if errorConf.TryAgainSeconds > 0 then begin
+
+    end;
   end;
 end;
 
