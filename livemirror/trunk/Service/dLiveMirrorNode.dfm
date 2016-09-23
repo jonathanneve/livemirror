@@ -25,11 +25,15 @@ object dmLiveMirrorNode: TdmLiveMirrorNode
     OnFinished = ReplicatorFinished
     OnRowReplicated = ReplicatorRowReplicated
     OnReplicationError = ReplicatorReplicationError
+    OnRowReplicatingError = ReplicatorRowReplicatingError
     OnException = ReplicatorException
     OnReplicationAborted = ReplicatorReplicationAborted
     OnEmptyLog = ReplicatorEmptyLog
+    OnConnectLocal = ReplicatorConnectLocal
+    OnConnectRemote = ReplicatorConnectRemote
     OnProgress = ReplicatorProgress
     OnLogLoaded = ReplicatorLogLoaded
+    BeforeReplicate = ReplicatorBeforeReplicate
     OnConnectionLost = ReplicatorConnectionLost
     Version = '3.9.2'
     KeepRowsInLog = False

@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Classes, CcConf, IniFiles, CcProviders,
-  Vcl.Controls, gnugettext;
+  Vcl.Controls, gnugettext, errors;
 
 type
   TdmConfig = class;
@@ -49,6 +49,7 @@ type
     FOnMasterDBTypeChanged: TNotifyEvent;
     FOnMirrorDBTypeChanged: TNotifyEvent;
     FMirrorExcludedFields, FMasterExcludedFields: TStringList;
+    FErrorConfig: TCcErrorConfigFile;
     procedure SaveLoadConfig(save: Boolean);
     procedure SetMasterDBType(const Value: String);
     procedure SetMirrorDBType(const Value: String);
@@ -60,6 +61,7 @@ type
     function GetMasterDBTypeDescription: String;
     function GetMirrorDBTypeDescription: String;
     function DBTypeDescription(dbType: String): String;
+    function GetErrorConfig: TCcErrorConfigFile;
   public
     procedure ExcludeKeywordFieldNames(FieldList : TStringList);
     property ExcludedTables : String read FExcludedTables write FExcludedTables;
@@ -77,6 +79,7 @@ type
     property OnMasterDBTypeChanged: TNotifyEvent read FOnMasterDBTypeChanged write FOnMasterDBTypeChanged;
     property OnMirrorDBTypeChanged: TNotifyEvent read FOnMirrorDBTypeChanged write FOnMirrorDBTypeChanged;
     function DBTypeByDescription(desc: string): String;
+    property ErrorConfig :TCcErrorConfigFile read GetErrorConfig;
 
     procedure LoadConfig(cConfigName: String);
     procedure SaveConfig;
@@ -208,6 +211,20 @@ begin
       FieldList.Delete(I);
     end;
   end;
+end;
+
+function TdmConfig.GetErrorConfig: TCcErrorConfigFile;
+var
+  cConfigPath: string;
+begin
+  if FErrorConfig = nil then begin
+    cConfigPath := GetLiveMirrorRoot + 'Configs\' + ConfigName + '\erroroptions.ini';
+    if FileExists(cConfigPath) then
+      FErrorConfig := TCcErrorConfigFile.Create(cConfigPath)
+    else
+      FErrorConfig := TCcErrorConfigFile.Create(GetLiveMirrorRoot + '\erroroptions.ini');
+  end;
+  Result := FErrorConfig;
 end;
 
 function TdmConfig.GetMasterDBTypeDescription: String;
