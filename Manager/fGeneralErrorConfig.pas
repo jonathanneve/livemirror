@@ -15,6 +15,11 @@ type
     edEmails: TEdit;
     edReportAgainMin: TEdit;
     cbReportWhenResolved: TCheckBox;
+    Label4: TLabel;
+    Label5: TLabel;
+    edTryAgainSeconds: TEdit;
+    cbTryNextCycle: TComboBox;
+    Label6: TLabel;
     procedure edEmailsExit(Sender: TObject);
   private
     FErrorConfig: TCcErrorConfig;
@@ -34,6 +39,8 @@ begin
   FErrorConfig.ReportAgainMinutes := StrToInt(edReportAgainMin.Text);
   FErrorConfig.ReportWhenResolved  := cbReportWhenResolved.Checked;
   FErrorConfig.ReportErrorToEmail := edEmails.Text;
+  FErrorConfig.TryAgainNextCycle  := (cbTryNextCycle.ItemIndex = 1);
+  FErrorConfig.TryAgainSeconds := StrToInt(edTryAgainSeconds.Text);
 end;
 
 procedure TfrGeneralErrorConfig.edEmailsExit(Sender: TObject);
@@ -48,6 +55,12 @@ begin
   edReportAgainMin.Text := IntToStr(FErrorConfig.ReportAgainMinutes);
   cbReportWhenResolved.Checked := FErrorConfig.ReportWhenResolved;
   edEmails.Text := FErrorConfig.ReportErrorToEmail;
+  edTryAgainSeconds.Text := IntToStr(FErrorConfig.TryAgainSeconds);
+
+  if FErrorConfig.TryAgainNextCycle then
+    cbTryNextCycle.ItemIndex := 1
+  else
+    cbTryNextCycle.ItemIndex := 0;
 end;
 
 destructor TfrGeneralErrorConfig.Destroy;

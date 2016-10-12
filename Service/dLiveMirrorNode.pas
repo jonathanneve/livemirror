@@ -5,11 +5,12 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes,
   CcReplicator, CcConf, CcProviders, DB, dconfig, Vcl.SvcMgr,
-  EExceptionManager, CcDB, main, errors, Generics.Collections;
+  EExceptionManager, CcDB, errors, Generics.Collections, smtpsend;
 
 type
-  TCcErrorRecord = record
+  TCcGeneralErrorRecord = class
     ErrorType : String;
+    ErrorDB: String;
     Ongoing: Boolean;
     FirstOccurrence: TDateTime;
     LastOccurrence: TDateTime;
@@ -17,6 +18,18 @@ type
     Reported: Boolean;
     NumberOfCycles: Integer;
   end;
+
+  TCcRowErrorRecord = class
+    ErrorType : String;
+    FirstOccurrence: TDateTime;
+    LastOccurrence: TDateTime;
+    ReportDateTime: TDateTime;
+    Reported: Boolean;
+    OccurredPrevCycle: Boolean;
+    OccurredCurrCycle: Boolean;
+  end;
+
+  TCcRowErrorAction = (reaTryAgain, reaSkipAndContinueCycle, reaSkipAndAbortCycle);
 
   TdmLiveMirrorNode = class(TDataModule)
     Replicator: TCcReplicator;
@@ -51,7 +64,8 @@ type
     FLiveMirrorService: TService;
     FLogFileName: string;
     FLastConnectionErrorReport: TDateTime;
-    FGeneralErrorReports: TDictionary<String, TCcErrorRecord>;
+    FGeneralErrorReports: TDictionary<String, TCcGeneralErrorRecord>;
+    FRowErrorReports: TDictionary<String, TCcRowErrorRecord>;
 
     {$IFNDEF LM_EVALUATION}
     {$IFNDEF DEBUG}
@@ -66,9 +80,13 @@ type
     procedure WriteLog(sl: TStringList);overload;
     procedure WriteLog(E: Exception);overload;
     function ErrorConfigByException(E: Exception): TCcErrorConfig;
-    procedure ReportGeneralError(errorType: String; errorKey: String);
-    procedure ReportErrorRecovery(errorType, errorKey: String);
+    procedure ReportGeneralError(errorType: String; errorKey: String; exceptionMessage: String; forceReport: Boolean; errorDB: String = '');
+    procedure ReportErrorRecovery(errorType, errorKey: String; database: String);
     procedure ResetGeneralErrors;
+    function ReportRowError(errorType: String; tableName, primaryKeyValues: String; E: Exception): TCcRowErrorAction;
+    procedure ResetRowErrors;
+    procedure SendErrorReport(subject, destEmail: String; slEmailText: TStringList);
+    procedure InsertErrorReportHeader(slEmailText: TStringList; errorDate: TDateTime; database: String; errorClassName: String = ''; tableName: String = ''; primaryKeyValues: String = '');
   public
     LastReplicationTickCount: Int64;
     property LiveMirrorService: TService read FLiveMirrorService write FLiveMirrorService;
@@ -85,7 +103,8 @@ implementation
 
 {$R *.DFM}
 
-uses LMUtils, IniFiles, dInterbase, Registry, gnugettext, IOUtils, FireDAC.Stan.Error;
+uses LMUtils, IniFiles, dInterbase, Registry, gnugettext, IOUtils, FireDAC.Stan.Error,
+  main;
 
 procedure TdmLiveMirrorNode.WriteLog(line: String; timestamp: Boolean);
 begin
@@ -118,32 +137,42 @@ begin
     WriteLog(sl[i], false);
 end;
 
-procedure TdmLiveMirrorNode.ReportGeneralError(errorType: String; errorKey: String);
+procedure TdmLiveMirrorNode.ReportGeneralError(errorType: String; errorKey: String; exceptionMessage: String; forceReport: Boolean; errorDB: String);
 var
   errorConf: TCcErrorConfig;
   lReport: Boolean;
-  err: TCcErrorRecord;
+  err: TCcGeneralErrorRecord;
+  slEmailText: TStringList;
+  errorTypeDisplay: string;
 begin
   errorConf := DMConfig.ErrorConfig.ErrorConfigs[errorType];
   if errorConf.ReportErrorToEmail <> '' then begin
     if FGeneralErrorReports.ContainsKey(errorType + errorKey) then
       err := FGeneralErrorReports[errorType + errorKey]
     else begin
+      err := TCcGeneralErrorRecord.Create;
       err.ErrorType := errorType;
+      err.ErrorDB := errorDB;
       err.FirstOccurrence := Now;
       err.LastOccurrence := Now;
       err.NumberOfCycles := 0;
       FGeneralErrorReports.Add(errorType + errorKey, err);
     end;
 
-    //If the error hasn't been reported yet, then we should wait
-    //at least TryAgainSeconds before reporting it, to give the
-    //error time to fix itself
-    if not err.Reported and (((Now - err.FirstOccurrence) < errorConf.TryAgainSeconds) or
-         (err.NumberOfCycles = 0 and errorConf.TryAgainNextCycle)) then
-      lReport := false
-    else
-      lReport := (((Now - err.ReportDateTime) div 60) >= errorConf.ReportAgainMinutes);
+    //Catastrophic errors (errors that occur outside replication, and that stop
+    //the whole replication process) are systematically reported
+    if forceReport then
+      lReport := True
+    else begin
+      //If the error hasn't been reported yet, then we should wait
+      //at least TryAgainSeconds before reporting it, to give the
+      //error time to fix itself
+      if not err.Reported and (((Now - err.FirstOccurrence) < errorConf.TryAgainSeconds) or
+           ((err.NumberOfCycles = 0) and errorConf.TryAgainNextCycle)) then
+        lReport := false
+      else
+        lReport := (((Now - err.ReportDateTime) / 60) >= errorConf.ReportAgainMinutes);
+    end;
 
     err.Ongoing := True;
     if lReport then
@@ -151,8 +180,116 @@ begin
       err.ReportDateTime := Now;
       err.Reported := True;
 
-      //TODO: Send actual email
+      slEmailText := TStringList.Create;
+      try
+        errorTypeDisplay := errorConf.ErrorTypeDisplay;
+        slEmailText.Add(Format(_('A %s occurred while synchronizing your databases!'), [errorTypeDisplay]));
+        InsertErrorReportHeader(slEmailText, err.LastOccurrence, errorDB);
+        slEmailText.Add(exceptionMessage);
+        SendErrorReport('[LiveMirror][' + FDMConfig.ConfigName + '] ' + errorTypeDisplay, errorConf.ReportErrorToEmail, slEmailText);
+      finally
+        slEmailText.Free;
+      end;
     end;
+  end;
+end;
+
+//Called when a row-level error occurs
+//Returns the action that should be taken (retry or continue or abort)
+function TdmLiveMirrorNode.ReportRowError(errorType: String; tableName, primaryKeyValues: String; E: Exception): TCcRowErrorAction;
+var
+  errorConf: TCcErrorConfig;
+  lReport: Boolean;
+  err: TCcRowErrorRecord;
+  errorKey: String;
+  slEmailText: TStringList;
+  errorTypeDisplay: string;
+begin
+  errorKey := tableName + '|' + primaryKeyValues;
+  errorConf := DMConfig.ErrorConfig.ErrorConfigs[errorType];
+  if errorConf.ReportErrorToEmail <> '' then begin
+    if FRowErrorReports.ContainsKey(errorType + errorKey) then
+      err := FRowErrorReports[errorType + errorKey]
+    else begin
+      err := TCcRowErrorRecord.Create;
+      err.ErrorType := errorType;
+      err.FirstOccurrence := Now;
+      err.LastOccurrence := Now;
+      FRowErrorReports.Add(errorType + errorKey, err);
+    end;
+
+    //If this error is occuring for the first time, we should wait
+    //TryAgainSeconds and try to replicate the row again
+    if (errorConf.TryAgainSeconds > 0) and ((Now - err.FirstOccurrence) < errorConf.TryAgainSeconds) then begin
+      Sleep(1000 * errorConf.TryAgainSeconds);
+      Result := reaTryAgain;
+      Exit;
+    end;
+
+    if errorConf.CanContinueReplCycle then
+      Result := reaSkipAndContinueCycle
+    else
+      Result := reaSkipAndAbortCycle;
+
+    // The TryAgainNextCycle option means that we should wait for the following
+    //cycle before reporting the error.
+    //If we've already waited, we should report it now
+    if (errorConf.TryAgainNextCycle) and (not err.OccurredPrevCycle) then
+      lReport := false
+    else
+      lReport := true;
+
+    err.OccurredCurrCycle := True;
+    if lReport then
+    begin
+      err.ReportDateTime := Now;
+      err.Reported := True;
+
+      slEmailText := TStringList.Create;
+      try
+        errorTypeDisplay := errorConf.ErrorTypeDisplay;
+        slEmailText.Add(Format(_('A %s occurred while synchronizing your databases!'), [errorTypeDisplay]));
+        InsertErrorReportHeader(slEmailText, err.LastOccurrence, '', E.ClassName, tableName, primaryKeyValues);
+        slEmailText.Add(E.Message);
+        SendErrorReport('[LiveMirror][' + FDMConfig.ConfigName + '] ' + errorTypeDisplay, errorConf.ReportErrorToEmail, slEmailText);
+      finally
+        slEmailText.Free;
+      end;
+    end;
+  end;
+end;
+
+procedure TdmLiveMirrorNode.InsertErrorReportHeader(slEmailText: TStringList; errorDate: TDateTime; database: String; errorClassName: String; tableName, primaryKeyValues: String);
+begin
+  slEmailText.Add('');
+  slEmailText.Add('****************************************');
+  slEmailText.Add(_('MASTER database:') + #9 + FDMConfig.MasterNode.Description);
+  slEmailText.Add(_('MIRROR database:') + #9 + FDMConfig.MirrorNode.Description);
+  slEmailText.Add(_('Error date:') + #9 + FormatDateTime('yyyy-mm-dd hh:nn:ss', errorDate));
+  if errorClassName <> '' then
+    slEmailText.Add(_('Error type:') + #9 + errorClassName);
+  if database <> '' then
+    slEmailText.Add(_('Database:') + #9 + database);
+  if tableName <> '' then
+  begin
+    slEmailText.Add(_('Table name:') + #9 + tableName);
+    slEmailText.Add(_('Row:') + #9 + primaryKeyValues);
+  end;
+  slEmailText.Add('****************************************');
+  slEmailText.Add('');
+end;
+
+procedure TdmLiveMirrorNode.SendErrorReport(subject, destEmail: String; slEmailText: TStringList);
+begin
+  try
+    SendToEx('contact@copycat.fr', destEmail, subject, 'webmail.copycat.fr', slEmailText, 'jonathan@copycat.fr', 'nahtanoj');
+  except on E: Exception do begin
+    FLiveMirrorService.LogMessage(_('An error occurred while sending error report:') + #13#10 + e.Message, EVENTLOG_ERROR_TYPE);
+    WriteLog(_('An error occurred while sending error report:'));
+    WriteLog(e);
+    WriteLog(E.StackTrace, false);
+    ExceptionManager.StandardEurekaNotify(ExceptObject,ExceptAddr);
+  end;
   end;
 end;
 
@@ -163,7 +300,7 @@ begin
   for key in FGeneralErrorReports.Keys do begin
     with FGeneralErrorReports[key] do begin
       if Ongoing then
-        Inc(NumberOfCycles);
+        NumberOfCycles := NumberOfCycles + 1;
     end;
   end;
 end;
@@ -188,18 +325,20 @@ end;
 
 procedure TdmLiveMirrorNode.ReplicatorConnectLocal(Sender: TObject);
 begin
-  ReportErrorRecovery(CONNECTION_ERROR, CONNECTION_ERROR + 'LOCAL');
+  ReportErrorRecovery(CONNECTION_ERROR, CONNECTION_ERROR + 'LOCAL', _('MASTER'));
 end;
 
 procedure TdmLiveMirrorNode.ReplicatorConnectRemote(Sender: TObject);
 begin
-  ReportErrorRecovery(CONNECTION_ERROR, CONNECTION_ERROR + 'REMOTE');
+  ReportErrorRecovery(CONNECTION_ERROR, CONNECTION_ERROR + 'REMOTE', _('MIRROR'));
 end;
 
-procedure TdmLiveMirrorNode.ReportErrorRecovery(errorType, errorKey: String);
+procedure TdmLiveMirrorNode.ReportErrorRecovery(errorType, errorKey: String; database: String);
 var
-  err: TCcErrorRecord;
+  err: TCcGeneralErrorRecord;
   errorConfig: TCcErrorConfig;
+  slEmailText: TStringList;
+  errorTypeDisplay: String;
 begin
   if FGeneralErrorReports.ContainsKey(errorType + errorKey) then
   begin
@@ -207,7 +346,15 @@ begin
     errorConfig := DMConfig.ErrorConfig.ErrorConfigs[errorType];
     if err.Ongoing and errorConfig.ReportWhenResolved then
     begin
-      //Send email to say that the error is resolved
+      slEmailText := TStringList.Create;
+      try
+        errorTypeDisplay := errorConfig.ErrorTypeDisplay;
+        slEmailText.Add(Format(_('%s resolved: database synchronization has resumed.'), [errorTypeDisplay]));
+        InsertErrorReportHeader(slEmailText, err.LastOccurrence, database);
+        SendErrorReport('[LiveMirror][' + FDMConfig.ConfigName + '] ' + Format(_('% resolved'), [errorTypeDisplay]), errorConfig.ReportErrorToEmail, slEmailText);
+      finally
+        slEmailText.Free;
+      end;
     end;
 
     //Reset the error record in the the list so that the error is no longer
@@ -221,7 +368,7 @@ begin
     //the error from the list
     //If the same error occurs again, it will get treated as a new error
     //(including optionally not reporting it till a number of cycles or seconds)
-    if ((Now - err.LastOccurrence) div 60) > errorConfig.ReportAgainMinutes then
+    if ((Now - err.LastOccurrence) /  60) > errorConfig.ReportAgainMinutes then
       FGeneralErrorReports.Remove(errorType + errorKey);
   end;
 end;
@@ -338,7 +485,23 @@ begin
   //fresh errors and reported (or not) accordingly
   for key in FGeneralErrorReports.Keys do begin
     if FGeneralErrorReports[key].ErrorType = OTHER_ERROR then
-      ReportErrorRecovery(FGeneralErrorReports[key].ErrorType, key);
+      ReportErrorRecovery(FGeneralErrorReports[key].ErrorType, key, FGeneralErrorReports[key].ErrorDB);
+  end;
+end;
+
+//This function removes all the row-level errors that didn't occur during this cycle
+//and resets those that did occur to OccurredPrevCycle, to prepare for next cycle
+procedure TdmLiveMirrorNode.ResetRowErrors;
+var
+  key: String;
+begin
+  for key in FRowErrorReports.Keys do begin
+    if FRowErrorReports[key].OccurredCurrCycle then begin
+      FRowErrorReports[key].OccurredPrevCycle := True;
+      FRowErrorReports[key].OccurredCurrCycle := False;
+    end
+    else
+      FRowErrorReports.Remove(key);
   end;
 end;
 
@@ -353,11 +516,11 @@ begin
   if (rt = rtReplicatorBusy) then
     Exit
   else if rt = rtErrorConnectLocal then
-    ReportGeneralError(CONNECTION_ERROR, 'LOCAL')
+    ReportGeneralError(CONNECTION_ERROR, 'LOCAL', Replicator.LastResult.ExceptionMessage, False, _('MASTER'))
   else if rt = rtErrorConnectRemote then
-    ReportGeneralError(CONNECTION_ERROR, 'REMOTE')
+    ReportGeneralError(CONNECTION_ERROR, 'REMOTE', Replicator.LastResult.ExceptionMessage, False, _('MIRROR'))
   else if (rt = rtException) or (rt = rtErrorCheckingConflicts) or (rt = rtErrorLoadingLog) then
-    ReportGeneralError(OTHER_ERROR, Replicator.LastResult.ExceptionMessage)
+    ReportGeneralError(OTHER_ERROR, Replicator.LastResult.ExceptionMessage, Replicator.LastResult.ExceptionMessage, False)
   else begin
     ResetGeneralErrors;
 
@@ -369,6 +532,8 @@ begin
     end;
     ReplicateGenerators;
   end;
+
+  ResetRowErrors;
 
   //If transactions and connection are still open, rollback and disconnect
   if Replicator.LocalDB.InTransaction then
@@ -407,22 +572,14 @@ procedure TdmLiveMirrorNode.ReplicatorRowReplicatingError(Sender: TObject;
   TableName: string; Fields: TCcMemoryFields; E: Exception; var Retry: Boolean);
 var
   errorConf: TCcErrorConfig;
-  err: EFDDBEngineException;
+  action: TCcRowErrorAction;
 begin
   errorConf := ErrorConfigByException(E);
-  if errorConf.TryAgainSeconds > 0 then begin
-    Sleep(1000 * errorConf.TryAgainSeconds);
-    Retry := True;
-  end;
-
-  if errorConf.ReportErrorToEmail <> '' then begin
-    if connectionErrors. then
-
-
-    if errorConf.TryAgainSeconds > 0 then begin
-
-    end;
-  end;
+  action := ReportRowError(errorConf.ErrorType, TableName, Replicator.Log.PrimaryKeys, E);
+  if action = reaTryAgain then
+    Retry := True
+  else if action = reaSkipAndAbortCycle then
+    Abort;
 end;
 
 function TdmLiveMirrorNode.ConfigDatabases: Boolean;
@@ -444,7 +601,9 @@ begin
       WriteLog(_('Error setting up databases for replication!'));
       WriteLog(E);
       WriteLog(E.StackTrace, false);
-      ExceptionManager.StandardEurekaNotify(ExceptObject,ExceptAddr)
+      ExceptionManager.StandardEurekaNotify(ExceptObject,ExceptAddr);
+      ReportGeneralError('SERVICE_INIT_ERROR', '', e.Message, True);
+      Result := False;
 //      raise TObject(AcquireExceptionObject);
 //      ExceptionManager.ShowLastExceptionData;
     end;
@@ -481,10 +640,22 @@ procedure TdmLiveMirrorNode.DataModuleCreate(Sender: TObject);
 begin
   FDMConfig := TdmConfig.Create(Self);
   LastReplicationTickCount := 0;
+
+  FGeneralErrorReports := TDictionary<String, TCcGeneralErrorRecord>.Create;
+  FRowErrorReports := TDictionary<String, TCcRowErrorRecord>.Create;
 end;
 
 procedure TdmLiveMirrorNode.DataModuleDestroy(Sender: TObject);
+var
+  key: String;
 begin
+  for key in FGeneralErrorReports.Keys do
+    FGeneralErrorReports[key].Free;
+  for key in FRowErrorReports.Keys do
+    FRowErrorReports[key].Free;
+  FGeneralErrorReports.Free;
+  FRowErrorReports.Free;
+
   FDMConfig.Free;
 end;
 
@@ -499,7 +670,7 @@ begin
   slHeader := TStringList.Create;
   try
     slHeader.Add('********************************************************************************');
-    slHeader.Add('>>>> Initializing LiveMirror replication thread...');
+    slHeader.Add(_('>>>> Initializing LiveMirror replication thread...') + #9 + FormatDateTime('yyyy-mm-dd hh:nn:ss', Now));
     slHeader.Add('           ' + _('Version:') + LiveMirrorVersion);
     slHeader.Add('           ' + _('Configuration name: ') + FDMConfig.ConfigName);
     slHeader.Add('           ' + _('MASTER database :') + #9 + FDMConfig.MasterNode.Description);
@@ -561,6 +732,7 @@ begin
   except on E: Exception do begin
       WriteLog(E.Message);
       FLiveMirrorService.LogMessage(E.Message, EVENTLOG_ERROR_TYPE);
+      ReportGeneralError(OTHER_ERROR, 'SERVICE_INIT_ERROR', e.Message, True);
       iniConfigs.Free;
       Result := False;
     end;

@@ -51,7 +51,7 @@ uses
 
 begin
   Application.Initialize;
-  Application.MainFormOnTaskbar := True;
+  Application.MainFormOnTaskbar := False;
   TStyleManager.TrySetStyle('Light');
   Application.Title := 'LiveMirror Manager';
   Application.CreateForm(TfmConfigs, fmConfigs);

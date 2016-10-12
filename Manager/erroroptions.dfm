@@ -95,42 +95,15 @@ object fmErrorOptions: TfmErrorOptions
       ExplicitLeft = 2
       ExplicitTop = 15
       ExplicitWidth = 932
-      inherited Label1: TLabel
-        Top = 2
-        ExplicitTop = 2
-      end
-      inherited Label2: TLabel
-        Left = 615
-        Top = 20
-        ExplicitLeft = 615
-        ExplicitTop = 20
-      end
-      inherited Label3: TLabel
-        Left = 584
-        Top = 2
-        Anchors = [akTop, akRight]
-        ExplicitLeft = 584
-        ExplicitTop = 2
-      end
-      inherited edEmails: TEdit
-        Top = 16
-        Width = 419
-        ExplicitTop = 16
-        ExplicitWidth = 419
-      end
+      DesignSize = (
+        932
+        46)
       inherited edReportAgainMin: TEdit
-        Left = 584
-        Top = 16
-        Anchors = [akTop, akRight]
-        ExplicitLeft = 584
-        ExplicitTop = 16
+        Height = 21
+        ExplicitHeight = 21
       end
-      inherited cbReportWhenResolved: TCheckBox
-        Left = 733
-        Top = 13
-        Anchors = [akTop, akRight]
-        ExplicitLeft = 733
-        ExplicitTop = 13
+      inherited edTryAgainSeconds: TEdit
+        OnExit = nil
       end
     end
     inline frOtherGeneralError: TfrGeneralErrorConfig
@@ -143,28 +116,15 @@ object fmErrorOptions: TfmErrorOptions
       ExplicitLeft = 2
       ExplicitTop = 61
       ExplicitWidth = 932
-      inherited Label2: TLabel
-        Left = 615
-        ExplicitLeft = 615
-      end
-      inherited Label3: TLabel
-        Left = 584
-        Anchors = [akTop, akRight]
-        ExplicitLeft = 584
-      end
-      inherited edEmails: TEdit
-        Width = 419
-        ExplicitWidth = 419
-      end
+      DesignSize = (
+        932
+        46)
       inherited edReportAgainMin: TEdit
-        Left = 584
-        Anchors = [akTop, akRight]
-        ExplicitLeft = 584
+        Height = 21
+        ExplicitHeight = 21
       end
-      inherited cbReportWhenResolved: TCheckBox
-        Left = 733
-        Anchors = [akTop, akRight]
-        ExplicitLeft = 733
+      inherited edTryAgainSeconds: TEdit
+        OnExit = nil
       end
     end
   end

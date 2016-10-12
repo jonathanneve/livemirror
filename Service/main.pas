@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes,
-  CcReplicator, CcConf, CcProviders, DB, dconfig, Vcl.SvcMgr,
+  CcReplicator, CcConf, CcProviders, DB, dconfig, Vcl.SvcMgr, dLiveMirrorNode,
   EExceptionManager, CcDB, SyncObjs, System.Generics.Collections;
 
 type
@@ -24,6 +24,7 @@ type
     procedure SetLiveMirrorTerminating(const Value: Boolean);
     function GetLiveMirrorTerminating: Boolean;
     function IsThreadRunning(configName: String): Boolean;
+    function GetNode(cConfigName: String): TdmLiveMirrorNode;
 
 {$IFNDEF LM_EVALUATION}
 {$IFNDEF DEBUG}
@@ -47,7 +48,7 @@ implementation
 {$R *.DFM}
 
 uses LMUtils, IniFiles, dInterbase, Registry, gnugettext,
-  dLiveMirrorNode, LiveMirrorRunnerThread;
+  LiveMirrorRunnerThread;
 
 procedure ServiceController(CtrlCode: DWord); stdcall;
 begin
@@ -122,7 +123,9 @@ begin
   end;
   LogMessage('LiveMirror service started', EVENTLOG_INFORMATION_TYPE);
 
-  //ServiceExecute(Self);
+ //  GetNode('UCAR').Run;
+  if ParamStr(2) = '/runonce' then
+    GetNode(ParamStr(1)).Run;
 end;
 
 procedure TLiveMirror.ServiceDestroy(Sender: TObject);
@@ -183,14 +186,7 @@ begin
         if LiveMirrorTerminating then
           Break;
 
-        cConfigName := slConfigs[I];
-        if slConfigs.Objects[i] = nil then begin
-          node := TdmLiveMirrorNode.Create(Self);
-          node.LiveMirrorService := Self;
-          node.Initialize(cConfigName);
-          slConfigs.Objects[I] := node;
-        end else
-          node := slConfigs.Objects[i] as TdmLiveMirrorNode;
+        node := GetNode(slConfigs[i]);
 
         if not IsThreadRunning(cConfigName)
            and (GetTickCount > (node.LastReplicationTickCount + (node.DMConfig.SyncFrequency * 1000))) then
@@ -216,6 +212,22 @@ begin
       LogMessage(E.Message, EVENTLOG_ERROR_TYPE);
     end;
   end;
+end;
+
+function TLiveMirror.GetNode(cConfigName: String): TdmLiveMirrorNode;
+var
+  I: Integer;
+begin
+  I := slConfigs.IndexOf(cConfigName);
+  if slConfigs.Objects[i] = nil then begin
+    Result := TdmLiveMirrorNode.Create(Self);
+    Result.LiveMirrorService := Self;
+    if not Result.Initialize(cConfigName) then
+      Exit;
+
+    slConfigs.Objects[I] := Result;
+  end else
+    Result := slConfigs.Objects[i] as TdmLiveMirrorNode;
 end;
 
 procedure TLiveMirror.ServiceShutdown(Sender: TService);

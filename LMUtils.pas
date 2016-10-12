@@ -10,8 +10,8 @@ function CheckLicence(cConfigName, cLicence: String): Boolean;
 function ActivateLicence(cConfigName, cLicence: String): Boolean;
 function DeactivateLicence(cConfigName, cLicence: String): Boolean;
 function CheckLicenceActivation(cConfigName, cLicence: String): Boolean;
-procedure UnInstallService(cConfigName: String; Handle: HWND);
-procedure InstallService(cConfigName: String; Handle: HWND);
+{procedure UnInstallService(cConfigName: String; Handle: HWND);
+procedure InstallService(cConfigName: String; Handle: HWND);}
 procedure RunServiceOnce(cConfigName: String; Handle: HWND);
 function LiveMirrorVersion: String;
 function LMFileSize(const aFilename: String): Int64;
@@ -245,7 +245,7 @@ begin
   end;}
 end;
 
-procedure UnInstallService(cConfigName: String; Handle: HWND);
+{procedure UnInstallService(cConfigName: String; Handle: HWND);
 begin
   if ShellExecute(Handle,'open',PChar(GetLiveMirrorRoot + '\Service\LiveMirrorSrv.exe'), PChar(cConfigName + ' /uninstall /silent'),'',SW_HIDE) < 32 then
     raise Exception.Create(dgettext('common', 'Can''t uninstall service!'));
@@ -256,7 +256,7 @@ begin
   if ShellExecute(Handle,'open',PChar(GetLiveMirrorRoot + '\Service\LiveMirrorSrv.exe'), PChar(cConfigName + ' /install /silent'),'',SW_HIDE) <= 32 then
     raise Exception.Create(dgettext('common', 'Can''t install service!' + #13#10 + 'Please make sure you have are running with administrator rights.'));
 end;
-
+}
 procedure RunServiceOnce(cConfigName: String; Handle: HWND);
 begin
   if ShellExecute(Handle,'open',PChar(GetLiveMirrorRoot + '\Service\LiveMirrorSrv.exe'), PChar(cConfigName + ' /runonce'),'',SW_HIDE) <= 32 then
