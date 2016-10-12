@@ -47,11 +47,15 @@ object fmConfig: TfmConfig
     Top = 51
     Width = 418
     Height = 187
-    ActivePage = tsMaster
+    ActivePage = TabSheet1
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 2
     object tsMaster: TTabSheet
       Caption = 'Master database'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -121,7 +125,7 @@ object fmConfig: TfmConfig
       Caption = 'Options'
       ImageIndex = 2
       ExplicitLeft = 0
-      ExplicitTop = 25
+      ExplicitTop = 0
       ExplicitWidth = 0
       ExplicitHeight = 0
       object lbSelectExcludedTables: TLabel
@@ -197,6 +201,10 @@ object fmConfig: TfmConfig
     object TabSheet1: TTabSheet
       Caption = 'Error options'
       ImageIndex = 3
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         410
         159)

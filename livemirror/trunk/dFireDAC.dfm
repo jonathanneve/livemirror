@@ -23,7 +23,8 @@ object dmFireDAC: TdmFireDAC
   object CcConnection: TCcConnectionFireDAC
     FDConnection = FDConnection
     FDTransaction = FDTransaction
-    DBType = 'MySQL'
+    DBType = 'Interbase'
+    DBVersion = 'FB2.5'
     Left = 48
     Top = 80
   end

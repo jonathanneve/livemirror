@@ -3,6 +3,14 @@ program LiveMirrorSrv;
 {$R 'version.res' '..\version.rc'}
 
 uses
+  EMemLeaks,
+  EResLeaks,
+  EDebugExports,
+  EDebugJCL,
+  EFixSafeCallException,
+  EMapWin32,
+  EAppService,
+  ExceptionLog7,
   Vcl.SvcMgr,
   main in 'main.pas' {LiveMirror: TService},
   LMUtils in '..\LMUtils.pas',
@@ -20,7 +28,8 @@ uses
   dFireDAC in '..\dFireDAC.pas' {dmFireDAC: TDataModule},
   dLiveMirrorNode in 'dLiveMirrorNode.pas' {dmLiveMirrorNode: TDataModule},
   LiveMirrorRunnerThread in 'LiveMirrorRunnerThread.pas',
-  errors in '..\errors.pas';
+  errors in '..\errors.pas',
+  smtpsend in 'smtpsend.pas';
 
 {$R *.RES}
 

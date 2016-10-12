@@ -163,7 +163,7 @@ begin
       {$ENDIF}
       {$ENDIF}
 
-      UnInstallService(cConfigName, Handle);
+//      UnInstallService(cConfigName, Handle);
       DeleteDirectory(ExtractFileDir(cConfigFileName) + '\' + cConfigName);
       DeleteConfig(cConfigName);
     end;

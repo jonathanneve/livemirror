@@ -40,6 +40,7 @@ TCcErrorConfig = class
     procedure SetTryAgainSeconds(const Value: Integer);
     procedure SetReportAgainMinutes(const Value: Integer);
     procedure SetReportWhenResolved(const Value: Boolean);
+    function GetErrorTypeDisplay: String;
   public
     constructor Create(errType: String; confFile: TCcErrorConfigFile);
     property TryAgainSeconds: Integer read FTryAgainSeconds write SetTryAgainSeconds;
@@ -49,6 +50,7 @@ TCcErrorConfig = class
     property ReportAgainMinutes: Integer read FReportAgainMinutes write SetReportAgainMinutes;
     property ReportWhenResolved: Boolean read FReportWhenResolved write SetReportWhenResolved;
     property ErrorType: String read FErrorType;
+    property ErrorTypeDisplay: String read GetErrorTypeDisplay;
 end;
 
 TCcErrorConfigFile = class
@@ -91,6 +93,22 @@ begin
   FTryAgainNextCycle := FConfigFile.FIniFile.ReadBool(errorType, TRY_AGAIN_NEXT_CYCLE, False);
   FReportErrorToEmail := FConfigFile.FIniFile.ReadString(errorType, REPORT_ERROR_EMAIL, '');
   FReportAgainMinutes := FConfigFile.FIniFile.ReadInteger(errorType, REPORT_AGAIN_MINUTES, 0);
+end;
+
+function TCcErrorConfig.GetErrorTypeDisplay: String;
+begin
+  if ErrorType = LOCK_VIOLATION then
+    Result := _('Lock violation')
+  else if ErrorType = FK_VIOLATION then
+    Result := _('Foreign key violation')
+  else if ErrorType = OTHER_ROW_ERROR then
+    Result := _('General row error')
+  else if ErrorType = OTHER_ERROR then
+    Result := _('General error')
+  else if ErrorType = CONNECTION_ERROR then
+    Result := _('Connection error')
+  else
+    Result := ErrorType;
 end;
 
 procedure TCcErrorConfig.SetCanContinueReplCycle(const Value: Boolean);

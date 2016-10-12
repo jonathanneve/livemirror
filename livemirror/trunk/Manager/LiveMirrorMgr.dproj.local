@@ -34,35 +34,36 @@
     <File Path="C:\Program Files (x86)\Embarcadero\Studio\14.0\source\data\firedac\FireDAC.VCLUI.OptsBase.dfm"/>
     <File Path="config.pas"/>
     <File Path="config.dfm"/>
-    <File Path="configoptions.pas"/>
-    <File Path="configoptions.dfm"/>
     <File Path="configs.pas"/>
     <File Path="configs.dfm"/>
-    <File Path="erroroptions.pas"/>
-    <File Path="erroroptions.dfm"/>
     <File Path="fConnectParamsFB.pas"/>
     <File Path="fConnectParamsFB.dfm"/>
-    <File Path="fConnectParamsFireDAC.pas"/>
-    <File Path="fConnectParamsFireDAC.dfm"/>
-    <File Path="fErrorConfig.pas"/>
-    <File Path="fErrorConfig.dfm"/>
-    <File Path="fGeneralErrorConfig.pas"/>
-    <File Path="fGeneralErrorConfig.dfm"/>
-    <File Path="FireDAC.VCLUI.ConnEdit.pas"/>
-    <File Path="FireDAC.VCLUI.ConnEdit.dfm"/>
     <File Path="licensing.pas"/>
     <File Path="licensing.dfm"/>
     <File Path="logfile.pas"/>
     <File Path="logfile.dfm"/>
+    <File Path="configoptions.pas"/>
+    <File Path="configoptions.dfm"/>
+    <File Path="fConnectParamsFireDAC.pas"/>
+    <File Path="fConnectParamsFireDAC.dfm"/>
+    <File Path="FireDAC.VCLUI.ConnEdit.pas"/>
+    <File Path="FireDAC.VCLUI.ConnEdit.dfm"/>
+    <File Path="erroroptions.pas"/>
+    <File Path="erroroptions.dfm"/>
+    <File Path="fErrorConfig.pas"/>
+    <File Path="fErrorConfig.dfm"/>
+    <File Path="fGeneralErrorConfig.pas"/>
+    <File Path="fGeneralErrorConfig.dfm"/>
+    <File Path="LiveMirrorMgr.manifest"/>
   </ProjectSortOrder>
 	<Transactions>
     <Transaction>2014/03/24 16:20:01.000.840,=C:\Projects\livemirror\uLkJSON.pas</Transaction>
-    <Transaction>2014/03/24 22:29:51.000.577,=C:\Projects\livemirror\Synapse\synaip.pas</Transaction>
-    <Transaction>2014/03/24 22:29:51.000.567,=C:\Projects\livemirror\Synapse\synacode.pas</Transaction>
     <Transaction>2014/03/24 22:29:51.000.599,=C:\Projects\livemirror\Synapse\synsock.pas</Transaction>
     <Transaction>2014/03/24 22:29:51.000.532,=C:\Projects\livemirror\Synapse\blcksock.pas</Transaction>
+    <Transaction>2014/03/24 22:29:51.000.567,=C:\Projects\livemirror\Synapse\synacode.pas</Transaction>
     <Transaction>2014/03/24 22:29:51.000.590,=C:\Projects\livemirror\Synapse\synautil.pas</Transaction>
     <Transaction>2014/03/24 22:29:51.000.551,=C:\Projects\livemirror\Synapse\httpsend.pas</Transaction>
+    <Transaction>2014/03/24 22:29:51.000.577,=C:\Projects\livemirror\Synapse\synaip.pas</Transaction>
     <Transaction>2014/03/24 22:31:05.000.899,=C:\Projects\livemirror\Synapse\synafpc.pas</Transaction>
     <Transaction>2014/03/26 15:43:29.000.474,=C:\Projects\livemirror\Manager\licensing.pas</Transaction>
     <Transaction>2014/03/26 18:19:49.000.727,C:\Projects\livemirror\uLkJSON.pas=C:\Projects\livemirror\Misc\uninst_main.pas</Transaction>
@@ -80,8 +81,8 @@
     <Transaction>2015/10/12 09:59:26.000.815,=C:\projects\livemirror\Manager\Unit2.pas</Transaction>
     <Transaction>2015/10/12 09:59:56.000.610,C:\projects\livemirror\Manager\Unit2.dfm=C:\Projects\livemirror\dFireDAC.dfm</Transaction>
     <Transaction>2015/10/12 09:59:56.000.610,C:\projects\livemirror\Manager\Unit2.pas=C:\Projects\livemirror\dFireDAC.pas</Transaction>
-    <Transaction>2015/10/12 10:32:22.000.437,C:\projects\livemirror\Manager\Unit1.dfm=C:\Projects\livemirror\Manager\fConnectParamsFireDAC.dfm</Transaction>
     <Transaction>2015/10/12 10:32:22.000.437,C:\projects\livemirror\Manager\Unit1.pas=C:\Projects\livemirror\Manager\fConnectParamsFireDAC.pas</Transaction>
+    <Transaction>2015/10/12 10:32:22.000.437,C:\projects\livemirror\Manager\Unit1.dfm=C:\Projects\livemirror\Manager\fConnectParamsFireDAC.dfm</Transaction>
     <Transaction>2015/10/12 16:37:18.000.874,=C:\Program Files (x86)\Embarcadero\Studio\14.0\source\data\firedac\FireDAC.VCLUI.OptsBase.pas</Transaction>
     <Transaction>2015/10/12 16:37:47.000.544,=C:\Program Files (x86)\Embarcadero\Studio\14.0\source\data\firedac\FireDAC.VCLUI.ConnEdit.pas</Transaction>
     <Transaction>2015/10/12 16:40:04.000.763,C:\Program Files (x86)\Embarcadero\Studio\14.0\source\data\firedac\FireDAC.VCLUI.ConnEdit.pas=</Transaction>
@@ -103,5 +104,7 @@
     <Transaction>2016/09/12 20:38:10.000.332,C:\Projects\livemirror\Manager\Unit1.pas=C:\Projects\livemirror\Manager\fGeneralErrorConfig.pas</Transaction>
     <Transaction>2016/09/12 20:45:00.000.613,C:\Projects\livemirror\Manager\fGeneralErrorConfig.dfm=</Transaction>
     <Transaction>2016/09/12 20:45:28.000.787,=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
+    <Transaction>2016/10/12 11:22:07.000.378,=C:\Projects\livemirror\Manager\New1.manifest</Transaction>
+    <Transaction>2016/10/12 11:22:24.000.874,C:\Projects\livemirror\Manager\LiveMirrorMgr.manifest=C:\Projects\livemirror\Manager\New1.manifest</Transaction>
   </Transactions>
 </BorlandProject>

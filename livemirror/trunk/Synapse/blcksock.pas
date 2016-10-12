@@ -1336,7 +1336,7 @@ type
     function GetVerifyCert: integer; virtual;
 
     {: Resurn @true if SSL mode is enabled on existing cvonnection.}
-    property SSLEnabled: Boolean read FSSLEnabled;
+    property SSLEnabled: Boolean read FSSLEnabled write FSSLEnabled;
 
     {:Return error code of last SSL operation. 0 is OK.}
     property LastError: integer read FLastError;

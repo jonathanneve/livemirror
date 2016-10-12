@@ -80,7 +80,6 @@ type
     function CreateConnectionFrame(node: ILMNode;
       ts: TTabSheet): ILMConnectionFrame;
     { Déclarations privées }
-    procedure ServiceInstall;
     procedure RefreshGUI;
     procedure MasterDBTypeChanged(Sender: TObject);
     procedure MirrorDBTypeChanged(Sender: TObject);
@@ -123,8 +122,8 @@ begin
     {$ENDIF}
     {$ENDIF}
 
-    if lNewConfig then
-      ServiceInstall;
+{    if lNewConfig then
+      ServiceInstall;}
   end;
 end;
 
@@ -243,11 +242,6 @@ begin
 
   Result.Node := node;
   Result.Init(ts);
-end;
-
-procedure TfmConfig.ServiceInstall;
-begin
-  InstallService(Trim(dmConfig.ConfigName), Handle);
 end;
 
 procedure TfmConfig.SaveConfig;

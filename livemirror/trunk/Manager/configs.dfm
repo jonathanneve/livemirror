@@ -25,8 +25,6 @@ object fmConfigs: TfmConfigs
     BevelOuter = bvNone
     Caption = 'Panel1'
     TabOrder = 0
-    ExplicitTop = 49
-    ExplicitHeight = 392
     DesignSize = (
       478
       398)
@@ -38,8 +36,6 @@ object fmConfigs: TfmConfigs
       Anchors = [akLeft, akTop, akRight, akBottom]
       Caption = 'Configurations'
       TabOrder = 0
-      ExplicitWidth = 296
-      ExplicitHeight = 155
       DesignSize = (
         462
         393)
@@ -52,8 +48,6 @@ object fmConfigs: TfmConfigs
         ItemHeight = 13
         TabOrder = 0
         OnDblClick = listConfigsDblClick
-        ExplicitWidth = 201
-        ExplicitHeight = 134
       end
       object btAdd: TBitBtn
         Left = 376
@@ -64,7 +58,6 @@ object fmConfigs: TfmConfigs
         Caption = 'Add'
         TabOrder = 1
         OnClick = btAddClick
-        ExplicitLeft = 210
       end
       object btDelete: TBitBtn
         Left = 376
@@ -82,7 +75,6 @@ object fmConfigs: TfmConfigs
         ParentFont = False
         TabOrder = 2
         OnClick = btDeleteClick
-        ExplicitLeft = 210
       end
       object btProperties: TBitBtn
         Left = 376
@@ -94,7 +86,6 @@ object fmConfigs: TfmConfigs
         DoubleBuffered = False
         TabOrder = 3
         OnClick = btPropertiesClick
-        ExplicitLeft = 210
       end
       object btLog: TBitBtn
         Left = 376
@@ -106,7 +97,6 @@ object fmConfigs: TfmConfigs
         DoubleBuffered = False
         TabOrder = 4
         OnClick = btLogClick
-        ExplicitLeft = 210
       end
       object btRun: TBitBtn
         Left = 376
@@ -118,7 +108,6 @@ object fmConfigs: TfmConfigs
         DoubleBuffered = False
         TabOrder = 5
         OnClick = btRunClick
-        ExplicitLeft = 210
       end
     end
   end
@@ -130,7 +119,6 @@ object fmConfigs: TfmConfigs
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitWidth = 312
     DesignSize = (
       478
       50)
@@ -186,7 +174,6 @@ object fmConfigs: TfmConfigs
       Caption = 'Stop'
       TabOrder = 0
       OnClick = btServiceStopStartClick
-      ExplicitLeft = 221
     end
   end
   object Panel2: TPanel
@@ -197,7 +184,6 @@ object fmConfigs: TfmConfigs
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitTop = 447
     object Button1: TButton
       Left = 11
       Top = 0
