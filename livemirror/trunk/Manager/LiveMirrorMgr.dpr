@@ -5,8 +5,6 @@ program LiveMirrorMgr;
 uses
   EMemLeaks,
   EResLeaks,
-  ESendMailSMAPI,
-  ESendMailSMTP,
   EDialogWinAPIMSClassic,
   EDialogWinAPIEurekaLogDetailed,
   EDialogWinAPIStepsToReproduce,

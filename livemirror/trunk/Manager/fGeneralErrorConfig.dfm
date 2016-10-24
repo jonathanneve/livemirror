@@ -78,7 +78,7 @@ object frGeneralErrorConfig: TfrGeneralErrorConfig
     Left = 613
     Top = 21
     Width = 25
-    Height = 22
+    Height = 21
     TabOrder = 1
     Text = '5'
     OnExit = edEmailsExit

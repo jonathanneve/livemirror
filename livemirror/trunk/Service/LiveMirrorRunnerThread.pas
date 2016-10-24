@@ -19,7 +19,10 @@ type
 
 implementation
 
-{ 
+uses
+  Sysutils, Windows, Vcl.SvcMgr;
+
+{
   Important: Methods and properties of objects in visual components can only be
   used in a method called using Synchronize, for example,
 
@@ -55,10 +58,16 @@ implementation
 procedure TLiveMirrorRunnerThread.Execute;
 begin
   try
-    node.Run;
-    node.LastReplicationTickCount := GetTickCount;
-  finally
-    (FNode.LiveMirrorService as TLiveMirror).RemoveRunningThread(node.DMConfig.ConfigName);
+    try
+      node.Run;
+      node.LastReplicationTickCount := GetTickCount;
+    finally
+      (FNode.LiveMirrorService as TLiveMirror).RemoveRunningThread(node.DMConfig.ConfigName);
+    end;
+  except on E: Exception do begin
+      with TStringList.Create do begin Text:=E.Message;SaveToFile('c:\temp\thread_error.txt');Free;end;
+     (FNode.LiveMirrorService as TLiveMirror).LogMessage(E.Message, EVENTLOG_ERROR_TYPE);
+    end;
   end;
 end;
 

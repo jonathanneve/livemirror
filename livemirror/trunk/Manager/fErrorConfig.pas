@@ -21,10 +21,9 @@ type
     procedure edTryAgainSecondsExit(Sender: TObject);
   private
     FErrorConfig: TCcErrorConfig;
-    procedure UpdateConfig;
   public
     procedure Init(conf: TCcErrorConfig);
-    destructor Destroy;override;
+    procedure SaveConfig;
   end;
 
 implementation
@@ -33,18 +32,12 @@ implementation
 
 { TfrErrorConfig }
 
-destructor TfrErrorConfig.Destroy;
-begin
-  UpdateConfig;
-  inherited;
-end;
-
 procedure TfrErrorConfig.edTryAgainSecondsExit(Sender: TObject);
 begin
-  UpdateConfig;
+  SaveConfig;
 end;
 
-procedure TfrErrorConfig.UpdateConfig;
+procedure TfrErrorConfig.SaveConfig;
 begin
   FErrorConfig.TryAgainSeconds := StrToInt(edTryAgainSeconds.Text);
   FErrorConfig.CanContinueReplCycle  := (cbCanContinue.ItemIndex = 1);

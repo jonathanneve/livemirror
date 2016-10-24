@@ -98,13 +98,6 @@ object fmErrorOptions: TfmErrorOptions
       DesignSize = (
         932
         46)
-      inherited edReportAgainMin: TEdit
-        Height = 21
-        ExplicitHeight = 21
-      end
-      inherited edTryAgainSeconds: TEdit
-        OnExit = nil
-      end
     end
     inline frOtherGeneralError: TfrGeneralErrorConfig
       Left = 2
@@ -119,13 +112,6 @@ object fmErrorOptions: TfmErrorOptions
       DesignSize = (
         932
         46)
-      inherited edReportAgainMin: TEdit
-        Height = 21
-        ExplicitHeight = 21
-      end
-      inherited edTryAgainSeconds: TEdit
-        OnExit = nil
-      end
     end
   end
   object Button1: TButton
@@ -133,6 +119,7 @@ object fmErrorOptions: TfmErrorOptions
     Top = 301
     Width = 112
     Height = 25
+    Anchors = [akTop, akRight]
     Caption = 'Close'
     ModalResult = 8
     TabOrder = 2

@@ -93,6 +93,7 @@ begin
   FTryAgainNextCycle := FConfigFile.FIniFile.ReadBool(errorType, TRY_AGAIN_NEXT_CYCLE, False);
   FReportErrorToEmail := FConfigFile.FIniFile.ReadString(errorType, REPORT_ERROR_EMAIL, '');
   FReportAgainMinutes := FConfigFile.FIniFile.ReadInteger(errorType, REPORT_AGAIN_MINUTES, 0);
+  ReportWhenResolved := FConfigFile.FIniFile.ReadBool(errorType, REPORT_WHEN_RESOLVED, False);
 end;
 
 function TCcErrorConfig.GetErrorTypeDisplay: String;

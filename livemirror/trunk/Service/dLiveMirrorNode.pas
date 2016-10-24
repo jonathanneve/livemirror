@@ -53,11 +53,12 @@ type
     procedure DataModuleDestroy(Sender: TObject);
     procedure DataModuleCreate(Sender: TObject);
     procedure ReplicatorProgress(Sender: TObject);
-    procedure ReplicatorRowReplicatingError(Sender: TObject; TableName: string;
-        Fields: TCcMemoryFields; E: Exception; var Retry: Boolean);
     procedure ReplicatorConnectLocal(Sender: TObject);
     procedure ReplicatorBeforeReplicate(Sender: TObject);
     procedure ReplicatorConnectRemote(Sender: TObject);
+    procedure ReplicatorRowReplicatingError(Sender: TObject; TableName: string;
+      Fields: TCcMemoryFields; E: Exception; var Retry,
+      ShouldAbortReplication: Boolean);
   private
     FDMConfig: TdmConfig;
     FRunOnce: Boolean;
@@ -145,6 +146,9 @@ var
   slEmailText: TStringList;
   errorTypeDisplay: string;
 begin
+//  if (FLiveMirrorService as TLiveMirror).lRunOnce then
+//    Exit;
+
   errorConf := DMConfig.ErrorConfig.ErrorConfigs[errorType];
   if errorConf.ReportErrorToEmail <> '' then begin
     if FGeneralErrorReports.ContainsKey(errorType + errorKey) then
@@ -167,11 +171,11 @@ begin
       //If the error hasn't been reported yet, then we should wait
       //at least TryAgainSeconds before reporting it, to give the
       //error time to fix itself
-      if not err.Reported and (((Now - err.FirstOccurrence) < errorConf.TryAgainSeconds) or
+      if not err.Reported and ((((Now - err.FirstOccurrence) * (24 * 60 * 60)) < errorConf.TryAgainSeconds) or
            ((err.NumberOfCycles = 0) and errorConf.TryAgainNextCycle)) then
         lReport := false
       else
-        lReport := (((Now - err.ReportDateTime) / 60) >= errorConf.ReportAgainMinutes);
+        lReport := (((Now - err.ReportDateTime) * 24 * 60) >= errorConf.ReportAgainMinutes);
     end;
 
     err.Ongoing := True;
@@ -205,6 +209,11 @@ var
   slEmailText: TStringList;
   errorTypeDisplay: string;
 begin
+  if (LiveMirrorService as TLiveMirror).lRunOnce then begin
+    Result := reaSkipAndContinueCycle;
+    Exit;
+  end;
+
   errorKey := tableName + '|' + primaryKeyValues;
   errorConf := DMConfig.ErrorConfig.ErrorConfigs[errorType];
   if errorConf.ReportErrorToEmail <> '' then begin
@@ -220,7 +229,7 @@ begin
 
     //If this error is occuring for the first time, we should wait
     //TryAgainSeconds and try to replicate the row again
-    if (errorConf.TryAgainSeconds > 0) and ((Now - err.FirstOccurrence) < errorConf.TryAgainSeconds) then begin
+    if (errorConf.TryAgainSeconds > 0) and (((Now - err.LastOccurrence) * (24 * 60 * 60)) < errorConf.TryAgainSeconds) then begin
       Sleep(1000 * errorConf.TryAgainSeconds);
       Result := reaTryAgain;
       Exit;
@@ -281,6 +290,7 @@ end;
 
 procedure TdmLiveMirrorNode.SendErrorReport(subject, destEmail: String; slEmailText: TStringList);
 begin
+  WriteLog(Format(_('Sending error report by email to: %s...'), [destEmail]));
   try
     SendToEx('contact@copycat.fr', destEmail, subject, 'webmail.copycat.fr', slEmailText, 'jonathan@copycat.fr', 'nahtanoj');
   except on E: Exception do begin
@@ -340,6 +350,9 @@ var
   slEmailText: TStringList;
   errorTypeDisplay: String;
 begin
+  if (LiveMirrorService as TLiveMirror).lRunOnce then
+    Exit;
+
   if FGeneralErrorReports.ContainsKey(errorType + errorKey) then
   begin
     err := FGeneralErrorReports[errorType + errorKey];
@@ -368,7 +381,7 @@ begin
     //the error from the list
     //If the same error occurs again, it will get treated as a new error
     //(including optionally not reporting it till a number of cycles or seconds)
-    if ((Now - err.LastOccurrence) /  60) > errorConfig.ReportAgainMinutes then
+    if ((Now - err.LastOccurrence) * 24 * 60) > errorConfig.ReportAgainMinutes then
       FGeneralErrorReports.Remove(errorType + errorKey);
   end;
 end;
@@ -395,8 +408,7 @@ begin
 //  LogMessage('Replication finished : ' + #13#10 + 'Rows replicated : ' + IntToStr(Replicator.LastResult.RowsReplicated)
 //  + #13#10 + 'Rows with errors : ' + IntToStr(Replicator.LastResult.RowsErrors)
 //   , EVENTLOG_INFORMATION_TYPE);
-  WriteLog(_('Replication finished : ') + #13#10 + _('Rows replicated : ') + IntToStr(Replicator.LastResult.RowsReplicated)
-  + #13#10 + _('Rows with errors : ') + IntToStr(Replicator.LastResult.RowsErrors));
+
 end;
 
 procedure TdmLiveMirrorNode.ReplicatorLogLoaded(Sender: TObject);
@@ -407,13 +419,15 @@ end;
 
 procedure TdmLiveMirrorNode.ReplicatorProgress(Sender: TObject);
 begin
-  if (LiveMirrorService as TLiveMirror).LiveMirrorTerminating then
+  if (LiveMirrorService as TLiveMirror).LiveMirrorTerminating then begin
+    WriteLog('Replication service aborting...');
     Replicator.AbortReplication;
+  end;
 end;
 
 procedure TdmLiveMirrorNode.ReplicatorReplicationAborted(Sender: TObject);
 begin
-  WriteLog('Replication aborted!');
+  WriteLog(_('Replication aborted!'));
 end;
 
 procedure TdmLiveMirrorNode.ReplicatorReplicationError(Sender: TObject; e: Exception;
@@ -423,11 +437,8 @@ begin
 	WriteLog(_('Error replicating row : Table ') + Replicator.Log.TableName + ' [' + Replicator.Log.Keys.PrimaryKeyValues + ']');
 	WriteLog(e);
 
-  {$IFDEF DEBUG}
   WriteLog(E.StackTrace, false);
   ExceptionManager.StandardEurekaNotify(ExceptObject,ExceptAddr);
-//  raise TObject(AcquireExceptionObject);
-  {$ENDIF}
 end;
 
 procedure TdmLiveMirrorNode.ReplicateGenerators;
@@ -513,9 +524,10 @@ begin
 
   Assert(rt <> rtNone);
 
-  if (rt = rtReplicatorBusy) then
-    Exit
-  else if rt = rtErrorConnectLocal then
+  if (rt = rtReplicatorBusy) or (rt = rtNothingToReplicate) then
+    Exit;
+
+  if rt = rtErrorConnectLocal then
     ReportGeneralError(CONNECTION_ERROR, 'LOCAL', Replicator.LastResult.ExceptionMessage, False, _('MASTER'))
   else if rt = rtErrorConnectRemote then
     ReportGeneralError(CONNECTION_ERROR, 'REMOTE', Replicator.LastResult.ExceptionMessage, False, _('MIRROR'))
@@ -541,6 +553,10 @@ begin
   if Replicator.RemoteDB.InTransaction then
     Replicator.RemoteDB.Rollback;
   Replicator.Disconnect;
+
+  WriteLog(_('Replication finished : ') + #13#10 + _('Rows replicated : ') + IntToStr(Replicator.LastResult.RowsReplicated)
+  + #13#10 + _('Rows with errors : ') + IntToStr(Replicator.LastResult.RowsErrors));
+  WriteLog('****************************************'#13#10);
 end;
 
 procedure TdmLiveMirrorNode.ReplicatorRowReplicated(Sender: TObject;
@@ -555,6 +571,25 @@ begin
   end;
 end;
 
+procedure TdmLiveMirrorNode.ReplicatorRowReplicatingError(Sender: TObject;
+  TableName: string; Fields: TCcMemoryFields; E: Exception; var Retry,
+  ShouldAbortReplication: Boolean);
+var
+  errorConf: TCcErrorConfig;
+  action: TCcRowErrorAction;
+begin
+  errorConf := ErrorConfigByException(E);
+  action := ReportRowError(errorConf.ErrorType, TableName, Replicator.Log.PrimaryKeys, E);
+  if action = reaTryAgain then begin
+    Retry := True;
+    WriteLog(_('Error replicating row : Table ') + Replicator.Log.TableName + ' [' + Replicator.Log.Keys.PrimaryKeyValues + ']');
+   	WriteLog(e);
+    WriteLog(_('Trying again... '#13#10));
+  end
+  else if action = reaSkipAndAbortCycle then
+    ShouldAbortReplication := True;
+end;
+
 function TdmLiveMirrorNode.ErrorConfigByException(E: Exception): TCcErrorConfig;
 var
   err: EFDDBEngineException;
@@ -566,20 +601,6 @@ begin
     Result := DMConfig.ErrorConfig.ErrorConfigs[FK_VIOLATION]
   else
     Result := DMConfig.ErrorConfig.ErrorConfigs[OTHER_ROW_ERROR];
-end;
-
-procedure TdmLiveMirrorNode.ReplicatorRowReplicatingError(Sender: TObject;
-  TableName: string; Fields: TCcMemoryFields; E: Exception; var Retry: Boolean);
-var
-  errorConf: TCcErrorConfig;
-  action: TCcRowErrorAction;
-begin
-  errorConf := ErrorConfigByException(E);
-  action := ReportRowError(errorConf.ErrorType, TableName, Replicator.Log.PrimaryKeys, E);
-  if action = reaTryAgain then
-    Retry := True
-  else if action = reaSkipAndAbortCycle then
-    Abort;
 end;
 
 function TdmLiveMirrorNode.ConfigDatabases: Boolean;
@@ -602,7 +623,7 @@ begin
       WriteLog(E);
       WriteLog(E.StackTrace, false);
       ExceptionManager.StandardEurekaNotify(ExceptObject,ExceptAddr);
-      ReportGeneralError('SERVICE_INIT_ERROR', '', e.Message, True);
+      ReportGeneralError(OTHER_ERROR, 'SERVICE_INIT_ERROR', e.Message, True);
       Result := False;
 //      raise TObject(AcquireExceptionObject);
 //      ExceptionManager.ShowLastExceptionData;
