@@ -2,7 +2,7 @@ object LiveMirror: TLiveMirror
   OldCreateOrder = False
   OnCreate = ServiceCreate
   OnDestroy = ServiceDestroy
-  DisplayName = 'Microtec LiveMirror'
+  DisplayName = 'LiveMirror'
   StartType = stManual
   OnExecute = ServiceExecute
   OnShutdown = ServiceShutdown

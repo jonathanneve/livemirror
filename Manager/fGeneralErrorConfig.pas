@@ -27,7 +27,6 @@ type
     { Private declarations }
   public
     procedure Init(conf: TCcErrorConfig);
-    destructor Destroy; override;
   end;
 
 implementation
@@ -61,12 +60,6 @@ begin
     cbTryNextCycle.ItemIndex := 1
   else
     cbTryNextCycle.ItemIndex := 0;
-end;
-
-destructor TfrGeneralErrorConfig.Destroy;
-begin
-  UpdateConfig;
-  inherited;
 end;
 
 end.

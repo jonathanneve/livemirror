@@ -1,4 +1,4 @@
-unit main;
+ unit main;
 
 interface
 
@@ -25,6 +25,7 @@ type
     function GetLiveMirrorTerminating: Boolean;
     function IsThreadRunning(configName: String): Boolean;
     function GetNode(cConfigName: String): TdmLiveMirrorNode;
+    function RunningThreadCount: Integer;
 
 {$IFNDEF LM_EVALUATION}
 {$IFNDEF DEBUG}
@@ -32,6 +33,7 @@ type
 {$ENDIF}
 {$ENDIF}
   public
+    lRunOnce: Boolean;
     property LiveMirrorTerminating : Boolean read FLiveMirrorTerminating;
     procedure AddRunningThread(configName: String; th: TThread);
     procedure RemoveRunningThread(configName: String);
@@ -102,11 +104,22 @@ begin
   end;
 end;
 
+function TLiveMirror.RunningThreadCount: Integer;
+begin
+  CS.Enter;
+  try
+    Result := FRunningThreads.Count;
+  finally
+    CS.Leave;
+  end;
+end;
+
 procedure TLiveMirror.ServiceCreate(Sender: TObject);
 var
   iniConfigs: TIniFile;
   I: Integer;
   dm: TdmLiveMirrorNode;
+  node: TdmLiveMirrorNode;
 begin
   LogMessage('LiveMirror service starting', EVENTLOG_INFORMATION_TYPE);
 
@@ -124,8 +137,13 @@ begin
   LogMessage('LiveMirror service started', EVENTLOG_INFORMATION_TYPE);
 
  //  GetNode('UCAR').Run;
-  if ParamStr(2) = '/runonce' then
-    GetNode(ParamStr(1)).Run;
+  if ParamStr(2) = '/runonce' then begin
+    lRunOnce := True;
+    node := GetNode(ParamStr(1));
+    if Assigned(node) then
+      node.Run;
+  end else
+    lRunOnce := False;
 end;
 
 procedure TLiveMirror.ServiceDestroy(Sender: TObject);
@@ -186,9 +204,10 @@ begin
         if LiveMirrorTerminating then
           Break;
 
-        node := GetNode(slConfigs[i]);
+        cConfigName := slConfigs[i];
+        node := GetNode(cConfigName);
 
-        if not IsThreadRunning(cConfigName)
+        if (node <> nil) and not IsThreadRunning(cConfigName)
            and (GetTickCount > (node.LastReplicationTickCount + (node.DMConfig.SyncFrequency * 1000))) then
         begin
           LogMessage('LiveMirror thread starting...', EVENTLOG_INFORMATION_TYPE);
@@ -206,6 +225,9 @@ begin
         Break;
       Sleep(500);
     end;
+
+    while RunningThreadCount > 0 do
+      Sleep(500);
   except
     on E: Exception do
     begin
@@ -222,8 +244,11 @@ begin
   if slConfigs.Objects[i] = nil then begin
     Result := TdmLiveMirrorNode.Create(Self);
     Result.LiveMirrorService := Self;
-    if not Result.Initialize(cConfigName) then
+    if not Result.Initialize(cConfigName) then begin
+      Result.Free;
+      Result := nil;
       Exit;
+    end;
 
     slConfigs.Objects[I] := Result;
   end else
