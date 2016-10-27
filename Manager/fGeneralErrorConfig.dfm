@@ -70,7 +70,7 @@ object frGeneralErrorConfig: TfrGeneralErrorConfig
     Width = 176
     Height = 21
     Anchors = [akLeft, akTop, akRight]
-    TabOrder = 0
+    TabOrder = 2
     TextHint = 'Email address(es)'
     OnExit = edEmailsExit
   end
@@ -79,7 +79,7 @@ object frGeneralErrorConfig: TfrGeneralErrorConfig
     Top = 21
     Width = 25
     Height = 21
-    TabOrder = 1
+    TabOrder = 3
     Text = '5'
     OnExit = edEmailsExit
   end
@@ -89,7 +89,7 @@ object frGeneralErrorConfig: TfrGeneralErrorConfig
     Width = 167
     Height = 16
     Caption = 'Report when resolved'
-    TabOrder = 2
+    TabOrder = 4
     OnExit = edEmailsExit
   end
   object edTryAgainSeconds: TEdit
@@ -97,7 +97,7 @@ object frGeneralErrorConfig: TfrGeneralErrorConfig
     Top = 21
     Width = 25
     Height = 21
-    TabOrder = 3
+    TabOrder = 0
     Text = '5'
   end
   object cbTryNextCycle: TComboBox
@@ -107,7 +107,7 @@ object frGeneralErrorConfig: TfrGeneralErrorConfig
     Height = 21
     Style = csDropDownList
     ItemIndex = 0
-    TabOrder = 4
+    TabOrder = 1
     Text = 'No, report immediately'
     Items.Strings = (
       'No, report immediately'

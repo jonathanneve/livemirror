@@ -98,4 +98,15 @@ object dmLiveMirrorNode: TdmLiveMirrorNode
     Left = 32
     Top = 144
   end
+  object FDScript: TFDScript
+    SQLScripts = <>
+    ScriptOptions.SpoolOutput = smOnReset
+    ScriptOptions.SpoolFileName = 'sqlupdates.log'
+    ScriptOptions.BreakOnError = True
+    ScriptOptions.CommandSeparator = ';'
+    Params = <>
+    Macros = <>
+    Left = 256
+    Top = 136
+  end
 end

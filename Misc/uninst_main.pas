@@ -58,7 +58,7 @@ begin
       end;
       memLog.Lines.Add(_('Uninstalling service'));
       Application.ProcessMessages;
-      UnInstallService(cConfigName, Handle);
+      //UnInstallService(cConfigName, Handle);
       Application.ProcessMessages;
     end;
   finally

@@ -23,10 +23,6 @@ object fmMain: TfmMain
     Align = alClient
     ReadOnly = True
     TabOrder = 0
-    ExplicitLeft = 144
-    ExplicitTop = 120
-    ExplicitWidth = 185
-    ExplicitHeight = 89
   end
   object ShowTimer: TTimer
     Enabled = False

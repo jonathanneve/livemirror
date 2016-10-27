@@ -27,11 +27,6 @@ type
     function GetNode(cConfigName: String): TdmLiveMirrorNode;
     function RunningThreadCount: Integer;
 
-{$IFNDEF LM_EVALUATION}
-{$IFNDEF DEBUG}
-    function CheckLiveMirrorLicence: Boolean;
-{$ENDIF}
-{$ENDIF}
   public
     lRunOnce: Boolean;
     property LiveMirrorTerminating : Boolean read FLiveMirrorTerminating;
@@ -154,35 +149,6 @@ begin
   FRunningThreads.Free;
 end;
 
-{$IFNDEF LM_EVALUATION}
-{$IFNDEF DEBUG}
-
-function TLiveMirror.CheckLiveMirrorLicence: Boolean;
-begin
-  Result := False;
-  if (FDMConfig.Licence <> '') then
-  begin
-    LogMessage(_('{now} Checking licence information...'));
-    try
-      if not CheckLicenceActivation(FDMConfig.ConfigName, FDMConfig.Licence) then
-      begin
-        LogMessage(_('Error checking licence, please check your Internet connection'));
-        Exit;
-      end;
-      Result := True;
-    except
-      on E: Exception do
-      begin
-        LogMessage(_('Licencing error : ') + E.Message);
-      end;
-    end;
-  end
-  else
-    LogMessage(_('No licence set for this database configuration. Synchronization aborting.'));
-end;
-{$ENDIF}
-{$ENDIF}
-
 procedure TLiveMirror.ServiceExecute(Sender: TService);
 var
   I: Integer;
@@ -244,15 +210,19 @@ begin
   if slConfigs.Objects[i] = nil then begin
     Result := TdmLiveMirrorNode.Create(Self);
     Result.LiveMirrorService := Self;
-    if not Result.Initialize(cConfigName) then begin
-      Result.Free;
-      Result := nil;
-      Exit;
-    end;
-
     slConfigs.Objects[I] := Result;
   end else
     Result := slConfigs.Objects[i] as TdmLiveMirrorNode;
+
+  if not Result.Initialized then
+  begin
+    if Result.Initialize(cConfigName) then
+      Result.Initialized := True
+    else begin
+      Result := nil;
+      Exit;
+    end;
+  end;
 end;
 
 procedure TLiveMirror.ServiceShutdown(Sender: TService);
@@ -283,7 +253,5 @@ begin
     CSTerminating.Leave;
   end;
 end;
-
-// Also implement pausing and stopping the service using a flag in the main and having the threads check it in the onProgress event
 
 end.
