@@ -15,7 +15,9 @@ object dmInterbase: TdmInterbase
     Top = 24
   end
   object FDTransaction: TFDTransaction
+    Options.Isolation = xiSnapshot
     Options.AutoStop = False
+    Options.EnableNested = False
     Connection = FDConnection
     Left = 176
     Top = 24

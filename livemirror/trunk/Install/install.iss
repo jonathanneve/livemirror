@@ -48,10 +48,6 @@ Source: ..\Misc\Win32\{#Config}\LiveMirrorUninstaller.exe; DestDir: {app}\Misc
 Source: ..\Misc\locale\FR\LC_MESSAGES\default.mo; DestDir: {app}\Misc\locale\FR\LC_MESSAGES
 Source: ..\Misc\locale\FR\LC_MESSAGES\default.po; DestDir: {app}\Misc\locale\FR\LC_MESSAGES
 
-Source: ..\Guardian\locale\FR\LC_MESSAGES\default.mo; DestDir: {app}\Guardian\locale\FR\LC_MESSAGES
-Source: ..\Guardian\locale\FR\LC_MESSAGES\default.po; DestDir: {app}\Guardian\locale\FR\LC_MESSAGES
-Source: ..\Guardian\Win32\{#Config}\LiveMirrorGuardian.exe; DestDir: {app}\Guardian
-
 Source: ..\Service\Win32\{#Config}\LiveMirrorSrv.exe; DestDir: {app}\Service
 Source: ..\Service\locale\FR\LC_MESSAGES\default.mo; DestDir: {app}\Service\locale\FR\LC_MESSAGES
 Source: ..\Service\locale\FR\LC_MESSAGES\default.po; DestDir: {app}\Service\locale\FR\LC_MESSAGES
@@ -61,17 +57,14 @@ Source: ..\common\locale\FR\LC_MESSAGES\common.po; DestDir: {app}\Manager\locale
 Source: ..\common\locale\FR\LC_MESSAGES\common.mo; DestDir: {app}\Manager\locale\FR\LC_MESSAGES
 Source: ..\common\locale\FR\LC_MESSAGES\common.po; DestDir: {app}\Misc\locale\FR\LC_MESSAGES
 Source: ..\common\locale\FR\LC_MESSAGES\common.mo; DestDir: {app}\Misc\locale\FR\LC_MESSAGES
-Source: ..\common\locale\FR\LC_MESSAGES\common.po; DestDir: {app}\Guardian\locale\FR\LC_MESSAGES
-Source: ..\common\locale\FR\LC_MESSAGES\common.mo; DestDir: {app}\Guardian\locale\FR\LC_MESSAGES
-Source: ..\common\locale\FR\LC_MESSAGES\common.po; DestDir: {app}\Service\locale\FR\LC_MESSAGES
-Source: ..\common\locale\FR\LC_MESSAGES\common.mo; DestDir: {app}\Service\locale\FR\LC_MESSAGES
+Source: ..\erroroptions.ini; DestDir: {app}
 
 [Icons]
 Name: {group}\{#MyAppName}; Filename: {app}\Manager\{#MyAppExeName}
 
 [Run]
 Filename: {app}\Manager\{#MyAppExeName}; Description: {cm:RunLMMgr}; Flags: nowait postinstall skipifsilent
-Filename: {app}\Guardian\LiveMirrorGuardian.exe; Parameters: /INSTALL /SILENT; Check: not LMIsInstalled
+Filename: {app}\Service\LiveMirrorSrv.exe; Parameters: /INSTALL /SILENT; Check: not LMIsInstalled
 
 [Dirs]
 Name: {app}\Configs; Flags: uninsalwaysuninstall
@@ -79,7 +72,7 @@ Name: {app}\Configs; Flags: uninsalwaysuninstall
 Root: HKLM; Subkey: Software\Microtec\LiveMirror; ValueType: string; ValueName: InstallPath; ValueData: {app}; Flags: createvalueifdoesntexist uninsdeletekey
 [UninstallRun]
 Filename: sc; Parameters: stop LiveMirror; Flags: nowait
-Filename: {app}\Guardian\LiveMirrorGuardian.exe; Parameters: /UNINSTALL /SILENT
+Filename: {app}\Service\LiveMirrorSrv.exe; Parameters: /UNINSTALL /SILENT
 Filename: {app}\Misc\LiveMirrorUninstaller.exe
 
 [CustomMessages]

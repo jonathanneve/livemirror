@@ -3,9 +3,6 @@
         <ProjectGuid>{6BCCC067-B8FE-4CCC-A4DC-004E8E590673}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
-        <Projects Include="Guardian\LiveMirrorGuardian.dproj">
-            <Dependencies/>
-        </Projects>
         <Projects Include="Service\LiveMirrorSrv.dproj">
             <Dependencies/>
         </Projects>
@@ -18,9 +15,6 @@
         <Projects Include="Misc\LiveMirrorUninstaller.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="Service\LiveMirrorSrvTester.dproj">
-            <Dependencies/>
-        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -29,15 +23,6 @@
             <Default.Personality/>
         </BorlandProject>
     </ProjectExtensions>
-    <Target Name="LiveMirrorGuardian">
-        <MSBuild Projects="Guardian\LiveMirrorGuardian.dproj"/>
-    </Target>
-    <Target Name="LiveMirrorGuardian:Clean">
-        <MSBuild Projects="Guardian\LiveMirrorGuardian.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="LiveMirrorGuardian:Make">
-        <MSBuild Projects="Guardian\LiveMirrorGuardian.dproj" Targets="Make"/>
-    </Target>
     <Target Name="LiveMirrorSrv">
         <MSBuild Projects="Service\LiveMirrorSrv.dproj"/>
     </Target>
@@ -74,23 +59,14 @@
     <Target Name="LiveMirrorUninstaller:Make">
         <MSBuild Projects="Misc\LiveMirrorUninstaller.dproj" Targets="Make"/>
     </Target>
-    <Target Name="LiveMirrorSrvTester">
-        <MSBuild Projects="Service\LiveMirrorSrvTester.dproj"/>
-    </Target>
-    <Target Name="LiveMirrorSrvTester:Clean">
-        <MSBuild Projects="Service\LiveMirrorSrvTester.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="LiveMirrorSrvTester:Make">
-        <MSBuild Projects="Service\LiveMirrorSrvTester.dproj" Targets="Make"/>
-    </Target>
     <Target Name="Build">
-        <CallTarget Targets="LiveMirrorGuardian;LiveMirrorSrv;LiveMirrorCpl;LiveMirrorMgr;LiveMirrorUninstaller;LiveMirrorSrvTester"/>
+        <CallTarget Targets="LiveMirrorSrv;LiveMirrorCpl;LiveMirrorMgr;LiveMirrorUninstaller"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="LiveMirrorGuardian:Clean;LiveMirrorSrv:Clean;LiveMirrorCpl:Clean;LiveMirrorMgr:Clean;LiveMirrorUninstaller:Clean;LiveMirrorSrvTester:Clean"/>
+        <CallTarget Targets="LiveMirrorSrv:Clean;LiveMirrorCpl:Clean;LiveMirrorMgr:Clean;LiveMirrorUninstaller:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="LiveMirrorGuardian:Make;LiveMirrorSrv:Make;LiveMirrorCpl:Make;LiveMirrorMgr:Make;LiveMirrorUninstaller:Make;LiveMirrorSrvTester:Make"/>
+        <CallTarget Targets="LiveMirrorSrv:Make;LiveMirrorCpl:Make;LiveMirrorMgr:Make;LiveMirrorUninstaller:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

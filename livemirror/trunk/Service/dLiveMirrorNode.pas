@@ -5,7 +5,9 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes,
   CcReplicator, CcConf, CcProviders, DB, dconfig, Vcl.SvcMgr,
-  EExceptionManager, CcDB, errors, Generics.Collections, smtpsend;
+  EExceptionManager, CcDB, errors, Generics.Collections, smtpsend,
+  FireDAC.UI.Intf, FireDAC.Stan.Async, FireDAC.Comp.ScriptCommands,
+  FireDAC.Stan.Util, FireDAC.Stan.Intf, FireDAC.Comp.Script;
 
 type
   TCcGeneralErrorRecord = class
@@ -38,6 +40,7 @@ type
     CcQuery1: TCcQuery;
     qGetGenValue: TCcQuery;
     qMirrorGenerators: TCcQuery;
+    FDScript: TFDScript;
     procedure ReplicatorLogLoaded(Sender: TObject);
     procedure ReplicatorException(Sender: TObject; e: Exception);
     procedure ReplicatorFinished(Sender: TObject);
@@ -88,8 +91,10 @@ type
     procedure ResetRowErrors;
     procedure SendErrorReport(subject, destEmail: String; slEmailText: TStringList);
     procedure InsertErrorReportHeader(slEmailText: TStringList; errorDate: TDateTime; database: String; errorClassName: String = ''; tableName: String = ''; primaryKeyValues: String = '');
+    procedure CheckSQLChanges;
   public
     LastReplicationTickCount: Int64;
+    Initialized: Boolean;
     property LiveMirrorService: TService read FLiveMirrorService write FLiveMirrorService;
     property DMConfig: TdmConfig read FDMConfig;
     function Initialize(ConfigName: String): Boolean;
@@ -105,7 +110,7 @@ implementation
 {$R *.DFM}
 
 uses LMUtils, IniFiles, dInterbase, Registry, gnugettext, IOUtils, FireDAC.Stan.Error,
-  main;
+  main, CcProvFireDAC;
 
 procedure TdmLiveMirrorNode.WriteLog(line: String; timestamp: Boolean);
 begin
@@ -146,8 +151,8 @@ var
   slEmailText: TStringList;
   errorTypeDisplay: string;
 begin
-//  if (FLiveMirrorService as TLiveMirror).lRunOnce then
-//    Exit;
+  if (FLiveMirrorService as TLiveMirror).lRunOnce then
+    Exit;
 
   errorConf := DMConfig.ErrorConfig.ErrorConfigs[errorType];
   if errorConf.ReportErrorToEmail <> '' then begin
@@ -163,11 +168,11 @@ begin
       FGeneralErrorReports.Add(errorType + errorKey, err);
     end;
 
-    //Catastrophic errors (errors that occur outside replication, and that stop
+{    //Catastrophic errors (errors that occur outside replication, and that stop
     //the whole replication process) are systematically reported
     if forceReport then
       lReport := True
-    else begin
+    else begin}
       //If the error hasn't been reported yet, then we should wait
       //at least TryAgainSeconds before reporting it, to give the
       //error time to fix itself
@@ -176,7 +181,7 @@ begin
         lReport := false
       else
         lReport := (((Now - err.ReportDateTime) * 24 * 60) >= errorConf.ReportAgainMinutes);
-    end;
+//    end;
 
     err.Ongoing := True;
     if lReport then
@@ -414,6 +419,7 @@ end;
 procedure TdmLiveMirrorNode.ReplicatorLogLoaded(Sender: TObject);
 begin
 //  LogMessage('Starting replication : ' + IntToStr(Replicator.Log.LineCount) + ' rows to replicate...', EVENTLOG_INFORMATION_TYPE);
+  ReportErrorRecovery(OTHER_ERROR, 'SERVICE_INIT_ERROR', '');
 	WriteLog(_('Starting replication : '));// + IntToStr(Replicator.Log.LineCount) + _(' rows to replicate...'));
 end;
 
@@ -633,10 +639,11 @@ end;
 
 {$IFNDEF LM_EVALUATION}
 {$IFNDEF DEBUG}
-function TdmLiveMirrorRunner.CheckLiveMirrorLicence : Boolean;
+function TdmLiveMirrorNode.CheckLiveMirrorLicence : Boolean;
 begin
   Result := False;
-  if (FDMConfig.Licence <> '') then begin
+  if (FDMConfig.Licence <> '') then
+  begin
      WriteLog(_('Checking licence information...'));
      try
        if not CheckLicenceActivation(FDMConfig.ConfigName, FDMConfig.Licence) then begin
@@ -659,6 +666,7 @@ end;
 
 procedure TdmLiveMirrorNode.DataModuleCreate(Sender: TObject);
 begin
+  Initialized := False;
   FDMConfig := TdmConfig.Create(Self);
   LastReplicationTickCount := 0;
 
@@ -704,6 +712,45 @@ begin
   end;
 end;
 
+procedure TdmLiveMirrorNode.CheckSQLChanges;
+var
+  cPath: string;
+  cErrorMessage: String;
+  cCurrentStatement: string;
+begin
+  cPath := GetLiveMirrorRoot + '\Configs\' + FDMConfig.ConfigName;
+  if FileExists(cPath + '\sql.txt') then begin
+    FDScript.Connection := (FDMConfig.MirrorNode.Connection as TCcConnectionFireDAC).FDConnection;
+    FDScript.Connection.Connected := True;
+    FDScript.ScriptOptions.SpoolFileName := cPath + '\sql.log';
+    FDScript.ScriptOptions.SpoolOutput := smOnReset;
+    FDScript.ExecuteFile(cPath + '\sql.txt');
+    FDScript.Connection.Connected := False;
+{    try
+      FDScript.SQLScripts.Clear;
+      FDScript.SQLScriptFileName := cPath + '\sql.txt';
+
+      FDScript.ValidateAll;
+      if FDScript.Status = ssFinishSuccess then
+        FDScript.ExecuteAll;
+
+
+
+    except on E: Exception do begin
+      cErrorMessage := _('ERROR APPLYING SQL UPDATE SCRIPT!' + #13#10 + 'Statement: ' + cCurrentStatement + #13#10 + 'Error: ' + E.Message +  #13#10 + 'RENAMING SCRIPT AND CONTINUING REPLICATION...');
+      WriteLog(cErrorMessage);
+      FLiveMirrorService.LogMessage(cErrorMessage, EVENTLOG_ERROR_TYPE);
+      end;
+    end;}
+    if FDScript.Status = ssFinishSuccess then begin
+      if FileExists(cPath + '\sql.old') then
+        DeleteFile(cPath + '\sql.old');
+      RenameFile(cPath + '\sql.txt', cPath + '\sql.old')
+    end;
+  end;
+
+end;
+
 function TdmLiveMirrorNode.Initialize(ConfigName: String): Boolean;
 var
   iniConfigs: TIniFile;
@@ -716,19 +763,21 @@ begin
   try
     FDMConfig.LoadConfig(FDMConfig.ConfigName);
     CreateNewLogFile;
-
+(*
     {$IFNDEF LM_EVALUATION}
     {$IFNDEF DEBUG}
-{    //Check licence and die if it's incorrect
+    //Check licence and die if it's incorrect
     if not CheckLiveMirrorLicence then begin
       //Clear licence if it was incorrect
-      LogMessage(Format(_('LiveMirror licence invalid for configuration %s.'#13#10'Clearing licence information from setup.'#13#10'Database will not be synchronized till licence is corrected.'), [FDMConfig.ConfigName]), EVENTLOG_ERROR_TYPE);
+      (LiveMirrorService as TLiveMirror).LogMessage(Format(_('LiveMirror licence invalid for configuration %s.'#13#10'Clearing licence information from setup.'#13#10'Database will not be synchronized till licence is corrected.'), [FDMConfig.ConfigName]), EVENTLOG_ERROR_TYPE);
       FDMConfig.Licence := '';
       FDMConfig.SaveConfig;
       Abort;
-    end;}
+    end;
     {$ENDIF}
-    {$ENDIF}
+    {$ENDIF}*)
+
+    CheckSQLChanges;
 
     //Create replication meta-data and triggers if they aren't there
     //Any new tables are automatically detected and triggers added
