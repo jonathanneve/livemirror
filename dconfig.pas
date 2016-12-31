@@ -50,6 +50,7 @@ type
     FOnMirrorDBTypeChanged: TNotifyEvent;
     FMirrorExcludedFields, FMasterExcludedFields: TStringList;
     FErrorConfig: TCcErrorConfigFile;
+    FExcludedFields: String;
     procedure SaveLoadConfig(save: Boolean);
     procedure SetMasterDBType(const Value: String);
     procedure SetMirrorDBType(const Value: String);
@@ -65,6 +66,7 @@ type
   public
     procedure ExcludeKeywordFieldNames(FieldList : TStringList);
     property ExcludedTables : String read FExcludedTables write FExcludedTables;
+    property ExcludedFields : String read FExcludedFields write FExcludedFields;
     property Licence : String read FLicence write FLicence;
     property SyncFrequency : Integer read FSyncFrequency write FSyncFrequency;
     property TrackChanges : Boolean read FTrackChanges write FTrackChanges;
@@ -109,6 +111,7 @@ var
   procedure DoSaveConfig;
   begin
     ConfigsIni.WriteString(FConfigName, 'ExcludedTables', FExcludedTables);
+    ConfigsIni.WriteString(FConfigName, 'ExcludedFields', FExcludedFields);
     ConfigsIni.WriteString(FConfigName, 'SyncFrequency', IntToStr(FSyncFrequency));
     ConfigsIni.WriteBool(FConfigName, 'TrackChanges', FTrackChanges);
     {$IFNDEF LM_EVALUATION}
@@ -127,6 +130,7 @@ var
   begin
     FMetaDataCreated := StrToBool(ConfigsIni.ReadString(FConfigName, 'MetaDataCreated', 'False'));
     FExcludedTables := ConfigsIni.ReadString(FConfigName, 'ExcludedTables', '');
+    FExcludedFields := ConfigsIni.ReadString(FConfigName, 'ExcludedFields', '');
     FTrackChanges := ConfigsIni.ReadBool(FConfigName, 'TrackChanges', True);
 
     {$IFNDEF LM_EVALUATION}
@@ -302,7 +306,9 @@ procedure TdmConfig.ConfigureMaster;
 var
   slTables: TStringList;
   I: Integer;
-  slExcludedTables: TStringList;
+  slExcludedTables, slExcludedFields: TStringList;
+  cTableName, cFieldName: String;
+  tab: TCcConfigTable;
 begin
   MasterConfig.TrackFieldChanges := (MasterDBType = 'Interbase') and (MasterNode.Connection.DBVersion = 'FB2.5');//TrackChanges;
   MasterConfig.Connection := FMasterNode.Connection;
@@ -322,6 +328,19 @@ begin
     end;
   finally
     slExcludedTables.Free;
+  end;
+  slExcludedFields := TStringList.Create;
+  try
+    slExcludedFields.CommaText := FExcludedFields;
+    for I := 0 to slExcludedFields.Count-1 do begin
+      cTableName := Copy(slExcludedFields[i], 1, Pos('.', slExcludedFields[i]) - 1);
+      cFieldName := Copy(slExcludedFields[i], Pos('.', slExcludedFields[i]) + 1, Length(slExcludedFields[i]));
+      tab := MasterConfig.Tables.FindTable(cTableName);
+      if tab <> nil then
+        tab.FieldsExcluded.Add(cFieldName);
+    end;
+  finally
+    slExcludedFields.Free;
   end;
   MasterConfig.Nodes.Text := 'MIRROR';
   MasterConfig.GenerateConfig;

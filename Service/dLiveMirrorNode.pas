@@ -763,7 +763,7 @@ begin
   try
     FDMConfig.LoadConfig(FDMConfig.ConfigName);
     CreateNewLogFile;
-(*
+
     {$IFNDEF LM_EVALUATION}
     {$IFNDEF DEBUG}
     //Check licence and die if it's incorrect
@@ -775,7 +775,7 @@ begin
       Abort;
     end;
     {$ENDIF}
-    {$ENDIF}*)
+    {$ENDIF}
 
     CheckSQLChanges;
 

@@ -54,6 +54,7 @@ type
     cbDefaultErrorReporting: TRadioButton;
     cbCustomErrorManagement: TRadioButton;
     btErrorConfig: TButton;
+    lbExcludedFields: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure btLicensingClick(Sender: TObject);
@@ -70,6 +71,7 @@ type
     procedure cbDefaultErrorReportingClick(Sender: TObject);
     procedure btErrorConfigClick(Sender: TObject);
     procedure cbCustomErrorManagementClick(Sender: TObject);
+    procedure lbExcludedFieldsClick(Sender: TObject);
   private
     ConfigsIni: TIniFile;
     lNewConfig: Boolean;
@@ -100,7 +102,7 @@ implementation
 {$R *.dfm}
 
 uses FireDAC.VCLUI.ConnEdit, gnugettext, fConnectParamsFB, LMUtils, ShellAPI,
-  licensing, configoptions, fConnectParamsFireDAC;
+  licensing, configoptions, fConnectParamsFireDAC, configfields;
 
 procedure TfmConfig.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
@@ -179,6 +181,11 @@ begin
   else
     dmConfig.ConfigureNodes;
   RefreshGUI;
+end;
+
+procedure TfmConfig.lbExcludedFieldsClick(Sender: TObject);
+begin
+  TfmConfigFields.Display(dmConfig);
 end;
 
 procedure TfmConfig.lbSelectExcludedTablesClick(Sender: TObject);

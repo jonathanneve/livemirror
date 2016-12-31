@@ -55,15 +55,17 @@
     <File Path="LiveMirrorMgr.manifest"/>
     <File Path="logfile.pas"/>
     <File Path="logfile.dfm"/>
+    <File Path="configfields.pas"/>
+    <File Path="configfields.dfm"/>
   </ProjectSortOrder>
 	<Transactions>
     <Transaction>2014/03/24 16:20:01.000.840,=C:\Projects\livemirror\uLkJSON.pas</Transaction>
-    <Transaction>2014/03/24 22:29:51.000.599,=C:\Projects\livemirror\Synapse\synsock.pas</Transaction>
-    <Transaction>2014/03/24 22:29:51.000.590,=C:\Projects\livemirror\Synapse\synautil.pas</Transaction>
     <Transaction>2014/03/24 22:29:51.000.577,=C:\Projects\livemirror\Synapse\synaip.pas</Transaction>
-    <Transaction>2014/03/24 22:29:51.000.567,=C:\Projects\livemirror\Synapse\synacode.pas</Transaction>
+    <Transaction>2014/03/24 22:29:51.000.590,=C:\Projects\livemirror\Synapse\synautil.pas</Transaction>
     <Transaction>2014/03/24 22:29:51.000.532,=C:\Projects\livemirror\Synapse\blcksock.pas</Transaction>
+    <Transaction>2014/03/24 22:29:51.000.599,=C:\Projects\livemirror\Synapse\synsock.pas</Transaction>
     <Transaction>2014/03/24 22:29:51.000.551,=C:\Projects\livemirror\Synapse\httpsend.pas</Transaction>
+    <Transaction>2014/03/24 22:29:51.000.567,=C:\Projects\livemirror\Synapse\synacode.pas</Transaction>
     <Transaction>2014/03/24 22:31:05.000.899,=C:\Projects\livemirror\Synapse\synafpc.pas</Transaction>
     <Transaction>2014/03/26 15:43:29.000.474,=C:\Projects\livemirror\Manager\licensing.pas</Transaction>
     <Transaction>2014/03/26 18:19:49.000.727,C:\Projects\livemirror\Misc\uninst_main.pas=C:\Projects\livemirror\uLkJSON.pas</Transaction>
@@ -72,8 +74,8 @@
     <Transaction>2014/05/06 17:05:38.000.507,C:\Projects\livemirror\Manager\logfile.dfm=C:\Projects\livemirror\Manager\Unit1.dfm</Transaction>
     <Transaction>2014/05/06 17:05:38.000.507,C:\Projects\livemirror\Manager\logfile.pas=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
     <Transaction>2014/06/07 07:57:55.000.557,=C:\Projects\livemirror\Manager\Unit2.pas</Transaction>
-    <Transaction>2014/06/07 08:05:16.000.360,C:\Projects\livemirror\Manager\Unit2.dfm=C:\Projects\livemirror\Manager\configoptions.dfm</Transaction>
     <Transaction>2014/06/07 08:05:16.000.360,C:\Projects\livemirror\Manager\Unit2.pas=C:\Projects\livemirror\Manager\configoptions.pas</Transaction>
+    <Transaction>2014/06/07 08:05:16.000.360,C:\Projects\livemirror\Manager\Unit2.dfm=C:\Projects\livemirror\Manager\configoptions.dfm</Transaction>
     <Transaction>2014/06/19 17:43:27.000.981,=C:\Projects\livemirror\dconfig.pas</Transaction>
     <Transaction>2014/06/20 12:00:13.000.599,=C:\Projects\livemirror\dInterbase.pas</Transaction>
     <Transaction>2014/06/25 14:48:03.000.019,=C:\Projects\livemirror\version.rc</Transaction>
@@ -81,15 +83,15 @@
     <Transaction>2015/10/12 09:59:26.000.815,=C:\projects\livemirror\Manager\Unit2.pas</Transaction>
     <Transaction>2015/10/12 09:59:56.000.610,C:\Projects\livemirror\dFireDAC.pas=C:\projects\livemirror\Manager\Unit2.pas</Transaction>
     <Transaction>2015/10/12 09:59:56.000.610,C:\Projects\livemirror\dFireDAC.dfm=C:\projects\livemirror\Manager\Unit2.dfm</Transaction>
-    <Transaction>2015/10/12 10:32:22.000.437,C:\Projects\livemirror\Manager\fConnectParamsFireDAC.dfm=C:\projects\livemirror\Manager\Unit1.dfm</Transaction>
     <Transaction>2015/10/12 10:32:22.000.437,C:\Projects\livemirror\Manager\fConnectParamsFireDAC.pas=C:\projects\livemirror\Manager\Unit1.pas</Transaction>
+    <Transaction>2015/10/12 10:32:22.000.437,C:\Projects\livemirror\Manager\fConnectParamsFireDAC.dfm=C:\projects\livemirror\Manager\Unit1.dfm</Transaction>
     <Transaction>2015/10/12 16:37:18.000.874,=C:\Program Files (x86)\Embarcadero\Studio\14.0\source\data\firedac\FireDAC.VCLUI.OptsBase.pas</Transaction>
     <Transaction>2015/10/12 16:37:47.000.544,=C:\Program Files (x86)\Embarcadero\Studio\14.0\source\data\firedac\FireDAC.VCLUI.ConnEdit.pas</Transaction>
     <Transaction>2015/10/12 16:40:04.000.763,C:\Program Files (x86)\Embarcadero\Studio\14.0\source\data\firedac\FireDAC.VCLUI.ConnEdit.pas=</Transaction>
     <Transaction>2015/10/12 16:40:25.000.603,=C:\projects\livemirror\Manager\FireDAC.VCLUI.ConnEdit.pas</Transaction>
     <Transaction>2016/04/27 11:27:13.000.250,=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
-    <Transaction>2016/04/27 11:28:55.000.041,C:\Projects\livemirror\dFireDACSQLite.dfm=C:\Projects\livemirror\Manager\Unit1.dfm</Transaction>
     <Transaction>2016/04/27 11:28:55.000.041,C:\Projects\livemirror\dFireDACSQLite.pas=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
+    <Transaction>2016/04/27 11:28:55.000.041,C:\Projects\livemirror\dFireDACSQLite.dfm=C:\Projects\livemirror\Manager\Unit1.dfm</Transaction>
     <Transaction>2016/04/27 11:46:49.000.570,C:\Projects\livemirror\dFireDACSQLite.pas=</Transaction>
     <Transaction>2016/09/12 12:32:25.000.456,=C:\Projects\livemirror\Manager\Unit2.pas</Transaction>
     <Transaction>2016/09/12 13:07:18.000.384,C:\Projects\livemirror\Manager\Unit2.pas=C:\Projects\livemirror\Manager\erroroptions.pas</Transaction>
@@ -106,5 +108,8 @@
     <Transaction>2016/09/12 20:45:28.000.787,=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
     <Transaction>2016/10/12 11:22:07.000.378,=C:\Projects\livemirror\Manager\New1.manifest</Transaction>
     <Transaction>2016/10/12 11:22:24.000.874,C:\Projects\livemirror\Manager\New1.manifest=C:\Projects\livemirror\Manager\LiveMirrorMgr.manifest</Transaction>
+    <Transaction>2016/12/29 16:08:43.882,=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
+    <Transaction>2016/12/29 16:13:17.880,C:\Projects\livemirror\Manager\configfields.pas=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
+    <Transaction>2016/12/29 16:13:17.880,C:\Projects\livemirror\Manager\configfields.dfm=C:\Projects\livemirror\Manager\Unit1.dfm</Transaction>
   </Transactions>
 </BorlandProject>
