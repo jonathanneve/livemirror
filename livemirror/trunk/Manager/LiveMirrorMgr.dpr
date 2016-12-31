@@ -43,7 +43,8 @@ uses
   erroroptions in 'erroroptions.pas' {fmErrorOptions},
   errors in '..\errors.pas',
   fErrorConfig in 'fErrorConfig.pas' {frErrorConfig: TFrame},
-  fGeneralErrorConfig in 'fGeneralErrorConfig.pas' {frGeneralErrorConfig: TFrame};
+  fGeneralErrorConfig in 'fGeneralErrorConfig.pas' {frGeneralErrorConfig: TFrame},
+  configfields in 'configfields.pas' {fmConfigFields};
 
 {$R *.res}
 

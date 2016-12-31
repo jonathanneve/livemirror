@@ -1,6 +1,7 @@
 object fmConfig: TfmConfig
   Left = 0
   Top = 0
+  ActiveControl = edConfigName
   Caption = 'Setup backup configuration'
   ClientHeight = 274
   ClientWidth = 433
@@ -47,15 +48,11 @@ object fmConfig: TfmConfig
     Top = 51
     Width = 418
     Height = 187
-    ActivePage = TabSheet1
+    ActivePage = Options
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 2
     object tsMaster: TTabSheet
       Caption = 'Master database'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -88,10 +85,6 @@ object fmConfig: TfmConfig
     object tsMirror: TTabSheet
       Caption = 'Mirror database'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Panel2: TPanel
         Left = 0
         Top = 0
@@ -124,10 +117,6 @@ object fmConfig: TfmConfig
     object Options: TTabSheet
       Caption = 'Options'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object lbSelectExcludedTables: TLabel
         Left = 257
         Top = 34
@@ -165,6 +154,21 @@ object fmConfig: TfmConfig
         ParentFont = False
         OnClick = lbAddRemoveMetaDataClick
       end
+      object lbExcludedFields: TLabel
+        Left = 10
+        Top = 62
+        Width = 83
+        Height = 13
+        Cursor = crHandPoint
+        Caption = 'Excluded fields'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold, fsUnderline]
+        ParentFont = False
+        OnClick = lbExcludedFieldsClick
+      end
       object rbAllTables: TRadioButton
         Left = 10
         Top = 10
@@ -187,7 +191,7 @@ object fmConfig: TfmConfig
       end
       object cbTrackChanges: TCheckBox
         Left = 10
-        Top = 70
+        Top = 88
         Width = 322
         Height = 17
         Caption = 'Replicate only changed fields'
@@ -201,10 +205,6 @@ object fmConfig: TfmConfig
     object TabSheet1: TTabSheet
       Caption = 'Error options'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         410
         159)
@@ -286,7 +286,7 @@ object fmConfig: TfmConfig
     TrackFieldChanges = False
     FailIfNoPK = False
     Tables = <>
-    Version = '3.9.2'
+    Version = '3.9.3'
     Left = 156
     Top = 6
   end
