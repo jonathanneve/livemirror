@@ -1,5 +1,5 @@
 1 VERSIONINFO
-FILEVERSION 1, 8, 1, 0
+FILEVERSION 1, 8, 2, 0
 //PRODUCTVERSION 9999, 9999, 99, 18048
 FILEOS 0x00000004L // comment: VOS_WINDOWS32
 FILETYPE VFT_APP
@@ -14,7 +14,7 @@ FILETYPE VFT_APP
   BLOCK "040904E4"
   {
    VALUE "CompanyName", "Spirale Technologies\0"
-   VALUE "LegalCopyright", "Copyright 2016\0"
+   VALUE "LegalCopyright", "Copyright 2017\0"
    VALUE "ProductName", "CopyCat LiveMirror\0"
    VALUE "Homepage", "http://www.copycat.fr\0"
   }

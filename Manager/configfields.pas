@@ -28,7 +28,7 @@ type
     procedure RefreshFieldList;
     { Private declarations }
   public
-    class procedure Display(dmConfig: TdmConfig);
+    class procedure Display(ParentForm: TForm; dmConfig: TdmConfig);
     constructor Create(AOwner: TComponent);override;
     destructor Destroy; override;
   end;
@@ -117,13 +117,13 @@ begin
   end;
 end;
 
-class procedure TfmConfigFields.Display(dmConfig: TdmConfig);
+class procedure TfmConfigFields.Display(ParentForm: TForm; dmConfig: TdmConfig);
 var
   I, index: Integer;
   slTablesExcluded: TStringList;
   fmConfigFields: TfmConfigFields;
 begin
-  fmConfigFields := TfmConfigFields.Create(Application);
+  fmConfigFields := TfmConfigFields.Create(ParentForm);
 
   with fmConfigFields do begin
     FdmConfig := dmConfig;

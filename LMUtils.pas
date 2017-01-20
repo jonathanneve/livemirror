@@ -145,9 +145,13 @@ var
   slResult: TStringList;
   jsonObj: TlkJSONbase;
   HTTP: THTTPSend;
+  cMac: string;
 begin
   Result := False;
-  cParams := '?key=' + cLicence + '&request[hardware-id]=' + GetMACAdress + cConfigName;
+  cMac := GetMACAdress;
+  if Trim(cMac) = '' then
+    raise Exception.Create('Error performing licensing request: can''t retrieve MAC address');
+  cParams := '?key=' + cLicence + '&request[hardware-id]=' + cMac + cConfigName;
   slResult := TStringList.Create;
   HTTP := THTTPSend.Create;
   try

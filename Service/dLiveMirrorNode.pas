@@ -699,7 +699,7 @@ begin
   slHeader := TStringList.Create;
   try
     slHeader.Add('********************************************************************************');
-    slHeader.Add(_('>>>> Initializing LiveMirror replication thread...') + #9 + FormatDateTime('yyyy-mm-dd hh:nn:ss', Now));
+    slHeader.Add(_('Initializing LiveMirror replication thread...') + #9 + FormatDateTime('yyyy-mm-dd hh:nn:ss', Now));
     slHeader.Add('           ' + _('Version:') + LiveMirrorVersion);
     slHeader.Add('           ' + _('Configuration name: ') + FDMConfig.ConfigName);
     slHeader.Add('           ' + _('MASTER database :') + #9 + FDMConfig.MasterNode.Description);

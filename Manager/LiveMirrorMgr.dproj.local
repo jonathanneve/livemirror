@@ -61,9 +61,9 @@
 	<Transactions>
     <Transaction>2014/03/24 16:20:01.000.840,=C:\Projects\livemirror\uLkJSON.pas</Transaction>
     <Transaction>2014/03/24 22:29:51.000.577,=C:\Projects\livemirror\Synapse\synaip.pas</Transaction>
-    <Transaction>2014/03/24 22:29:51.000.590,=C:\Projects\livemirror\Synapse\synautil.pas</Transaction>
-    <Transaction>2014/03/24 22:29:51.000.532,=C:\Projects\livemirror\Synapse\blcksock.pas</Transaction>
     <Transaction>2014/03/24 22:29:51.000.599,=C:\Projects\livemirror\Synapse\synsock.pas</Transaction>
+    <Transaction>2014/03/24 22:29:51.000.532,=C:\Projects\livemirror\Synapse\blcksock.pas</Transaction>
+    <Transaction>2014/03/24 22:29:51.000.590,=C:\Projects\livemirror\Synapse\synautil.pas</Transaction>
     <Transaction>2014/03/24 22:29:51.000.551,=C:\Projects\livemirror\Synapse\httpsend.pas</Transaction>
     <Transaction>2014/03/24 22:29:51.000.567,=C:\Projects\livemirror\Synapse\synacode.pas</Transaction>
     <Transaction>2014/03/24 22:31:05.000.899,=C:\Projects\livemirror\Synapse\synafpc.pas</Transaction>
@@ -99,8 +99,8 @@
     <Transaction>2016/09/12 13:25:45.000.191,=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
     <Transaction>2016/09/12 13:25:55.000.915,C:\Projects\livemirror\Manager\Unit1.pas=C:\Projects\livemirror\errors.pas</Transaction>
     <Transaction>2016/09/12 19:54:22.000.663,=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
-    <Transaction>2016/09/12 19:54:53.000.272,C:\Projects\livemirror\Manager\fErrorConfig.pas=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
     <Transaction>2016/09/12 19:54:53.000.272,C:\Projects\livemirror\Manager\fErrorConfig.dfm=C:\Projects\livemirror\Manager\Unit1.dfm</Transaction>
+    <Transaction>2016/09/12 19:54:53.000.272,C:\Projects\livemirror\Manager\fErrorConfig.pas=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
     <Transaction>2016/09/12 20:33:49.000.713,=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
     <Transaction>2016/09/12 20:38:10.000.332,C:\Projects\livemirror\Manager\fGeneralErrorConfig.dfm=C:\Projects\livemirror\Manager\Unit1.dfm</Transaction>
     <Transaction>2016/09/12 20:38:10.000.332,C:\Projects\livemirror\Manager\fGeneralErrorConfig.pas=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
@@ -108,8 +108,8 @@
     <Transaction>2016/09/12 20:45:28.000.787,=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
     <Transaction>2016/10/12 11:22:07.000.378,=C:\Projects\livemirror\Manager\New1.manifest</Transaction>
     <Transaction>2016/10/12 11:22:24.000.874,C:\Projects\livemirror\Manager\New1.manifest=C:\Projects\livemirror\Manager\LiveMirrorMgr.manifest</Transaction>
-    <Transaction>2016/12/29 16:08:43.882,=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
-    <Transaction>2016/12/29 16:13:17.880,C:\Projects\livemirror\Manager\configfields.pas=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
-    <Transaction>2016/12/29 16:13:17.880,C:\Projects\livemirror\Manager\configfields.dfm=C:\Projects\livemirror\Manager\Unit1.dfm</Transaction>
+    <Transaction>2016/12/29 16:08:43.000.882,=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
+    <Transaction>2016/12/29 16:13:17.000.880,C:\Projects\livemirror\Manager\configfields.pas=C:\Projects\livemirror\Manager\Unit1.pas</Transaction>
+    <Transaction>2016/12/29 16:13:17.000.880,C:\Projects\livemirror\Manager\configfields.dfm=C:\Projects\livemirror\Manager\Unit1.dfm</Transaction>
   </Transactions>
 </BorlandProject>
