@@ -185,7 +185,7 @@ end;
 
 procedure TfmConfig.lbExcludedFieldsClick(Sender: TObject);
 begin
-  TfmConfigFields.Display(dmConfig);
+  TfmConfigFields.Display(Self, dmConfig);
 end;
 
 procedure TfmConfig.lbSelectExcludedTablesClick(Sender: TObject);

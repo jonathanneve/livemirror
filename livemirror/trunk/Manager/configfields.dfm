@@ -1,7 +1,7 @@
 object fmConfigFields: TfmConfigFields
   Left = 0
   Top = 0
-  Caption = 'fmConfigFields'
+  Caption = 'Field exlusions'
   ClientHeight = 393
   ClientWidth = 429
   Color = clBtnFace
@@ -11,6 +11,7 @@ object fmConfigFields: TfmConfigFields
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poOwnerFormCenter
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel

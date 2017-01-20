@@ -5,7 +5,6 @@ program LiveMirrorMgr;
 uses
   EMemLeaks,
   EResLeaks,
-  EDialogWinAPIMSClassic,
   EDialogWinAPIEurekaLogDetailed,
   EDialogWinAPIStepsToReproduce,
   EDebugExports,
@@ -54,7 +53,6 @@ begin
   TStyleManager.TrySetStyle('Light');
   Application.Title := 'LiveMirror Manager';
   Application.CreateForm(TfmConfigs, fmConfigs);
-  Application.CreateForm(TfmConfigOptions, fmConfigOptions);
   Application.CreateForm(TdmInterbase, dmInterbase);
   Application.CreateForm(TdmFireDAC, dmFireDAC);
   Application.CreateForm(TfrmFDGUIxFormsOptsBase, frmFDGUIxFormsOptsBase);
