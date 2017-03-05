@@ -29,7 +29,8 @@ uses
   dLiveMirrorNode in 'dLiveMirrorNode.pas' {dmLiveMirrorNode: TDataModule},
   LiveMirrorRunnerThread in 'LiveMirrorRunnerThread.pas',
   errors in '..\errors.pas',
-  smtpsend in 'smtpsend.pas';
+  smtpsend in 'smtpsend.pas',
+  dREST in 'dREST.pas' {dmREST: TDataModule};
 
 {$R *.RES}
 

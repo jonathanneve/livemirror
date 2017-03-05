@@ -1,4 +1,4 @@
- unit main;
+unit main;
 
 interface
 
@@ -45,7 +45,7 @@ implementation
 {$R *.DFM}
 
 uses LMUtils, IniFiles, dInterbase, Registry, gnugettext,
-  LiveMirrorRunnerThread;
+  LiveMirrorRunnerThread, dREST;
 
 procedure ServiceController(CtrlCode: DWord); stdcall;
 begin
@@ -115,6 +115,7 @@ var
   I: Integer;
   dm: TdmLiveMirrorNode;
   node: TdmLiveMirrorNode;
+  dmREST: TdmREST;
 begin
   LogMessage('LiveMirror service starting', EVENTLOG_INFORMATION_TYPE);
 
@@ -156,8 +157,14 @@ var
   node: TdmLiveMirrorNode;
   th: TLiveMirrorRunnerThread;
   cConfigName: String;
+  dmRest : TdmREST;
 begin
   try
+    {$IFDEF CLOUD}
+    dmREST := TdmREST.Create(Self);
+    dmREST.StartServer;
+    {$ENDIF}
+
     while not Terminated do
     begin
       ServiceThread.ProcessRequests(False);
