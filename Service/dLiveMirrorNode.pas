@@ -95,6 +95,7 @@ type
   public
     LastReplicationTickCount: Int64;
     Initialized: Boolean;
+    property LogFileName: String read FLogFileName;
     property LiveMirrorService: TService read FLiveMirrorService write FLiveMirrorService;
     property DMConfig: TdmConfig read FDMConfig;
     function Initialize(ConfigName: String): Boolean;

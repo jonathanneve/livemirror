@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes,
   CcReplicator, CcConf, CcProviders, DB, dconfig, Vcl.SvcMgr, dLiveMirrorNode,
-  EExceptionManager, CcDB, SyncObjs, System.Generics.Collections;
+  EExceptionManager, CcDB, SyncObjs, System.Generics.Collections, LiveMirrorRunnerThread;
 
 type
   TLiveMirror = class(TService)
@@ -23,13 +23,13 @@ type
     function GetTotalThreadsRunning: Integer;
     procedure SetLiveMirrorTerminating(const Value: Boolean);
     function GetLiveMirrorTerminating: Boolean;
-    function IsThreadRunning(configName: String): Boolean;
     function GetNode(cConfigName: String): TdmLiveMirrorNode;
     function RunningThreadCount: Integer;
-
   public
     lRunOnce: Boolean;
+    function StartThread(cConfigName: String): TLiveMirrorRunnerThread;
     property LiveMirrorTerminating : Boolean read FLiveMirrorTerminating;
+    function IsThreadRunning(configName: String): Boolean;
     procedure AddRunningThread(configName: String; th: TThread);
     procedure RemoveRunningThread(configName: String);
     property TotalThreadsRunning: Integer read GetTotalThreadsRunning;
@@ -45,7 +45,7 @@ implementation
 {$R *.DFM}
 
 uses LMUtils, IniFiles, dInterbase, Registry, gnugettext,
-  LiveMirrorRunnerThread, dREST;
+  dREST;
 
 procedure ServiceController(CtrlCode: DWord); stdcall;
 begin
@@ -183,11 +183,7 @@ begin
         if (node <> nil) and not IsThreadRunning(cConfigName)
            and (GetTickCount > (node.LastReplicationTickCount + (node.DMConfig.SyncFrequency * 1000))) then
         begin
-          LogMessage('LiveMirror thread starting...', EVENTLOG_INFORMATION_TYPE);
-          th := TLiveMirrorRunnerThread.Create(True);
-          th.Node := node;
-          AddRunningThread(cConfigName, th);
-          th.Start;
+          StartThread(cConfigName);
         end;
 
         if Terminated then
@@ -206,6 +202,20 @@ begin
     begin
       LogMessage(E.Message, EVENTLOG_ERROR_TYPE);
     end;
+  end;
+end;
+
+function TLiveMirror.StartThread(cConfigName: String): TLiveMirrorRunnerThread;
+var
+  node: TdmLiveMirrorNode;
+begin
+  node := GetNode(cConfigName);
+  if (node <> nil) then begin
+    LogMessage('LiveMirror thread starting...', EVENTLOG_INFORMATION_TYPE);
+    Result := TLiveMirrorRunnerThread.Create(True);
+    Result.Node := GetNode(cConfigName);
+    AddRunningThread(cConfigName, Result);
+    Result.Start;
   end;
 end;
 
@@ -260,5 +270,6 @@ begin
     CSTerminating.Leave;
   end;
 end;
+
 
 end.

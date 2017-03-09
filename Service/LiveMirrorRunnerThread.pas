@@ -3,7 +3,7 @@ unit LiveMirrorRunnerThread;
 interface
 
 uses
-  System.Classes, dLiveMirrorNode, main;
+  System.Classes, dLiveMirrorNode;
 
 type
   TLiveMirrorRunnerThread = class(TThread)
@@ -20,7 +20,7 @@ type
 implementation
 
 uses
-  Sysutils, Windows, Vcl.SvcMgr;
+  Sysutils, Windows, Vcl.SvcMgr, main;
 
 {
   Important: Methods and properties of objects in visual components can only be
