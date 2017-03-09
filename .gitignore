@@ -1,0 +1,8 @@
+/Install/Output
+/Manager/Win32/Release/*.dcu
+*.dcu
+/Service/__history/*.~1~
+/__history/*.~1~
+__history
+/Service/*.local
+/Service/*.tvsconfig

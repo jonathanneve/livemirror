@@ -121,14 +121,14 @@ var
     {$ENDIF}
     ConfigsIni.WriteString(FConfigName, 'MasterDBType', FMasterDBType);
     ConfigsIni.WriteString(FConfigName, 'MirrorDBType', FMirrorDBType);
-    ConfigsIni.WriteString(FConfigName, 'MetaDataCreated', BoolToStr(FMetaDataCreated));
+    ConfigsIni.WriteBool(FConfigName, 'MetaDataCreated', FMetaDataCreated);
     MasterNode.Save;
     MirrorNode.Save;
   end;
 
   procedure DoLoadConfig;
   begin
-    FMetaDataCreated := StrToBool(ConfigsIni.ReadString(FConfigName, 'MetaDataCreated', 'False'));
+    FMetaDataCreated := ConfigsIni.ReadBool(FConfigName, 'MetaDataCreated', False);
     FExcludedTables := ConfigsIni.ReadString(FConfigName, 'ExcludedTables', '');
     FExcludedFields := ConfigsIni.ReadString(FConfigName, 'ExcludedFields', '');
     FTrackChanges := ConfigsIni.ReadBool(FConfigName, 'TrackChanges', True);
