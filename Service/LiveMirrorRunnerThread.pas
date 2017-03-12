@@ -62,10 +62,10 @@ begin
       node.Run;
       node.LastReplicationTickCount := GetTickCount;
     finally
-      (FNode.LiveMirrorService as TLiveMirror).RemoveRunningThread(node.DMConfig.ConfigName);
+      if (FNode.LiveMirrorService as TLiveMirror).IsThreadRunning(node.DMConfig.ConfigName) then
+        (FNode.LiveMirrorService as TLiveMirror).RemoveRunningThread(node.DMConfig.ConfigName);
     end;
   except on E: Exception do begin
-      with TStringList.Create do begin Text:=E.Message;SaveToFile('c:\temp\thread_error.txt');Free;end;
      (FNode.LiveMirrorService as TLiveMirror).LogMessage(E.Message, EVENTLOG_ERROR_TYPE);
     end;
   end;

@@ -5,6 +5,7 @@ object dmREST: TdmREST
   object HTTPServer: TIdHTTPServer
     Bindings = <>
     DefaultPort = 8080
+    OnCommandOther = HTTPServerCommandOther
     OnCommandGet = HTTPServerCommandGet
     Left = 40
     Top = 24

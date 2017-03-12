@@ -7,7 +7,7 @@ object dmConfig: TdmConfig
     FailIfNoPK = False
     ConfigName = 'LM'
     Tables = <>
-    Version = '3.9.1'
+    Version = '3.9.3'
     Left = 24
     Top = 24
   end
@@ -16,7 +16,7 @@ object dmConfig: TdmConfig
     FailIfNoPK = False
     ConfigName = 'LM'
     Tables = <>
-    Version = '3.9.1'
+    Version = '3.9.3'
     Left = 88
     Top = 24
   end

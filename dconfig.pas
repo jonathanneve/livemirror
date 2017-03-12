@@ -4,10 +4,12 @@ interface
 
 uses
   System.SysUtils, System.Classes, CcConf, IniFiles, CcProviders,
-  Vcl.Controls, gnugettext, errors;
+  Vcl.Controls, gnugettext, errors, uLkJSON;
 
 type
   TdmConfig = class;
+
+  TLMConfigSource = (csJSON, csIniFile);
 
   ILMNode = interface['{F9C5A7A6-C810-4C96-8D23-A35F004DB262}']
     function GetConnection: TCcConnection;
@@ -51,6 +53,8 @@ type
     FMirrorExcludedFields, FMasterExcludedFields: TStringList;
     FErrorConfig: TCcErrorConfigFile;
     FExcludedFields: String;
+    FConfigSource: TLMConfigSource;
+    FConfigJSON: TlkJSONobject;
     procedure SaveLoadConfig(save: Boolean);
     procedure SetMasterDBType(const Value: String);
     procedure SetMirrorDBType(const Value: String);
@@ -63,6 +67,8 @@ type
     function GetMirrorDBTypeDescription: String;
     function DBTypeDescription(dbType: String): String;
     function GetErrorConfig: TCcErrorConfigFile;
+    procedure SaveToJson;
+    procedure LoadFromJson(json: TlkJSONobject);
   public
     procedure ExcludeKeywordFieldNames(FieldList : TStringList);
     property ExcludedTables : String read FExcludedTables write FExcludedTables;
@@ -82,8 +88,10 @@ type
     property OnMirrorDBTypeChanged: TNotifyEvent read FOnMirrorDBTypeChanged write FOnMirrorDBTypeChanged;
     function DBTypeByDescription(desc: string): String;
     property ErrorConfig :TCcErrorConfigFile read GetErrorConfig;
+    property ConfigSource: TLMConfigSource read FConfigSource;
+    property ConfigJSON: TlkJSONobject read FConfigJSON;
 
-    procedure LoadConfig(cConfigName: String);
+    procedure LoadConfig(cConfigName: String; json: TlkJsonObject = nil);
     procedure SaveConfig;
     procedure ConfigureNodes;
     procedure RemoveConfigurationFromNodes;
@@ -99,9 +107,47 @@ uses dInterbase, LMUtils, dFireDAC;
 
 {$R *.dfm}
 
+procedure TdmConfig.LoadFromJson(json: TlkJSONobject);
+begin
+  FConfigSource := csJSON;
+  FConfigJSON := json;
+
+  FMetaDataCreated := False;
+  FExcludedTables := '';
+  FExcludedFields := '';
+  FTrackChanges := True;
+  FSyncFrequency := 0;
+  MasterDBType := '';
+  MirrorDBType := '';
+
+  if FConfigJSON.Field['MetaDataCreated'] <> nil then
+    FMetaDataCreated := FConfigJSON.Field['MetaDataCreated'].Value;
+  if FConfigJSON.Field['ExcludedTables'] <> nil then
+    FExcludedTables := FConfigJSON.Field['ExcludedTables'].Value;
+  if FConfigJSON.Field['ExcludedFields'] <> nil then
+    FExcludedFields := FConfigJSON.Field['ExcludedFields'].Value;
+  if FConfigJSON.Field['TrackChanges'] <> nil then
+    FTrackChanges := FConfigJSON.Field['TrackChanges'].Value;
+
+  if FConfigJSON.Field['SyncFrequency'] <> nil then
+    FSyncFrequency := FConfigJSON.Field['SyncFrequency'].Value;
+  if (FConfigJSON.Field['MasterDB'] <> nil) and (FConfigJSON.Field['MasterDB'].Field['Type'] <> nil) then
+    MasterDBType := FConfigJSON.Field['MasterDB'].Field['Type'].Value;
+  if (FConfigJSON.Field['MirrorDB'] <> nil) and (FConfigJSON.Field['MirrorDB'].Field['Type'] <> nil) then
+    MirrorDBType := FConfigJSON.Field['MirrorDB'].Field['Type'].Value;
+end;
+
+procedure TdmConfig.SaveToJson;
+begin
+
+end;
+
 procedure TdmConfig.SaveConfig;
 begin
-  SaveLoadConfig(true);
+  if ConfigSource = csJSON then
+    SaveToJson
+  else
+    SaveLoadConfig(true);
 end;
 
 procedure TdmConfig.SaveLoadConfig(save: Boolean);
@@ -178,7 +224,7 @@ begin
     if FMasterDBType = '' then
       FMasterNode := nil
     else
-      FMasterNode := GetNode(FMasterDBType, 'master');
+      FMasterNode := GetNode(FMasterDBType, 'Master');
 
     if Assigned(OnMasterDBTypeChanged) then
       OnMasterDBTypeChanged(Self);
@@ -263,10 +309,13 @@ begin
   Result.Load(Self, nodeType)
 end;
 
-procedure TdmConfig.LoadConfig(cConfigName: String);
+procedure TdmConfig.LoadConfig(cConfigName: String; json: TlkJsonObject);
 begin
   FConfigName := cConfigName;
-  SaveLoadConfig(False);
+  if json <> nil then
+    LoadFromJson(json)
+  else
+    SaveLoadConfig(False);
 end;
 
 procedure TdmConfig.SetMirrorDBType(const Value: String);
@@ -280,7 +329,7 @@ begin
     if FMirrorDBType = '' then
       FMirrorNode := nil
     else
-      FMirrorNode := GetNode(FMirrorDBType, 'mirror');
+      FMirrorNode := GetNode(FMirrorDBType, 'Mirror');
 
     if Assigned(OnMirrorDBTypeChanged) then
       OnMirrorDBTypeChanged(Self);

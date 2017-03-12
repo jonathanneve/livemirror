@@ -4,12 +4,15 @@ interface
 
 uses
   System.SysUtils, System.Classes, IdBaseComponent, IdComponent,
-  IdCustomTCPServer, IdCustomHTTPServer, IdHTTPServer, IdContext, main;
+  IdCustomTCPServer, IdCustomHTTPServer, IdHTTPServer, IdContext, main,
+  dLiveMirrorNode;
 
 type
   TdmREST = class(TDataModule)
     HTTPServer: TIdHTTPServer;
     procedure HTTPServerCommandGet(AContext: TIdContext;
+      ARequestInfo: TIdHTTPRequestInfo; AResponseInfo: TIdHTTPResponseInfo);
+    procedure HTTPServerCommandOther(AContext: TIdContext;
       ARequestInfo: TIdHTTPRequestInfo; AResponseInfo: TIdHTTPResponseInfo);
   private
     LiveMirror: TLiveMirror;
@@ -68,6 +71,36 @@ begin
   end
   else begin
     AResponseInfo.ResponseNo := 404;
+  end;
+end;
+
+procedure TdmREST.HTTPServerCommandOther(AContext: TIdContext;
+  ARequestInfo: TIdHTTPRequestInfo; AResponseInfo: TIdHTTPResponseInfo);
+var
+  cConfigName: string;
+  node: TdmLiveMirrorNode;
+  th: TLiveMirrorRunnerThread;
+  json: TlkJSONobject;
+begin
+  if ARequestInfo.CommandType = hcPOST then begin
+    if (ARequestInfo.Document = '/action/replicate') then
+    begin
+      cConfigName := ARequestInfo.Params.Values['config_name'];
+      node := LiveMirror.GetNode(cConfigName, TlkJSON.ParseText(ARequestInfo.Params.Values['config_json']) as TlkJsonObject);
+      th := TLiveMirrorRunnerThread.Create(True);
+      th.Node := node;
+      th.Start;
+
+      json := TlkJSONobject.Create;
+      try
+        json.Add('Result', 'OK');
+        //json.Add('LogFileName', ExtractFileName(cLogFileName));
+        AResponseInfo.ContentText := TlkJSON.GenerateText(json);
+      finally
+        json.Free;
+      end;
+      AResponseInfo.ResponseNo := 200;
+    end
   end;
 end;
 
