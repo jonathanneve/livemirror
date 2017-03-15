@@ -7,7 +7,7 @@ uses
   CcReplicator, CcConf, CcProviders, DB, dconfig, Vcl.SvcMgr,
   EExceptionManager, CcDB, errors, Generics.Collections, smtpsend,
   FireDAC.UI.Intf, FireDAC.Stan.Async, FireDAC.Comp.ScriptCommands,
-  FireDAC.Stan.Util, FireDAC.Stan.Intf, FireDAC.Comp.Script;
+  FireDAC.Stan.Util, FireDAC.Stan.Intf, FireDAC.Comp.Script, uLkJSON;
 
 type
   TCcGeneralErrorRecord = class
@@ -95,9 +95,10 @@ type
   public
     LastReplicationTickCount: Int64;
     Initialized: Boolean;
+    property LogFileName: String read FLogFileName;
     property LiveMirrorService: TService read FLiveMirrorService write FLiveMirrorService;
     property DMConfig: TdmConfig read FDMConfig;
-    function Initialize(ConfigName: String): Boolean;
+    function Initialize(ConfigName: String; json: TlkJsonObject): Boolean;
     procedure Run;
     { Déclarations publiques }
   end;
@@ -751,7 +752,7 @@ begin
 
 end;
 
-function TdmLiveMirrorNode.Initialize(ConfigName: String): Boolean;
+function TdmLiveMirrorNode.Initialize(ConfigName: String; json: TlkJsonObject): Boolean;
 var
   iniConfigs: TIniFile;
   cPath: String;
@@ -761,11 +762,12 @@ begin
   FDMConfig.ConfigName := ConfigName;
 
   try
-    FDMConfig.LoadConfig(FDMConfig.ConfigName);
+    FDMConfig.LoadConfig(FDMConfig.ConfigName, json);
     CreateNewLogFile;
 
     {$IFNDEF LM_EVALUATION}
     {$IFNDEF DEBUG}
+    {$IFNDEF CLOUD}
     //Check licence and die if it's incorrect
     if not CheckLiveMirrorLicence then begin
       //Clear licence if it was incorrect
@@ -774,6 +776,7 @@ begin
       FDMConfig.SaveConfig;
       Abort;
     end;
+    {$ENDIF}
     {$ENDIF}
     {$ENDIF}
 

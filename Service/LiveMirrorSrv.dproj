@@ -5,7 +5,7 @@
         <FrameworkType>VCL</FrameworkType>
         <MainSource>LiveMirrorSrv.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
+        <Config Condition="'$(Config)'==''">Cloud</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Application</AppType>
@@ -56,10 +56,21 @@
         <Cfg_3>true</Cfg_3>
         <Base>true</Base>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Cloud' or '$(Cfg_4)'!=''">
+        <Cfg_4>true</Cfg_4>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_4)'=='true') or '$(Cfg_4_Win32)'!=''">
+        <Cfg_4_Win32>true</Cfg_4_Win32>
+        <CfgParent>Cfg_4</CfgParent>
+        <Cfg_4>true</Cfg_4>
+        <Base>true</Base>
+    </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
         <DCC_UnitSearchPath>c:\projects\copycat\;c:\projects\copycat\firedac;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <SanitizedProjectName>LiveMirrorSrv</SanitizedProjectName>
-        <PostBuildEvent><![CDATA[C:\projects\livemirror\gettext.bat
+        <PostBuildEvent><![CDATA[C:\git\livemirror\gettext.bat
 $(PostBuildEvent)]]></PostBuildEvent>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
@@ -125,6 +136,16 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <DCC_Define>EUREKALOG;EUREKALOG_VER7;$(DCC_Define)</DCC_Define>
         <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_4)'!=''">
+        <DCC_Define>CLOUD;DEBUG;$(DCC_Define)</DCC_Define>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_4_Win32)'!=''">
+        <DCC_MapFile>3</DCC_MapFile>
+        <Debugger_RunParams>UCAR /runonce</Debugger_RunParams>
+        <DCC_Define>EUREKALOG;EUREKALOG_VER7;$(DCC_Define)</DCC_Define>
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+    </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
@@ -138,7 +159,6 @@ $(PostBuildEvent)]]></PostBuildEvent>
         </DCCReference>
         <DCCReference Include="..\LMUtils.pas"/>
         <DCCReference Include="..\gnugettext.pas"/>
-        <DCCReference Include="..\uLkJSON.pas"/>
         <DCCReference Include="..\Synapse\blcksock.pas"/>
         <DCCReference Include="..\Synapse\httpsend.pas"/>
         <DCCReference Include="..\Synapse\synacode.pas"/>
@@ -165,8 +185,18 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <DCCReference Include="LiveMirrorRunnerThread.pas"/>
         <DCCReference Include="..\errors.pas"/>
         <DCCReference Include="smtpsend.pas"/>
+        <DCCReference Include="dREST.pas">
+            <Form>dmREST</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\uLkJSON.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Cloud">
+            <Key>Cfg_4</Key>
             <CfgParent>Base</CfgParent>
         </BuildConfiguration>
         <BuildConfiguration Include="Eval">
@@ -563,7 +593,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>C:\projects\livemirror\gettext.bat
+        <PostBuildEvent>C:\git\livemirror\gettext.bat
 </PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
@@ -572,7 +602,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>C:\projects\livemirror\gettext.bat
+        <PostBuildEvent>C:\git\livemirror\gettext.bat
 </PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
@@ -581,7 +611,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>C:\projects\livemirror\gettext.bat
+        <PostBuildEvent>C:\git\livemirror\gettext.bat
 </PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
@@ -590,7 +620,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>C:\projects\livemirror\gettext.bat
+        <PostBuildEvent>C:\git\livemirror\gettext.bat
 </PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
@@ -599,7 +629,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>C:\projects\livemirror\gettext.bat
+        <PostBuildEvent>C:\git\livemirror\gettext.bat
 </PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
@@ -608,7 +638,25 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>C:\projects\livemirror\gettext.bat
+        <PostBuildEvent>C:\git\livemirror\gettext.bat
+</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Cloud' And '$(Platform)'=='Win32'">
+        <PreBuildEvent/>
+        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+        <PreLinkEvent/>
+        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+        <PostBuildEvent>C:\git\livemirror\gettext.bat
+</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Cloud' And '$(Platform)'=='Win64'">
+        <PreBuildEvent/>
+        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+        <PreLinkEvent/>
+        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+        <PostBuildEvent>C:\git\livemirror\gettext.bat
 </PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>

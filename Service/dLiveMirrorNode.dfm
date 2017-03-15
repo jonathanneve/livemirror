@@ -2,7 +2,7 @@ object dmLiveMirrorNode: TdmLiveMirrorNode
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Height = 326
+  Height = 325
   Width = 598
   object Replicator: TCcReplicator
     TrackInconsistentDeletes = False
@@ -35,7 +35,7 @@ object dmLiveMirrorNode: TdmLiveMirrorNode
     OnLogLoaded = ReplicatorLogLoaded
     BeforeReplicate = ReplicatorBeforeReplicate
     OnConnectionLost = ReplicatorConnectionLost
-    Version = '3.9.2'
+    Version = '3.9.3'
     KeepRowsInLog = False
     Left = 32
     Top = 24

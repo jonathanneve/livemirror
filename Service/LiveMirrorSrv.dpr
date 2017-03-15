@@ -15,7 +15,6 @@ uses
   main in 'main.pas' {LiveMirror: TService},
   LMUtils in '..\LMUtils.pas',
   gnugettext in '..\gnugettext.pas',
-  uLkJSON in '..\uLkJSON.pas',
   blcksock in '..\Synapse\blcksock.pas',
   httpsend in '..\Synapse\httpsend.pas',
   synacode in '..\Synapse\synacode.pas',
@@ -29,7 +28,9 @@ uses
   dLiveMirrorNode in 'dLiveMirrorNode.pas' {dmLiveMirrorNode: TDataModule},
   LiveMirrorRunnerThread in 'LiveMirrorRunnerThread.pas',
   errors in '..\errors.pas',
-  smtpsend in 'smtpsend.pas';
+  smtpsend in 'smtpsend.pas',
+  dREST in 'dREST.pas' {dmREST: TDataModule},
+  uLkJSON in '..\uLkJSON.pas';
 
 {$R *.RES}
 

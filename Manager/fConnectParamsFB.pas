@@ -116,12 +116,12 @@ end;
 procedure TfrConnectParamsFB.SaveToNode;
 begin
   with FNode as TdmInterbase do begin
-    CcConnection.DBVersion := cbVersions.Text;
     FDConnection.DriverName := 'FB';
-    FDConnection.Params.Values['Database'] := Trim(edDBName.Text);
-    FDConnection.Params.Values['User_Name'] := Trim(edUserName.Text);
-    FDConnection.Params.Values['Password'] := Trim(edPassword.Text);
-    FDConnection.Params.Values['SQLDialect'] := cbDialect.Text;
+    CcConnection.DBVersion := cbVersions.Text;
+    CcConnection.ConnectionParams.Values['Database'] := Trim(edDBName.Text);
+    CcConnection.FDConnection.Params.Values['User_Name'] := Trim(edUserName.Text);
+    CcConnection.FDConnection.Params.Values['Password'] := Trim(edPassword.Text);
+    CcConnection.FDConnection.Params.Values['SQLDialect'] := cbDialect.Text;
     if Trim(edClientDLL.Text) <> '' then
       FDPhysFBDriverLink.VendorLib := edClientDLL.Text
     else

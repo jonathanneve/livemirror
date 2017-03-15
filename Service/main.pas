@@ -1,11 +1,12 @@
- unit main;
+unit main;
 
 interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes,
   CcReplicator, CcConf, CcProviders, DB, dconfig, Vcl.SvcMgr, dLiveMirrorNode,
-  EExceptionManager, CcDB, SyncObjs, System.Generics.Collections;
+  EExceptionManager, CcDB, SyncObjs, System.Generics.Collections, LiveMirrorRunnerThread,
+  uLkJSON;
 
 type
   TLiveMirror = class(TService)
@@ -23,13 +24,13 @@ type
     function GetTotalThreadsRunning: Integer;
     procedure SetLiveMirrorTerminating(const Value: Boolean);
     function GetLiveMirrorTerminating: Boolean;
-    function IsThreadRunning(configName: String): Boolean;
-    function GetNode(cConfigName: String): TdmLiveMirrorNode;
     function RunningThreadCount: Integer;
-
   public
     lRunOnce: Boolean;
+    function GetNode(cConfigName: String; json: TlkJsonObject): TdmLiveMirrorNode;
+    function StartThread(cConfigName: String): TLiveMirrorRunnerThread;
     property LiveMirrorTerminating : Boolean read FLiveMirrorTerminating;
+    function IsThreadRunning(configName: String): Boolean;
     procedure AddRunningThread(configName: String; th: TThread);
     procedure RemoveRunningThread(configName: String);
     property TotalThreadsRunning: Integer read GetTotalThreadsRunning;
@@ -45,7 +46,7 @@ implementation
 {$R *.DFM}
 
 uses LMUtils, IniFiles, dInterbase, Registry, gnugettext,
-  LiveMirrorRunnerThread;
+  dREST;
 
 procedure ServiceController(CtrlCode: DWord); stdcall;
 begin
@@ -115,6 +116,7 @@ var
   I: Integer;
   dm: TdmLiveMirrorNode;
   node: TdmLiveMirrorNode;
+  dmREST: TdmREST;
 begin
   LogMessage('LiveMirror service starting', EVENTLOG_INFORMATION_TYPE);
 
@@ -134,7 +136,7 @@ begin
  //  GetNode('UCAR').Run;
   if ParamStr(2) = '/runonce' then begin
     lRunOnce := True;
-    node := GetNode(ParamStr(1));
+    node := GetNode(ParamStr(1), nil);
     if Assigned(node) then
       node.Run;
   end else
@@ -156,8 +158,18 @@ var
   node: TdmLiveMirrorNode;
   th: TLiveMirrorRunnerThread;
   cConfigName: String;
+  dmRest : TdmREST;
 begin
   try
+    {$IFDEF CLOUD}
+    dmREST := TdmREST.Create(Self);
+    dmREST.StartServer;
+    while not Terminated do
+    begin
+      ServiceThread.ProcessRequests(False);
+      Sleep(100);
+    end;
+    {$ELSE}
     while not Terminated do
     begin
       ServiceThread.ProcessRequests(False);
@@ -171,16 +183,12 @@ begin
           Break;
 
         cConfigName := slConfigs[i];
-        node := GetNode(cConfigName);
+        node := GetNode(cConfigName, nil);
 
         if (node <> nil) and not IsThreadRunning(cConfigName)
            and (GetTickCount > (node.LastReplicationTickCount + (node.DMConfig.SyncFrequency * 1000))) then
         begin
-          LogMessage('LiveMirror thread starting...', EVENTLOG_INFORMATION_TYPE);
-          th := TLiveMirrorRunnerThread.Create(True);
-          th.Node := node;
-          AddRunningThread(cConfigName, th);
-          th.Start;
+          StartThread(cConfigName);
         end;
 
         if Terminated then
@@ -194,6 +202,7 @@ begin
 
     while RunningThreadCount > 0 do
       Sleep(500);
+    {$ENDIF}
   except
     on E: Exception do
     begin
@@ -202,7 +211,21 @@ begin
   end;
 end;
 
-function TLiveMirror.GetNode(cConfigName: String): TdmLiveMirrorNode;
+function TLiveMirror.StartThread(cConfigName: String): TLiveMirrorRunnerThread;
+var
+  node: TdmLiveMirrorNode;
+begin
+  node := GetNode(cConfigName, nil);
+  if (node <> nil) then begin
+    LogMessage('LiveMirror thread starting...', EVENTLOG_INFORMATION_TYPE);
+    Result := TLiveMirrorRunnerThread.Create(True);
+    Result.Node := node;
+    AddRunningThread(cConfigName, Result);
+    Result.Start;
+  end;
+end;
+
+function TLiveMirror.GetNode(cConfigName: String; json: TlkJsonObject): TdmLiveMirrorNode;
 var
   I: Integer;
 begin
@@ -216,7 +239,7 @@ begin
 
   if not Result.Initialized then
   begin
-    if Result.Initialize(cConfigName) then
+    if Result.Initialize(cConfigName, json) then
       Result.Initialized := True
     else begin
       Result := nil;
@@ -253,5 +276,6 @@ begin
     CSTerminating.Leave;
   end;
 end;
+
 
 end.

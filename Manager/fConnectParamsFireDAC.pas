@@ -102,10 +102,10 @@ begin
   with FNode as TdmFireDAC do begin
     CcConnection.DBVersion := FNode.Connection.DBAdaptor.SupportedVersions[0];
     FDConnection.DriverName := DriverName;
-    FDConnection.Params.Values['Database'] := Trim(edDBName.Text);
-    FDConnection.Params.Values['User_Name'] := Trim(edUserName.Text);
-    FDConnection.Params.Values['Password'] := Trim(edPassword.Text);
-    FDConnection.Params.Values['Server'] := edServerName.Text;
+    CcConnection.ConnectionParams.Values['Database'] := Trim(edDBName.Text);
+    CcConnection.ConnectionParams.Values['User_Name'] := Trim(edUserName.Text);
+    CcConnection.ConnectionParams.Values['Password'] := Trim(edPassword.Text);
+    CcConnection.ConnectionParams.Values['Server'] := edServerName.Text;
   end;
 end;
 

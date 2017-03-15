@@ -47,7 +47,7 @@ var
 
 implementation
 
-uses System.IniFiles, LMUtils;
+uses System.IniFiles, LMUtils, uLkJSON;
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
@@ -105,6 +105,9 @@ procedure TdmFireDAC.Load(dmConfig: TdmConfig; nodeType: String);
 var
   ini : TIniFile;
   cClientDLL, configFile: String;
+  I: Integer;
+  db: TlkJSONobject;
+  fd: TlkJSONobject;
 begin
   FNodeType := nodeType;
   FdmConfig := dmConfig;
@@ -112,23 +115,38 @@ begin
   if FdmConfig.ConfigName = '' then
     Exit;
 
-  configFile := GetLiveMirrorRoot + 'Configs\' + FdmConfig.ConfigName + '\' + FNodeType + '.ini';;
-  if not FileExists(configFile) then
-    Exit;
+  if FdmConfig.ConfigSource = csIniFile then begin
+    configFile := GetLiveMirrorRoot + 'Configs\' + FdmConfig.ConfigName + '\' + FNodeType + '.ini';;
+    if not FileExists(configFile) then
+      Exit;
 
-  ini := TIniFile.Create(configFile);
-  try
-    ini.ReadSectionValues('FireDAC', FDConnection.Params);
-    GetConnection.DBType := DBType;
-    GetConnection.DBVersion := ini.ReadString('General', 'DBVersion', '');
-    {$IFDEF DEBUG}
-    FDConnection.Params.Values['MonitorBy'] := 'FlatFile';
-    FDMoniFlatFileClientLink.Tracing := False;
-    FDMoniFlatFileClientLink.FileName := ExtractFileDir(configFile) + '\debug.txt';
-//    FDMoniFlatFileClientLink.Tracing := True;
-    {$ENDIF}
-  finally
-    ini.Free;
+    ini := TIniFile.Create(configFile);
+    try
+      ini.ReadSectionValues('FireDAC', FDConnection.Params);
+      GetConnection.DBType := DBType;
+      GetConnection.DBVersion := ini.ReadString('General', 'DBVersion', '');
+      {$IFDEF DEBUG}
+      FDConnection.Params.Values['MonitorBy'] := 'FlatFile';
+      FDMoniFlatFileClientLink.Tracing := False;
+      FDMoniFlatFileClientLink.FileName := ExtractFileDir(configFile) + '\debug.txt';
+  //    FDMoniFlatFileClientLink.Tracing := True;
+      {$ENDIF}
+    finally
+      ini.Free;
+    end;
+  end
+  else begin
+    if (FdmConfig.ConfigJSON.Field[FNodeType + 'DB'] <> nil) then begin
+      db := FdmConfig.ConfigJSON.Field[FNodeType + 'DB'] as TlkJSONobject;
+      GetConnection.DBType := DBType;
+      GetConnection.DBVersion := db.Field['DBVersion'].Value;
+      if db.Field['FireDAC'] <> nil then
+        fd := db.Field['FireDAC'] as TlkJSONobject;
+
+      for I := 0 to fd.Count do begin
+        FDConnection.Params.Values[fd.NameOf[i]] := fd.FieldByIndex[i].Value;
+      end;
+    end;
   end;
 end;
 
@@ -139,16 +157,26 @@ var
   I: Integer;
   cName: string;
 begin
-  configFile := GetLiveMirrorRoot + 'Configs\' + FdmConfig.ConfigName + '\' + FNodeType + '.ini';;
-  ini := TIniFile.Create(configFile);
-  try
+  if FdmConfig.ConfigSource = csIniFile then begin
+    configFile := GetLiveMirrorRoot + 'Configs\' + FdmConfig.ConfigName + '\' + FNodeType + '.ini';;
+    ini := TIniFile.Create(configFile);
+    try
+      ini.WriteString('General', 'DBVersion', GetConnection.DBVersion);
+      for I := 0 to FDConnection.Params.Count - 1 do begin
+        cName := FDConnection.Params.Names[i];
+        ini.WriteString('FireDAC', cName, FDConnection.Params.Values[cName]);
+      end;
+    finally
+      ini.Free;
+    end;
+  end
+  else begin
+{    FdmConfig.ConfigJSON.
     ini.WriteString('General', 'DBVersion', GetConnection.DBVersion);
     for I := 0 to FDConnection.Params.Count - 1 do begin
       cName := FDConnection.Params.Names[i];
       ini.WriteString('FireDAC', cName, FDConnection.Params.Values[cName]);
-    end;
-  finally
-    ini.Free;
+    end;}
   end;
 end;
 
