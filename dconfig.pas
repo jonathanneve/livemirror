@@ -30,11 +30,15 @@ type
     property Node : ILMNode read GetNode write SetNode;
   end;
 
+  TLMIniFile = class(TInifile)
+    function ReadString(const Section, Ident, Default: string): string; override;
+  end;
+
   TdmConfig = class(TDataModule)
     MasterConfig: TCcConfig;
     MirrorConfig: TCcConfig;
   private
-    ConfigsIni: TIniFile;
+    ConfigsIni: TLMIniFile;
     FLicence: String;
     FExcludedTables: String;
     FSyncFrequency: Integer;
@@ -95,9 +99,53 @@ implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
-uses dInterbase, LMUtils, dFireDAC;
+uses dInterbase, LMUtils, dFireDAC, Windows;
 
 {$R *.dfm}
+
+function TLMIniFile.ReadString(const Section, Ident, Default: string): string;
+var
+  Buffer: array[0..5000] of Char;
+begin
+  SetString(Result, Buffer, GetPrivateProfileString(MarshaledString(Section),
+    MarshaledString(Ident), MarshaledString(Default), Buffer, Length(Buffer),
+    MarshaledString(FileName)));
+end;
+
+procedure TdmConfig.LoadFromJson(json: TlkJSONobject);
+begin
+  FConfigSource := csJSON;
+  FConfigJSON := json;
+
+  FMetaDataCreated := False;
+  FExcludedTables := '';
+  FExcludedFields := '';
+  FTrackChanges := True;
+  FSyncFrequency := 0;
+  MasterDBType := '';
+  MirrorDBType := '';
+
+  if FConfigJSON.Field['MetaDataCreated'] <> nil then
+    FMetaDataCreated := FConfigJSON.Field['MetaDataCreated'].Value;
+  if FConfigJSON.Field['ExcludedTables'] <> nil then
+    FExcludedTables := FConfigJSON.Field['ExcludedTables'].Value;
+  if FConfigJSON.Field['ExcludedFields'] <> nil then
+    FExcludedFields := FConfigJSON.Field['ExcludedFields'].Value;
+  if FConfigJSON.Field['TrackChanges'] <> nil then
+    FTrackChanges := FConfigJSON.Field['TrackChanges'].Value;
+
+  if FConfigJSON.Field['SyncFrequency'] <> nil then
+    FSyncFrequency := FConfigJSON.Field['SyncFrequency'].Value;
+  if (FConfigJSON.Field['MasterDB'] <> nil) and (FConfigJSON.Field['MasterDB'].Field['Type'] <> nil) then
+    MasterDBType := FConfigJSON.Field['MasterDB'].Field['Type'].Value;
+  if (FConfigJSON.Field['MirrorDB'] <> nil) and (FConfigJSON.Field['MirrorDB'].Field['Type'] <> nil) then
+    MirrorDBType := FConfigJSON.Field['MirrorDB'].Field['Type'].Value;
+end;
+
+procedure TdmConfig.SaveToJson;
+begin
+
+end;
 
 procedure TdmConfig.SaveConfig;
 begin
@@ -195,7 +243,8 @@ begin
   FMirrorExcludedFields.Sorted := True;
 
   FRootDir := GetLiveMirrorRoot;
-  ConfigsIni := TIniFile.Create(FRootDir + 'configs.ini');
+  ConfigsIni := TLMIniFile.Create(FRootDir + 'configs.ini');
+  FConfigSource := csIniFile;
 end;
 
 destructor TdmConfig.Destroy;

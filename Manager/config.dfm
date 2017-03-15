@@ -3,7 +3,7 @@ object fmConfig: TfmConfig
   Top = 0
   ActiveControl = edConfigName
   Caption = 'Setup backup configuration'
-  ClientHeight = 274
+  ClientHeight = 273
   ClientWidth = 433
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,7 +19,7 @@ object fmConfig: TfmConfig
   OnShow = FormShow
   DesignSize = (
     433
-    274)
+    273)
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -47,10 +47,11 @@ object fmConfig: TfmConfig
     Left = 8
     Top = 51
     Width = 418
-    Height = 187
-    ActivePage = Options
+    Height = 186
+    ActivePage = tsMaster
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 2
+    ExplicitHeight = 187
     object tsMaster: TTabSheet
       Caption = 'Master database'
       object Panel1: TPanel
@@ -117,6 +118,7 @@ object fmConfig: TfmConfig
     object Options: TTabSheet
       Caption = 'Options'
       ImageIndex = 2
+      ExplicitHeight = 159
       object lbSelectExcludedTables: TLabel
         Left = 257
         Top = 34
@@ -207,7 +209,7 @@ object fmConfig: TfmConfig
       ImageIndex = 3
       DesignSize = (
         410
-        159)
+        158)
       object cbDefaultErrorReporting: TRadioButton
         Left = 24
         Top = 48
@@ -243,23 +245,25 @@ object fmConfig: TfmConfig
   end
   object Button3: TButton
     Left = 350
-    Top = 241
+    Top = 240
     Width = 75
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = 'Cancel'
     ModalResult = 2
     TabOrder = 3
+    ExplicitTop = 241
   end
   object Button4: TButton
     Left = 269
-    Top = 241
+    Top = 240
     Width = 75
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = 'Ok'
     ModalResult = 1
     TabOrder = 4
+    ExplicitTop = 241
   end
   object edConfigName: TMaskEdit
     Left = 8
@@ -274,13 +278,14 @@ object fmConfig: TfmConfig
   end
   object btLicensing: TButton
     Left = 8
-    Top = 241
+    Top = 240
     Width = 75
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = 'Licensing'
     TabOrder = 5
     OnClick = btLicensingClick
+    ExplicitTop = 241
   end
   object CcConfig: TCcConfig
     TrackFieldChanges = False
