@@ -1,5 +1,5 @@
 @echo off
 
-cd c:\projects\livemirror\install\
+cd c:\git\livemirror\install\
 call compile.bat
 call deployonly.bat

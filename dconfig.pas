@@ -32,11 +32,15 @@ type
     property Node : ILMNode read GetNode write SetNode;
   end;
 
+  TLMIniFile = class(TInifile)
+    function ReadString(const Section, Ident, Default: string): string; override;
+  end;
+
   TdmConfig = class(TDataModule)
     MasterConfig: TCcConfig;
     MirrorConfig: TCcConfig;
   private
-    ConfigsIni: TIniFile;
+    ConfigsIni: TLMIniFile;
     FLicence: String;
     FExcludedTables: String;
     FSyncFrequency: Integer;
@@ -103,7 +107,7 @@ implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
-uses dInterbase, LMUtils, dFireDAC;
+uses dInterbase, LMUtils, dFireDAC, Windows;
 
 {$R *.dfm}
 
@@ -142,6 +146,15 @@ begin
 
 end;
 
+function TLMIniFile.ReadString(const Section, Ident, Default: string): string;
+var
+  Buffer: array[0..5000] of Char;
+begin
+  SetString(Result, Buffer, GetPrivateProfileString(MarshaledString(Section),
+    MarshaledString(Ident), MarshaledString(Default), Buffer, Length(Buffer),
+    MarshaledString(FileName)));
+end;
+
 procedure TdmConfig.SaveConfig;
 begin
   if ConfigSource = csJSON then
@@ -167,14 +180,14 @@ var
     {$ENDIF}
     ConfigsIni.WriteString(FConfigName, 'MasterDBType', FMasterDBType);
     ConfigsIni.WriteString(FConfigName, 'MirrorDBType', FMirrorDBType);
-    ConfigsIni.WriteString(FConfigName, 'MetaDataCreated', BoolToStr(FMetaDataCreated));
+    ConfigsIni.WriteBool(FConfigName, 'MetaDataCreated', FMetaDataCreated);
     MasterNode.Save;
     MirrorNode.Save;
   end;
 
   procedure DoLoadConfig;
   begin
-    FMetaDataCreated := StrToBool(ConfigsIni.ReadString(FConfigName, 'MetaDataCreated', 'False'));
+    FMetaDataCreated := ConfigsIni.ReadBool(FConfigName, 'MetaDataCreated', False);
     FExcludedTables := ConfigsIni.ReadString(FConfigName, 'ExcludedTables', '');
     FExcludedFields := ConfigsIni.ReadString(FConfigName, 'ExcludedFields', '');
     FTrackChanges := ConfigsIni.ReadBool(FConfigName, 'TrackChanges', True);
@@ -241,7 +254,8 @@ begin
   FMirrorExcludedFields.Sorted := True;
 
   FRootDir := GetLiveMirrorRoot;
-  ConfigsIni := TIniFile.Create(FRootDir + 'configs.ini');
+  ConfigsIni := TLMIniFile.Create(FRootDir + 'configs.ini');
+  FConfigSource := csIniFile;
 end;
 
 destructor TdmConfig.Destroy;
