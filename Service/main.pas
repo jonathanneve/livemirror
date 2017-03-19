@@ -124,7 +124,9 @@ begin
   FMaxSimultaneousReplications := 10;
   CS := TCriticalSection.Create;
   CSTerminating := TCriticalSection.Create;
+
   slConfigs := TStringList.Create;
+  {$IFNDEF CLOUD}
   iniConfigs := TIniFile.Create(GetLiveMirrorRoot + '\configs.ini');
   try
     iniConfigs.ReadSections(slConfigs);
@@ -140,6 +142,7 @@ begin
     if Assigned(node) then
       node.Run;
   end else
+  {$ENDIF}
     lRunOnce := False;
 end;
 
@@ -230,6 +233,11 @@ var
   I: Integer;
 begin
   I := slConfigs.IndexOf(cConfigName);
+  {$IFDEF CLOUD}
+  if i = -1 then
+    i := slConfigs.Add(cConfigName);
+  {$ENDIF}
+
   if slConfigs.Objects[i] = nil then begin
     Result := TdmLiveMirrorNode.Create(Self);
     Result.LiveMirrorService := Self;
