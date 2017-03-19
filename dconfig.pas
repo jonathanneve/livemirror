@@ -99,7 +99,7 @@ implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
-uses dInterbase, LMUtils, dFireDAC, Windows;
+uses dInterbase, LMUtils, dFireDAC, Windows, CcInterbase;
 
 {$R *.dfm}
 
@@ -323,7 +323,7 @@ var
   cTableName, cFieldName: String;
   tab: TCcConfigTable;
 begin
-  MasterConfig.TrackFieldChanges := (MasterDBType = 'Interbase') and (MasterNode.Connection.DBVersion = 'FB2.5');//TrackChanges;
+  MasterConfig.TrackFieldChanges := (MasterDBType = 'Interbase') and ((MasterNode.Connection.DBAdaptor as TCcInterbaseAdaptor).BranchVersion >= 15);//TrackChanges;
   MasterConfig.Connection := FMasterNode.Connection;
   MasterConfig.Connect;
   slTables := MasterConfig.Connection.ListTables;
