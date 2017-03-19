@@ -256,7 +256,7 @@ begin
     if FMasterDBType = '' then
       FMasterNode := nil
     else
-      FMasterNode := GetNode(FMasterDBType, 'Master');
+      FMasterNode := GetNode(FMasterDBType, 'master');
 
     if Assigned(OnMasterDBTypeChanged) then
       OnMasterDBTypeChanged(Self);
@@ -362,7 +362,7 @@ begin
     if FMirrorDBType = '' then
       FMirrorNode := nil
     else
-      FMirrorNode := GetNode(FMirrorDBType, 'Mirror');
+      FMirrorNode := GetNode(FMirrorDBType, 'mirror');
 
     if Assigned(OnMirrorDBTypeChanged) then
       OnMirrorDBTypeChanged(Self);

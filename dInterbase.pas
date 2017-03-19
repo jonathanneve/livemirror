@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
   FireDAC.Comp.UI, FireDAC.Phys.FB, FireDAC.Phys.IBBase, FireDAC.Phys.IB,
   FireDAC.Comp.Client, Data.DB, CcProviders, CcProvFireDAC, main,
-  FireDAC.Moni.Base, FireDAC.Moni.FlatFile, dconfig;
+  FireDAC.Moni.Base, FireDAC.Moni.FlatFile, dconfig, uLkJSON;
 
 type
   TdmInterbase = class(TDataModule, ILMNode)
@@ -70,6 +70,9 @@ procedure TdmInterbase.Load(dmConfig: TdmConfig; nodeType: String);
 var
   ini : TIniFile;
   cClientDLL, configFile: String;
+  db: TlkJSONobject;
+  fd: TlkJSONobject;
+  I: Integer;
 begin
   FNodeType := nodeType;
   FdmConfig := dmConfig;
@@ -77,36 +80,51 @@ begin
   if FdmConfig.ConfigName = '' then
     Exit;
 
-  configFile := GetLiveMirrorRoot + 'Configs\' + FdmConfig.ConfigName + '\' + FNodeType + '.ini';;
-  if not FileExists(configFile) then
-    Exit;
+  if FdmConfig.ConfigSource = csIniFile then begin
+    configFile := GetLiveMirrorRoot + 'Configs\' + FdmConfig.ConfigName + '\' + FNodeType + '.ini';;
+    if not FileExists(configFile) then
+      Exit;
 
-  ini := TIniFile.Create(configFile);
-  try
-    CcConnection.DBVersion := ini.ReadString('General', 'DBVersion', 'FB2.5');
-    FDConnection.DriverName := Copy(CcConnection.DBVersion, 1, 2); //FB or IB
-    if FDConnection.DriverName = '' then begin
-      FDConnection.DriverName := 'FB';
-      CcConnection.DBVersion := 'FB2.5';
+    ini := TIniFile.Create(configFile);
+    try
+      CcConnection.DBVersion := ini.ReadString('General', 'DBVersion', 'FB2.5');
+      FDConnection.DriverName := Copy(CcConnection.DBVersion, 1, 2); //FB or IB
+      if FDConnection.DriverName = '' then begin
+        FDConnection.DriverName := 'FB';
+        CcConnection.DBVersion := 'FB2.5';
+      end;
+      FDConnection.Params.Values['Database'] := ini.ReadString('General', 'DBName', '');
+      FDConnection.Params.Values['User_Name'] := ini.ReadString('General', 'Username', '');
+      FDConnection.Params.Values['Password'] := ini.ReadString('General', 'Password', '');
+      FDConnection.Params.Values['SQLDialect'] := ini.ReadString('General', 'SQLDialect', '3');
+      {$IFDEF DEBUG}
+      FDConnection.Params.Values['MonitorBy'] := 'FlatFile';
+      FDMoniFlatFileClientLink.Tracing := False;
+      FDMoniFlatFileClientLink.FileName := ExtractFileDir(configFile) + '\debug.txt';
+  //    FDMoniFlatFileClientLink.Tracing := True;
+      {$ENDIF}
+
+      cClientDLL := ini.ReadString('General', 'Clientdll', '');
+      if FDConnection.DriverName = 'IB' then
+        FDPhysIBDriverLink.VendorLib := cClientDLL
+      else
+        FDPhysFBDriverLink.VendorLib := cClientDLL;
+    finally
+      ini.Free;
     end;
-    FDConnection.Params.Values['Database'] := ini.ReadString('General', 'DBName', '');
-    FDConnection.Params.Values['User_Name'] := ini.ReadString('General', 'Username', '');
-    FDConnection.Params.Values['Password'] := ini.ReadString('General', 'Password', '');
-    FDConnection.Params.Values['SQLDialect'] := ini.ReadString('General', 'SQLDialect', '3');
-    {$IFDEF DEBUG}
-    FDConnection.Params.Values['MonitorBy'] := 'FlatFile';
-    FDMoniFlatFileClientLink.Tracing := False;
-    FDMoniFlatFileClientLink.FileName := ExtractFileDir(configFile) + '\debug.txt';
-//    FDMoniFlatFileClientLink.Tracing := True;
-    {$ENDIF}
+  end
+  else begin
+    if (FdmConfig.ConfigJSON.Field[FNodeType + 'DB'] <> nil) then begin
+      db := FdmConfig.ConfigJSON.Field[FNodeType + 'DB'] as TlkJSONobject;
+      GetConnection.DBType := 'Interbase';
+      GetConnection.DBVersion := db.Field['version'].Value;
+      if db.Field['fireDAC'] <> nil then
+        fd := db.Field['fireDAC'] as TlkJSONobject;
 
-    cClientDLL := ini.ReadString('General', 'Clientdll', '');
-    if FDConnection.DriverName = 'IB' then
-      FDPhysIBDriverLink.VendorLib := cClientDLL
-    else
-      FDPhysFBDriverLink.VendorLib := cClientDLL;
-  finally
-    ini.Free;
+      for I := 0 to fd.Count-1 do begin
+        FDConnection.Params.Values[fd.NameOf[i]] := fd.FieldByIndex[i].Value;
+      end;
+    end;
   end;
 end;
 

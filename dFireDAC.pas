@@ -143,7 +143,7 @@ begin
       if db.Field['fireDAC'] <> nil then
         fd := db.Field['fireDAC'] as TlkJSONobject;
 
-      for I := 0 to fd.Count do begin
+      for I := 0 to fd.Count-1 do begin
         FDConnection.Params.Values[fd.NameOf[i]] := fd.FieldByIndex[i].Value;
       end;
     end;
