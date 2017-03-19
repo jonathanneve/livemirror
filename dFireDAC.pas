@@ -139,9 +139,9 @@ begin
     if (FdmConfig.ConfigJSON.Field[FNodeType + 'DB'] <> nil) then begin
       db := FdmConfig.ConfigJSON.Field[FNodeType + 'DB'] as TlkJSONobject;
       GetConnection.DBType := DBType;
-      GetConnection.DBVersion := db.Field['DBVersion'].Value;
-      if db.Field['FireDAC'] <> nil then
-        fd := db.Field['FireDAC'] as TlkJSONobject;
+      GetConnection.DBVersion := db.Field['version'].Value;
+      if db.Field['fireDAC'] <> nil then
+        fd := db.Field['fireDAC'] as TlkJSONobject;
 
       for I := 0 to fd.Count do begin
         FDConnection.Params.Values[fd.NameOf[i]] := fd.FieldByIndex[i].Value;

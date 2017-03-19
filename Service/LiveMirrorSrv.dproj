@@ -137,9 +137,14 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_4)'!=''">
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
         <DCC_Define>CLOUD;DEBUG;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_4_Win32)'!=''">
+        <DCC_RemoteDebug>true</DCC_RemoteDebug>
+        <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+        <DCC_DebugDCUs>true</DCC_DebugDCUs>
+        <DCC_Optimize>false</DCC_Optimize>
         <DCC_MapFile>3</DCC_MapFile>
         <Debugger_RunParams>UCAR /runonce</Debugger_RunParams>
         <DCC_Define>EUREKALOG;EUREKALOG_VER7;$(DCC_Define)</DCC_Define>

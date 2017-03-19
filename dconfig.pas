@@ -112,6 +112,10 @@ uses dInterbase, LMUtils, dFireDAC, Windows;
 {$R *.dfm}
 
 procedure TdmConfig.LoadFromJson(json: TlkJSONobject);
+var
+  I: Integer;
+  sl: TStringList;
+  jsonArray: TlkJSONlist;
 begin
   FConfigSource := csJSON;
   FConfigJSON := json;
@@ -124,21 +128,36 @@ begin
   MasterDBType := '';
   MirrorDBType := '';
 
-  if FConfigJSON.Field['MetaDataCreated'] <> nil then
-    FMetaDataCreated := FConfigJSON.Field['MetaDataCreated'].Value;
-  if FConfigJSON.Field['ExcludedTables'] <> nil then
-    FExcludedTables := FConfigJSON.Field['ExcludedTables'].Value;
-  if FConfigJSON.Field['ExcludedFields'] <> nil then
-    FExcludedFields := FConfigJSON.Field['ExcludedFields'].Value;
-  if FConfigJSON.Field['TrackChanges'] <> nil then
-    FTrackChanges := FConfigJSON.Field['TrackChanges'].Value;
+  if FConfigJSON.Field['metaDataCreated'] <> nil then
+    FMetaDataCreated := FConfigJSON.Field['metaDataCreated'].Value;
 
-  if FConfigJSON.Field['SyncFrequency'] <> nil then
-    FSyncFrequency := FConfigJSON.Field['SyncFrequency'].Value;
-  if (FConfigJSON.Field['MasterDB'] <> nil) and (FConfigJSON.Field['MasterDB'].Field['Type'] <> nil) then
-    MasterDBType := FConfigJSON.Field['MasterDB'].Field['Type'].Value;
-  if (FConfigJSON.Field['MirrorDB'] <> nil) and (FConfigJSON.Field['MirrorDB'].Field['Type'] <> nil) then
-    MirrorDBType := FConfigJSON.Field['MirrorDB'].Field['Type'].Value;
+  sl := TStringList.Create;
+  try
+  if FConfigJSON.Field['excludedTables'] <> nil then begin
+    jsonArray := FConfigJSON.Field['excludedTables'] as TlkJSONlist;
+    for I := 0 to jsonArray.Count-1 do
+      sl.Add(jsonArray.getString(i));
+    FExcludedTables := sl.CommaText;
+  end;
+  if FConfigJSON.Field['excludedFields'] <> nil then
+    jsonArray := FConfigJSON.Field['excludedFields'] as TlkJSONlist;
+    sl.Clear;
+    for I := 0 to jsonArray.Count-1 do
+      sl.Add(jsonArray.getString(i));
+    FExcludedFields := sl.CommaText;
+  finally
+    sl.Free;
+  end;
+
+  if FConfigJSON.Field['trackChanges'] <> nil then
+    FTrackChanges := FConfigJSON.Field['trackChanges'].Value;
+
+  if FConfigJSON.Field['syncFrequency'] <> nil then
+    FSyncFrequency := FConfigJSON.Field['syncFrequency'].Value;
+  if (FConfigJSON.Field['masterDB'] <> nil) and (FConfigJSON.Field['masterDB'].Field['type'] <> nil) then
+    MasterDBType := FConfigJSON.Field['masterDB'].Field['type'].Value;
+  if (FConfigJSON.Field['mirrorDB'] <> nil) and (FConfigJSON.Field['mirrorDB'].Field['type'] <> nil) then
+    MirrorDBType := FConfigJSON.Field['mirrorDB'].Field['type'].Value;
 end;
 
 procedure TdmConfig.SaveToJson;
