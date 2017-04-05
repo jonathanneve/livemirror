@@ -317,55 +317,54 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
         <PostBuildEvent>c:\git\livemirror\gettext.bat
 </PostBuildEvent>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Win64'">
-        <PreBuildEvent/>
-        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
-        <PreLinkEvent/>
-        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>c:\git\livemirror\gettext.bat
+    <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Win64'">
+    <PreBuildEvent />
+    <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+    <PreLinkEvent />
+    <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+    <PostBuildEvent>c:\git\livemirror\gettext.bat
 </PostBuildEvent>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win32'">
-        <PreBuildEvent/>
-        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
-        <PreLinkEvent/>
-        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>c:\git\livemirror\gettext.bat
+    <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win32'">
+    <PreBuildEvent />
+    <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+    <PreLinkEvent />
+    <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+    <PostBuildEvent>c:\git\livemirror\gettext.bat
 </PostBuildEvent>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win64'">
-        <PreBuildEvent/>
-        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
-        <PreLinkEvent/>
-        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>c:\git\livemirror\gettext.bat
+    <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win64'">
+    <PreBuildEvent />
+    <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+    <PreLinkEvent />
+    <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+    <PostBuildEvent>c:\git\livemirror\gettext.bat
 </PostBuildEvent>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Config)'=='Eval' And '$(Platform)'=='Win32'">
-        <PreBuildEvent/>
-        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
-        <PreLinkEvent/>
-        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>c:\git\livemirror\gettext.bat
+    <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Eval' And '$(Platform)'=='Win32'">
+    <PreBuildEvent />
+    <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+    <PreLinkEvent />
+    <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+    <PostBuildEvent>c:\git\livemirror\gettext.bat
 </PostBuildEvent>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Config)'=='Eval' And '$(Platform)'=='Win64'">
-        <PreBuildEvent/>
-        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
-        <PreLinkEvent/>
-        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>c:\git\livemirror\gettext.bat
+    <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Eval' And '$(Platform)'=='Win64'">
+    <PreBuildEvent />
+    <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+    <PreLinkEvent />
+    <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+    <PostBuildEvent>c:\git\livemirror\gettext.bat
 </PostBuildEvent>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
-    </PropertyGroup>
+    <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+  </PropertyGroup>
 </Project>
-
 <!-- EurekaLog First Line
 [Exception Log]
 EurekaLog Version=7007

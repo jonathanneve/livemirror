@@ -21,7 +21,6 @@ echo Compiling Registered setup...
 "C:\program files (x86)\Inno Setup 5\iscc.exe" registered.iss 
 IF ERRORLEVEL 1 GOTO error
 
-goto end
 
 echo Compiling Trial ...
 msbuild /target:Build /property:config=Eval;UsePackages=false c:\git\livemirror\LiveMirror.groupproj 

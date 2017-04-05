@@ -6,3 +6,6 @@
 __history
 /Service/*.local
 /Service/*.tvsconfig
+*.exe
+*.rsm
+*.el
