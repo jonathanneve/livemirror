@@ -55,6 +55,8 @@ type
     FMirrorExcludedFields, FMasterExcludedFields: TStringList;
     FErrorConfig: TCcErrorConfigFile;
     FExcludedFields: String;
+    FStatusReportEmail: String;
+    FStatusReportCycles: Integer;
     procedure SaveLoadConfig(save: Boolean);
     procedure SetMasterDBType(const Value: String);
     procedure SetMirrorDBType(const Value: String);
@@ -86,6 +88,8 @@ type
     property OnMirrorDBTypeChanged: TNotifyEvent read FOnMirrorDBTypeChanged write FOnMirrorDBTypeChanged;
     function DBTypeByDescription(desc: string): String;
     property ErrorConfig :TCcErrorConfigFile read GetErrorConfig;
+    property StatusReportEmail : String read FStatusReportEmail write FStatusReportEmail;
+    property StatusReportCycles : Integer read FStatusReportCycles write FStatusReportCycles;
 
     procedure LoadConfig(cConfigName: String);
     procedure SaveConfig;
@@ -126,6 +130,8 @@ var
     ConfigsIni.WriteString(FConfigName, 'ExcludedTables', FExcludedTables);
     ConfigsIni.WriteString(FConfigName, 'ExcludedFields', FExcludedFields);
     ConfigsIni.WriteString(FConfigName, 'SyncFrequency', IntToStr(FSyncFrequency));
+    ConfigsIni.WriteString(FConfigName, 'StatusReportCycles', IntToStr(FStatusReportCycles));
+    ConfigsIni.WriteString(FConfigName, 'StatusReportEmail', FStatusReportEmail);
     ConfigsIni.WriteBool(FConfigName, 'TrackChanges', FTrackChanges);
     {$IFNDEF LM_EVALUATION}
     {$IFNDEF DEBUG}
@@ -153,6 +159,8 @@ var
     {$ENDIF}
 
     FSyncFrequency := StrToIntDef(ConfigsIni.ReadString(FConfigName, 'SyncFrequency', ''), 0);
+    FStatusReportCycles := StrToIntDef(ConfigsIni.ReadString(FConfigName, 'StatusReportCycles', ''), 0);
+    FStatusReportEmail := ConfigsIni.ReadString(FConfigName, 'StatusReportEmail', '');
     MasterDBType := ConfigsIni.ReadString(FConfigName, 'MasterDBType', '');
     MirrorDBType := ConfigsIni.ReadString(FConfigName, 'MirrorDBType', '');
   end;

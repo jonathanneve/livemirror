@@ -5,7 +5,7 @@
         <FrameworkType>VCL</FrameworkType>
         <MainSource>LiveMirrorSrv.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Application</AppType>
@@ -91,10 +91,9 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <DCC_RemoteDebug>true</DCC_RemoteDebug>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <DCC_Define>EUREKALOG;EUREKALOG_VER7;$(DCC_Define)</DCC_Define>
         <DCC_MapFile>3</DCC_MapFile>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <Debugger_RunParams>UCAR /runonce</Debugger_RunParams>
+        <Debugger_RunParams>JAKO /runonce</Debugger_RunParams>
         <DCC_DcuOutput>.\</DCC_DcuOutput>
         <DCC_ExeOutput>.\</DCC_ExeOutput>
     </PropertyGroup>
@@ -617,21 +616,17 @@ $(PostBuildEvent)]]></PostBuildEvent>
 <!-- EurekaLog First Line
 [Exception Log]
 EurekaLog Version=7007
-Activate=1
-atFixSafeCallException=1
+Activate=0
 atService=1
-atWin32=1
 boSaveCompressedCopyInCaseOfError=1
 csoAllowedRenderMethods=64
-DeleteMapAfterCompile=1
+DeleteMapAfterCompile=0
 Dialog Class=""
 dpJCL=1
 Encrypt Password=""
 Errors Number=10
-InjectCode=1
-InjectInfo=1
-InjectOptions=1
 loDeleteLogAtVersionChange=1
+loEnableMMDebugMode=0
 loModulesSecton=0
 loNoDuplicateErrors=1
 loOnlyUnderDebugger=0

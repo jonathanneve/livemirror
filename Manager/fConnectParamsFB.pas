@@ -118,7 +118,7 @@ begin
   with FNode as TdmInterbase do begin
     FDConnection.DriverName := 'FB';
     CcConnection.DBVersion := cbVersions.Text;
-    CcConnection.ConnectionParams.Values['Database'] := Trim(edDBName.Text);
+    CcConnection.FDConnection.Params.Values['Database'] := Trim(edDBName.Text);
     CcConnection.FDConnection.Params.Values['User_Name'] := Trim(edUserName.Text);
     CcConnection.FDConnection.Params.Values['Password'] := Trim(edPassword.Text);
     CcConnection.FDConnection.Params.Values['SQLDialect'] := cbDialect.Text;

@@ -179,6 +179,7 @@ object frConnectParamsFB: TfrConnectParamsFB
       'Password=dfgdc'
       'SQLDialect=1'
       'DriverID=FB')
+    ResourceOptions.AssignedValues = [rvAutoReconnect]
     TxOptions.AutoStop = False
     LoginPrompt = False
     Transaction = FDTransaction1Old

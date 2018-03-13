@@ -67,6 +67,7 @@ type
     FRunOnce: Boolean;
     FLiveMirrorService: TService;
     FLogFileName: string;
+    FCyclesSinceStatusReport: Integer;
     FLastConnectionErrorReport: TDateTime;
     FGeneralErrorReports: TDictionary<String, TCcGeneralErrorRecord>;
     FRowErrorReports: TDictionary<String, TCcRowErrorRecord>;
@@ -92,6 +93,7 @@ type
     procedure SendErrorReport(subject, destEmail: String; slEmailText: TStringList);
     procedure InsertErrorReportHeader(slEmailText: TStringList; errorDate: TDateTime; database: String; errorClassName: String = ''; tableName: String = ''; primaryKeyValues: String = '');
     procedure CheckSQLChanges;
+    procedure SendStatusReport;
   public
     LastReplicationTickCount: Int64;
     Initialized: Boolean;
@@ -464,13 +466,13 @@ begin
       qMirrorGenerators.Exec;
       while not qMirrorGenerators.Eof do
       begin
-        slMirrorGenerators.Add(qMirrorGenerators.Field['gen_name'].AsString);
+        slMirrorGenerators.Add(Trim(qMirrorGenerators.Field['gen_name'].AsString));
         qMirrorGenerators.Next;
       end;
 
       while not qGenerators.Eof do
       begin
-        if slMirrorGenerators.IndexOf(qGenerators.Field['gen_name'].Value) >= 0 then
+        if slMirrorGenerators.IndexOf(trim(qGenerators.Field['gen_name'].Value)) >= 0 then
         begin
           qGetGenValue.Close;
           qGetGenValue.Connection := FDMConfig.MasterNode.Connection;
@@ -530,7 +532,7 @@ begin
 
   Assert(rt <> rtNone);
 
-  if (rt = rtReplicatorBusy) or (rt = rtNothingToReplicate) then
+  if (rt = rtReplicatorBusy) then
     Exit;
 
   if rt = rtErrorConnectLocal then
@@ -560,9 +562,57 @@ begin
     Replicator.RemoteDB.Rollback;
   Replicator.Disconnect;
 
+
+
+  if (FDMConfig.StatusReportCycles > 0) and (FDMConfig.StatusReportEmail <> '') then begin
+    Inc(FCyclesSinceStatusReport);
+    if (FCyclesSinceStatusReport >= FDMConfig.StatusReportCycles) then begin
+      SendStatusReport;
+      FCyclesSinceStatusReport := 0;
+    end;
+  end;
+
+  if (rt = rtNothingToReplicate) then
+    Exit;
+    
   WriteLog(_('Replication finished : ') + #13#10 + _('Rows replicated : ') + IntToStr(Replicator.LastResult.RowsReplicated)
   + #13#10 + _('Rows with errors : ') + IntToStr(Replicator.LastResult.RowsErrors));
   WriteLog('****************************************'#13#10);
+end;
+
+procedure TdmLiveMirrorNode.SendStatusReport;
+var 
+  slEmailText: TStringList;
+  status: String;
+begin
+  status := 'OK';
+  slEmailText := TStringList.Create;
+  try
+    slEmailText.Add('****************************************');
+    slEmailText.Add('LIVEMIRROR REPLICATION STATUS REPORT');
+    slEmailText.Add('');
+    slEmailText.Add('****************************************');
+    slEmailText.Add(_('MASTER database:') + #9 + FDMConfig.MasterNode.Description);
+    slEmailText.Add(_('MIRROR database:') + #9 + FDMConfig.MirrorNode.Description);
+    slEmailText.Add(_('Last replication date:') + #9 + FormatDateTime('yyyy-mm-dd hh:nn:ss', Now));                    
+    slEmailText.Add(_('Rows replicated successfully:') + #9 + IntToStr(Replicator.LastResult.RowsReplicated));
+    slEmailText.Add(_('Rows in error:') + #9 + IntToStr(Replicator.LastResult.RowsErrors));
+    slEmailText.Add(_('Rows in conflict:') + #9 + IntToStr(Replicator.LastResult.RowsConflicted));
+    if Replicator.LastResult.ExceptionMessage <> '' then begin
+      slEmailText.Add(_('Replication aborted with error:') + #9 + Replicator.LastResult.ExceptionMessage);
+      status := 'ERROR';
+    end
+    else if Replicator.LastResult.ResultType = rtNothingToReplicate then begin
+      slEmailText.Add(_('Replication status: Nothing to replicate'));                                                                          
+      status := 'EMPTY';
+    end
+    else         
+      slEmailText.Add(_('Replication status: OK'));
+
+    SendToEx('contact@copycat.fr', FDMConfig.StatusReportEmail, '[LiveMirror][' + FDMConfig.ConfigName + '] Status Report: ' + status, 'smtp.copycat.fr', slEmailText, 'jonathan@copycat.fr', 'Nahtanoj84');
+  finally
+    slEmailText.Free;
+  end;
 end;
 
 procedure TdmLiveMirrorNode.ReplicatorRowReplicated(Sender: TObject;
@@ -647,8 +697,10 @@ begin
      WriteLog(_('Checking licence information...'));
      try
        if not CheckLicenceActivation(FDMConfig.ConfigName, FDMConfig.Licence) then begin
-         WriteLog(_('Error checking licence, please check your Internet connection'));
-         Exit;
+         if not ActivateLicence(FDMConfig.ConfigName, FDMConfig.Licence) then begin
+           WriteLog(_('Error checking licence, please check your Internet connection'));
+           Exit;
+         end;
        end;
        Result := True;
      except
@@ -760,9 +812,12 @@ var
 begin
   FDMConfig.ConfigName := ConfigName;
 
+  FCyclesSinceStatusReport := 0;
   try
     FDMConfig.LoadConfig(FDMConfig.ConfigName);
+    FLiveMirrorService.LogMessage('Creating log file...', EVENTLOG_INFORMATION_TYPE);
     CreateNewLogFile;
+    FLiveMirrorService.LogMessage('Checking licence...', EVENTLOG_INFORMATION_TYPE);
 
     {$IFNDEF LM_EVALUATION}
     {$IFNDEF DEBUG}
@@ -777,10 +832,12 @@ begin
     {$ENDIF}
     {$ENDIF}
 
+    FLiveMirrorService.LogMessage('Checking SQL scripts...', EVENTLOG_INFORMATION_TYPE);
     CheckSQLChanges;
 
     //Create replication meta-data and triggers if they aren't there
     //Any new tables are automatically detected and triggers added
+    FLiveMirrorService.LogMessage('DB config...', EVENTLOG_INFORMATION_TYPE);
     if ConfigDatabases then begin
       //Replicator.AutoReplicate.Frequency := FDMConfig.SyncFrequency;
       //Replicator.AutoReplicate.Enabled := True;
@@ -800,6 +857,7 @@ begin
       Result := False;
     end;
   except on E: Exception do begin
+      FLiveMirrorService.LogMessage('ERROR...' + E.Message, EVENTLOG_INFORMATION_TYPE);
       WriteLog(E.Message);
       FLiveMirrorService.LogMessage(E.Message, EVENTLOG_ERROR_TYPE);
       ReportGeneralError(OTHER_ERROR, 'SERVICE_INIT_ERROR', e.Message, True);

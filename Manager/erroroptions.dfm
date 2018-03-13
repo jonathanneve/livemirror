@@ -2,7 +2,7 @@ object fmErrorOptions: TfmErrorOptions
   Left = 0
   Top = 0
   Caption = 'Error management options'
-  ClientHeight = 333
+  ClientHeight = 400
   ClientWidth = 952
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -14,12 +14,12 @@ object fmErrorOptions: TfmErrorOptions
   Position = poScreenCenter
   DesignSize = (
     952
-    333)
+    400)
   PixelsPerInch = 96
   TextHeight = 13
   object GroupBox1: TGroupBox
     Left = 8
-    Top = 120
+    Top = 185
     Width = 936
     Height = 171
     Anchors = [akLeft, akTop, akRight]
@@ -79,7 +79,7 @@ object fmErrorOptions: TfmErrorOptions
   end
   object GroupBox2: TGroupBox
     Left = 8
-    Top = 8
+    Top = 73
     Width = 936
     Height = 107
     Anchors = [akLeft, akTop, akRight]
@@ -116,12 +116,57 @@ object fmErrorOptions: TfmErrorOptions
   end
   object Button1: TButton
     Left = 832
-    Top = 301
+    Top = 366
     Width = 112
     Height = 25
     Anchors = [akTop, akRight]
     Caption = 'Close'
     ModalResult = 8
     TabOrder = 2
+  end
+  object GroupBox3: TGroupBox
+    Left = 8
+    Top = 8
+    Width = 937
+    Height = 57
+    Caption = 'Status report'
+    TabOrder = 3
+    object Label2: TLabel
+      Left = 345
+      Top = 25
+      Width = 81
+      Height = 13
+      Caption = 'replication cycles'
+    end
+    object Label1: TLabel
+      Left = 569
+      Top = 25
+      Width = 74
+      Height = 13
+      Caption = 'Send report to:'
+    end
+    object Label3: TLabel
+      Left = 10
+      Top = 25
+      Width = 250
+      Height = 13
+      Caption = 'Send an email to confirm status of replication every:'
+    end
+    object Edit1: TEdit
+      Left = 306
+      Top = 22
+      Width = 33
+      Height = 21
+      TabOrder = 0
+      Text = '1'
+    end
+    object Edit2: TEdit
+      Left = 649
+      Top = 22
+      Width = 277
+      Height = 21
+      TabOrder = 1
+      TextHint = 'Email address(es)'
+    end
   end
 end

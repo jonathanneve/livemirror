@@ -48,10 +48,9 @@ object fmConfig: TfmConfig
     Top = 51
     Width = 418
     Height = 186
-    ActivePage = tsMaster
+    ActivePage = TabSheet1
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 2
-    ExplicitHeight = 187
     object tsMaster: TTabSheet
       Caption = 'Master database'
       object Panel1: TPanel
@@ -118,7 +117,6 @@ object fmConfig: TfmConfig
     object Options: TTabSheet
       Caption = 'Options'
       ImageIndex = 2
-      ExplicitHeight = 159
       object lbSelectExcludedTables: TLabel
         Left = 257
         Top = 34
@@ -205,14 +203,37 @@ object fmConfig: TfmConfig
       end
     end
     object TabSheet1: TTabSheet
-      Caption = 'Error options'
+      Caption = 'Email options'
       ImageIndex = 3
+      ExplicitLeft = 12
+      ExplicitTop = 25
       DesignSize = (
         410
         158)
+      object Label4: TLabel
+        Left = 364
+        Top = 11
+        Width = 29
+        Height = 13
+        Caption = 'cycles'
+      end
+      object Label5: TLabel
+        Left = 15
+        Top = 41
+        Width = 74
+        Height = 13
+        Caption = 'Send report to:'
+      end
+      object Label6: TLabel
+        Left = 15
+        Top = 11
+        Width = 250
+        Height = 13
+        Caption = 'Send an email to confirm status of replication every:'
+      end
       object cbDefaultErrorReporting: TRadioButton
         Left = 24
-        Top = 48
+        Top = 80
         Width = 353
         Height = 17
         Caption = 'Use default error reporting options'
@@ -223,7 +244,7 @@ object fmConfig: TfmConfig
       end
       object cbCustomErrorManagement: TRadioButton
         Left = 24
-        Top = 84
+        Top = 116
         Width = 241
         Height = 17
         Caption = 'Customize error reporting:'
@@ -232,7 +253,7 @@ object fmConfig: TfmConfig
       end
       object btErrorConfig: TButton
         Left = 304
-        Top = 84
+        Top = 116
         Width = 103
         Height = 25
         Anchors = [akTop, akRight]
@@ -240,6 +261,24 @@ object fmConfig: TfmConfig
         Enabled = False
         TabOrder = 2
         OnClick = btErrorConfigClick
+      end
+      object edStatusReportCycles: TEdit
+        Left = 299
+        Top = 8
+        Width = 33
+        Height = 21
+        TabOrder = 3
+        Text = '1'
+        OnChange = edStatusReportCyclesChange
+      end
+      object edStatusReportEmail: TEdit
+        Left = 119
+        Top = 38
+        Width = 277
+        Height = 21
+        TabOrder = 4
+        TextHint = 'Email address(es)'
+        OnChange = edStatusReportEmailChange
       end
     end
   end
@@ -252,7 +291,6 @@ object fmConfig: TfmConfig
     Caption = 'Cancel'
     ModalResult = 2
     TabOrder = 3
-    ExplicitTop = 241
   end
   object Button4: TButton
     Left = 269
@@ -263,7 +301,6 @@ object fmConfig: TfmConfig
     Caption = 'Ok'
     ModalResult = 1
     TabOrder = 4
-    ExplicitTop = 241
   end
   object edConfigName: TMaskEdit
     Left = 8
@@ -285,13 +322,12 @@ object fmConfig: TfmConfig
     Caption = 'Licensing'
     TabOrder = 5
     OnClick = btLicensingClick
-    ExplicitTop = 241
   end
   object CcConfig: TCcConfig
     TrackFieldChanges = False
     FailIfNoPK = False
     Tables = <>
-    Version = '3.9.3'
+    Version = '3.9.4'
     Left = 156
     Top = 6
   end

@@ -17,6 +17,12 @@ type
     frConnectionError: TfrGeneralErrorConfig;
     frOtherGeneralError: TfrGeneralErrorConfig;
     Button1: TButton;
+    GroupBox3: TGroupBox;
+    Edit1: TEdit;
+    Label2: TLabel;
+    Label1: TLabel;
+    Edit2: TEdit;
+    Label3: TLabel;
   private
     FErrorConfigFile: TCcErrorConfigFile;
     { Private declarations }

@@ -206,22 +206,30 @@ function TLiveMirror.GetNode(cConfigName: String): TdmLiveMirrorNode;
 var
   I: Integer;
 begin
-  I := slConfigs.IndexOf(cConfigName);
-  if slConfigs.Objects[i] = nil then begin
-    Result := TdmLiveMirrorNode.Create(Self);
-    Result.LiveMirrorService := Self;
-    slConfigs.Objects[I] := Result;
-  end else
-    Result := slConfigs.Objects[i] as TdmLiveMirrorNode;
-
-  if not Result.Initialized then
-  begin
-    if Result.Initialize(cConfigName) then
-      Result.Initialized := True
-    else begin
-      Result := nil;
-      Exit;
+  try
+    I := slConfigs.IndexOf(cConfigName);
+    if slConfigs.Objects[i] = nil then begin
+      Result := TdmLiveMirrorNode.Create(Self);
+      Result.LiveMirrorService := Self;
+      slConfigs.Objects[I] := Result;
+    end else begin
+      Result := slConfigs.Objects[i] as TdmLiveMirrorNode;
     end;
+
+    if not Result.Initialized then
+    begin
+      if Result.Initialize(cConfigName) then begin
+        Result.Initialized := True
+      end
+      else begin
+        Result := nil;
+        Exit;
+      end;
+    end;
+  except on E: Exception do begin
+    LogMessage('Error getting node:' + E.Message);
+    Result := nil;
+  end;
   end;
 end;
 

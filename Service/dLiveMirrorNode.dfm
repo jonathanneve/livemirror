@@ -5,6 +5,8 @@ object dmLiveMirrorNode: TdmLiveMirrorNode
   Height = 326
   Width = 598
   object Replicator: TCcReplicator
+    UseTransactionNumber = False
+    HarmonizeChangedFields = False
     TrackInconsistentDeletes = False
     MergeChangedFieldsOnConflict = False
     Direction = sdLocalToRemote
@@ -35,8 +37,9 @@ object dmLiveMirrorNode: TdmLiveMirrorNode
     OnLogLoaded = ReplicatorLogLoaded
     BeforeReplicate = ReplicatorBeforeReplicate
     OnConnectionLost = ReplicatorConnectionLost
-    Version = '3.9.2'
+    Version = '3.9.4'
     KeepRowsInLog = False
+    CheckConflicts = True
     Left = 32
     Top = 24
   end
@@ -44,7 +47,7 @@ object dmLiveMirrorNode: TdmLiveMirrorNode
     SelectStatement = True
     ParamCheck = True
     SQL.Strings = (
-      ' select rdb$generator_name as gen_name'
+      ' select cast(rdb$generator_name as varchar(31)) as gen_name'
       '  from rdb$generators'
       '  where (rdb$system_flag = 0 or rdb$system_flag is null)')
     Left = 32

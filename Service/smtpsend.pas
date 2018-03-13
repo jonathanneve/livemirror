@@ -351,6 +351,11 @@ begin
           FAuthDone := AuthCram;
         if (Pos('LOGIN', auths) > 0) and (not FauthDone) then
           FAuthDone := AuthLogin;
+
+        if not FAuthDone then begin
+          Result := False;
+          Exit;
+        end;
       end;
     end;
     s := FindCap('SIZE');
@@ -393,9 +398,12 @@ begin
 end;
 
 function TSMTPSend.MailTo(const Value: string): Boolean;
+var
+  res: Integer;
 begin
   FSock.SendString('RCPT TO:<' + Value + '>' + CRLF);
-  Result := ReadResult = 250;
+  res := ReadResult;
+  Result := res = 250;
 end;
 
 function TSMTPSend.MailData(const Value: TStrings): Boolean;

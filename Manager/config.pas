@@ -55,6 +55,11 @@ type
     cbCustomErrorManagement: TRadioButton;
     btErrorConfig: TButton;
     lbExcludedFields: TLabel;
+    edStatusReportCycles: TEdit;
+    Label4: TLabel;
+    Label5: TLabel;
+    edStatusReportEmail: TEdit;
+    Label6: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure btLicensingClick(Sender: TObject);
@@ -72,6 +77,8 @@ type
     procedure btErrorConfigClick(Sender: TObject);
     procedure cbCustomErrorManagementClick(Sender: TObject);
     procedure lbExcludedFieldsClick(Sender: TObject);
+    procedure edStatusReportCyclesChange(Sender: TObject);
+    procedure edStatusReportEmailChange(Sender: TObject);
   private
     ConfigsIni: TIniFile;
     lNewConfig: Boolean;
@@ -318,6 +325,16 @@ begin
   Result := DoEditConfig(cConfigName) <> '';
 end;
 
+procedure TfmConfig.edStatusReportCyclesChange(Sender: TObject);
+begin
+  dmConfig.StatusReportCycles := StrToInt(edStatusReportCycles.Text);
+end;
+
+procedure TfmConfig.edStatusReportEmailChange(Sender: TObject);
+begin
+  dmConfig.StatusReportEmail := edStatusReportEmail.Text;
+end;
+
 procedure TfmConfig.RemoveCopyCatConfig(cConfigName: String);
 //var
 //  dmMetaData: TdmMetaData;
@@ -338,6 +355,8 @@ begin
 
   edConfigName.Text := dmConfig.ConfigName;
   edFrenquency.Text := IntToStr(dmConfig.SyncFrequency);
+  edStatusReportCycles.Text := IntToStr(dmConfig.StatusReportCycles);
+  edStatusReportEmail.Text := dmConfig.StatusReportEmail;
   cbTrackChanges.Checked := dmConfig.TrackChanges;
 
   if dmConfig.ExcludedTables = '' then
